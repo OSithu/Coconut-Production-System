@@ -18,7 +18,7 @@ app.listen(port, () =>{
 });
 
 //creating DB connection
-const db_url = 'mongodb+srv://itpproject:bvS6Hoo0uVhIKL3v@atlascluster.ktimcix.mongodb.net/';
+const db_url = 'mongodb+srv://itpproject:bvS6Hoo0uVhIKL3v@atlascluster.ktimcix.mongodb.net/CoconutProduction';
 mongoose.connect(db_url)
 .then(() =>{
     console.log('DB connected');
