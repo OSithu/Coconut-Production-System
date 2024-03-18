@@ -7,5 +7,18 @@ const router= express.Router();
 
 router.post('/post/save',(req,res)=>{
 
-    let newPost = new Posts()
-})
+    let newPost = new Posts(req.body);
+
+    newPoost.save((err) =>{
+        if(err){
+            return res.status(400).json({
+                error:err
+            });
+        }
+        return res.status(200).json({
+            success:"Posts saved successfully"
+        });
+    });
+});
+
+module.exports = router;
