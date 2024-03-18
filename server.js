@@ -8,17 +8,8 @@ const mongoose = require('mongoose');
 const bodyParser=require('body-parser');
 
 const app = express();
-
-//import routes
-const routefertilization = require('./routes/fertilizationroutes');
-const treeRoute = require('./routes/treeRoute');
-
 //app middleware
 app.use(bodyParser.json());
-
-//route middleware
-app.use(routefertilization);
-app.use(treeRoute);
 
 //declaring server running port
 const port = 8000;
@@ -27,11 +18,8 @@ app.listen(port, () =>{
 });
 
 //creating DB connection
-const db_url = 'mongodb+srv://itpproject:bvS6Hoo0uVhIKL3v@atlascluster.ktimcix.mongodb.net/CoconutProduction';
-mongoose.connect(db_url,{
-    useNewUrlParser:true,
-    useUniFiedTopology:true
-})
+const db_url = 'mongodb+srv://itpproject:bvS6Hoo0uVhIKL3v@atlascluster.ktimcix.mongodb.net/';
+mongoose.connect(db_url)
 .then(() =>{
     console.log('DB connected');
 })
