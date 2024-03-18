@@ -23,7 +23,7 @@ const FinancepostSchema = new mongoose.Schema({
         required:true
     },
     totalAmount:{
-        type:number,
+        type:Number,
         required:true
     }
 
