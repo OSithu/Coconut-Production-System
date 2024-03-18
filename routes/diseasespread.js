@@ -56,6 +56,22 @@ router.put('/diseasespread/update/:id', async (req, res) => {
     }
 });
 
+//Delete Records
+
+router.delete('/diseasespread/delete/:id', async (req, res) => {
+    try {
+        const deletedRecords = await Spread_Records.findByIdAndDelete(req.params.id).exec();
+        return res.status(200).json({
+            message: "Records deleted Successfully",
+            deletedRecords: deletedRecords
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+
 
 
 module.exports = router;
