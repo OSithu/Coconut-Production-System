@@ -1,9 +1,9 @@
-const mongoose =require('models');
+const mongoose =require('mongoose');
 
 const FinancepostSchema = new mongoose.Schema({
 
     date:{
-        type:date,
+        type:Date,
         required:true
     },
     type:{
@@ -15,15 +15,15 @@ const FinancepostSchema = new mongoose.Schema({
         required:true
     },
     Income:{
-        type:double,
+        type:Number,
         required:true
     },
     Expences:{
-        type:double,
+        type:Number,
         required:true
     },
     totalAmount:{
-        type:double,
+        type:number,
         required:true
     }
 
