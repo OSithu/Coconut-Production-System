@@ -12,6 +12,7 @@ const app = express();
 //import routes
 const routefertilization = require('./routes/fertilizationroutes');
 const treeRoute = require('./routes/treeRoute');
+const productRoute = require('./routes/productRoute');
 
 //app middleware
 app.use(bodyParser.json());
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 //route middleware
 app.use(routefertilization);
 app.use(treeRoute);
+app.use(productRoute);
 
 //declaring server running port
 const port = 8000;
