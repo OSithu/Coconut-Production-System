@@ -3,20 +3,21 @@ const Products = require("../models/productModel");
 
 const router = express.Router();
 
-//save products
-router.post("/products/save", (req, res) => {
-  let newProduct = new Products(req.body);
+router.post("/products/save", async (req, res) => {
+  //instantiation
+  try {
+    let newProduct = new Products(req.body);
 
-  newProduct.save((err) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
-    }
+    await newProduct.save();
+
     return res.status(200).json({
-      success: "Saved successfully",
+      success: "Details saved successfully.",
     });
-  });
+  } catch (err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
 });
 
 module.exports = router;
