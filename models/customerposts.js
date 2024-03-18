@@ -16,4 +16,4 @@ const customerSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('jayakodyKoppara', customerSchema);
+module.exports = mongoose.model('CustomerDetails', customerSchema);
