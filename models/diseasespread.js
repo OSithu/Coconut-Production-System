@@ -27,4 +27,4 @@ const spreadSchema = new mongoose.Schema({
 });
 
 //model export
-module.exports = mongoose.model('Spread',spreadSchema);
+module.exports = mongoose.model('jayakodyKoppara',spreadSchema);
