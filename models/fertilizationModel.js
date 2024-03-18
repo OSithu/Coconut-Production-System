@@ -13,27 +13,27 @@ const FertilizationSchema = new mongoose.Schema({
     },
 
     Date:{
-        type:Date,
+        type:String,
         required:true
     },
 
     UreaAmount:{
-        type:Double,
+        type:Number,
         required:true
     },
 
-    EppawalaRockPhosphateAmout:{
-        type:Double,
+    EppawalaRockPhosphateAmount:{
+        type:Number,
         required:true
     },
 
-    MuriateOfPotasium:{
-        type:Double,
+    MuriateOfPotasiumAmount:{
+        type:Number,
         required:true
     },
 
-    Dolamite:{
-        type:Double,
+    DolamiteAmount:{
+        type:Number,
         required:true
     },
 
