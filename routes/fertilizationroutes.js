@@ -8,14 +8,13 @@ const router = express.Router();
 //save Fertilization records
 
 router.post('/fertilizationrec/save',async (req,res)=>{
-    //instantiation 
     try{
     let newFertilizationRecord=new fertilization(req.body);
 
     await newFertilizationRecord.save();
 
     return res.status(200).json({
-        success:"Details saved successfully."
+        success:" Details saved successfully!"
     });
 
 }catch(err){
