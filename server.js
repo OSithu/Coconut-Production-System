@@ -14,6 +14,7 @@ const routefertilization = require('./routes/fertilizationroutes');
 const treeRoute = require('./routes/treeRoute');
 const productRoute = require('./routes/productRoute');
 const spreadRoute = require('./routes/diseasespread');
+const qualityRoutes = require('./routes/qualitycontrolRoutes');
 
 //app middleware
 app.use(bodyParser.json());
@@ -23,6 +24,7 @@ app.use(routefertilization);
 app.use(treeRoute);
 app.use(productRoute);
 app.use(spreadRoute);
+app.use(qualityRoutes);
 
 //declaring server running port
 const port = 8000;
