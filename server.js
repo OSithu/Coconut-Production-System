@@ -4,7 +4,12 @@ const express = require('express');
 //import mongoose
 const mongoose = require('mongoose');
 
+//import bodyParser-json file format convert to java script obj
+const bodyParser=require('body-parser');
+
 const app = express();
+//app middleware
+app.use(bodyParser.json());
 
 //declaring server running port
 const port = 8000;
