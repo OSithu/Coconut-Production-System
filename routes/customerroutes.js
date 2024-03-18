@@ -4,7 +4,7 @@ const CustomerDetails = require('../models/customerposts');
 const router = express.Router();
 
 //save posts
-router.post('/post/save',(req,res)=>{
+router.post('/post/save',async(req,res)=>{
     let newCustomer = new CustomerDetails(req.body);
 
     newPost.save((err)=>{
