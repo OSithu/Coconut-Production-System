@@ -6,7 +6,7 @@ const router = express.Router();
 
 //save Fertilization records
 
-router.post('/post/save',async (req,res)=>{
+router.post('/fertilizationrec/save',async (req,res)=>{
     //instantiation 
     try{
     let newFertilizationRecord=new fertilization(req.body);
@@ -14,7 +14,7 @@ router.post('/post/save',async (req,res)=>{
     await newFertilizationRecord.save();
 
     return res.status(200).json({
-        success:"Details saved successfully."
+        success:"Details saved successfully!!."
     });
 
 }catch(err){
@@ -24,5 +24,20 @@ router.post('/post/save',async (req,res)=>{
             });
        
         }
-    });  
+    });
+    
+//View Fertilization Records
+router.get('/fertilizationrec', async (req, res) => {
+    try {
+        const fertilizationrecords = await fertilization.find().exec();
+        return res.status(200).json({
+            success: true,
+            existingRecords: fertilizationrecords
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+}); 
 module.exports =router;
