@@ -42,7 +42,7 @@ router.get('/fertilizationrec', async (req, res) => {
 }); 
 
 
-//Update Records
+//Update fertilization Records
 
 router.put('/fertilizationrec/update/:id', async (req, res) => {
 
@@ -67,4 +67,21 @@ router.put('/fertilizationrec/update/:id', async (req, res) => {
     }
 
 });
+
+//Delete fertilization Records
+ 
+router.delete('/fertilizationrec/delete/:id', async (req, res) => {
+    try {
+        const deletedfertilizationRecords = await fertilization.findByIdAndDelete(req.params.id).exec();
+        return res.status(200).json({
+            message: "Records deleted Successfully",
+            deletedRecords: deletedfertilizationRecords
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+ 
 module.exports =router;
