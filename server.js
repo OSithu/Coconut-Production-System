@@ -13,6 +13,9 @@ const app = express();
 const routefertilization = require("./routes/fertilizationroutes");
 const treeRoute = require("./routes/treeRoute");
 const productRoute = require("./routes/productRoute");
+const spreadRoute = require("./routes/diseasespread");
+const qualityRoutes = require("./routes/qualitycontrolRoutes");
+const financeRoute = require("./routes/financeRoute");
 
 //app middleware
 app.use(bodyParser.json());
@@ -21,6 +24,9 @@ app.use(bodyParser.json());
 app.use(routefertilization);
 app.use(treeRoute);
 app.use(productRoute);
+app.use(spreadRoute);
+app.use(qualityRoutes);
+app.use(financeRoute);
 
 //declaring server running port
 const port = 8000;
@@ -39,4 +45,4 @@ mongoose
   .then(() => {
     console.log("DB connected");
   })
-  .catch((err) => console.log("DB connection error", err));
+  .catch((err) => console.log("DB connection error", err));
