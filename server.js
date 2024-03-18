@@ -16,6 +16,7 @@ const productRoute = require("./routes/productRoute");
 const spreadRoute = require("./routes/diseasespread");
 const qualityRoutes = require("./routes/qualitycontrolRoutes");
 const financeRoute = require("./routes/financeRoute");
+const cusRoutes = require('./routes/customerroutes');
 
 //app middleware
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ app.use(productRoute);
 app.use(spreadRoute);
 app.use(qualityRoutes);
 app.use(financeRoute);
+app.use(cusRoutes);
 
 //declaring server running port
 const port = 8000;
