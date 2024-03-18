@@ -40,4 +40,31 @@ router.get('/fertilizationrec', async (req, res) => {
         });
     }
 }); 
+
+
+//Update Records
+
+router.put('/fertilizationrec/update/:id', async (req, res) => {
+
+    try {
+
+        await fertilization.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
+
+        return res.status(200).json({
+
+            success: "Record updated Successfully"
+
+        });
+
+    } catch (err) {
+
+        return res.status(400).json({
+
+            error: err.message
+
+        });
+
+    }
+
+});
 module.exports =router;
