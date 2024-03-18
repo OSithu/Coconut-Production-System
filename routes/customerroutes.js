@@ -14,7 +14,7 @@ router.post('/post/save',(req,res)=>{
             });
         }
         return res.status(200).json({
-            success:"Posts saved successfully"
+            success:"Details saved successfully"
         });
     });
 });
