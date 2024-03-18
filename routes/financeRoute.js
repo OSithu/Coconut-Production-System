@@ -1,24 +1,23 @@
-const express = require('express');
+const express = require("express");
 const finance = require('../models/financeModels');
 
-const router= express.Router();
+const router = express.Router();
 
 //save posts
+router.post("/financeRecords/save", async (req, res) => {
+  try {
+    let newTransaction = new finance(req.body);
 
-router.post('/post/save',(req,res)=>{
+    await newTransaction.save();
 
-    let newPost = new finance(req.body);
-
-    newPost.save((err) =>{
-        if(err){
-            return res.status(400).json({
-                error:err
-            });
-        }
-        return res.status(200).json({
-            success:"Posts saved successfully"
-        });
+    return res.status(200).json({
+      success: "Details saved successfully",
     });
+  } catch (err) {
+    return res.status(400).json({
+      error: err,
+    });
+  }
 });
 
 module.exports = router;
