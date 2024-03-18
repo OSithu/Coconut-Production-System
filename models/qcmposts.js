@@ -7,7 +7,7 @@ const qualityControlSchema = new mongoose.Schema({
         required:true
     },
     TestDate:{
-        type:String,
+        type:Date,
         required:true
     },
     TestResult:{
