@@ -44,4 +44,4 @@ const FertilizationSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('jayakodyKoppara',FertilizationSchema);
+module.exports = mongoose.model('Fertilization',FertilizationSchema);
