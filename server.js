@@ -1,4 +1,5 @@
 //import express
+const bodyParser = require('body-parser');
 const express = require('express');
 
 //import mongoose

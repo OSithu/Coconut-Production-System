@@ -1,4 +1,4 @@
-const mongoose =require('models');
+const mongoose =require('mongoose');
 
 const FinancepostSchema = new mongoose.Schema({
 
