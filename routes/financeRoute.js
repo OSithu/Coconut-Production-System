@@ -1,5 +1,5 @@
 const express = require('express');
-const Posts = require('../models/posts');
+const finance = require('../models/financeModels');
 
 const router= express.Router();
 
@@ -7,9 +7,9 @@ const router= express.Router();
 
 router.post('/post/save',(req,res)=>{
 
-    let newPost = new Posts(req.body);
+    let newPost = new finance(req.body);
 
-    newPoost.save((err) =>{
+    newPost.save((err) =>{
         if(err){
             return res.status(400).json({
                 error:err
