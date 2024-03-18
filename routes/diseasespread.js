@@ -27,4 +27,23 @@ router.post('/diseasespread/create', async (req, res) => {
     }
 });
 
+//View Spread Records
+router.get('/records', async (req, res) => {
+    try {
+        const records = await Spread_Records.find().exec();
+        return res.status(200).json({
+            success: true,
+            existingRecords: records
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+
+
+
+
+
 module.exports = router;
