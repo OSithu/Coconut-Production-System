@@ -17,7 +17,7 @@ const spreadRoute = require("./routes/diseasespread");
 const qualityRoutes = require("./routes/qualitycontrolRoutes");
 const financeRoute = require("./routes/financeRoute");
 const cusRoutes = require('./routes/customerroutes');
-
+const employeeRoutes =  require('./routes/employeedetails');
 //app middleware
 app.use(bodyParser.json());
 
@@ -29,6 +29,7 @@ app.use(spreadRoute);
 app.use(qualityRoutes);
 app.use(financeRoute);
 app.use(cusRoutes);
+app.use(employeeRoutes);
 
 //declaring server running port
 const port = 8000;
@@ -47,5 +48,4 @@ mongoose
   .then(() => {
     console.log("DB connected");
   })
-  .catch((err) => console.log("DB connection error", err));
 
