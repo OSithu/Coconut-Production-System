@@ -1,13 +1,13 @@
 const express = require('express');
 const fertilization =require('../models/fertilizationModel');
 
-
 //send requests 
 const router = express.Router();
 
 //save Fertilization records
 
 router.post('/fertilizationrec/save',async (req,res)=>{
+    //instantiation
     try{
     let newFertilizationRecord=new fertilization(req.body);
 
