@@ -27,4 +27,51 @@ router.post('/diseasespread/create', async (req, res) => {
     }
 });
 
+//View Spread Records
+router.get('/records', async (req, res) => {
+    try {
+        const records = await Spread_Records.find().exec();
+        return res.status(200).json({
+            success: true,
+            existingRecords: records
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+
+//Update Records
+router.put('/diseasespread/update/:id', async (req, res) => {
+    try {
+        await Spread_Records.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
+        return res.status(200).json({
+            success: "Record updated Successfully"
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+
+//Delete Records
+
+router.delete('/diseasespread/delete/:id', async (req, res) => {
+    try {
+        const deletedRecords = await Spread_Records.findByIdAndDelete(req.params.id).exec();
+        return res.status(200).json({
+            message: "Records deleted Successfully",
+            deletedRecords: deletedRecords
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+
+
+
 module.exports = router;
