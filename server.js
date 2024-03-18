@@ -48,3 +48,10 @@ mongoose
     console.log("DB connected");
   })
   .catch((err) => console.log("DB connection error", err));
+
+
+  //import cors
+  const cors = require('cors');
+
+  //cors middleware
+  app.use(cors());
