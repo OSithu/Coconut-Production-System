@@ -1,21 +1,21 @@
 //import express
-const express = require('express');
+const express = require("express");
 
 //import mongoose
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //import bodyParser-json file format convert to java script obj
-const bodyParser=require('body-parser');
+const bodyParser = require("body-parser");
 
 const app = express();
 
 //import routes
-const routefertilization = require('./routes/fertilizationroutes');
-const treeRoute = require('./routes/treeRoute');
-const productRoute = require('./routes/productRoute');
-const spreadRoute = require('./routes/diseasespread');
-const qualityRoutes = require('./routes/qualitycontrolRoutes');
-const financeRoute = require('./routes/financeRoute');
+const routefertilization = require("./routes/fertilizationroutes");
+const treeRoute = require("./routes/treeRoute");
+const productRoute = require("./routes/productRoute");
+const spreadRoute = require("./routes/diseasespread");
+const qualityRoutes = require("./routes/qualitycontrolRoutes");
+const financeRoute = require("./routes/financeRoute");
 
 //app middleware
 app.use(bodyParser.json());
@@ -30,19 +30,19 @@ app.use(financeRoute);
 
 //declaring server running port
 const port = 8000;
-app.listen(port, () =>{
-    console.log(`App is running on ${port}`);
+app.listen(port, () => {
+  console.log(`App is running on ${port}`);
 });
 
 //creating DB connection
-const db_url = 'mongodb+srv://itpproject:bvS6Hoo0uVhIKL3v@atlascluster.ktimcix.mongodb.net/CoconutProduction';
-mongoose.connect(db_url,{
-    useNewUrlParser:true,
-    useUniFiedTopology:true
-})
-.then(() =>{
-    console.log('DB connected');
-})
-.catch((err) => console.log('DB connection error',err));
-
-
+const db_url =
+  "mongodb+srv://itpproject:bvS6Hoo0uVhIKL3v@atlascluster.ktimcix.mongodb.net/CoconutProduction";
+mongoose
+  .connect(db_url, {
+    useNewUrlParser: true,
+    useUniFiedTopology: true,
+  })
+  .then(() => {
+    console.log("DB connected");
+  })
+  .catch((err) => console.log("DB connection error", err));
