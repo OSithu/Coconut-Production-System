@@ -1,5 +1,6 @@
 const express =  require('express');
 const employeeDetails = require('../models/employeedetails');
+const employeedetails = require('../models/employeedetails');
 
 
 const router = express.Router();
@@ -26,7 +27,7 @@ router.post('/employee/save',async(req,res)=>{
 });
 
 
-//View Spread Records
+//get  Records
 router.get('/view', async (req, res) => {
     try {
         const records = await employeeDetails.find().exec();
@@ -70,5 +71,20 @@ router.delete('/employee/delete/:id', async (req, res) => {
         });
     }
 });
+
+//Get Specific Employee
+router.get("/view/:id", async (req, res) => {
+    try {
+        let employeerecordID = req.params.id;
+        let employeerecord = await employeeDetails.findById(employeerecordID);
+        if (!employeerecord) {
+            return res.status(404).json({ success: false, message: "Record not found" });
+        }
+        return res.status(200).json({ success: true, employeerecord });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
+
 
 module.exports = router;
