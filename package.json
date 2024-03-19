@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
-    "cilent": "npm run start --prefix cilent",
-    "dev":"concurrently \"npm run server\" \"npm run client\""
+    "server": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
