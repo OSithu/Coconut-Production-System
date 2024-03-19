@@ -41,6 +41,20 @@ router.get('/view', async (req, res) => {
     }
 });
 
+//Update Records
+router.put('/employee/update/:id', async (req, res) => {
+    try {
+        await employeeDetails.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
+        return res.status(200).json({
+            success: "Record updated Successfully"
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+
 
 
 
