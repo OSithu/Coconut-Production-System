@@ -22,7 +22,7 @@ router.post('/tree/save',async (req,res)=>{
 
 //read
 router.get("/trees", async (req, res) => {
-    try {
+  try {
       const trees = await Trees.find().exec();
   
       return res.status(200).json({
@@ -66,6 +66,21 @@ router.get("/trees", async (req, res) => {
         error: err.message,
       });
     }
+  });
+
+  //get a secific record
+
+  router.get("/trees/:id", async (req, res) => {
+    try {
+        let treeID = req.params.id;
+        let tree = await Trees.findById(treeID);
+        if (!tree) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+        return res.status(200).json({ success: true, tree });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+      }
   });
 
 
