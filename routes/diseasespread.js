@@ -56,6 +56,21 @@ router.put('/diseasespread/update/:id', async (req, res) => {
     }
 });
 
+//Get Specific Post
+router.get("/record/:id", async (req, res) => {
+    try {
+        let recordID = req.params.id;
+        let record = await Spread_Records.findById(recordID);
+        if (!record) {
+            return res.status(404).json({ success: false, message: "Record not found" });
+        }
+        return res.status(200).json({ success: true, record });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
+
+
 //Delete Records
 
 router.delete('/diseasespread/delete/:id', async (req, res) => {
@@ -71,7 +86,6 @@ router.delete('/diseasespread/delete/:id', async (req, res) => {
         });
     }
 });
-
 
 
 module.exports = router;
