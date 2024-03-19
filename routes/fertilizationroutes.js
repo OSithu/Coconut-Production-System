@@ -41,6 +41,20 @@ router.get('/fertilizationrec', async (req, res) => {
     }
 }); 
 
+//Get Specific Record
+router.get("/fertilizationrec/:id", async (req, res) => {
+    try {
+        let fertilizationId = req.params.id;
+        let record = await fertilization.findById(fertilizationId);
+        if (!record) {
+            return res.status(404).json({ success: false, message: "Record not found" });
+        }
+        return res.status(200).json({ success: true, record });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
+
 
 //Update fertilization Records
 
