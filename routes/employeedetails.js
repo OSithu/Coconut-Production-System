@@ -1,6 +1,6 @@
 const express =  require('express');
 const employeeDetails = require('../models/employeedetails');
-const employeedetails = require('../models/employeedetails');
+
 
 const router = express.Router();
 
@@ -27,9 +27,9 @@ router.post('/employee/save',async(req,res)=>{
 
 
 //View Spread Records
-router.get('employee/view', async (req, res) => {
+router.get('/view', async (req, res) => {
     try {
-        const records = await employeedetails.find().exec();
+        const records = await employeeDetails.find().exec();
         return res.status(200).json({
             success: true,
             existingRecords: records
@@ -41,7 +41,34 @@ router.get('employee/view', async (req, res) => {
     }
 });
 
+//Update Records
+router.put('/employee/update/:id', async (req, res) => {
+    try {
+        await employeeDetails.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
+        return res.status(200).json({
+            success: "Record updated Successfully"
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
 
-     
+//Delete Records
+
+router.delete('/employee/delete/:id', async (req, res) => {
+    try {
+        const deletedemployee = await employeeDetails.findByIdAndDelete(req.params.id).exec();
+        return res.status(200).json({
+            message: "Records deleted Successfully",
+            deletedemployee: deletedemployee
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
 
 module.exports = router;
