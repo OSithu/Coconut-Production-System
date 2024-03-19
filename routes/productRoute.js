@@ -37,6 +37,36 @@ router.get("/products", async (req, res) => {
   }
 });
 
+//get a specific product details
+// router.get("/products/:id",(req,res) =>{
+//   let productID = req.params.id;
+
+//   Products.findById(productID,(err,post) =>{
+//     if(err){
+//       return res.status(400).json({success:false,err})
+//     }
+
+//     return res.status(200).json({
+//       success:true,
+//       post
+//     })
+//   })
+// })
+
+router.get("/products/:id", async (req, res) => {
+  try {
+      let productID = req.params.id;
+      let product = await Products.findById(productID);
+      if (!product) {
+          return res.status(404).json({ success: false, message: "Product not found" });
+      }
+      return res.status(200).json({ success: true, product });
+  } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+    }
+});
+
+
 //update products
 router.put("/products/update/:id", async (req, res) => {
   try {
