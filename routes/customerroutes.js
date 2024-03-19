@@ -123,5 +123,26 @@ router.delete("/cusDetails/delete/:id", async (req, res) => {
     }
   });
 
+//Get Specific Post
+router.get("/cusDetails/:id", async (req, res) => {
+    try {
+        let cusID = req.params.id;
+        let cusDetails = await CustomerDetails.findById(cusID);
+        if (!CustomerDetails) {
+            return res.status(404).json({ success: false, message: "Record not found" });
+        }
+        return res.status(200).json({ success: true, cusDetails });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
+
+
+
+
+
+
+
+
 
 module.exports = router;
