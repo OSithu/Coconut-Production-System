@@ -55,6 +55,22 @@ router.put('/employee/update/:id', async (req, res) => {
     }
 });
 
+//Delete Records
+
+router.delete('/employee/delete/:id', async (req, res) => {
+    try {
+        const deletedemployee = await employeeDetails.findByIdAndDelete(req.params.id).exec();
+        return res.status(200).json({
+            message: "Records deleted Successfully",
+            deletedemployee: deletedemployee
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message
+        });
+    }
+});
+
 
 
 
