@@ -34,7 +34,7 @@ router.get("/trees", async (req, res) => {
         error: err.message,
       });
     }
-  });
+});
 
   //update
   router.put("/trees/update/:id", async (req, res) => {
