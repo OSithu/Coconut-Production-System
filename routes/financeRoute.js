@@ -21,3 +21,39 @@ router.post("/financeRecords/save", async (req, res) => {
 });
 
 module.exports = router;
+
+//get posts
+
+router.get('/financeRecords',async(req,res)=>{
+    finance.find().exec((err,financerecords)=>{
+        if(err){
+            return res.status(400).json({
+                error:err
+            });
+        }
+        return res.status(200).json({
+            success:true,
+            exsistingfinance:financerecords
+        });
+    });
+});
+
+//update finaceRoute
+
+router.put('/financerecords/update/:id',async(req,res)=>{
+    financeModels:findByIdAndUpdate(
+        req.params.id,
+        {
+            $set:req.body
+        },
+        (err,financerecords)=>{
+            if(err){
+                return res.status(400).json({error:err});
+            } 
+            return res.status(200).json({
+                success:"Updated Successfully",
+            });
+             }
+    
+    );
+});
