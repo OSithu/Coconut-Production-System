@@ -31,7 +31,7 @@ export default class ViewTrees extends Component {
             trees: formattedTrees
           });
   
-          console.log(formattedTrees); // Log the formatted trees
+          console.log(formattedTrees);
         }
       })
       .catch(error => {
