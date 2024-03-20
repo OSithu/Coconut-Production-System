@@ -24,10 +24,15 @@ router.post('/tree/save',async (req,res)=>{
 router.get("/trees", async (req, res) => {
   try {
       const trees = await Trees.find().exec();
+
+      const formattedTrees = trees.map(tree => ({
+        ...tree.toObject(),
+        plantedDate: tree.plantedDate.toISOString().split('T')[0] // Extracting only the date part
+      }));
   
       return res.status(200).json({
         success: true,
-        existingTrees: trees,
+        existingTrees: formattedTrees,
       });
     } catch (err) {
       return res.status(400).json({

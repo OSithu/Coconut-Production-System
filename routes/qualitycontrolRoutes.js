@@ -20,7 +20,8 @@ router.post("/qualityrecords/save", async (req, res) => {
   }
 });
 
-router.get("/records", async (req, res) => {
+//get posts
+router.get("/qrecords", async (req, res) => {
   try {
     const qualityrecords = await qcmposts.find().exec();
 
@@ -34,6 +35,26 @@ router.get("/records", async (req, res) => {
     });
   }
 });
+
+//get a specific post
+
+router.get("/qrecords/:id",(req,res)=> {
+
+  let recordId = req.params.id;
+  
+  qcmposts.findById(recordId,(err,records) => {
+    if(err){
+       return res.status(400).json({success:false,err});
+    }
+    return res.status(200).json({
+      success:true,
+      records
+    });
+  });
+  
+});
+  
+  
 
 //update posts
 router.put("/qualityrecords/update/:id",async (req, res) => {
@@ -58,11 +79,11 @@ router.delete("/qualityrecords/delete/:id",async (req, res) => {
 
     return res.json({
       message:"Delete Successfull",
-      deletePost
+      deletedRecord
     });
   }catch(err){
     if(err) return res.status(400).json({
-      message:"Delete unsuccessfully",
+      message:"Delete unsuccessfull",
       error:err.message,
     });
   }
