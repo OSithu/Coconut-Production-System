@@ -149,6 +149,6 @@ export default class CreateQualityRecords extends Component {
 
                 </form>
             </div>
-        )
-    }
+        )
+    }
 }
