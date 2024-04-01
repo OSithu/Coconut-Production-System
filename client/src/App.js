@@ -33,6 +33,7 @@ import viewEmployee from "./components/viewEmployee";
 import createEmployee from './components/createEmployee';
 import editEmployee from './components/editEmployee';
 
+
 import CreateProducts from './components/CreateProducts';
 import viewProducts from './components/viewProducts';
 import EditProducts from './components/EditProducts';
@@ -74,6 +75,7 @@ function App() {
         <Route path="/viewQualityRecord" Component={ViewQualityRecords}/>
         <Route path="/addQualityRecord" Component={CreateQualityRecords}/>
         <Route path="/editQualityRecord/:id" Component={EditQualityRecords}/>
+
 
         <Route path="/viewProduct" Component={viewProducts}/>
         <Route path="/addProduct" Component={CreateProducts}/>

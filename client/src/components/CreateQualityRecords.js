@@ -152,3 +152,4 @@ export default class CreateQualityRecords extends Component {
         )
     }
 }
+
