@@ -7,11 +7,13 @@ export default class CreateCusDetails extends Component {
         this.state = {
             cusName: '',
             cusEmail: '',
-            cusPhone: '',
+            contactNumber: '',
+            cusLocation: '',
             errors: {
                 cusName: '',
                 cusEmail: '',
-                cusPhone: ''
+                contactNumber: '',
+                cusLocation: ''
             }
         };
     }
@@ -27,8 +29,8 @@ export default class CreateCusDetails extends Component {
             case 'cusEmail':
                 errors.cusEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? '' : 'Email is not valid';
                 break;
-            case 'cusPhone':
-                errors.cusPhone = /^\d{10}$/.test(value) ? '' : 'Phone number must be 10 digits';
+            case 'contactNumber':
+                errors.contactNumber = /^\d{10}$/.test(value) ? '' : 'Phone number must be 10 digits';
                 break;
             default:
                 break;
@@ -43,13 +45,14 @@ export default class CreateCusDetails extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
-        const { cusName, cusEmail, cusPhone, errors } = this.state;
+        const { cusName, cusEmail, contactNumber, cusLocation, errors } = this.state;
 
-        if (cusName && cusEmail && cusPhone && !errors.cusName && !errors.cusEmail && !errors.cusPhone) {
+        if (cusName && cusEmail && contactNumber && cusLocation && !errors.cusName && !errors.cusEmail && !errors.contactNumber && !errors.cusLocation) {
             const data = {
                 cusName: cusName,
                 cusEmail: cusEmail,
-                cusPhone: cusPhone,
+                contactNumber: contactNumber,
+                cusLocation: cusLocation,
             };
 
             axios.post("http://localhost:8000/cusDetails/save", data).then((res) => {
@@ -57,11 +60,13 @@ export default class CreateCusDetails extends Component {
                     this.setState({
                         cusName: '',
                         cusEmail: '',
-                        cusPhone: '',
+                        contactNumber: '',
+                        cusLocation: '',
                         errors: {
                             cusName: '',
                             cusEmail: '',
-                            cusPhone: ''
+                            contactNumber: '',
+                            cusLocation:''
                         }
                     });
                 }
@@ -113,14 +118,29 @@ export default class CreateCusDetails extends Component {
                         <input
                             type="text"
                             className={`form-control ${errors.cusPhone ? 'is-invalid' : ''}`}
-                            name="cusPhone"
+                            name="contactNumber"
                             placeholder="Enter contact number"
-                            value={this.state.cusPhone}
+                            value={this.state.contactNumber}
                             onChange={this.handleInputChange}
                             required
                         />
-                        {errors.cusPhone.length > 0 &&
-                            <div className='invalid-feedback'>{errors.cusPhone}</div>}
+                        {errors.contactNumber.length > 0 &&
+                            <div className='invalid-feedback'>{errors.contactNumber}</div>}
+                    </div>
+
+                    <div className="form-group" style={{ marginBottom: "15px" }}>
+                        <label style={{ marginBottom: "5px" }}>Customer address</label>
+                        <input
+                            type="text"
+                            className={`form-control ${errors.cusLocation ? 'is-invalid' : ''}`}
+                            name="cusLocation"
+                            placeholder="Enter customer address"
+                            value={this.state.cusLocation}
+                            onChange={this.handleInputChange}
+                            required
+                        />
+                        {errors.cusLocation.length > 0 &&
+                            <div className='invalid-feedback'>{errors.cusLocation}</div>}
                     </div>
 
                     <button
