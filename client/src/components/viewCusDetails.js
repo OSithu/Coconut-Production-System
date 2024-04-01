@@ -26,14 +26,14 @@ export default class viewCusDetails extends Component {
     });
   }
 
-
-  onDelete = (id) =>{
-    axios.delete(`http://localhost:8000/cusDetails/delete/${id}`).then((res) =>{
+  onDelete = (id) => {
+    axios
+      .delete(`http://localhost:8000/cusDetails/delete/${id}`)
+      .then((res) => {
         alert("Deleted Successfully");
         this.retrieveDetails();
-    })
-  }
-
+      });
+  };
 
   render() {
     return (
@@ -45,7 +45,8 @@ export default class viewCusDetails extends Component {
               <th scope="col">#</th>
               <th scope="col">cusName</th>
               <th scope="col">cusEmail</th>
-              <th scope="col">cusPhone</th>
+              <th scope="col">contactNumber</th>
+              <th scope="col">cusLocation</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -55,13 +56,21 @@ export default class viewCusDetails extends Component {
                 <th scope="row">{index + 1}</th>
                 <td>{cusDetails.cusName}</td>
                 <td>{cusDetails.cusEmail}</td>
-                <td>{cusDetails.cusPhone}</td>
+                <td>{cusDetails.contactNumber}</td>
+                <td>{cusDetails.cusLocation}</td>
                 <td>
-                  <a className="btn btn-warning" href={`/editCus/${cusDetails._id}`}>
+                  <a
+                    className="btn btn-warning"
+                    href={`/editCus/${cusDetails._id}`}
+                  >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
                   &nbsp;
-                  <a className="btn btn-danger" href="#" onClick={() =>this.onDelete(cusDetails._id)}>
+                  <a
+                    className="btn btn-danger"
+                    href="#"
+                    onClick={() => this.onDelete(cusDetails._id)}
+                  >
                     <i className="far fa-trash-alt"></i>&nbsp;Delete
                   </a>
                 </td>
