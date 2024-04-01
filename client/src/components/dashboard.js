@@ -33,7 +33,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Product Management</h2>
-        <a href="#" class="btn btn-primary">Enter</a>
+        <a href="/viewProduct" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
