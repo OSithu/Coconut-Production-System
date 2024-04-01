@@ -10,7 +10,11 @@ const customerSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    cusPhone:{
+    contactNumber:{
+        type:String,
+        required:true
+    },
+    cusLocation:{
         type:String,
         required:true
     }
