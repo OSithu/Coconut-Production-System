@@ -12,7 +12,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Plantation Management</h2>
-        <a href="#" class="btn btn-primary">Enter</a>
+        <a href="/ViewTrees" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Fertilizer Management</h2>
-        <a href="#" class="btn btn-primary">Enter</a>
+        <a href="/viewFertilization" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Customer Management</h2>
-        <a href="#" class="btn btn-primary">Enter</a>
+        <a href="/viewCus" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Employee Management</h2>
-        <a href="#" class="btn btn-primary">Enter</a>
+        <a href="/viewEmployee" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Quality Management</h2>
-        <a href="#" class="btn btn-primary">Enter</a>
+        <a href="/viewQualityRecord" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Finance Management</h2>
-        <a href="#" class="btn btn-primary">Enter</a>
+        <a href="/viewFinanceDetails" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
