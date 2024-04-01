@@ -11,6 +11,7 @@ export default class EditProducts extends Component {
       category: "",
       manufacturedDate: "",
       expiredDate: "",
+      reOrderLevel: "",
     };
   }
 
@@ -34,6 +35,7 @@ export default class EditProducts extends Component {
       category,
       manufacturedDate,
       expirationDate,
+      reOrderLevel,
     } = this.state;
 
     const data = {
@@ -43,6 +45,7 @@ export default class EditProducts extends Component {
       category: category,
       manufacturedDate: manufacturedDate,
       expirationDate: expirationDate,
+      reOrderLevel: reOrderLevel,
     };
 
     console.log(data);
@@ -59,6 +62,7 @@ export default class EditProducts extends Component {
             category: "",
             manufacturedDate: "",
             expiredDate: "",
+            reOrderLevel: "",
           });
         }
       });
@@ -79,6 +83,7 @@ export default class EditProducts extends Component {
           category: product.category,
           manufacturedDate: product.manufacturedDate,
           expirationDate: product.expirationDate,
+          reOrderLevel: product.reOrderLevel,
         });
       }
     });
@@ -167,6 +172,19 @@ export default class EditProducts extends Component {
               name="expirationDate"
               placeholder="Enter the expiration date"
               value={this.state.expirationDate}
+              onChange={this.handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Re-order Level</label>
+            <input
+              type="text"
+              className="form-control"
+              name="reOrderLevel"
+              placeholder="Enter added quantity"
+              value={this.state.quantity}
               onChange={this.handleInputChange}
               required
             />
