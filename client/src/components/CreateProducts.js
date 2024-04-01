@@ -11,6 +11,7 @@ export default class CreateProducts extends Component {
       category: "",
       manufacturedDate: "",
       expirationDate: "",
+      reOrderLevel: "",
       errors: {}
     };
   }
@@ -33,6 +34,7 @@ export default class CreateProducts extends Component {
         category,
         manufacturedDate,
         expirationDate,
+        reOrderLevel,
       } = this.state;
 
       const data = {
@@ -42,6 +44,7 @@ export default class CreateProducts extends Component {
         category: category,
         manufacturedDate: manufacturedDate,
         expirationDate: expirationDate,
+        reOrderLevel: reOrderLevel,
       };
 
       console.log(data);
@@ -55,6 +58,7 @@ export default class CreateProducts extends Component {
             category: "",
             manufacturedDate: "",
             expirationDate: "",
+            reOrderLevel: "",
             errors: {}
           });
         }
@@ -207,6 +211,22 @@ export default class CreateProducts extends Component {
             />
             {errors.expirationDate && (
               <div className="invalid-feedback">{errors.expirationDate}</div>
+            )}
+          </div>
+
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Re-order Level</label>
+            <input
+              type="text"
+              className={`form-control ${errors.quantity && "is-invalid"}`}
+              name="reOrderLevel"
+              placeholder="Enter re-order level"
+              value={this.state.reOrderLevel}
+              onChange={this.handleInputChange}
+              required
+            />
+            {errors.quantity && (
+              <div className="invalid-feedback">{errors.reOrderLevel}</div>
             )}
           </div>
 
