@@ -80,7 +80,7 @@ router.get("/trees", async (req, res) => {
         let treeID = req.params.id;
         let tree = await Trees.findById(treeID);
         if (!tree) {
-            return res.status(404).json({ success: false, message: "Product not found" });
+            return res.status(404).json({ success: false, message: "Details not found" });
         }
         return res.status(200).json({ success: true, tree });
     } catch (err) {
