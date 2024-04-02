@@ -35,7 +35,7 @@ router.get("/products", async (req, res) => {
       error: err.message,
     });
   }
-});
+}); 
 
 //get a specific product details
 // router.get("/products/:id",(req,res) =>{
@@ -53,6 +53,7 @@ router.get("/products", async (req, res) => {
 //   })
 // })
 
+//get a specific product details
 router.get("/products/:id", async (req, res) => {
   try {
       let productID = req.params.id;
