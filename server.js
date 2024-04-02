@@ -21,6 +21,7 @@ const qualityRoutes = require("./routes/qualitycontrolRoutes");
 const financeRoute = require("./routes/financeRoute");
 const cusRoutes = require('./routes/customerroutes');
 const employeeRoutes =  require('./routes/employeedetails');
+const ordRoutes = require("./routes/orderRoute");
 
 //app middleware
 app.use(bodyParser.json());
@@ -35,6 +36,7 @@ app.use(qualityRoutes);
 app.use(financeRoute);
 app.use(cusRoutes);
 app.use(employeeRoutes);
+app.use(ordRoutes);
 
 //declaring server running port
 const port = 8000;
