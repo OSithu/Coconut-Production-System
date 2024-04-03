@@ -93,7 +93,7 @@ function App() {
           <Route path="/viewBlock/:id" Component={ViewBlock} />
           <Route path="/updateBlock/:id" Component={UpdateBlock} />
 
-          <Route path="/addOrder/:id" Component={viewOrderDetails}/>
+          <Route path="/addOrder" Component={viewOrderDetails} />
         </Routes>
       </div>
     </Router>
