@@ -58,7 +58,7 @@ export default class ViewProductCnt extends Component {
                   <td>
                     <a
                       className="btn btn-warning"
-                      href={`/editProduct/${products._id}`}
+                      href={`/editProductCnt/${productCnt._id}`}
                     >
                       <i className="fas fa-edit"></i>&nbsp;Edit
                     </a>
@@ -66,7 +66,7 @@ export default class ViewProductCnt extends Component {
                     <a
                       className="btn btn-danger"
                       href="#"
-                      onClick={() => this.onDelete(products._id)}
+                      onClick={() => this.onDelete(productCnt._id)}
                     >
                       <i className="far fa-trash-alt"></i>&nbsp;Delete
                     </a>
@@ -78,12 +78,13 @@ export default class ViewProductCnt extends Component {
 
           <button className="btn btn-success">
             <a
-              href="/addProduct"
+              href="/addProductCnt"
               style={{ textDecoration: "none", color: "white" }}
             >
               Add New Product
             </a>
           </button>
+          
         </div>
       </div>
     );

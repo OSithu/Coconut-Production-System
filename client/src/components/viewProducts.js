@@ -95,6 +95,14 @@ export default class viewProducts extends Component {
               Add New Product
             </a>
           </button>
+          <button className="btn btn-success">
+            <a
+              href="/viewProductCnt"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Product Count
+            </a>
+          </button>
         </div>
       </div>
     );
