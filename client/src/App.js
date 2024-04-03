@@ -36,6 +36,11 @@ import editEmployee from "./components/editEmployee";
 import CreateProducts from "./components/CreateProducts";
 import viewProducts from "./components/viewProducts";
 import EditProducts from "./components/EditProducts";
+
+import CreateProductCnt from "./components/CreateProductCnt";
+import ViewProductCnt from "./components/ViewProductCnt";
+import EditProductCnt from "./components/EditProductCnt";
+
 import viewOrderDetails from "./components/viewOrderDetails";
 
 import estateDetails from "./components/estateDetails";
@@ -87,6 +92,10 @@ function App() {
           <Route path="/viewProduct" Component={viewProducts} />
           <Route path="/addProduct" Component={CreateProducts} />
           <Route path="/editProduct/:id" Component={EditProducts} />
+
+          <Route path="/viewProductCnt" Component={ViewProductCnt} />
+          <Route path="/addProductCnt" Component={CreateProductCnt} />
+          <Route path="/editProductCnt/:id" Component={EditProductCnt} />
 
           <Route path="/estateDetails" Component={estateDetails} />
           <Route path="/addBlock" Component={AddBlock} />
