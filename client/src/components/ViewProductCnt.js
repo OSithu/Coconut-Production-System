@@ -81,7 +81,7 @@ export default class ViewProductCnt extends Component {
               href="/addProductCnt"
               style={{ textDecoration: "none", color: "white" }}
             >
-              Add New Product
+              Add New Product Record
             </a>
           </button>
           
