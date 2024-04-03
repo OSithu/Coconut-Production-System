@@ -23,7 +23,7 @@ export default class ViewTrees extends Component {
           // Map through each tree object and format the createdAt field
           const formattedTrees = res.data.existingTrees.map(tree => ({
             ...tree,
-            plantedDate9: new Date(tree.plantedDate).toLocaleDateString() // Format the date
+            plantedDate: new Date(tree.plantedDate).toLocaleDateString() // Format the date
           }));
   
           // Update the state with the formatted trees data
@@ -35,7 +35,7 @@ export default class ViewTrees extends Component {
         }
       })
       .catch(error => {
-        console.error('Error retrieving trees:', error);
+        console.error('Error retrieving details:', error);
       });
   }
   
@@ -68,10 +68,8 @@ export default class ViewTrees extends Component {
           <tbody>
         {this.state.trees.map(trees =>(
           <tr>
-          <th scope="row"> {trees.treeID} </th>
-          <td>
-            <a href={`/trees/${trees._id}`} style={{textDecoration:'none'}}>
-            {trees.typeOfTree} </a> </td>
+          <td scope="row"> {trees.treeID} </td>
+          <td> {trees.typeOfTree} </td>
           <td> {trees.plantedDate} </td>
           <td> {trees.blockName} </td>
           <td> {trees.specialNotes} </td>
@@ -93,6 +91,12 @@ export default class ViewTrees extends Component {
           <a href="/addTrees" style={{textDecoration:"none", color:'white'}}>
           <i class="fa-solid fa-plus"></i>&nbsp;
             Add New Record
+          </a>
+        </button>
+        <button type="button" class="btn btn-success"> 
+          <a href="/estateDetails" style={{textDecoration:"none", color:'white'}}>
+          <i class="fa-solid fa-plus"></i>&nbsp;
+            Estate
           </a>
         </button>
       </div>

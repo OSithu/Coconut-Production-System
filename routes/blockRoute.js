@@ -27,10 +27,10 @@ router.get("/blocks", async (req, res) => {
 
       const formattedBlock = blocks.map(block => ({
         ...block.toObject(),
-        lastHarvested: block.lastHarvested.toISOString().split('T')[0], // Extracting only the date part
-        nextHarvesting: block.nextHarvesting.toISOString().split('T')[0],
-        lastFertilized: block.lastFertilized.toISOString().split('T')[0],
-        nextFertilization: block.nextFertilization.toISOString().split('T')[0]
+        lastHarvested: block.lastHarvested?.toISOString()?.split('T')[0], // Extracting only the date part
+        nextHarvesting: block.nextHarvesting?.toISOString()?.split('T')[0],
+        lastFertilized: block.lastFertilized?.toISOString()?.split('T')[0],
+        nextFertilization: block.nextFertilization?.toISOString()?.split('T')[0]
       }));
   
       return res.status(200).json({
@@ -85,7 +85,7 @@ router.get("/blocks", async (req, res) => {
         if (!block) {
             return res.status(404).json({ success: false, message: "Details not found" });
         }
-        return res.status(200).json({ success: true, tree });
+        return res.status(200).json({ success: true, block });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
       }

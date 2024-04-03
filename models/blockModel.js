@@ -19,21 +19,25 @@ const blockSchema = new mongoose.Schema({
 
     lastHarvested:{
         type: Date,
+        default: null,
         required: false
     },
 
     nextHarvesting:{
         type: Date,
+        default: null,
         required: false
     },  
 
     lastFertilized:{
         type: Date,
+        default: null,
         required: false
     },
 
     nextFertilization:{
         type: Date,
+        default: null,
         required: false
     }
 

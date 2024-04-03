@@ -8,10 +8,16 @@ export default class PlantationNav extends Component {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/viewTrees"> Plantation Details </a>
+                                <a class="nav-link active" aria-current="page" href="/viewTrees"> Estate Details </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="#"> Harvest Details </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#"> Harvesting Schedules </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#"> Estate Staff </a>
                             </li>
                         </ul>
                         {/*<form class="d-flex" role="search">

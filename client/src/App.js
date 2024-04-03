@@ -38,6 +38,11 @@ import CreateProducts from './components/CreateProducts';
 import viewProducts from './components/viewProducts';
 import EditProducts from './components/EditProducts';
 
+import estateDetails from './components/estateDetails';
+import AddBlock from './components/AddBlock';
+import ViewBlock from './components/ViewBlock';
+import UpdateBlock from './components/UpdateBlock';
+
 
 
 
@@ -76,11 +81,14 @@ function App() {
         <Route path="/addQualityRecord" Component={CreateQualityRecords}/>
         <Route path="/editQualityRecord/:id" Component={EditQualityRecords}/>
 
-
         <Route path="/viewProduct" Component={viewProducts}/>
         <Route path="/addProduct" Component={CreateProducts}/>
         <Route path="/editProduct/:id" Component={EditProducts}/>
         
+        <Route path="/estateDetails" Component={estateDetails}/>
+        <Route path="/addBlock" Component={AddBlock}/>
+        <Route path="/viewBlock/:id" Component={ViewBlock}/>
+        <Route path="/updateBlock/:id" Component={UpdateBlock}/>
   
         </Routes>
       </div>
