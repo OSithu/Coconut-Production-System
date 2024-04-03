@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 export default class viewOrderDetails extends Component {
-  constructor(props) { 
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -18,7 +18,7 @@ export default class viewOrderDetails extends Component {
     axios.get("http://localhost:8000/orderDetails").then((res) => {
       if (res.data.success) {
         this.setState({
-            orderDetails: res.data.existingRecords,
+          orderDetails: res.data.existingRecords,
         });
 
         console.log(this.state.orderDetails);
@@ -51,7 +51,7 @@ export default class viewOrderDetails extends Component {
           <tbody>
             {this.state.orderDetails.map((orderDetails, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row">OR{index + 1}</th>
                 <td>{orderDetails.orderName}</td>
                 <td>{orderDetails.quantity}</td>
                 <td>{orderDetails.orderDate}</td>
@@ -76,7 +76,10 @@ export default class viewOrderDetails extends Component {
           </tbody>
         </table>
         <button className="btn btn-success">
-          <a href="/addOrder" style={{ textDecoration: "none", color: "white" }}>
+          <a
+            href="/addOrder"
+            style={{ textDecoration: "none", color: "white" }}
+          >
             Add Order
           </a>
         </button>

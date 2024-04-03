@@ -53,7 +53,7 @@ export default class viewCusDetails extends Component {
           <tbody>
             {this.state.cusDetails.map((cusDetails, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row">C{index + 1}</th>
                 <td>{cusDetails.cusName}</td>
                 <td>{cusDetails.cusEmail}</td>
                 <td>{cusDetails.contactNumber}</td>
