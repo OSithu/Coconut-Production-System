@@ -83,6 +83,15 @@ export default class viewCusDetails extends Component {
             Add Customer
           </a>
         </button>
+
+        <button className="btn btn-success">
+          <a
+            href="/addOrder"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Order
+          </a>
+        </button>
       </div>
     );
   }
