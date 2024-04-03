@@ -53,7 +53,7 @@ export default class ViewQualityRecords extends Component {
           <tbody>
             {this.state.records.map((records, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row">{index+1}</th>
                 <td>{records.Product}</td>
                 <td>{records.TestDate}</td>
                 <td>{records.TestResult}</td>
