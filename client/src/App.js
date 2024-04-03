@@ -37,6 +37,7 @@ import editEmployee from './components/editEmployee';
 import CreateProducts from './components/CreateProducts';
 import viewProducts from './components/viewProducts';
 import EditProducts from './components/EditProducts';
+import viewOrderDetails from './components/viewOrderDetails';
 
 
 
