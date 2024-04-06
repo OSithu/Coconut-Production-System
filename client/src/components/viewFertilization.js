@@ -20,67 +20,67 @@ export default class viewFertilization extends Component {
         this.setState({
           fertilization: res.data.existingRecords
         });
-
-        console.log(this.state.fertilization);
       }
     });
   }
 
-  onDelete=(id)=>{
-    axios.delete(`/fertilizationrec/delete/${id}`).then((res)=>{
-        alert("Record Deleted Successfully");
-        this.retrieveFertilizationRecords();
+  onDelete = (id) => {
+    axios.delete(`/fertilizationrec/delete/${id}`).then((res) => {
+      alert("Record Deleted Successfully");
+      this.retrieveFertilizationRecords();
     })
   }
 
   render() {
     return (
-      <div className='container'>
-        <div>
-          <p>All Posts</p>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col"className="text-center">TreeNo</th>
-                <th scope="col"className="text-center">TreeStage</th>
-                <th scope="col"className="text-center">Date</th>
-                <th scope="col"className="text-center">Urea Amount(g)</th>
-                <th scope="col"className="text-center">EppawalaRock<br/>Phosphate Amount(g)</th>
-                <th scope="col"className="text-center">Muriate Of<br/>Potasium Amount(g)</th>
-                <th scope="col"className="text-center">Dolamite<br/> Amount(g)</th>
-                <th scope="col"className="text-center">Description</th>
-                <th scope="col"className="text-center">Action</th>
+      <div className='container' style={{ backgroundColor: '#f0fff0', padding: '20px', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#228b22', fontSize: '24px' }}>Fertilization Records</h2>
+        <table className="table table-bordered" style={{ borderCollapse: 'collapse', width: '100%', fontSize: '18px' }}>
+          <thead style={{ backgroundColor: '#228b22', color: 'white' }}>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" className="text-center">Tree No</th>
+              <th scope="col" className="text-center">Tree Stage</th>
+              <th scope="col" className="text-center">Date</th>
+              <th scope="col" className="text-center">Urea Amount (g)</th>
+              <th scope="col" className="text-center">ERP Amount (g)</th>
+              <th scope="col" className="text-center">MOP Amount (g)</th>
+              <th scope="col" className="text-center">Dolomite Amount (g)</th>
+              <th scope="col" className="text-center">Description</th>
+              <th scope="col" className="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.fertilization.map((fertilization, index) => (
+              <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : '#ffffff' }}>
+                <td className="text-center">{index + 1}</td>
+                <td className="text-center">{fertilization.TreeNo}</td>
+                <td className="text-center">{fertilization.TreeStage}</td>
+                <td className="text-center">{new Date(fertilization.Date).toLocaleDateString()}</td>
+                <td className="text-center">{fertilization.UreaAmount}</td>
+                <td className="text-center">{fertilization.EppawalaRockPhosphateAmount}</td>
+                <td className="text-center">{fertilization.MuriateOfPotasiumAmount}</td>
+                <td className="text-center">{fertilization.DolamiteAmount}</td>
+                <td className="text-center">{fertilization.Description}</td>
+                <td className="text-center">
+                  <button className="btn btn-warning btn-sm" style={{ marginRight: '5px', fontSize: '16px' }}>
+                    <i className="far fa-edit"></i>&nbsp;Edit
+                  </button>
+                  <button className="btn btn-danger btn-sm" onClick={() => this.onDelete(fertilization._id)} style={{ fontSize: '16px' }}>
+                    <i className="far fa-trash-alt"></i>&nbsp;Delete
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {this.state.fertilization.map((fertilization, index) => (
-                <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td className="text-center">{fertilization.TreeNo}</td>
-                  <td className="text-center">{fertilization.TreeStage}</td>
-                  <td className="text-center">{fertilization.Date}</td>
-                  <td className="text-center">{fertilization.UreaAmount}</td>
-                  <td className="text-center">{fertilization.EppawalaRockPhosphateAmount}</td>
-                  <td className="text-center">{fertilization.MuriateOfPotasiumAmount}</td>
-                  <td className="text-center">{fertilization.DolamiteAmount}</td>
-                  <td className="text-center">{fertilization.Description}</td>
-                  <td>
-                    <a className="btn btn-warning" href={`/fertilizationupdate/${fertilization._id}`}>
-                      <i className="fans fa-edit"></i>&nbsp;Edit
-                    </a>
-                    &nbsp;
-                    <a className="btn btn-danger" href="#"onClick={() =>this.onDelete(fertilization._id)}>
-                      <i className="far fa-trash-alt"></i>&nbsp;Delete
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button className="btn btn-success"><a href="/fertilizationsave" style={{textDecoration:'none' ,color:'white'}}>Add New Record</a></button>
+            ))}
+          </tbody>
+        </table>
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <button className="btn btn-success" style={{ fontSize: '18px' }}><a href="/fertilizationsave" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a></button>
         </div>
       </div>
     );
   }
 }
+
+
+

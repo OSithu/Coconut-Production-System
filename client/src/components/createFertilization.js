@@ -89,7 +89,7 @@ export default class CreateFertilization extends Component {
 
                   <div className="form-group" style={{marginBottom:'15px'}}>
                       <label style={{marginBottom:'5px'}}>Date</label>
-                      <input type="text" 
+                      <input type="date" 
                       className="form-control" 
                       name="Date" 
                       placeholder="Enter the Date of fertilization"
@@ -98,17 +98,17 @@ export default class CreateFertilization extends Component {
                   </div>
 
                   <div className="form-group" style={{marginBottom:'15px'}}>
-                      <label style={{marginBottom:'5px'}}>Amount of Urea</label>
-                      <input type="text" 
+                      <label style={{marginBottom:'5px'}}>Amount of Urea(g)</label>
+                      <input type="Number" 
                       className="form-control" 
                       name="UreaAmount" 
-                      placeholder="Enter your first name"
+                      placeholder="Enter the Urea Amount"
                       value={this.state.UreaAmount}
                       onChange={this.handleInputChange}/>
                   </div>
 
                   <div className="form-group" style={{marginBottom:'15px'}}>
-                      <label style={{marginBottom:'5px'}}>Amount of EppawalaRock Phosphate Amount</label>
+                      <label style={{marginBottom:'5px'}}>Amount of EppawalaRock Phosphate Amount(g)</label>
                       <input type="Number" 
                       className="form-control" 
                       name="EppawalaRockPhosphateAmount" 
@@ -118,7 +118,7 @@ export default class CreateFertilization extends Component {
                   </div>
 
                   <div className="form-group" style={{marginBottom:'15px'}}>
-                      <label style={{marginBottom:'5px'}}>Amount of Muriate Of Potasium Amount</label>
+                      <label style={{marginBottom:'5px'}}>Amount of Muriate Of Potasium Amount(g)</label>
                       <input type="Number" 
                       className="form-control" 
                       name="MuriateOfPotasiumAmount" 
@@ -128,7 +128,7 @@ export default class CreateFertilization extends Component {
                   </div>
 
                   <div className="form-group" style={{marginBottom:'15px'}}>
-                      <label style={{marginBottom:'5px'}}>Amount of Dolamite Amount</label>
+                      <label style={{marginBottom:'5px'}}>Amount of Dolamite Amount(g)</label>
                       <input type="Number" 
                       className="form-control" 
                       name="DolamiteAmount" 
@@ -139,7 +139,7 @@ export default class CreateFertilization extends Component {
 
                   <div className="form-group" style={{marginBottom:'15px'}}>
                       <label style={{marginBottom:'5px'}}>Description</label>
-                      <input type="text" 
+                      <textarea 
                       className="form-control" 
                       name="Description" 
                       placeholder="Description"
