@@ -1,3 +1,5 @@
+//app. js
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import dashboard from "./components/dashboard";
 
@@ -47,6 +49,8 @@ import estateDetails from "./components/estateDetails";
 import AddBlock from "./components/AddBlock";
 import ViewBlock from "./components/ViewBlock";
 import UpdateBlock from "./components/UpdateBlock";
+import CreateOrderDetails from "./components/createOrderDetails";
+import EditOrderDetails from "./components/editOrderDetails";
 
 function App() {
   return (
@@ -102,7 +106,9 @@ function App() {
           <Route path="/viewBlock/:id" Component={ViewBlock} />
           <Route path="/updateBlock/:id" Component={UpdateBlock} />
 
-          <Route path="/addOrder" Component={viewOrderDetails} />
+          <Route path="/viewOrder" Component={viewOrderDetails} /> 
+          <Route path="/addOrder" Component={CreateOrderDetails} />
+          <Route path="/editOrder/:id" Component={EditOrderDetails} />
         </Routes>
       </div>
     </Router>
