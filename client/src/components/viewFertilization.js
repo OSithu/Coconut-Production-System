@@ -97,10 +97,10 @@ const ViewFertilizationDetails = () => {
               <th scope="col" className="text-center">Tree No</th>
               <th scope="col" className="text-center">Tree Stage</th>
               <th scope="col" className="text-center">Date</th>
-              <th scope="col" className="text-center">Urea Amount (g)</th>
-              <th scope="col" className="text-center">ERP Amount (g)</th>
-              <th scope="col" className="text-center">MOP Amount (g)</th>
-              <th scope="col" className="text-center">Dolomite Amount (g)</th>
+              <th scope="col" className="text-center">Urea(g)</th>
+              <th scope="col" className="text-center">EppawalaRockPhosphate(g)</th>
+              <th scope="col" className="text-center">MuriateOfPotasium(g)</th>
+              <th scope="col" className="text-center">Dolamite(g)</th>
               <th scope="col" className="text-center">Description</th>
               <th scope="col" className="text-center"></th>
           </tr>
@@ -139,7 +139,7 @@ const ViewFertilizationDetails = () => {
       </table>
       <button className="btn btn-success">
         <a
-         // href="/"
+          href="/fertilizationsave"
           style={{ textDecoration: "none", color: "white" }}
         >
           Add Fertilization Record
