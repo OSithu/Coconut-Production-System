@@ -1,3 +1,5 @@
+//app. js
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import dashboard from "./components/dashboard";
 
@@ -40,13 +42,16 @@ import EditProducts from "./components/EditProducts";
 import CreateProductCnt from "./components/CreateProductCnt";
 import ViewProductCnt from "./components/ViewProductCnt";
 import EditProductCnt from "./components/EditProductCnt";
+import ProductCntDetails from "./components/productCntDetails";
 
 import viewOrderDetails from "./components/viewOrderDetails";
 
-import estateDetails from "./components/estateDetails";
+import EstateDetails from "./components/EstateDetails";
 import AddBlock from "./components/AddBlock";
 import ViewBlock from "./components/ViewBlock";
 import UpdateBlock from "./components/UpdateBlock";
+import CreateOrderDetails from "./components/createOrderDetails";
+import EditOrderDetails from "./components/editOrderDetails";
 
 function App() {
   return (
@@ -96,13 +101,16 @@ function App() {
           <Route path="/viewProductCnt" Component={ViewProductCnt} />
           <Route path="/addProductCnt" Component={CreateProductCnt} />
           <Route path="/editProductCnt/:id" Component={EditProductCnt} />
+          <Route path="/productCnt/:id" Component={ProductCntDetails} />
 
-          <Route path="/estateDetails" Component={estateDetails} />
+          <Route path="/estateDetails" Component={EstateDetails} />
           <Route path="/addBlock" Component={AddBlock} />
           <Route path="/viewBlock/:id" Component={ViewBlock} />
           <Route path="/updateBlock/:id" Component={UpdateBlock} />
 
-          <Route path="/addOrder" Component={viewOrderDetails} />
+          <Route path="/viewOrder" Component={viewOrderDetails} />
+          <Route path="/addOrder" Component={CreateOrderDetails} />
+          <Route path="/editOrder/:id" Component={EditOrderDetails} />
         </Routes>
       </div>
     </Router>

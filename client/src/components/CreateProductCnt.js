@@ -1,141 +1,93 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import axios from 'axios';
 
-export default class CreateProductCnt extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      productId: "",
-      quantity: "",
-      Date: "",
-      Description: "",
-      errors: {},
-    };
-  }
+const CreateProductCnt = () => {
+  const [productId, setProductId] = useState('');
+  const [quantity, setProductQty] = useState('');
+  const [productDate, setProductDate] = useState('');
+  const [description, setProductDesc] = useState('');
 
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    if (this.validateForm()) {
-      const { productId, quantity, Date, Description } = this.state;
-
-      const data = {
-        productId: productId,
-        quantity: quantity,
-        Date: Date,
-        Description: Description,
-      };
-
-      console.log(data);
-
-      axios.post("http://localhost:8000/productCnt/save", data).then((res) => {
-        if (res.data.success) {
-          this.setState({
-            productId: "",
-            quantity: "",
-            Date: "",
-            Description: "",
-            errors: {},
+    //implementing sendData function
+    const sendData = async (e) => {
+      e.preventDefault();
+  
+      try {
+        let newProductRecData = {
+          productId: productId,
+          quantity: quantity,
+          productDate: productDate,
+          description: description,
+        };
+  
+        await axios
+          .post("http://localhost:8000/productCnt/save", newProductRecData)
+          .then((res) => {
+            alert(res.data.success);
+            console.log(res.data.success);
+          })
+          .catch((err) => {
+            if (err.response) {
+              console.log(err.response.data.error);
+            } else {
+              console.log(
+                "Error occured while processing axios post request. " + err.error
+              );
+            }
           });
-        }
-      });
-    }
-  };
-
-  validateForm = () => {
-    const { productId, quantity, Date, Description } = this.state;
-    let errors = {};
-    let isValid = true;
-
-    if (!productId.trim()) {
-      errors.productId = "Product ID is required";
-      isValid = false;
-    }
-
-    if (!quantity.trim()) {
-      errors.quantity = "Quantity is required";
-      isValid = false;
-    } else if (!/^\d+$/.test(quantity)) {
-      errors.quantity = "Quantity should contain only numbers";
-      isValid = false;
-    }
-
-    if (!Date) {
-      errors.Date = "Date is required";
-      isValid = false;
-    }
-
-    if (!Description) {
-      errors.Description = "Description is required";
-      isValid = false;
-    }
-
-    this.setState({ errors });
-    return isValid;
-  };
-
-  render() {
-    const { errors } = this.state;
+      } catch (error) {
+        console.log("sendData function failed! ERROR: " + error.error);
+      }
+  
+      //set state back to first state
+      setProductId('');
+      setProductQty('');
+      setProductDate('');
+      setProductDesc('');
+    };
 
     return (
       <div className="col-md-5 mt-5 mx-auto">
         <h1 className="h3 mb-4 font-weight-normal">
           Add new Product Count Record
         </h1>
-        <form className="needs-validation" noValidate onSubmit={this.onSubmit}>
+        <form className="needs-validation" noValidate onSubmit={sendData}>
           <div className="form-group" style={{ marginBottom: "15px" }}>
             <label style={{ marginBottom: "5px" }}>Product ID</label>
             <input
               type="text"
-              className={`form-control ${errors.productId && "is-invalid"}`}
+              className={`form-control`}
               name="productId"
               placeholder="Enter Product Id"
-              value={this.state.productId}
-              onChange={this.handleInputChange}
+              value={productId}
+              onChange={(e) => setProductId(e.target.value)}
               required
             />
-            {errors.productId && (
-              <div className="invalid-feedback">{errors.productId}</div>
-            )}
           </div>
 
           <div className="form-group" style={{ marginBottom: "15px" }}>
             <label style={{ marginBottom: "5px" }}>Quantity</label>
             <input
               type="text"
-              className={`form-control ${errors.quantity && "is-invalid"}`}
+              className={`form-control`}
               name="quantity"
               placeholder="Enter added quantity"
-              value={this.state.quantity}
-              onChange={this.handleInputChange}
+              value={quantity}
+              onChange={(e) => setProductQty(e.target.value)}
               required
             />
-            {errors.quantity && (
-              <div className="invalid-feedback">{errors.quantity}</div>
-            )}
           </div>
 
           <div className="form-group" style={{ marginBottom: "15px" }}>
             <label style={{ marginBottom: "5px" }}>Date</label>
             <input
               type="date"
-              className={`form-control ${errors.Date && "is-invalid"}`}
-              name="Date"
+              className={`form-control`}
+              name="productDate"
               placeholder="Enter the date"
-              value={this.state.Date}
-              onChange={this.handleInputChange}
+              value={productDate}
+              onChange={(e) => setProductDate(e.target.value)}
               required
             />
-            {errors.Date && (
-              <div className="invalid-feedback">{errors.Date}</div>
-            )}
           </div>
 
           <div
@@ -150,10 +102,10 @@ export default class CreateProductCnt extends Component {
               <label style={{ marginRight: "10px" }}>
                 <input
                   type="radio"
-                  name="Description"
+                  name="description"
                   value="increment"
-                  checked={this.state.Description === "increment"}
-                  onChange={this.handleInputChange}
+                  checked={description === "increment"}
+                  onChange={(e) => setProductDesc(e.target.value)}
                 />
                 &nbsp;Increment
               </label>
@@ -161,17 +113,14 @@ export default class CreateProductCnt extends Component {
               <label>
                 <input
                   type="radio"
-                  name="Description"
+                  name="description"
                   value="decrement"
-                  checked={this.state.Description === "decrement"}
-                  onChange={this.handleInputChange}
+                  checked={description === "decrement"}
+                  onChange={(e) => setProductDesc(e.target.value)}
                 />
                 &nbsp;Decrement
               </label>
             </div>
-            {errors.Description && (
-              <div className="invalid-feedback">{errors.Description}</div>
-            )}
           </div>
 
           <button
@@ -185,5 +134,7 @@ export default class CreateProductCnt extends Component {
         </form>
       </div>
     );
-  }
+
 }
+
+export default CreateProductCnt;
