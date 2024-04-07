@@ -5,19 +5,25 @@ const router = express.Router();
 
 //create
 router.post('/tree/save',async (req,res)=>{
-    //instantiation 
-    try{
-        let newTree = new Trees(req.body);
-        await newTree.save();
-        return res.status(200).json({
-        success:"Details saved successfully."
-    });
-
-    }catch(err){
-        return res.status(400).json({
-                error:err.message
-            });
+  try {
+    // Check if treeID already exists in the database
+    const existingTree = await Trees.findOne({ treeID: req.body.treeID });
+    if (existingTree) {
+        return res.status(400).json({ error: "Tree ID already exists" });
     }
+
+    // If treeID doesn't exist, save the new tree details
+    let newTree = new Trees(req.body);
+    await newTree.save();
+    
+    return res.status(200).json({
+        success: "Details saved successfully."
+    });
+} catch (err) {
+    return res.status(400).json({
+        error: err.message
+    });
+}
 }); 
 
 //read
@@ -42,7 +48,7 @@ router.get("/trees", async (req, res) => {
 });
 
   //update
-  router.put("/trees/update/:id", async (req, res) => {
+  router.patch("/trees/update/:id", async (req, res) => {
     try {
       await Trees.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
   
@@ -62,7 +68,7 @@ router.get("/trees", async (req, res) => {
       const treeDelete = await Trees.findByIdAndDelete(req.params.id).exec();
   
       return res.json({
-        message: "Delete Successfully",
+        message: "Deleted Successfully",
         treeDelete,
       });
     } catch (err) {

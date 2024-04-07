@@ -45,7 +45,7 @@ import EditProductCnt from "./components/EditProductCnt";
 
 import viewOrderDetails from "./components/viewOrderDetails";
 
-import estateDetails from "./components/estateDetails";
+import EstateDetails from "./components/EstateDetails";
 import AddBlock from "./components/AddBlock";
 import ViewBlock from "./components/ViewBlock";
 import UpdateBlock from "./components/UpdateBlock";
@@ -101,7 +101,7 @@ function App() {
           <Route path="/addProductCnt" Component={CreateProductCnt} />
           <Route path="/editProductCnt/:id" Component={EditProductCnt} />
 
-          <Route path="/estateDetails" Component={estateDetails} />
+          <Route path="/estateDetails" Component={EstateDetails} />
           <Route path="/addBlock" Component={AddBlock} />
           <Route path="/viewBlock/:id" Component={ViewBlock} />
           <Route path="/updateBlock/:id" Component={UpdateBlock} />
