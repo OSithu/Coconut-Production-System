@@ -1,159 +1,124 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 import axios from 'axios';
 
-export default class CreateCusDetails extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cusName: '',
-            cusEmail: '',
-            contactNumber: '',
-            cusLocation: '',
-            errors: {
-                cusName: '',
-                cusEmail: '',
-                contactNumber: '',
-                cusLocation: ''
-            }
-        };
-    }
+const CreateCusDetails = () => { // Changed from 'createCusDetails' to 'CreateCusDetails'
+    const [cusName, setCusName] = useState('');
+    const [cusEmail, setCusEmail] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+    const [cusLocation, setCusLocation] = useState('');
 
-    handleInputChange = (e) => {
-        const { name, value } = e.target;
-        let errors = this.state.errors;
-
-        switch (name) {
-            case 'cusName':
-                errors.cusName = value.length < 3 ? 'Customer name must be at least 3 characters long' : '';
-                break;
-            case 'cusEmail':
-                errors.cusEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? '' : 'Email is not valid';
-                break;
-            case 'contactNumber':
-                errors.contactNumber = /^\d{10}$/.test(value) ? '' : 'Phone number must be 10 digits';
-                break;
-            default:
-                break;
-        }
-
-        this.setState({
-            errors,
-            [name]: value
-        });
-    };
-
-    onSubmit = (e) => {
+    //implementing sendData function
+    const sendData = async (e) => {
         e.preventDefault();
 
-        const { cusName, cusEmail, contactNumber, cusLocation, errors } = this.state;
-
-        if (cusName && cusEmail && contactNumber && cusLocation && !errors.cusName && !errors.cusEmail && !errors.contactNumber && !errors.cusLocation) {
-            const data = {
+        try {
+            let newCusData = {
                 cusName: cusName,
                 cusEmail: cusEmail,
                 contactNumber: contactNumber,
-                cusLocation: cusLocation,
+		cusLocation: cusLocation,
             };
 
-            axios.post("http://localhost:8000/cusDetails/save", data).then((res) => {
-                if (res.data.success) {
-                    this.setState({
-                        cusName: '',
-                        cusEmail: '',
-                        contactNumber: '',
-                        cusLocation: '',
-                        errors: {
-                            cusName: '',
-                            cusEmail: '',
-                            contactNumber: '',
-                            cusLocation:''
-                        }
-                    });
-                }
-            });
-        } else {
-            alert('Please fill in all fields correctly');
+            await axios.post('http://localhost:8000/cusDetails/save', newCusData)
+                .then((res) => {
+                    alert(res.data.success);
+                    console.log(res.data.success);
+                })
+                .catch((err) => {
+                    if (err.response) {
+                        console.log(err.response.data.error);
+                    } else {
+                        console.log("Error occurred while processing your axios post request. " + err.error);
+                    }
+                });
+
+        } catch (err) {
+            console.log('sendData function failed! ERROR: ' + err.message);
         }
+
+        //set state back to first state
+        setCusName('');
+        setCusEmail('');
+        setContactNumber('');
+	setCusLocation('');
     };
 
-    render() {
-        const { errors } = this.state;
-
-        return (
-            <div className="col-md-8 mt-4 mx-auto">
-                <h1 className="h3 mb-3 font-weight-normal">Add new customer detail</h1>
-                <form className="needs-validation" noValidate>
-                    <div className="form-group" style={{ marginBottom: "15px" }}>
+    return (
+        <div className="col-md-8 mt-4 mx-auto">
+            <h1 className="h3 mb-3 font-weight-normal">Add new customer detail</h1>
+            <form className="needs-validation" noValidate onSubmit={sendData}>
+                <div className="form-group" style={{ marginBottom: "15px" }}>
                         <label style={{ marginBottom: "5px" }}>Customer name</label>
                         <input
                             type="text"
-                            className={`form-control ${errors.cusName ? 'is-invalid' : ''}`}
+                            className={`form-control`}
                             name="cusName"
                             placeholder="Enter customer name"
-                            value={this.state.cusName}
-                            onChange={this.handleInputChange}
+                            onChange={(e) => setCusName(e.target.value)}
+                            value={cusName}  
                             required
                         />
-                        {errors.cusName.length > 0 &&
-                            <div className='invalid-feedback'>{errors.cusName}</div>}
+                        {/*errors.cusName.length > 0 &&
+                            <div className='invalid-feedback'>{errors.cusName}</div>*/}
                     </div>
 
                     <div className="form-group" style={{ marginBottom: "15px" }}>
-                        <label style={{ marginBottom: "5px" }}>Customer email</label>
+                        <label style={{ marginBottom: "5px" }}>Email address</label>
                         <input
                             type="text"
-                            className={`form-control ${errors.cusEmail ? 'is-invalid' : ''}`}
+                            className={`form-control`}
                             name="cusEmail"
                             placeholder="Enter email address"
-                            value={this.state.cusEmail}
-                            onChange={this.handleInputChange}
+                            onChange={(e) => setCusEmail(e.target.value)}
+                            value={cusEmail}  
                             required
                         />
-                        {errors.cusEmail.length > 0 &&
-                            <div className='invalid-feedback'>{errors.cusEmail}</div>}
+                        {/* {errors.cusEmail.length > 0 &&
+                            <div className='invalid-feedback'>{errors.v}</div>} */}
                     </div>
 
                     <div className="form-group" style={{ marginBottom: "15px" }}>
-                        <label style={{ marginBottom: "5px" }}>Customer contact number</label>
+                        <label style={{ marginBottom: "5px" }}>Contact number</label>
                         <input
                             type="text"
-                            className={`form-control ${errors.cusPhone ? 'is-invalid' : ''}`}
+                            className={`form-control`}
                             name="contactNumber"
                             placeholder="Enter contact number"
-                            value={this.state.contactNumber}
-                            onChange={this.handleInputChange}
+                            onChange={(e) => setContactNumber(e.target.value)}
+                            value={contactNumber} 
                             required
                         />
-                        {errors.contactNumber.length > 0 &&
-                            <div className='invalid-feedback'>{errors.contactNumber}</div>}
+                        {/* {errors.contactNumber.length > 0 &&
+                            <div className='invalid-feedback'>{errors.contactNumber}</div>} */}
                     </div>
 
-                    <div className="form-group" style={{ marginBottom: "15px" }}>
-                        <label style={{ marginBottom: "5px" }}>Customer address</label>
+		    <div className="form-group" style={{ marginBottom: "15px" }}>
+                        <label style={{ marginBottom: "5px" }}>Address</label>
                         <input
                             type="text"
-                            className={`form-control ${errors.cusLocation ? 'is-invalid' : ''}`}
+                            className={`form-control`}
                             name="cusLocation"
-                            placeholder="Enter customer address"
-                            value={this.state.cusLocation}
-                            onChange={this.handleInputChange}
+                            placeholder="Enter address"
+                            onChange={(e) => setCusLocation(e.target.value)}
+                            value={cusLocation} 
                             required
                         />
-                        {errors.cusLocation.length > 0 &&
-                            <div className='invalid-feedback'>{errors.cusLocation}</div>}
+                        {/* {errors.cusLocation.length > 0 &&
+                            <div className='invalid-feedback'>{errors.cusLocation}</div>} */}
                     </div>
 
-                    <button
-                        className="btn btn-success"
-                        type="submit"
-                        style={{ marginTop: "15px" }}
-                        onClick={this.onSubmit}
-                    >
-                        <i className="far fa-check-square"></i>
-                        &nbsp;Save
-                    </button>
-                </form>
-            </div>
-        );
-    }
-}
+
+                <button
+                    className="btn btn-success"
+                    type="submit"
+                    style={{ marginTop: "15px" }}
+                >
+                    <i className="far fa-check-square"></i>
+                    &nbsp;Save
+                </button>
+            </form>
+        </div>
+    );
+};
+
+export default CreateCusDetails;
