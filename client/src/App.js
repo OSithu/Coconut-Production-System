@@ -105,7 +105,9 @@ function App() {
           <Route path="/viewBlock/:id" Component={ViewBlock} />
           <Route path="/updateBlock/:id" Component={UpdateBlock} />
 
-          <Route path="/viewOrder" Component={viewOrderDetails} /> 
+
+          <Route path="/viewOrder" Component={viewOrderDetails} />
+
           <Route path="/addOrder" Component={CreateOrderDetails} />
           <Route path="/editOrder/:id" Component={EditOrderDetails} />
         </Routes>
