@@ -38,7 +38,7 @@ router.get("/productCnt", async (req, res) => {
 });
 
 //get a specific product details
-router.get("/productsCnt/:id", async (req, res) => {
+router.get("/productCnt/:id", async (req, res) => {
   try {
     let productID = req.params.id;
     let productCnt = await ProductCnt.findById(productID);
