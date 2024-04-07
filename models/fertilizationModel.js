@@ -13,7 +13,7 @@ const FertilizationSchema = new mongoose.Schema({
     },
 
     Date:{
-        type:String,
+        type:Date,
         required:true
     },
 

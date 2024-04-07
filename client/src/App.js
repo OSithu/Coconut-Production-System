@@ -80,9 +80,10 @@ function App() {
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />
           <Route path="/createFinanceDetails" Component={AddTransaction} />
-          <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails}/>
-          
-          
+          <Route
+            path="/editFinanceDetails/:id"
+            Component={EditFinanceDetails}
+          />
 
           <Route path="/viewEmployee" Component={viewEmployee} />
           <Route path="/addEmp" Component={createEmployee} />

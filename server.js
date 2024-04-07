@@ -21,7 +21,9 @@ const qualityRoutes = require("./routes/qualitycontrolRoutes");
 const financeRoute = require("./routes/financeRoute");
 const cusRoutes = require('./routes/customerroutes');
 const employeeRoutes =  require('./routes/employeedetails');
-const budgetRoute = require('./routes/budgetRoute');
+const ordRoutes = require("./routes/orderRoute");
+const productCntRoute = require("./routes/productCntRoute");
+const blockRoute = require("./routes/blockRoute");
 
 //app middleware
 app.use(bodyParser.json());
@@ -36,7 +38,9 @@ app.use(qualityRoutes);
 app.use(financeRoute);
 app.use(cusRoutes);
 app.use(employeeRoutes);
-app.use(budgetRoute);
+app.use(ordRoutes);
+app.use(productCntRoute);
+app.use(blockRoute);
 
 //declaring server running port
 const port = 8000;
@@ -54,4 +58,3 @@ mongoose.connect(db_url, {
 .then(() => {
    console.log("DB connected");
 })
-

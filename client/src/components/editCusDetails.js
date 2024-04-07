@@ -1,130 +1,169 @@
-import axios from 'axios';
-import React, { Component } from 'react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-export default class editCusDetails extends Component {
+const EditCusDetails = () => { // Changed from 'editCusDetails' to 'EditCusDetails'
+  const [cusName, setCusName] = useState("");
+  const [cusEmail, setCusEmail] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [cusLocation, setCusLocation] = useState("");
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            cusName: "",
-            cusEmail: "",
-            cusPhone: "",
-        };
-    }
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    this.setState({
-      ...this.state,
-      [name]: value,
-    });
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    const cusID = this.props.match.params.cusID;
-
-    const {
-        cusName,
-        cusEmail,
-        cusPhone,
-    } = this.state;
-
-    const data = {
-        cusName:cusName,
-        cusEmail:cusEmail,
-        cusPhone:cusPhone,
+  useEffect(() => {
+    const getOneCustomer = async () => {
+      await axios
+        .get(`http://localhost:8000/cusDetails/${id}`)
+        .then((res) => {
+          setCusName(res.data.cusDetails.cusName);
+          setCusEmail(res.data.cusDetails.cusEmail);
+          setContactNumber(res.data.cusDetails.contactNumber);
+          setCusLocation(res.data.cusDetails.cusLocation);
+          console.log(res.data.message);
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data.error);
+          } else {
+            console.log("Error occurred while processing your get request");
+          }
+        });
     };
 
-    console.log(data);
+    getOneCustomer();
+  }, [id]);
 
-    axios.put(`/cusDetails/update/${cusID}`, data).then((res) => {
-      if (res.data.success) {
-        alert("Customer detail updated successfully")
-        this.setState({
-            cusName: "",
-            cusEmail: "",
-            cusPhone: ""
-        });
+  const updateData = async (e) => {
+    e.preventDefault();
+
+    try {
+      const confirmed = window.confirm(
+        "Are you sure you want to update this detail?"
+      );
+      if (confirmed) {
+        let updatedCustomerData = {
+          cusName: cusName,
+          cusEmail: cusEmail,
+          contactNumber: contactNumber,
+          cusLocation: cusLocation,
+        };
+
+        await axios
+          .put(
+            `http://localhost:8000/cusDetails/update/${id}`,
+            updatedCustomerData // Corrected variable name from 'updatedOrderData' to 'updatedCustomerData'
+          )
+          .then((res) => {
+            alert(res.data.success);
+            console.log(res.data.success);
+            navigate("/viewCus");
+          })
+          .catch((err) => {
+            if (err.response) {
+              console.log(err.response.data.success);
+            } else {
+              console.log(
+                "Error occurred while processing your put request"
+              );
+            }
+          });
+      } else {
+        alert("Update cancelled!");
       }
-    });
+    } catch (err) {
+      console.log("Update failed!");
+    }
   };
 
-    componentDidMount(){
+  return (
+    <div className="col-md-8 mt-4 mx-auto">
+      <h1 className="h3 mb-3 font-weight-normal">Edit new customer</h1>
+      <form className="needs-validation" noValidate onSubmit={updateData}>
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Customer Name</label>
+          <input
+            type="text"
+            className={`form-control `}
+            name="cusName"
+            placeholder="Enter customer name"
+            onChange={(e) => setCusName(e.target.value)}
+            value={cusName}
+            required
+          />
+          {/*errors.cusName.length > 0 &&
+                            <div className='invalid-feedback'>{errors.cusName}</div>*/}
+        </div>
 
-        const cusID = this.props.match.params.cusID;
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Email address</label>
+          <input
+            type="text"
+            className={`form-control `}
+            name="cusEmail"
+            placeholder="Enter email address"
+            onChange={(e) => setCusEmail(e.target.value)}
+            value={cusEmail}
+            required
+          />
+          {/* {errors.cusEmail.length > 0 &&
+                            <div className='invalid-feedback'>{errors.cusEmail}</div>} */}
+        </div>
 
-        axios.get(`/cusDetails/${cusID}`).then((res) =>{
-            if(res.data.success){
-                this.setState({
-                    cusName:res.data.cusDetails.cusName,
-                    cusEmail:res.data.cusDetails.cusEmail,
-                    cusPhone:res.data.cusDetails.cusPhone,
-                });
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Contact number</label>
+          <input
+            type="text"
+            className={`form-control `}
+            name="contactNumber"
+            placeholder="Enter contact number"
+            value={contactNumber}
+            onChange={(e) => setContactNumber(e.target.value)}
+            required
+          />
+          {/* {errors.contactNumber.length > 0 &&
+                            <div className='invalid-feedback'>{errors.contactNumber}</div>} */}
+        </div>
 
-                console.log(this.state.cusDetails);
-            }
-        });
-    }
+	<div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Address</label>
+          <input
+            type="text"
+            className={`form-control `}
+            name="cusLocation"
+            placeholder="Enter address"
+            value={cusLocation}
+            onChange={(e) => setCusLocation(e.target.value)}
+            required
+          />
+          {/* {errors.cusLocation.length > 0 &&
+                            <div className='invalid-feedback'>{errors.cusLocation}</div>} */}
+        </div>
 
 
-    render() {
-        return (
-          <div className="col-md-8 mt-4 mx-auto">
-            <h1 className="h3 mb-3 font-weight-normal">Edit customer details</h1>
-            <form className="needs-validation" noValidate>
-              <div className="form-group" style={{ marginBottom: "15px" }}>
-                <label style={{ marginBottom: "5px" }}>Customer name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="cusName"
-                  placeholder="Enter customer name"
-                  value={this.state.cusName}
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </div>
-    
-              <div className="form-group" style={{ marginBottom: "15px" }}>
-                <label style={{ marginBottom: "5px" }}>Customer email</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="cusEmail"
-                  placeholder="Enter email address"
-                  value={this.state.cusEmail}
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </div>
-    
-              <div className="form-group" style={{ marginBottom: "15px" }}>
-                <label style={{ marginBottom: "5px" }}>Customer contact number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="cusPhone"
-                  placeholder="Enter contact number"
-                  value={this.state.cusPhone}
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </div>
-    
-    
-              <button
-                className="btn btn-success"
-                type="submit"
-                style={{ marginTop: "15px" }}
-                onClick={this.onSubmit}
-              >
-                <i className="far fa-check-square"></i>
-                &nbsp;Update
-              </button>
-            </form>
-          </div>
-        );
-    }
-}
+        <button
+          className="btn btn-success"
+          type="submit"
+          style={{ marginTop: "15px" }}
+        >
+          &nbsp;Update
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default EditCusDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+

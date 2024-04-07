@@ -25,6 +25,10 @@ const productSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  reOrderLevel: {
+    type: Number,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Products", productSchema);
