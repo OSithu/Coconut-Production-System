@@ -1,6 +1,5 @@
 const express = require("express");
 const OrderDetails = require("../models/orderModel");
-const orderModel = require("../models/orderModel");
 
 const router = express.Router();
 
@@ -53,11 +52,12 @@ router.put("/orderDetails/update/:id", async (req, res) => {
   }
 });
 
-
 //delete post
 router.delete("/orderDetails/delete/:id", async (req, res) => {
   try {
-    const deletedRecords = await OrderDetails.findByIdAndDelete(req.params.id).exec();
+    const deletedRecords = await OrderDetails.findByIdAndDelete(
+      req.params.id
+    ).exec();
 
     return res.json({
       message: "Delete Successfully",
@@ -67,23 +67,24 @@ router.delete("/orderDetails/delete/:id", async (req, res) => {
     return res.status(400).json({
       message: "Deleted unsuccessfully",
       error: err.message,
-    });
-    }
-  });
+    });
+  }
+});
 
 //Get Specific Post
 router.get("/orderDetails/:id", async (req, res) => {
-    try {
-        let orderID = req.params.id;
-        let orderDetails = await OrderDetails.findById(orderID);
-        if (!OrderDetails) {
-            return res.status(404).json({ success: false, message: "Record not found" });
-        }
-        return res.status(200).json({ success: true, orderDetails });
-    } catch (err) {
-        return res.status(400).json({ success: false, error: err.message });
-    }
+  try {
+    let orderID = req.params.id;
+    let orderDetails = await OrderDetails.findById(orderID);
+    if (!orderDetails) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Record not found" });
+    }
+    return res.status(200).json({ success: true, orderDetails });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
 });
-
 
 module.exports = router;
