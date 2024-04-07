@@ -38,7 +38,7 @@ import viewProducts from "./components/viewProducts";
 import EditProducts from "./components/EditProducts";
 import viewOrderDetails from "./components/viewOrderDetails";
 
-import estateDetails from "./components/estateDetails";
+import EstateDetails from "./components/EstateDetails";
 import AddBlock from "./components/AddBlock";
 import ViewBlock from "./components/ViewBlock";
 import UpdateBlock from "./components/UpdateBlock";
@@ -88,7 +88,7 @@ function App() {
           <Route path="/addProduct" Component={CreateProducts} />
           <Route path="/editProduct/:id" Component={EditProducts} />
 
-          <Route path="/estateDetails" Component={estateDetails} />
+          <Route path="/estateDetails" Component={EstateDetails} />
           <Route path="/addBlock" Component={AddBlock} />
           <Route path="/viewBlock/:id" Component={ViewBlock} />
           <Route path="/updateBlock/:id" Component={UpdateBlock} />
