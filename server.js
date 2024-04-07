@@ -58,4 +58,3 @@ mongoose.connect(db_url, {
 .then(() => {
    console.log("DB connected");
 })
-

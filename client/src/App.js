@@ -81,10 +81,7 @@ function App() {
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />
           <Route path="/createFinanceDetails" Component={AddTransaction} />
-          <Route
-            path="/editFinanceDetails/:id"
-            Component={EditFinanceDetails}
-          />
+          <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails}/>
 
           <Route path="/viewEmployee" Component={viewEmployee} />
           <Route path="/addEmp" Component={createEmployee} />
@@ -108,7 +105,7 @@ function App() {
           <Route path="/viewBlock/:id" Component={ViewBlock} />
           <Route path="/updateBlock/:id" Component={UpdateBlock} />
 
-          <Route path="/viewOrder" Component={viewOrderDetails} />
+          <Route path="/viewOrder" Component={viewOrderDetails} /> 
           <Route path="/addOrder" Component={CreateOrderDetails} />
           <Route path="/editOrder/:id" Component={EditOrderDetails} />
         </Routes>

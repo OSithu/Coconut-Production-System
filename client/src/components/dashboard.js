@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class dashboard extends Component {
+export default class Dashboard extends Component {
   render() {
     return (
       <div>
@@ -12,7 +12,7 @@ export default class dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Plantation Management</h2>
-        <a href="/ViewTrees" class="btn btn-primary">Enter</a>
+        <a href="/estateDetails" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>
