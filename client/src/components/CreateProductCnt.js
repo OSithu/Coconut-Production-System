@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import updateProductQuantity from './ViewProductCnt';
 
 const CreateProductCnt = () => {
   const [productId, setProductId] = useState('');
@@ -103,8 +104,8 @@ const CreateProductCnt = () => {
                 <input
                   type="radio"
                   name="description"
-                  value="increment"
-                  checked={description === "increment"}
+                  value="Incremented"
+                  checked={description === "Incremented"}
                   onChange={(e) => setProductDesc(e.target.value)}
                 />
                 &nbsp;Increment
@@ -114,8 +115,8 @@ const CreateProductCnt = () => {
                 <input
                   type="radio"
                   name="description"
-                  value="decrement"
-                  checked={description === "decrement"}
+                  value="Decremented"
+                  checked={description === "Decremented"}
                   onChange={(e) => setProductDesc(e.target.value)}
                 />
                 &nbsp;Decrement
