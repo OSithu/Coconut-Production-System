@@ -26,6 +26,17 @@ const ViewProducts = () => {
     getAllItems();
   }, []);
 
+  // const updateProductQuantity = async (productId, newQuantity) => {
+  //   try {
+  //     await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
+  //       quantity: newQuantity
+  //     });
+  //     console.log("Product quantity updated successfully.");
+  //   } catch (error) {
+  //     console.error("Error occurred while updating product quantity:", error);
+  //   }
+  // };
+
   //implementing handleDelete function
   const handleDelete = async (id) => {
     try {
@@ -38,7 +49,7 @@ const ViewProducts = () => {
           .then((res) => {
             alert(res.data.message);
             console.log(res.data.message);
-            setAllItem(allProducts.filter(products => products._id !==id));
+            setAllItem(allProducts.filter((products) => products._id !== id));
           })
           .catch((err) => {
             if (err.response) {
@@ -56,9 +67,28 @@ const ViewProducts = () => {
   };
 
   return (
+    // <div style={{backgroundImage: "url(/productBack1.jpg)",}}>
     <div className="container">
       <div>
-        <p>All Products</p>
+        <p style={{textAlign: "center", fontFamily: "sans-serif", fontSize: "24px"}}>All Products</p>
+        <div style={{textAlign: "right"}}>
+        <button className="btn btn-success">
+          <a
+            href="/addProduct"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Add New Product
+          </a>
+        </button> &nbsp;&nbsp;&nbsp;&nbsp;
+        <button className="btn btn-success">
+          <a
+            href="/viewProductCnt"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Product Count
+          </a>
+        </button>
+        </div>
         <table className="table">
           <thead>
             <tr>
@@ -70,64 +100,59 @@ const ViewProducts = () => {
               <th scope="col">manufacturedDate</th>
               <th scope="col">expirationDate</th>
               <th scope="col">Re-orderLevel</th>
+              <th scope="col">Additional notes</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
             {allProducts.map((products, index) => (
-              <tr key={products._id} className={products.quantity < products.reOrderLevel ? "table-danger" : ""}>
+              <tr
+                key={products._id}
+                className={
+                  products.quantity < products.reOrderLevel
+                    ? "table-danger"
+                    : ""
+                }
+              >
                 <td>{products.productId}</td>
                 <td>{products.productName}</td>
-                <td>{products.quantity}
-                {products.quantity < products.reOrderLevel && (
-                  <td style={{ color: "red" }}>Quantity below reorder level</td>
-                )}</td>
+                <td>
+                  {products.quantity}
+
+                </td>
                 <td>{products.category}</td>
                 <td>{products.manufacturedDate}</td>
                 <td>{products.expirationDate}</td>
                 <td>{products.reOrderLevel}</td>
                 <td>
+                {products.quantity < products.reOrderLevel && (
+                  <span style={{ color: "red" }}>Quantity below reorder level</span>
+                )}
+              </td>
+                <td>
                   <a
                     className="btn btn-warning"
                     href={`/editProduct/${products._id}`}
+                    style={{ width: "100px",  }}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
-                  &nbsp;
                   <a
                     className="btn btn-danger"
                     href="#"
                     onClick={() => handleDelete(products._id)}
+                    style={{ width: "100px" }}
                   >
                     <i className="far fa-trash-alt"></i>&nbsp;Delete
                   </a>
                 </td>
-                {/* {products.quantity < products.reOrderLevel && (
-                  <td style={{ color: "red" }}>Quantity below reorder level</td>
-                )} */}
               </tr>
             ))}
           </tbody>
         </table>
-
-        <button className="btn btn-success">
-          <a
-            href="/addProduct"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Add New Product
-          </a>
-        </button>
-        <button className="btn btn-success">
-          <a
-            href="/viewProductCnt"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Product Count
-          </a>
-        </button>
       </div>
     </div>
+    // </div>
   );
 };
 

@@ -1,5 +1,6 @@
 const express = require("express");
 const Products = require("../models/productModel");
+const productCount = require("./productCntRoute");
 
 const router = express.Router();
 
@@ -7,6 +8,18 @@ const router = express.Router();
 router.post("/products/save", async (req, res) => {
   //instantiation
   try {
+    //check if productID already exists in the database
+    const existingProductID = await Products.findOne({productId: req.body.productId})
+    if(existingProductID) {
+      return res.status(400).json({ error: "Product ID already exists"});
+    }
+
+    const existingProductName = await Products.findOne({productName: req.body.productName})
+    if (existingProductName) {
+      return res.status(400).json({error: "Product Name already exists"});
+    }
+
+    //if product exists, save new product details
     let newProduct = new Products(req.body);
 
     await newProduct.save();
@@ -14,6 +27,7 @@ router.post("/products/save", async (req, res) => {
     return res.status(200).json({
       success: "Details saved successfully.",
     });
+
   } catch (err) {
     return res.status(400).json({
       error: err.message,
