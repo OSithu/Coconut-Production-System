@@ -1,6 +1,7 @@
 import React, { useState }from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import PlantationNav from './PlantationNav';
 
 const AddTrees = () => {
     const [treeID , setTreeID] = useState('');
@@ -10,7 +11,18 @@ const AddTrees = () => {
     const [specialNotes , setSpecialNotes] = useState('');
     const [errors, setErrors] = useState({});
 
-    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Extract blockName from URL query parameters
+    const queryParams = new URLSearchParams(location.search);
+    const blockNameFromQuery = queryParams.get('blockName');
+
+    // Set blockName state with blockName from query
+    useState(() => {
+        if (blockNameFromQuery) {
+            setBlockName(blockNameFromQuery);
+        }
+    }, [blockNameFromQuery]);
 
     const saveDetails = async (e) => {
         e.preventDefault();
@@ -48,8 +60,6 @@ const AddTrees = () => {
             return;
         }
 
-        
-
         let newTree = {
             treeID: treeID,
             typeOfTree: typeOfTree,
@@ -62,7 +72,7 @@ const AddTrees = () => {
         .then((res) => {
             alert(res.data.success);
             console.log(res.data.success);
-            navigate('/ViewTrees');
+            window.location.reload();
         })
         .catch((err) => {
             if(err.response){
@@ -76,6 +86,8 @@ const AddTrees = () => {
 
   return (
     <div className="col-md-8 mt-4 mx auto">
+
+        <PlantationNav/>
 
                  <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
                  <form className="needs-validation" noValidate onSubmit={saveDetails}>
@@ -92,12 +104,17 @@ const AddTrees = () => {
 
                      <div class="form-group" style={{ marginBottom: '15px' }}>
                          <label style={{ marginBottom: '5px' }}> Type of Tree </label>
-                         <input type="text"
-                             className={`form-control ${errors.typeOfTree ? 'is-invalid' : ''}`}
-                             name="typeOfTree"
-                             placeholder="Enter Tree Type"
-                             value={typeOfTree}
-                             onChange={(e) => setTypeOfTree(e.target.value)}/>
+                         <select
+                                    className="form-select"
+                                    name="unit"
+                                    value={typeOfTree}
+                                    onChange={(e) => setTypeOfTree(e.target.value)}
+                                >
+                                    <option value="">Select Type</option>
+                                    <option value="CRIC 60">CRIC 60</option>
+                                    <option value="CRIC 65">CRIC 65</option>
+                                    <option value="CRISL 98">CRISL 98</option>
+                                </select>
                         {errors.typeOfTree && <div className="invalid-feedback">{errors.typeOfTree}</div>}
                      </div>
 
@@ -111,16 +128,19 @@ const AddTrees = () => {
                              {errors.plantedDate && <div className="invalid-feedback">{errors.plantedDate}</div>}
                      </div>
 
-                     <div class="form-group" style={{ marginBottom: '15px' }}>
-                         <label style={{ marginBottom: '5px' }}> Block Name </label>
-                         <input type="text"
-                             className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
-                             name="blockName"
-                             placeholder="Enter Block Name"
-                             value={blockName}
-                             onChange={(e) => setBlockName(e.target.value)}/>
-                             {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
-                     </div>
+                     <div className="form-group" style={{ marginBottom: '15px' }}>
+                    <label style={{ marginBottom: '5px' }}> Block Name </label>
+                    <input
+                        type="text"
+                        className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
+                        name="blockName"
+                        placeholder="Enter Block Name"
+                        value={blockName}
+                        onChange={(e) => setBlockName(e.target.value)}
+                        disabled // Disable user input if you want to prevent changes
+                    />
+                    {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
+                </div>
 
                      <div class="form-group" style={{ marginBottom: '15px' }}>
                          <label style={{ marginBottom: '5px' }}>Special Notes</label>

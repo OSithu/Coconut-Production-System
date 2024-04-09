@@ -26,10 +26,37 @@ router.post('/tree/save',async (req,res)=>{
 }
 }); 
 
+// //read
+// router.get("/trees", async (req, res) => {
+//   try {
+//       const trees = await Trees.find().exec();
+
+//       const formattedTrees = trees.map(tree => ({
+//         ...tree.toObject(),
+//         plantedDate: tree.plantedDate.toISOString().split('T')[0] // Extracting only the date part
+//       }));
+  
+//       return res.status(200).json({
+//         success: true,
+//         existingTrees: formattedTrees,
+//       });
+//     } catch (err) {
+//       return res.status(400).json({
+//         error: err.message,
+//       });
+//     }
+// });
+
 //read
 router.get("/trees", async (req, res) => {
   try {
-      const trees = await Trees.find().exec();
+      const { blockName } = req.query;
+      let trees;
+      if (blockName) {
+          trees = await Trees.find({ blockName }).exec();
+      } else {
+          trees = await Trees.find().exec();
+      }
 
       const formattedTrees = trees.map(tree => ({
         ...tree.toObject(),
@@ -46,6 +73,7 @@ router.get("/trees", async (req, res) => {
       });
     }
 });
+
 
   //update
   router.patch("/trees/update/:id", async (req, res) => {
@@ -93,5 +121,7 @@ router.get("/trees", async (req, res) => {
         return res.status(400).json({ success: false, error: err.message });
       }
   });
+
+
 
 module.exports = router;
