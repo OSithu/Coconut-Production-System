@@ -71,7 +71,7 @@ function App() {
             Component={editFertilization}
           />
 
-          <Route path="/ViewTrees" Component={ViewTrees} />
+          <Route path="/ViewTrees/:id" Component={ViewTrees} />
           <Route path="/AddTrees" Component={AddTrees} />
           <Route path="/updateTrees/:id" Component={UpdateTrees} />
 

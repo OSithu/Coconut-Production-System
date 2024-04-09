@@ -45,7 +45,7 @@ router.get("/blocks", async (req, res) => {
 });
 
   //update
-  router.put("/blocks/update/:id", async (req, res) => {
+  router.patch("/blocks/update/:id", async (req, res) => {
     try {
       await Blocks.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
   
@@ -90,6 +90,8 @@ router.get("/blocks", async (req, res) => {
         return res.status(400).json({ success: false, error: err.message });
     }
 });
+
+
 
 
 module.exports = router;

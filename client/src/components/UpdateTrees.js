@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
+import PlantationNav from './PlantationNav'
 
 const UpdateTrees = () => {
 
@@ -72,7 +73,7 @@ const UpdateTrees = () => {
                     .then((res) => {
                         alert(res.data.success);
                         console.log(res.data.success);
-                        navigate('/ViewTrees');
+                        navigate(`/ViewTrees/${blockName}?blockName=${blockName}`);
                     })
                     .catch((err) => {
                         if (err.response) {
@@ -92,6 +93,9 @@ const UpdateTrees = () => {
     }
 
     return (
+        <div>
+            <PlantationNav/>
+        
         <form className="needs-validation" noValidate onSubmit={updateDetails}>
             <div class="form-group" style={{ marginBottom: '15px' }}>
                 <label style={{ marginBottom: '5px' }}> Tree ID </label>
@@ -145,6 +149,7 @@ const UpdateTrees = () => {
 
             <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Update</button>
         </form>
+        </div>
     )
 }
 

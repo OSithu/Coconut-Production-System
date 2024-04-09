@@ -8,7 +8,7 @@ export default class PlantationNav extends Component {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/viewTrees"> Estate Details </a>
+                                <a class="nav-link active" aria-current="page" href="/estateDetails"> Estate Details </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="#"> Harvest Details </a>
