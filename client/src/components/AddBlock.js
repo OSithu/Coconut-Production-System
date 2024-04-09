@@ -128,7 +128,7 @@ export default class AddBlock extends Component {
                                 value={this.state.area.value}
                                 onChange={this.handleInputChange} />
                             {errors.area && <div className="invalid-feedback">{errors.area}</div>}
-                            <div className="col-sm-2">
+                            
                                 <select
                                     className="form-select"
                                     name="unit"
@@ -141,7 +141,7 @@ export default class AddBlock extends Component {
                                     <option value="hectare">hectare</option>
                                     <option value="acre">acre</option>
                                 </select>
-                            </div>
+                           
                         </div>
                     </div>
 
