@@ -49,9 +49,13 @@ import viewOrderDetails from "./components/viewOrderDetails";
 import EstateDetails from "./components/EstateDetails";
 import AddBlock from "./components/AddBlock";
 import ViewBlock from "./components/ViewBlock";
-import UpdateBlock from "./components/UpdateBlock";
+
 import CreateOrderDetails from "./components/createOrderDetails";
 import EditOrderDetails from "./components/editOrderDetails";
+
+import ViewHarvest from "./components/ViewHarvest";
+import AddHarvest from "./components/AddHarvest";
+import UpdateHarvest from "./components/UpdateHarvest";
 
 function App() {
   return (
@@ -103,13 +107,17 @@ function App() {
           <Route path="/estateDetails" Component={EstateDetails} />
           <Route path="/addBlock" Component={AddBlock} />
           <Route path="/viewBlock/:id" Component={ViewBlock} />
-          <Route path="/updateBlock/:id" Component={UpdateBlock} />
 
 
           <Route path="/viewOrder" Component={viewOrderDetails} />
 
           <Route path="/addOrder" Component={CreateOrderDetails} />
           <Route path="/editOrder/:id" Component={EditOrderDetails} />
+
+          <Route path="/viewHarvest" Component={ViewHarvest} />
+          <Route path="/addHarvest" Component={AddHarvest} />
+          <Route path="/editHarvest/:id" Component={UpdateHarvest} />
+
         </Routes>
       </div>
     </Router>
