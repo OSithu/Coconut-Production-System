@@ -1,6 +1,5 @@
 const express = require("express");
 const Products = require("../models/productModel");
-const productCount = require("./productCntRoute");
 
 const router = express.Router();
 
@@ -52,22 +51,6 @@ router.get("/products", async (req, res) => {
 }); 
 
 //get a specific product details
-// router.get("/products/:id",(req,res) =>{
-//   let productID = req.params.id;
-
-//   Products.findById(productID,(err,post) =>{
-//     if(err){
-//       return res.status(400).json({success:false,err})
-//     }
-
-//     return res.status(200).json({
-//       success:true,
-//       post
-//     })
-//   })
-// })
-
-//get a specific product details
 router.get("/products/:id", async (req, res) => {
   try {
       let productID = req.params.id;
@@ -115,5 +98,34 @@ router.delete("/products/delete/:id", async (req, res) => {
     });
   }
 });
+
+// Update product quantity
+router.put("/products/updateQuantity/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const additionalQuantity = req.body.quantity;
+
+    // Find the product by productId and update its quantity
+    const product = await Products.findOne({ productId: productId });
+    if (!product) {
+      return res.status(404).json({ success: false, error: "Product not found." });
+    }
+
+    // Calculate new quantity
+    const newQuantity = product.quantity + additionalQuantity;
+
+    // Update product quantity
+    await Products.findOneAndUpdate(
+      { productId: productId },
+      { $set: { quantity: newQuantity } }
+    );
+
+    res.status(200).json({ success: true, message: "Product quantity updated successfully." });
+  } catch (error) {
+    console.error("Error occurred while updating product quantity:", error);
+    res.status(500).json({ success: false, error: "Failed to update product quantity." });
+  }
+});
+
 
 module.exports = router;
