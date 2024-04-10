@@ -45,9 +45,49 @@ const EditProductCnt = () => {
     getOneProductRecord();
   }, [id]);
 
+  // const updateData = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const confirmed = window.confirm(
+  //       "Are you sure you want to update this product?"
+  //     );
+  //     if (confirmed) {
+  //       let updatedProductData = {
+  //         productId: productId,
+  //         quantity: quantity,
+  //         productDate: productDate,
+  //         description: description,
+  //       };
+
+  //       await axios
+  //         .put(
+  //           `http://localhost:8000/productCnt/update/${id}`,
+  //           updatedProductData
+  //         )
+  //         .then((res) => {
+  //           alert(res.data.success);
+  //           console.log(res.data.success);
+  //           navigate("/viewProductCnt");
+  //         })
+  //         .catch((err) => {
+  //           if (err.response) {
+  //             console.log(err.response.data.success);
+  //           } else {
+  //             console.log("Error occured while processing your put request");
+  //           }
+  //         });
+  //     } else {
+  //       alert("Update cancelled!");
+  //     }
+  //   } catch (err) {
+  //     console.log("Update failed!");
+  //   }
+  // };
+
   const updateData = async (e) => {
     e.preventDefault();
-
+  
     try {
       const confirmed = window.confirm(
         "Are you sure you want to update this product?"
@@ -59,31 +99,44 @@ const EditProductCnt = () => {
           productDate: productDate,
           description: description,
         };
-
-        await axios
-          .put(
-            `http://localhost:8000/productCnt/update/${id}`,
-            updatedProductData
-          )
-          .then((res) => {
-            alert(res.data.success);
-            console.log(res.data.success);
-            navigate("/viewProductCnt");
-          })
-          .catch((err) => {
-            if (err.response) {
-              console.log(err.response.data.success);
-            } else {
-              console.log("Error occured while processing your put request");
-            }
+  
+        const res = await axios.put(
+          `http://localhost:8000/productCnt/update/${id}`,
+          updatedProductData
+        );
+  
+        if (description === 'Incremented') {
+          // Call updateProductQuantity to add quantity
+          await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
+            quantity: +quantity,
+            existedQuantity: updatedProductData.quantity
           });
+        } else if (description === 'Decremented') {
+          // Call updateProductQuantity to subtract quantity
+          await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
+            quantity: -quantity, 
+            existedQuantity: updatedProductData.quantity
+          });
+        } else {
+          console.error('Invalid description:', description);
+          return; // Exit the function if description is invalid
+        }
+  
+        // Display success message
+        alert('Product quantity updated successfully.');
+  
+        alert(res.data.success);
+        console.log(res.data.success);
+        navigate("/viewProductCnt");
       } else {
         alert("Update cancelled!");
       }
     } catch (err) {
       console.log("Update failed!");
+      alert("Failed to update product. Please try again.");
     }
   };
+  
 
   return (
     <div className="col-md-5 mt-5 mx-auto">
@@ -143,8 +196,8 @@ const EditProductCnt = () => {
               <input
                 type="radio"
                 name="description"
-                value="increment"
-                checked={description === "increment"}
+                value="Incremented"
+                checked={description === "Incremented"}
                 onChange={(e) => setProductDesc(e.target.value)}
               />
               &nbsp;Increment
@@ -154,8 +207,8 @@ const EditProductCnt = () => {
               <input
                 type="radio"
                 name="description"
-                value="decrement"
-                checked={description === "decrement"}
+                value="Decremented"
+                checked={description === "Decremented"}
                 onChange={(e) => setProductDesc(e.target.value)}
               />
               &nbsp;Decrement
