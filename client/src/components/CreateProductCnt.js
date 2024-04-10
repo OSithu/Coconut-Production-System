@@ -7,6 +7,7 @@ const CreateProductCnt = () => {
   const [quantity, setProductQty] = useState("");
   const [productDate, setProductDate] = useState("");
   const [description, setProductDesc] = useState("");
+  // const [error, setError] = useState("");
 
   const sendData = async (e) => {
     e.preventDefault();
@@ -22,6 +23,11 @@ const CreateProductCnt = () => {
   
       const res = await axios.post("http://localhost:8000/productCnt/save", newProductRecData);
   
+      // if (res.data.error) {
+      //   setError(res.data.error);
+      //   return; 
+      // }
+
       alert(res.data.success);
       console.log(res.data.success);
   
