@@ -12,11 +12,6 @@ const blockSchema = new mongoose.Schema({
         unit: { type: String, enum: ['sqm', 'sqft', 'hectare', 'acre'] } // Define possible unit options
     },
 
-    treeCount:{
-        type: Number,
-        required: false
-    },
-
     lastHarvested:{
         type: Date,
         default: null,

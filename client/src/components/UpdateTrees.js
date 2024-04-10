@@ -94,7 +94,8 @@ const UpdateTrees = () => {
                                         name="treeID"
                                         placeholder="Enter Tree ID"
                                         value={treeID}
-                                        onChange={(e) => setTreeID(e.target.value)} />
+                                        onChange={(e) => setTreeID(e.target.value)} 
+                                        disabled/>
                                 </div>
                             </div>
 
@@ -106,7 +107,8 @@ const UpdateTrees = () => {
                                         name="typeOfTree"
                                         placeholder="Enter Tree Type"
                                         value={typeOfTree}
-                                        onChange={(e) => setTypeOfTree(e.target.value)} />
+                                        onChange={(e) => setTypeOfTree(e.target.value)} 
+                                        disabled/>
                                 </div>
                             </div>
 
@@ -117,7 +119,8 @@ const UpdateTrees = () => {
                                         className="form-control"
                                         name="plantedDate"
                                         value={plantedDate}
-                                        onChange={(e) => setPlantedDate(e.target.value)} />
+                                        onChange={(e) => setPlantedDate(e.target.value)} 
+                                        disabled/>
                                 </div>
                             </div>
 
@@ -129,7 +132,8 @@ const UpdateTrees = () => {
                                         name="blockName"
                                         placeholder="Enter Block Name"
                                         value={blockName}
-                                        onChange={(e) => setBlockName(e.target.value)} />
+                                        onChange={(e) => setBlockName(e.target.value)} 
+                                        disabled/>
                                 </div>
                             </div>
 

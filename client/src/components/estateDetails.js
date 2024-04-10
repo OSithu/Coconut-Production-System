@@ -6,6 +6,7 @@ import PlantationNav from './PlantationNav';
 const EstateDetails = () => {
 
   const [allBlocks, setAllBlocks] = useState([]);
+  const [treeCount, setTreeCount] = useState([]);
 
   useEffect(() => {
     const getAllBlocks = async () => {
@@ -23,14 +24,31 @@ const EstateDetails = () => {
         }
       }
     };
-  
+
+    const getTreeCount = async () => {
+      await axios(`http://localhost:8000/treeCount`)
+        .then((res) => {
+          setTreeCount(res.data.count);
+          console.log('Status : ' + res.data.success);
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data.error)
+          }
+        })
+
+
+
+    };
+    
+    getTreeCount();
     getAllBlocks();
   }, []);
-  
+
 
   return (
     <div>
-      <PlantationNav/>
+      <PlantationNav />
       &nbsp;
       <div className="container text-center">
         <h2> Estate Details </h2>
@@ -38,7 +56,7 @@ const EstateDetails = () => {
           <div className="col">
             <ul className="list-group list-group-flush">
               <li className="list-group-item"> Area : 5 acres </li>
-              <li className="list-group-item"> Tree Count : 300 </li>
+              <li className="list-group-item"> Tree Count : {treeCount !== null ? treeCount : 'Loading...'} </li>              
               <li className="list-group-item"> Block Count : 5 </li>
             </ul>
           </div>
@@ -64,7 +82,6 @@ const EstateDetails = () => {
                 <tr>
                   <th scope="col"> Block Name </th>
                   <th scope="col"> Area </th>
-                  <th scope="col"> Tree Count </th>
                 </tr>
               </thead>
               <tbody>
@@ -72,7 +89,6 @@ const EstateDetails = () => {
                   <tr>
                     <td> {blocks.blockName} </td>
                     <td> {blocks.area}</td>
-                    <td> {blocks.treeCount} </td>
                     <td>
                       <Link to={`/viewBlock/${blocks._id}`}>
                         <button type="button" className="btn btn-success">

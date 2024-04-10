@@ -49,29 +49,53 @@ const ViewBlock = () => {
 
     useEffect(() => {
 
+        //const getBlock = async () => {
+
+            // await axios.get(`http://localhost:8000/blocks/${id}`)
+            //     .then((res) => {
+            //         setBlockName(res.data.block.blockName);
+            //         setArea(res.data.block.area.value);
+            //         setAreaUnit(res.data.block.area.unit);
+            //         setTreeCount(res.data.block.treeCount);
+            //         setLastHarvested(formatDate(res.data.block.lastHarvested));
+            //         setNextHarvesting(formatDate(res.data.block.nextHarvesting));
+            //         setLastFertilized(formatDate(res.data.block.lastFertilized));
+            //         setNextFertilization(formatDate(res.data.block.nextFertilization));
+            //         console.log('Status : ' + res.data.success);
+
+            //     })
+            //     .catch((err) => {
+            //         if (err.response) {
+            //             console.log(err.response.data.error)
+            //         } else {
+            //             console.log("Error occurred while getting axios get request")
+            //         }
+            //     })
+        //}
+
         const getBlock = async () => {
-
-            await axios.get(`http://localhost:8000/blocks/${id}`)
-                .then((res) => {
-                    setBlockName(res.data.block.blockName);
-                    setArea(res.data.block.area.value);
-                    setAreaUnit(res.data.block.area.unit);
-                    setTreeCount(res.data.block.treeCount);
-                    setLastHarvested(formatDate(res.data.block.lastHarvested));
-                    setNextHarvesting(formatDate(res.data.block.nextHarvesting));
-                    setLastFertilized(formatDate(res.data.block.lastFertilized));
-                    setNextFertilization(formatDate(res.data.block.nextFertilization));
-                    console.log('Status : ' + res.data.success);
-
-                })
-                .catch((err) => {
-                    if (err.response) {
-                        console.log(err.response.data.error)
-                    } else {
-                        console.log("Error occurred while getting axios get request")
-                    }
-                })
-        }
+            try {
+                const blockResponse = await axios.get(`http://localhost:8000/blocks/${id}`);
+                setBlockName(blockResponse.data.block.blockName);
+                setArea(blockResponse.data.block.area.value);
+                setAreaUnit(blockResponse.data.block.area.unit);
+                setTreeCount(blockResponse.data.block.treeCount);
+                setLastHarvested(formatDate(blockResponse.data.block.lastHarvested));
+                setNextHarvesting(formatDate(blockResponse.data.block.nextHarvesting));
+                setLastFertilized(formatDate(blockResponse.data.block.lastFertilized));
+                setNextFertilization(formatDate(blockResponse.data.block.nextFertilization));
+                console.log('Status : ' + blockResponse.data.success);
+    
+                const treeCountResponse = await axios.get(`http://localhost:8000/treeCount/${blockResponse.data.block.blockName}`);
+                setTreeCount(treeCountResponse.data.count);
+            } catch (err) {
+                if (err.response) {
+                    console.log(err.response.data.error)
+                } else {
+                    console.log("Error occurred while getting data")
+                }
+            }
+        };
 
         getBlock();
 
@@ -156,6 +180,8 @@ const ViewBlock = () => {
         setIsEditable(true);
     };
 
+    const notEditable = false;
+
     // Function to validate the form
     const validateForm = () => {
         let valid = true;
@@ -237,7 +263,7 @@ const ViewBlock = () => {
                                         name="blockName"
                                         value={blockName}
                                         onChange={(e) => setBlockName(e.target.value)}
-                                        disabled={!isEditable} />
+                                        disabled={!notEditable} />
                                     {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
                                 </div>
                             </div>
@@ -278,7 +304,7 @@ const ViewBlock = () => {
                                         name="treeCount"
                                         value={treeCount}
                                         onChange={(e) => setTreeCount(e.target.value)}
-                                        disabled={!isEditable} />
+                                        disabled={!notEditable} />
                                     {errors.treeCount && <div className="invalid-feedback">{errors.treeCount}</div>}
                                 </div>
                             </div>

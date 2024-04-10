@@ -1,16 +1,17 @@
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
 
 const AddTrees = () => {
-    const [treeID , setTreeID] = useState('');
-    const [typeOfTree , setTypeOfTree] = useState('');
-    const [plantedDate , setPlantedDate] = useState('');
-    const [blockName , setBlockName] = useState('');
-    const [specialNotes , setSpecialNotes] = useState('');
+    const [treeID, setTreeID] = useState('');
+    const [typeOfTree, setTypeOfTree] = useState('');
+    const [plantedDate, setPlantedDate] = useState('');
+    const [blockName, setBlockName] = useState('');
+    const [specialNotes, setSpecialNotes] = useState('');
     const [errors, setErrors] = useState({});
 
+    const navigate = useNavigate();
     const location = useLocation();
 
     // Extract blockName from URL query parameters
@@ -69,94 +70,108 @@ const AddTrees = () => {
         };
 
         axios.post("http://localhost:8000/tree/save", newTree)
-        .then((res) => {
-            alert(res.data.success);
-            console.log(res.data.success);
-            window.location.reload();
-        })
-        .catch((err) => {
-            if(err.response){
-                console.log(err.response.data.message);
-                alert(err.response.data.error)
-            } else {
-                console.log("Error occurred while processing axios post request" + err.message);
-            }
-        });
+            .then((res) => {
+                alert(res.data.success);
+                console.log(res.data.success);
+                navigate(`/ViewTrees/${blockName}?blockName=${blockName}`);
+            })
+            .catch((err) => {
+                if (err.response) {
+                    console.log(err.response.data.message);
+                    alert(err.response.data.error)
+                } else {
+                    console.log("Error occurred while processing axios post request" + err.message);
+                }
+            });
     };
 
-  return (
-    <div className="col-md-8 mt-4 mx auto">
+    return (
+        <div className="container text-center">
 
-        <PlantationNav/>
-
-                 <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
-                 <form className="needs-validation" noValidate onSubmit={saveDetails}>
-                     <div class="form-group" style={{ marginBottom: '15px' }}>
-                         <label style={{ marginBottom: '5px' }}> Tree ID </label>
-                         <input type="text"
-                             className={`form-control ${errors.treeID ? 'is-invalid' : ''}`}
-                             name="treeID"
-                             placeholder="Enter Tree ID"
-                             value={treeID}
-                             onChange={(e) => setTreeID(e.target.value)}/>
+            <PlantationNav />
+            &nbsp;
+            <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
+            &nbsp; &nbsp;
+            <form className="needs-validation" noValidate onSubmit={saveDetails}>
+                <div className="row justify-content-md-center">
+                    <label className="col-sm-2 col-form-label">Tree ID</label>
+                    <div className="col-sm-10">
+                        <input type="text"
+                            className={`form-control ${errors.treeID ? 'is-invalid' : ''}`}
+                            name="treeID"
+                            placeholder="Enter Tree ID"
+                            value={treeID}
+                            onChange={(e) => setTreeID(e.target.value)} 
+                            style={{ marginBottom: '15px' }}/>
                         {errors.treeID && <div className="invalid-feedback">{errors.treeID}</div>}
-                     </div>
+                    </div>
+                </div>
 
-                     <div class="form-group" style={{ marginBottom: '15px' }}>
-                         <label style={{ marginBottom: '5px' }}> Type of Tree </label>
-                         <select
-                                    className="form-select"
-                                    name="unit"
-                                    value={typeOfTree}
-                                    onChange={(e) => setTypeOfTree(e.target.value)}
-                                >
-                                    <option value="">Select Type</option>
-                                    <option value="CRIC 60">CRIC 60</option>
-                                    <option value="CRIC 65">CRIC 65</option>
-                                    <option value="CRISL 98">CRISL 98</option>
-                                </select>
+                <div className="row mb-3">
+                    <label className="col-sm-2 col-form-label">Type of Tree</label>
+                    <div className="col-sm-10">
+                        <select
+                            className="form-select"
+                            name="unit"
+                            value={typeOfTree}
+                            onChange={(e) => setTypeOfTree(e.target.value)}
+                        >
+                            <option value="">Select Type</option>
+                            <option value="CRIC 60">CRIC 60</option>
+                            <option value="CRIC 65">CRIC 65</option>
+                            <option value="CRISL 98">CRISL 98</option>
+                        </select>
                         {errors.typeOfTree && <div className="invalid-feedback">{errors.typeOfTree}</div>}
-                     </div>
+                    </div>
+                </div>
 
-                     <div class="form-group" style={{ marginBottom: '15px' }}>
-                         <label style={{ marginBottom: '5px' }}> Planted Date </label>
-                         <input type="date"
-                             className={`form-control ${errors.plantedDate ? 'is-invalid' : ''}`}
-                             name="plantedDate"
-                             value={plantedDate}
-                             onChange={(e) => setPlantedDate(e.target.value)}/>
-                             {errors.plantedDate && <div className="invalid-feedback">{errors.plantedDate}</div>}
-                     </div>
+                <div className="row mb-3">
+                    <label className="col-sm-2 col-form-label">Planted Date</label>
+                    <div className="col-sm-10">
+                        <input type="date"
+                            className={`form-control ${errors.plantedDate ? 'is-invalid' : ''}`}
+                            name="plantedDate"
+                            value={plantedDate}
+                            onChange={(e) => setPlantedDate(e.target.value)} />
+                        {errors.plantedDate && <div className="invalid-feedback">{errors.plantedDate}</div>}
+                    </div>
 
-                     <div className="form-group" style={{ marginBottom: '15px' }}>
-                    <label style={{ marginBottom: '5px' }}> Block Name </label>
-                    <input
+                </div>
+
+
+                <div className="row mb-3">
+                    <label className="col-sm-2 col-form-label">Block Name</label>
+                    <div className="col-sm-10">
+                        <input
                         type="text"
                         className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
                         name="blockName"
                         placeholder="Enter Block Name"
                         value={blockName}
                         onChange={(e) => setBlockName(e.target.value)}
-                        disabled // Disable user input if you want to prevent changes
-                    />
-                    {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
+                        disabled />
+                        {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
+                    </div>
                 </div>
 
-                     <div class="form-group" style={{ marginBottom: '15px' }}>
-                         <label style={{ marginBottom: '5px' }}>Special Notes</label>
-                         <textarea class="form-control"
-                             placeholder="Mention if there are any"
-                             name="specialNotes"
-                             value={specialNotes}
-                             onChange={(e) => setSpecialNotes(e.target.value)}>
-                         </textarea>
+                <div className="row mb-3">
+                    <label className="col-sm-2 col-form-label">Special Notes</label>
+                    <div className="col-sm-10">
+                        <textarea class="form-control"
+                            placeholder="Mention if there are any"
+                            name="specialNotes"
+                            value={specialNotes}
+                            onChange={(e) => setSpecialNotes(e.target.value)}>
+                        </textarea>
 
-                     </div>
+                    </div>
+                </div>
 
-                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
-                 </form>
-             </div>
-  )
+                <button className="btn btn-success" type="submit">Submit</button>
+            </form >
+
+        </div >
+    )
 }
 
 export default AddTrees
