@@ -7,6 +7,18 @@ const router = express.Router();
 router.post("/products/save", async (req, res) => {
   //instantiation
   try {
+    //check if productID already exists in the database
+    const existingProductID = await Products.findOne({productId: req.body.productId})
+    if(existingProductID) {
+      return res.status(400).json({ error: "Product ID already exists"});
+    }
+
+    const existingProductName = await Products.findOne({productName: req.body.productName})
+    if (existingProductName) {
+      return res.status(400).json({error: "Product Name already exists"});
+    }
+
+    //if productID doesn't exists, save new product details
     let newProduct = new Products(req.body);
 
     await newProduct.save();
@@ -14,6 +26,7 @@ router.post("/products/save", async (req, res) => {
     return res.status(200).json({
       success: "Details saved successfully.",
     });
+
   } catch (err) {
     return res.status(400).json({
       error: err.message,
@@ -35,24 +48,9 @@ router.get("/products", async (req, res) => {
       error: err.message,
     });
   }
-});
+}); 
 
 //get a specific product details
-// router.get("/products/:id",(req,res) =>{
-//   let productID = req.params.id;
-
-//   Products.findById(productID,(err,post) =>{
-//     if(err){
-//       return res.status(400).json({success:false,err})
-//     }
-
-//     return res.status(200).json({
-//       success:true,
-//       post
-//     })
-//   })
-// })
-
 router.get("/products/:id", async (req, res) => {
   try {
       let productID = req.params.id;
@@ -100,5 +98,63 @@ router.delete("/products/delete/:id", async (req, res) => {
     });
   }
 });
+
+// Update product quantity
+router.put("/products/updateQuantity/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const additionalQuantity = req.body.quantity;
+
+    // Find the product by productId and update its quantity
+    const product = await Products.findOne({ productId: productId });
+    if (!product) {
+      return res.status(404).json({ success: false, error: "Product not found." });
+    }
+
+    // Calculate new quantity
+    const newQuantity = product.quantity + additionalQuantity;
+
+    // Update product quantity
+    await Products.findOneAndUpdate(
+      { productId: productId },
+      { $set: { quantity: newQuantity } }
+    );
+
+    res.status(200).json({ success: true, message: "Product quantity updated successfully." });
+  } catch (error) {
+    console.error("Error occurred while updating product quantity:", error);
+    res.status(500).json({ success: false, error: "Failed to update product quantity." });
+  }
+});
+
+//edit  product quantity
+router.put("/products/editQuantity/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const editedQuantity = req.body.quantity;
+    const existedQuantity = req.body.existedQuantity;
+
+    // Find the product by productId and update its quantity
+    const product = await Products.findOne({ productId: productId });
+    if (!product) {
+      return res.status(404).json({ success: false, error: "Product not found." });
+    }
+
+    // Calculate new quantity
+    const newQuantity = product.quantity - existedQuantity + editedQuantity;
+
+    // Update product quantity
+    await Products.findOneAndUpdate(
+      { productId: productId },
+      { $set: { quantity: newQuantity } }
+    );
+
+    res.status(200).json({ success: true, message: "Product quantity updated successfully." });
+  } catch (error) {
+    console.error("Error occurred while updating product quantity:", error);
+    res.status(500).json({ success: false, error: "Failed to update product quantity." });
+  }
+});
+
 
 module.exports = router;

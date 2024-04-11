@@ -5,25 +5,37 @@ const router = express.Router();
 
 //create
 router.post('/tree/save',async (req,res)=>{
-    //instantiation 
-    try{
-        let newTree = new Trees(req.body);
-        await newTree.save();
-        return res.status(200).json({
-        success:"Details saved successfully."
-    });
-
-    }catch(err){
-        return res.status(400).json({
-                error:err.message
-            });
+  try {
+    // Check if treeID already exists in the database
+    const existingTree = await Trees.findOne({ treeID: req.body.treeID });
+    if (existingTree) {
+        return res.status(400).json({ error: "Tree ID already exists" });
     }
+
+    // If treeID doesn't exist, save the new tree details
+    let newTree = new Trees(req.body);
+    await newTree.save();
+    
+    return res.status(200).json({
+        success: "Details saved successfully."
+    });
+} catch (err) {
+    return res.status(400).json({
+        error: err.message
+    });
+}
 }); 
 
 //read
 router.get("/trees", async (req, res) => {
   try {
-      const trees = await Trees.find().exec();
+      const { blockName } = req.query;
+      let trees;
+      if (blockName) {
+          trees = await Trees.find({ blockName }).exec();
+      } else {
+          trees = await Trees.find().exec();
+      }
 
       const formattedTrees = trees.map(tree => ({
         ...tree.toObject(),
@@ -41,8 +53,9 @@ router.get("/trees", async (req, res) => {
     }
 });
 
+
   //update
-  router.put("/trees/update/:id", async (req, res) => {
+  router.patch("/trees/update/:id", async (req, res) => {
     try {
       await Trees.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
   
@@ -62,7 +75,7 @@ router.get("/trees", async (req, res) => {
       const treeDelete = await Trees.findByIdAndDelete(req.params.id).exec();
   
       return res.json({
-        message: "Delete Successfully",
+        message: "Deleted Successfully",
         treeDelete,
       });
     } catch (err) {
@@ -80,12 +93,34 @@ router.get("/trees", async (req, res) => {
         let treeID = req.params.id;
         let tree = await Trees.findById(treeID);
         if (!tree) {
-            return res.status(404).json({ success: false, message: "Product not found" });
+            return res.status(404).json({ success: false, message: "Details not found" });
         }
         return res.status(200).json({ success: true, tree });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
       }
   });
+
+//get the tree count of a block
+router.get("/treeCount/:blockName", async (req, res) => {
+  try {
+      let blockName = req.params.blockName;
+      let count = await Trees.countDocuments({ blockName: blockName });
+      return res.status(200).json({ success: true, count: count });
+  } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+//get tree count
+router.get("/treeCount", async (req, res) => {
+  try {
+      let count = await Trees.countDocuments();
+      return res.status(200).json({ success: true, count: count });
+  } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
 
 module.exports = router;
