@@ -18,7 +18,7 @@ router.post("/products/save", async (req, res) => {
       return res.status(400).json({error: "Product Name already exists"});
     }
 
-    //if product exists, save new product details
+    //if productID doesn't exists, save new product details
     let newProduct = new Products(req.body);
 
     await newProduct.save();
@@ -113,6 +113,35 @@ router.put("/products/updateQuantity/:productId", async (req, res) => {
 
     // Calculate new quantity
     const newQuantity = product.quantity + additionalQuantity;
+
+    // Update product quantity
+    await Products.findOneAndUpdate(
+      { productId: productId },
+      { $set: { quantity: newQuantity } }
+    );
+
+    res.status(200).json({ success: true, message: "Product quantity updated successfully." });
+  } catch (error) {
+    console.error("Error occurred while updating product quantity:", error);
+    res.status(500).json({ success: false, error: "Failed to update product quantity." });
+  }
+});
+
+//edit  product quantity
+router.put("/products/editQuantity/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const editedQuantity = req.body.quantity;
+    const existedQuantity = req.body.existedQuantity;
+
+    // Find the product by productId and update its quantity
+    const product = await Products.findOne({ productId: productId });
+    if (!product) {
+      return res.status(404).json({ success: false, error: "Product not found." });
+    }
+
+    // Calculate new quantity
+    const newQuantity = product.quantity - existedQuantity + editedQuantity;
 
     // Update product quantity
     await Products.findOneAndUpdate(
