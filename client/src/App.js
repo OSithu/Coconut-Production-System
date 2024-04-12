@@ -56,6 +56,9 @@ import EditOrderDetails from "./components/editOrderDetails";
 import ViewHarvest from "./components/ViewHarvest";
 import AddHarvest from "./components/AddHarvest";
 import UpdateHarvest from "./components/UpdateHarvest";
+import HarvestingSchedules from "./components/HarvestingSchedules";
+import AddHvstSchedule from "./components/AddHvstSchedule";
+import UpdateHvstSchedule from "./components/UpdateHvstSchedule";
 
 function App() {
   return (
@@ -117,6 +120,10 @@ function App() {
           <Route path="/viewHarvest" Component={ViewHarvest} />
           <Route path="/addHarvest" Component={AddHarvest} />
           <Route path="/editHarvest/:id" Component={UpdateHarvest} />
+
+          <Route path="viewHvstSchedules" Component={HarvestingSchedules}/>
+          <Route path="addHvstSchedules" Component={AddHvstSchedule}/>
+          <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule}/>
 
         </Routes>
       </div>
