@@ -143,7 +143,7 @@ const ViewBlock = () => {
     const handleDelete = async (id) => {
 
         try {
-            const confirm = window.confirm('Are you sure you want to delete?');
+            const confirm = window.confirm('Are you sure you want to delete block details and tree details?');
 
             if (confirm) {
                 await axios.delete(`http://localhost:8000/blocks/delete/${id}`)
@@ -187,11 +187,6 @@ const ViewBlock = () => {
         let valid = true;
         let newErrors = { ...errors };
 
-        if (!blockName.trim()) {
-            newErrors.blockName = 'Block name is required';
-            valid = false;
-        }
-
         if (!area.toString().trim()) {
             newErrors.area = 'Area is required';
             valid = false;
@@ -202,39 +197,22 @@ const ViewBlock = () => {
             valid = false;
         }
 
-        if (!treeCount.toString().trim()) {
-            newErrors.treeCount = 'Tree Count is required';
-            valid = false;
-        }
-
-        if (!lastHarvested.trim()) {
-            valid = false;
-            newErrors.lastHarvested = "Date is required";
-        } else if (new Date(lastHarvested) > new Date()) {
+        if (new Date(lastHarvested) > new Date()) {
             valid = false;
             newErrors.lastHarvested = "Date cannot be a future date";
         }
 
-        if (!nextHarvesting.trim()) {
-            valid = false;
-            newErrors.nextHarvesting = "Date is required";
-        } else if (new Date(nextHarvesting) < new Date()) {
+        if (new Date(nextHarvesting) < new Date()) {
             valid = false;
             newErrors.nextHarvesting = "Date must be a future date";
         }
 
-        if (!lastFertilized.trim()) {
-            valid = false;
-            newErrors.lastFertilized = "Date is required";
-        } else if (new Date(lastFertilized) > new Date()) {
+        if (new Date(lastFertilized) > new Date()) {
             valid = false;
             newErrors.lastFertilized = "Date cannot be a future date";
         }
 
-        if (!nextFertilization.trim()) {
-            valid = false;
-            newErrors.nextFertilization = "Date is required";
-        } else if (new Date(nextFertilization) < new Date()) {
+        if (new Date(nextFertilization) < new Date()) {
             valid = false;
             newErrors.nextFertilization = "Date must be a future date";
         }
@@ -259,12 +237,11 @@ const ViewBlock = () => {
                                 <label className="col-sm-2 col-form-label"> Block Name </label>
                                 <div className="col-sm-10">
                                     <input type="text"
-                                        class={`form-control ${errors.blockName && 'is-invalid'}`}
+                                        class={`form-control`}
                                         name="blockName"
                                         value={blockName}
                                         onChange={(e) => setBlockName(e.target.value)}
                                         disabled={!notEditable} />
-                                    {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
                                 </div>
                             </div>
 
@@ -300,12 +277,11 @@ const ViewBlock = () => {
                                 <label className="col-sm-2 col-form-label"> Tree Count </label>
                                 <div className="col-sm-10">
                                     <input type="text"
-                                        class={`form-control ${errors.treeCount && 'is-invalid'}`}
+                                        class={`form-control`}
                                         name="treeCount"
                                         value={treeCount}
                                         onChange={(e) => setTreeCount(e.target.value)}
                                         disabled={!notEditable} />
-                                    {errors.treeCount && <div className="invalid-feedback">{errors.treeCount}</div>}
                                 </div>
                             </div>
 
