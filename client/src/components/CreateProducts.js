@@ -1,32 +1,48 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 const CreateProducts = () => {
-  const [productId, setProductId] = useState('');
-  const [productName, setProductName] = useState('');
-  const [quantity, setProductQty] = useState('');
-  const [category, setProductCategory] = useState('');
-  const [manufacturedDate, setProductMD] = useState('');
-  const [expirationDate, setProductED] = useState('');
-  const [reOrderLevel, setProductROL] = useState('');
+  const [productId, setProductId] = useState("");
+  const [productName, setProductName] = useState("");
+  const [productImage, setProductImage] = useState(null);
+  const [quantity, setProductQty] = useState("");
+  const [category, setProductCategory] = useState("");
+  const [manufacturedDate, setProductMD] = useState("");
+  const [expirationDate, setProductED] = useState("");
+  const [reOrderLevel, setProductROL] = useState("");
 
   //implementing sendData function
   const sendData = async (e) => {
     e.preventDefault();
 
     try {
-      let newProductData = {
-        productId: productId,
-        productName: productName,
-        quantity: quantity,
-        category: category,
-        manufacturedDate: manufacturedDate,
-        expirationDate: expirationDate,
-        reOrderLevel: reOrderLevel,
-      };
+      // let newProductData = {
+      //   productId: productId,
+      //   productName: productName,
+      //   quantity: quantity,
+      //   category: category,
+      //   manufacturedDate: manufacturedDate,
+      //   expirationDate: expirationDate,
+      //   reOrderLevel: reOrderLevel,
+      //   productImage: productImage
+      // };
+
+      let newProductData = new FormData();
+      newProductData.append("productId", productId);
+      newProductData.append("productName", productName);
+      newProductData.append("quantity", quantity);
+      newProductData.append("category", category);
+      newProductData.append("manufacturedDate", manufacturedDate);
+      newProductData.append("expirationDate", expirationDate);
+      newProductData.append("reOrderLevel", reOrderLevel);
+      newProductData.append("productImage", productImage);
 
       await axios
-        .post("http://localhost:8000/products/save", newProductData)
+        .post("http://localhost:8000/products/save", newProductData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((res) => {
           alert(res.data.success);
           console.log(res.data.success);
@@ -34,7 +50,7 @@ const CreateProducts = () => {
         .catch((err) => {
           if (err.response) {
             console.log(err.response.data.error);
-            alert(err.response.data.error)
+            alert(err.response.data.error);
           } else {
             console.log(
               "Error occured while processing axios post request. " + err.error
@@ -46,13 +62,14 @@ const CreateProducts = () => {
     }
 
     //set state back to first state
-    setProductId('');
-    setProductName('');
-    setProductQty('');
-    setProductCategory('');
-    setProductMD('');
-    setProductED('');
-    setProductROL('');
+    setProductId("");
+    setProductName("");
+    setProductQty("");
+    setProductCategory("");
+    setProductMD("");
+    setProductED("");
+    setProductROL("");
+    setProductImage(null);
   };
 
   return (
@@ -89,6 +106,21 @@ const CreateProducts = () => {
           {/* {errors.productName && (
               <div className="invalid-feedback">{errors.productName}</div>
             )} */}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Product Image: </label>
+          <input
+            type="file"
+            className={`form-control-file`}
+            name="productImage"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                setProductImage(e.target.files[0]);
+              }
+            }}
+            required
+          />
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
