@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 const ViewProducts = () => {
   const [allProducts, setAllItem] = useState([]);
@@ -12,7 +12,7 @@ const ViewProducts = () => {
         .then((res) => {
           setAllItem(res.data.existingProducts);
           console.log("Status: " + res.data.success);
-          console.log(res.data.message);
+          console.log("Message:" + res.data.message);
         })
         .catch((err) => {
           if (err.response) {
@@ -55,43 +55,52 @@ const ViewProducts = () => {
     }
   };
 
-//   //implement a method to update the product count
-//   const updateProductQuantity = async (productId, newQuantity) => {
-//   try {
-//     const existingProduct = await axios.get(`http://localhost:8000/products/${productId}`); 
-//     const existingQuantity = existingProduct.data.product.quantity;
+  //   //implement a method to update the product count
+  //   const updateProductQuantity = async (productId, newQuantity) => {
+  //   try {
+  //     const existingProduct = await axios.get(`http://localhost:8000/products/${productId}`);
+  //     const existingQuantity = existingProduct.data.product.quantity;
 
-//     await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
-//       quantity: existingQuantity+newQuantity
-//     });
-//     console.log("Product quantity updated successfully.");
-//   } catch (error) {
-//     console.error("Error occurred while updating product quantity:", error);
-//   }
-// };
+  //     await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
+  //       quantity: existingQuantity+newQuantity
+  //     });
+  //     console.log("Product quantity updated successfully.");
+  //   } catch (error) {
+  //     console.error("Error occurred while updating product quantity:", error);
+  //   }
+  // };
 
   return (
     // <div style={{backgroundImage: "url(/productBack1.jpg)",}}>
     <div className="container">
       <div>
-        <p style={{textAlign: "center", fontFamily: "sans-serif", fontSize: "24px"}}>All Products</p>
-        <div style={{textAlign: "right"}}>
-        <button className="btn btn-success">
-          <a
-            href="/addProduct"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Add New Product
-          </a>
-        </button> &nbsp;&nbsp;&nbsp;&nbsp;
-        <button className="btn btn-success">
-          <a
-            href="/viewProductCnt"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Product Count
-          </a>
-        </button>
+        <p
+          style={{
+            textAlign: "center",
+            fontFamily: "sans-serif",
+            fontSize: "24px",
+          }}
+        >
+          All Products
+        </p>
+        <div style={{ textAlign: "right" }}>
+          <button className="btn btn-success">
+            <a
+              href="/addProduct"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Add New Product
+            </a>
+          </button>{" "}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <button className="btn btn-success">
+            <a
+              href="/viewProductCnt"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Product Count
+            </a>
+          </button>
         </div>
         <table className="table">
           <thead>
@@ -99,6 +108,7 @@ const ViewProducts = () => {
               {/* <th scope="col">#</th> */}
               <th scope="col">productId</th>
               <th scope="col">productName</th>
+              <th scope="col">productImage</th>
               <th scope="col">quantity(kg or litre)</th>
               <th scope="col">category</th>
               <th scope="col">manufacturedDate</th>
@@ -121,23 +131,34 @@ const ViewProducts = () => {
                 <td>{products.productId}</td>
                 <td>{products.productName}</td>
                 <td>
-                  {products.quantity}
-
+                  {products.productImage && products.productImage.data ? (
+                    <img
+                      src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
+                      alt="Products"
+                      style={{ width: "100px" }}
+                    />
+                  ) : (
+                    <span>No image</span>
+                  )}
                 </td>
+
+                <td>{products.quantity}</td>
                 <td>{products.category}</td>
                 <td>{products.manufacturedDate}</td>
                 <td>{products.expirationDate}</td>
                 <td>{products.reOrderLevel}</td>
                 <td>
-                {products.quantity < products.reOrderLevel && (
-                  <span style={{ color: "red" }}>Quantity below reorder level</span>
-                )}
-              </td>
+                  {products.quantity < products.reOrderLevel && (
+                    <span style={{ color: "red" }}>
+                      Quantity below reorder level
+                    </span>
+                  )}
+                </td>
                 <td>
                   <a
                     className="btn btn-warning"
                     href={`/editProduct/${products._id}`}
-                    style={{ width: "100px",  }}
+                    style={{ width: "100px" }}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
