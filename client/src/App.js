@@ -31,9 +31,9 @@ import CreateQualityRecords from "./components/CreateQualityRecords";
 import ViewQualityRecords from "./components/ViewQualityRecords";
 import EditQualityRecords from "./components/EditQualityRecords";
 
-import viewEmployee from "./components/viewEmployee";
-import createEmployee from "./components/createEmployee";
-import editEmployee from "./components/editEmployee";
+import ViewEmployee from "./components/ViewEmployee";
+import CreateEmployee from "./components/CreateEmployee";
+import EditEmployee from "./components/EditEmployee";
 
 import CreateProducts from "./components/CreateProducts";
 import viewProducts from "./components/viewProducts";
@@ -90,9 +90,9 @@ function App() {
           <Route path="/createFinanceDetails" Component={AddTransaction} />
           <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails}/>
 
-          <Route path="/viewEmployee" Component={viewEmployee} />
-          <Route path="/addEmp" Component={createEmployee} />
-          <Route path="/editEmp/:id" Component={editEmployee} />
+          <Route path="/viewEmployee" Component={ViewEmployee} />
+          <Route path="/addEmp" Component={CreateEmployee} />
+          <Route path="/editEmp/:id" Component={EditEmployee} />
 
           <Route path="/viewQualityRecord" Component={ViewQualityRecords} />
           <Route path="/addQualityRecord" Component={CreateQualityRecords} />
