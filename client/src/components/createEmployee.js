@@ -1,86 +1,81 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-export default class createEmployee extends Component {
+import axios from "axios";
+import React, { useState } from "react";
 
-    constructor(props){
-        super(props);
-        this.state={
-            fullName:"",
-            dateOfBirth:"",
-            gender:"",
-            contactNumber:"",
-            contactEmail:"",
-            address:"",
-            jobTitle:"",
-            department:"",
-            startDate:""
+const CreateEmployee = () => {
+
+    const [fullName,setfullName] = useState('');
+    const [dateOfBirth,setdateOfBirth] = useState('');
+    const [gender,setgender] = useState('');
+    const [contactNumber,setcontactNumber] = useState('');
+    const [contactEmail,setcontactEmail] = useState('');
+    const [address,setaddress] = useState('');
+    const [jobTitle,setjobTitle] = useState('');
+    const [department,setdepartment] = useState('');
+    const [startDate,setstartDate] = useState('');
+
+
+    //Implementing sendDate function
+    const sendData = async (e) => {
+        e.preventDefault();
+
+        try{
+        let newRecord = {
+            fullName:fullName,
+            dateOfBirth:dateOfBirth,
+            gender:gender,
+            contactNumber:contactNumber,
+            contactEmail:contactEmail,
+            address:address,
+            jobTitle:jobTitle,
+            department:department,
+            startDate:startDate,
         }
-    }
-
-    handleInputChange =(e) =>{
-        const{name,value} = e.target;
-
-        this.setState({
-            ...this.State,
-            [name]:value
+        
+        await axios.post(`http://localhost:8000/employee/save`,newRecord)
+        .then((res)=>{
+            alert(res.data.message);
+            console.log('Status '+res.data.success);
+            console.log(res.data.message);
         })
+        .catch((err)=>{
+            if(err.response){
+                console.log(err.response.data.error);
+            }else{
+              console.log("Error Occured While Processing Your Axios Post Request. "+err.error);
+            }
+        })
+
+        //set state back to first state
+        setfullName('');
+        setdateOfBirth('');
+        setgender('');
+        setcontactNumber('');
+        setcontactEmail('');
+        setaddress('');
+        setjobTitle('');
+        setdepartment('');
+        setstartDate('');
+
+    }catch(err){
+        console.log("SentData Function Failed ERROR: "+err.error);
     }
 
-   onSubmit =(e) =>{
 
-    e.preventDefault();
-
-    const {fullName,dateOfBirth,gender,contactNumber,contactEmail,address,jobTitle,department,startDate} = this.state
-
-    const data ={
-
-        fullName:fullName,
-        dateOfBirth:dateOfBirth,
-        gender:gender,
-        contactNumber:contactNumber,
-        contactEmail:contactEmail,
-        address:address,
-        jobTitle:jobTitle,
-        department:department,
-        startDate:startDate,
     }
-    console.log(data)
 
-     axios.post("http://localhost:8000/employee/save",data).then((res) =>{
-        if(res.data.success){
-           this.setState(
-                 {
-                     fullName:"",
-                    dateOfBirth:"",
-                     gender:"",
-                    contactNumber:"",
-                   contactEmail:"",
-                    address:"",
-                    jobTitle:"",
-                    department:"",
-                    startDate:""
-               }
-          )
-       }
-     })
-   }
-
-  
-
-
-  render() {
     return (
         <div>
-          <h1>Create Employee</h1>
-          <form className="needs-validation" noValidate>
-              <div className="form-group" style={{marginBottom:'15px'}}>
+          <h1>Create Post</h1>
+          <form className="needs-validation" noValidate onSubmit={sendData}>
+          <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>Full Name</label>
                   <input type="text"
                   className="form-control"
                   name="fullName"
                   placeholder="Enter Full Name"
-                  value={this.state.treeID}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) => setfullName(e.target.value)}
+                  value={fullName}/>
+
   
               </div>
   
@@ -90,8 +85,9 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="dateOfBirth"
                   placeholder="Enter DOB"
-                  value={this.state.dateOfBirth}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) => setdateOfBirth(e.target.value)}
+                  value={dateOfBirth}/>
+
   
               </div>
   
@@ -101,8 +97,9 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="gender"
                   placeholder="Enter Gender"
-                  value={this.state.gender}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) => setgender(e.target.value)}
+                  value={gender}/>
+
   
               </div>
   
@@ -112,8 +109,9 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="contactNumber"
                   placeholder="Enter contactNumber"
-                  value={this.state.contactNumber}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) => setcontactNumber(e.target.value)}
+                  value={contactNumber}/>
+
   
               </div>
   
@@ -123,8 +121,9 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="contactEmail"
                   placeholder="Enter contactEmail"
-                  value={this.state.contactEmail}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) =>  setcontactEmail(e.target.value)}
+                  value={contactEmail}/>
+
   
               </div>
 
@@ -134,8 +133,9 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="address"
                   placeholder="Enter address"
-                  value={this.state.address}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) =>  setaddress(e.target.value)}
+                  value={address}/>
+
   
               </div>
 
@@ -145,8 +145,9 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="jobTitle"
                   placeholder="Enter jobTitle"
-                  value={this.state.jobTitle}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) =>  setjobTitle(e.target.value)}
+                  value={jobTitle}/>
+
   
               </div>
 
@@ -156,8 +157,9 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="department"
                   placeholder="Enter department"
-                  value={this.state.department}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) => setdepartment(e.target.value)}
+                  value={department}/>
+
   
               </div>
 
@@ -167,36 +169,23 @@ export default class createEmployee extends Component {
                   className="form-control"
                   name="startDate"
                   placeholder="Enter startDate"
-                  value={this.state.startDate}
-                  onChange={this.handleInputChange}/>
+                  onChange={(e) => setstartDate(e.target.value)}
+                  value={startDate}/>
+
   
               </div>
   
-              <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}onClick={this.onSubmit}>
+              <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
                       <i className="far fa-check-square"></i>
                       &nbsp; Save
               </button>
   
-  
-  
-  
-  
-  
-  
-  
           </form>
+
+        </div>
+      )
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-        </div>
-      )
-  
-  }
-}
+
+};
+
+export default CreateEmployee;

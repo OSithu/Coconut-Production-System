@@ -116,7 +116,7 @@ const EditProductCnt = () => {
           await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
             quantity: -quantity, 
             existedQuantity: updatedProductData.quantity
-          });
+          }); 
         } else {
           console.error('Invalid description:', description);
           return; // Exit the function if description is invalid
