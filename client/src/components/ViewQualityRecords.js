@@ -56,7 +56,6 @@ const ViewQualityRecords = () => {
     <div>
      <h1>Quality Control Records</h1>
      
-
      <button className="btn btn-success">
          <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
        </button>
@@ -65,7 +64,7 @@ const ViewQualityRecords = () => {
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">RecordId</th>
+          <th scope="col">RecordID</th>
           <th scope="col">ProductType</th>
           <th scope="col">QualityCheckedDate</th>
           <th scope="col">SpecialNotes</th>
@@ -84,7 +83,7 @@ const ViewQualityRecords = () => {
            <td>{records.specialNotes}</td>
            <td>{records.testResult}</td>
            <td>
-            <a className="btn btn-warning" href={'/editQualityRecord/${records._id}'}>
+            <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
               <i className="fas fa-edit"></i>&nbsp;Update
             </a>
             &nbsp;
