@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import PlantationNav from './PlantationNav';
 
 const ViewTrees = () => {
-
   const [allTrees, setAllTrees] = useState([]);
+  const [blockName, setBlockName] = useState('');
 
   useEffect(() => {
-
     const getAllTrees = async () => {
+      const queryParams = new URLSearchParams(window.location.search);
+      const blockNameFromQuery = queryParams.get('blockName');
 
-      await axios.get(`http://localhost:8000/trees`)
+      setBlockName(blockNameFromQuery);
+
+      await axios.get(`http://localhost:8000/trees?blockName=${blockNameFromQuery}`)
         .then((res) => {
           setAllTrees(res.data.existingTrees);
           console.log('Status : ' + res.data.success);
-
         })
-      // .catch((err) => {
-      //   if(err.response) {
-      //     console.log(err.response.data)
-      //   }
-      // })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data.error)
+          }
+        })
     }
 
     getAllTrees();
-
   }, [])
 
   const handleDelete = async (id) => {
-
     try {
       const confirm = window.confirm('Are you sure you want to delete?');
 
@@ -43,24 +44,30 @@ const ViewTrees = () => {
             if (err.response) {
               console.log(err.response.data.message);
             } else {
-              console.log("Error occured while processing your axios delete");
+              console.log("Error occurred while processing your axios delete");
             }
           })
       } else {
         alert('Deletion Cancel');
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log('HandleDelete function failed ! Error' + err.message);
     }
   }
 
   return (
     <div>
-      {/* <PlantationNav/> */}
+      <PlantationNav />
       &nbsp;
       <h2> Tree Details </h2>
       &nbsp;
+      <Link to={`/addTrees?blockName=${blockName}`}>
+        <button type="button" className="btn btn-success" style={{ float: "right" }}>
+          <i className="fa-solid fa-plus"></i>&nbsp;
+          Add New Record
+        </button>
+      </Link>
+
       <table className="table">
         <thead>
           <tr>
@@ -74,8 +81,8 @@ const ViewTrees = () => {
         </thead>
         <tbody>
           {allTrees.map(trees => (
-            <tr>
-              <td scope="row"> {trees.treeID} </td>
+            <tr key={trees._id}>
+              <td> {trees.treeID} </td>
               <td> {trees.typeOfTree} </td>
               <td> {trees.plantedDate} </td>
               <td> {trees.blockName} </td>
@@ -83,9 +90,9 @@ const ViewTrees = () => {
               <td>
                 <Link to={`/updateTrees/${trees._id}`}>
                   <button type="button" className="btn btn-warning">
-                  <i className='fas fa-edit'></i>&nbsp;Edit
+                    <i className='fas fa-edit'></i>&nbsp; Edit
                   </button>
-                </Link>  
+                </Link>
                 &nbsp;
                 <button type="button" className='btn btn-danger' onClick={() => handleDelete(trees._id)}>
                   <i className='far fa-trash-alt'></i>&nbsp;Delete
@@ -95,22 +102,8 @@ const ViewTrees = () => {
           ))}
         </tbody>
       </table>
-
-      <button type="button" class="btn btn-success">
-        <a href="/addTrees" style={{ textDecoration: "none", color: 'white' }}>
-          <i class="fa-solid fa-plus"></i>&nbsp;
-          Add New Record
-        </a>
-      </button>
-      <button type="button" class="btn btn-success">
-        <a href="/estateDetails" style={{ textDecoration: "none", color: 'white' }}>
-          <i class="fa-solid fa-plus"></i>&nbsp;
-          Estate
-        </a>
-      </button>
     </div>
   )
-
 }
 
 export default ViewTrees;
