@@ -3,9 +3,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import dashboard from "./components/dashboard";
 
-import viewSpread from "./components/viewSpread";
-import createSpread from "./components/createSpread";
-import editSpread from "./components/editSpread";
+import ViewSpread from "./components/ViewSpread";
+import CreateSpread from "./components/CreateSpread";
+import EditSpread from "./components/EditSpread";
 import spreadDetails from "./components/spreadDetails";
 
 import viewFertilization from "./components/viewFertilization";
@@ -66,9 +66,9 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" Component={dashboard} />
-          <Route path="/viewDisease" Component={viewSpread} />
-          <Route path="/createDisease" Component={createSpread} />
-          <Route path="/editDisease/:id" Component={editSpread} />
+          <Route path="/viewDisease" Component={ViewSpread} />
+          <Route path="/createDisease" Component={CreateSpread} />
+          <Route path="/editDisease/:id" Component={EditSpread} />
           <Route path="/spreadrecord/:id" Component={spreadDetails} />
 
           <Route path="/viewFertilization" Component={viewFertilization} />
