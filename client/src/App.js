@@ -60,6 +60,8 @@ import HarvestingSchedules from "./components/HarvestingSchedules";
 import AddHvstSchedule from "./components/AddHvstSchedule";
 import UpdateHvstSchedule from "./components/UpdateHvstSchedule";
 
+import Calculator from "./components/Calculator";
+
 function App() {
   return (
     <Router>
@@ -124,6 +126,8 @@ function App() {
           <Route path="viewHvstSchedules" Component={HarvestingSchedules}/>
           <Route path="addHvstSchedules" Component={AddHvstSchedule}/>
           <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule}/>
+
+          <Route path="/Calculator" Component={Calculator} /> 
 
         </Routes>
       </div>
