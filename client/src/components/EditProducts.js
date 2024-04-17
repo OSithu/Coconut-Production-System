@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 const EditProducts = () => {
   const [productId, setProductId] = useState("");
   const [productName, setProductName] = useState("");
+  const [productImage, setProductImage] = useState(null);
   const [quantity, setProductQty] = useState("");
   const [category, setProductCategory] = useState("");
   const [manufacturedDate, setProductMD] = useState("");
@@ -39,6 +40,7 @@ const EditProducts = () => {
           setProductMD(formatDate(res.data.product.manufacturedDate));
           setProductED(formatDate(res.data.product.expirationDate));
           setProductROL(res.data.product.reOrderLevel);
+          setProductImage(res.data.product.productImage);
           console.log(res.data.message);
         })
         .catch((err) => {
@@ -61,20 +63,34 @@ const EditProducts = () => {
         "Are you sure you want to update this product?"
       );
       if (confirmed) {
-        let updatedProductData = {
-          productId: productId,
-          productName: productName,
-          quantity: quantity,
-          category: category,
-          manufacturedDate: manufacturedDate,
-          expirationDate: expirationDate,
-          reOrderLevel: reOrderLevel,
-        };
+        // let updatedProductData = {
+        //   productId: productId,
+        //   productName: productName,
+        //   productImage: productImage,
+        //   quantity: quantity,
+        //   category: category,
+        //   manufacturedDate: manufacturedDate,
+        //   expirationDate: expirationDate,
+        //   reOrderLevel: reOrderLevel,
+        // };
+        let updatedProductData = new FormData();
+        updatedProductData.append("productId", productId);
+        updatedProductData.append("productName", productName);
+        updatedProductData.append("quantity", quantity);
+        updatedProductData.append("category", category);
+        updatedProductData.append("manufacturedDate", manufacturedDate);
+        updatedProductData.append("expirationDate", expirationDate);
+        updatedProductData.append("reOrderLevel", reOrderLevel);
+        updatedProductData.append("productImage", productImage);
 
         await axios
           .put(
             `http://localhost:8000/products/update/${id}`,
-            updatedProductData
+            updatedProductData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
           )
           .then((res) => {
             alert(res.data.success);
@@ -130,6 +146,21 @@ const EditProducts = () => {
           {/* {errors.productName && (
               <div className="invalid-feedback">{errors.productName}</div>
             )} */}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Product Image: </label>
+          <input
+            type="file"
+            className={`form-control-file`}
+            name="productImage"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                setProductImage(e.target.files[0]);
+              }
+            }}
+            required
+          />
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>

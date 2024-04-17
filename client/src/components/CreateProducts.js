@@ -106,7 +106,7 @@ const CreateProducts = () => {
           {/* {errors.productName && (
               <div className="invalid-feedback">{errors.productName}</div>
             )} */}
-        </div>
+        </div> 
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Product Image: </label>
@@ -149,9 +149,9 @@ const CreateProducts = () => {
             required
           >
             <option value="">Select a category</option>
-            <option value="products">Products</option>
-            <option value="by-products">By-products</option>
-            <option value="agrochemicals">Agrochemicals</option>
+            <option value="Products">Products</option>
+            <option value="By-products">By-products</option>
+            <option value="Agrochemicals">Agrochemicals</option>
           </select>
           {/* {errors.category && (
               <div className="invalid-feedback">{errors.category}</div>
