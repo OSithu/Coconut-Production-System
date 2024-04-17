@@ -181,20 +181,73 @@ router.get("/products/:id", async (req, res) => {
   }
 });
 
-//update products
-router.put("/products/update/:id", async (req, res) => {
-  try {
-    await Products.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
+// //update products
+// router.put("/products/update/:id", async (req, res) => {
+//   try {
+//     await Products.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
 
-    return res.status(200).json({
-      success: "Updated Successfully",
-    });
+//     return res.status(200).json({
+//       success: "Updated Successfully",
+//     });
+//   } catch (err) {
+//     return res.status(400).json({
+//       error: err.message,
+//     });
+//   }
+// });
+
+//serve images
+router.get("/products/images/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const product = await Products.findById(productId);
+    if (!product || !product.productImage || !product.productImage.data) {
+      return res.status(404).json({ error: "Product image not found" });
+    }
+    res.set("Content-Type", product.productImage.contentType);
+    res.send(product.productImage.data);
   } catch (err) {
-    return res.status(400).json({
-      error: err.message,
-    });
+    console.error("Error while fetching product image:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// Update product details with image
+router.put("/products/update/:id", upload.single("productImage"), async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    // Check if the product exists
+    const product = await Products.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Update product details
+    product.productId = req.body.productId;
+    product.productName = req.body.productName;
+    product.quantity = req.body.quantity;
+    product.category = req.body.category;
+    product.manufacturedDate = req.body.manufacturedDate;
+    product.expirationDate = req.body.expirationDate;
+    product.reOrderLevel = req.body.reOrderLevel;
+
+    // Check if a new image was uploaded
+    if (req.file) {
+      product.productImage.data = req.file.buffer;
+      product.productImage.contentType = req.file.mimetype;
+    }
+
+    // Save updated product
+    await product.save();
+
+    return res.status(200).json({ success: "Product updated successfully" });
+  } catch (err) {
+    console.error("Error while updating product:", err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 //delete products
 router.delete("/products/delete/:id", async (req, res) => {
