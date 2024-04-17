@@ -89,6 +89,19 @@ export default class Dashboard extends Component {
   </div>
 </div>
 
+<br></br>
+
+  <div class="row">
+  <div class="col-sm-6">
+    <div class="card w-75 p-3">
+      <div class="card-body">
+        <h2 class="card-title">Fertilizer Calculator</h2>
+        <a href="/Calculator" class="btn btn-primary">Enter</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
       
   </div>
