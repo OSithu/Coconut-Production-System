@@ -4,15 +4,42 @@ import { useParams } from 'react-router-dom';
 
 const ViewDetails = () => {
     const [product, setProductDetails] = useState({});
+    const [productImage, setProductImage] = useState('');
     const { id } = useParams();
 
-    useEffect(() => {
+    const getProductImage = async (id) => {
+        try {
+          const response = await axios.get(
+            `http://localhost:8000/products/images/${id}`,
+            {
+              responseType: "arraybuffer",
+            }
+          );
+    
+          const blob = new Blob([response.data], {
+            type: response.headers["content-type"],
+          });
+          const reader = new FileReader();
+    
+          reader.onload = () => {
+            const imageData = reader.result;
+            setProductImage(imageData);
+          };
+    
+          reader.readAsDataURL(blob);
+        } catch (error) {
+          console.error("Error fetching product image:", error);
+        }
+      };
+
+      useEffect(() => {
         const fetchData = async () => {
             try {
                 if (id) {
                     const response = await axios.get(`http://localhost:8000/products/${id}`);
                     if (response.data.success) {
                         setProductDetails(response.data.product);
+                        getProductImage(id); // Call getProductImage to fetch image
                     } else {
                         console.error("Error: ", response.data.error);
                     }
@@ -33,6 +60,10 @@ const ViewDetails = () => {
             <hr />
 
             <dl className="row">
+                <dt className="col-sm-3"> </dt>
+                <dd className="col-sm-9">
+                    {productImage ? <img src={productImage} alt="Product" style={{ maxWidth: "200px" }} /> : 'Loading...'}
+                </dd>
 
                 <dt className="col-sm-3">Name: </dt>
                 <dd className="col-sm-9">{product.productName || 'Loading...'}</dd>
@@ -45,8 +76,6 @@ const ViewDetails = () => {
 
                 <dt className="col-sm-3">Expiration Date</dt>
                 <dd className="col-sm-9">{product.expirationDate || 'Loading...'}</dd>
-
-
             </dl>
         </div>
     );
