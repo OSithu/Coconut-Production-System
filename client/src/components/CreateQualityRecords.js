@@ -24,10 +24,24 @@ const CreateQualityRecords = () => {
     isValid = false;
   }
 
-  if(!qualityCheckedDate) {
+  // if(!qualityCheckedDate) {
+  //   errors.qualityCheckedDate = 'Quality checked date is required';
+  //   isValid = false;
+  // }
+
+  if (!qualityCheckedDate) {
     errors.qualityCheckedDate = 'Quality checked date is required';
     isValid = false;
+  } else {
+    const currentDate = new Date();
+    const checkedDate = new Date(qualityCheckedDate);
+
+    if (checkedDate > currentDate) {
+      errors.qualityCheckedDate = 'Quality checked date cannot be a future date';
+      isValid = false;
+    }
   }
+
 
   if(!testResult.trim()) {
     errors.testResult = 'Test result is required';
@@ -93,6 +107,7 @@ const CreateQualityRecords = () => {
                              placeholder="Enter RecordID "
                              onChange={(e) => setRecordId(e.target.value)}
                              value={recordId}
+                             style={{ borderRadius: '5px', borderColor: errors.recordId ? 'red' : '' }}
                              required
                             />
                             {errors.recordId && <div className="invalid-feedback">{errors.recordId}</div>}
