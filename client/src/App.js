@@ -63,6 +63,10 @@ import UpdateHvstSchedule from "./components/UpdateHvstSchedule";
 import Calculator from "./components/Calculator";
 import fertilizationMain from "./components/fertilizationMain";
 
+import ViewBudgetDetails from "./components/ViewBudgetDetails";
+import AddBudgetDetails from "./components/AddBudgetDetails";
+import editBudgetDetails from "./components/editBudgetDetails";
+
 function App() {
   return (
     <Router>
@@ -91,7 +95,7 @@ function App() {
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />
           <Route path="/createFinanceDetails" Component={AddTransaction} />
-          <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails}/>
+          <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails} />
 
           <Route path="/viewEmployee" Component={ViewEmployee} />
           <Route path="/addEmp" Component={CreateEmployee} />
@@ -124,12 +128,16 @@ function App() {
           <Route path="/addHarvest" Component={AddHarvest} />
           <Route path="/editHarvest/:id" Component={UpdateHarvest} />
 
-          <Route path="viewHvstSchedules" Component={HarvestingSchedules}/>
-          <Route path="addHvstSchedules" Component={AddHvstSchedule}/>
-          <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule}/>
+          <Route path="viewHvstSchedules" Component={HarvestingSchedules} />
+          <Route path="addHvstSchedules" Component={AddHvstSchedule} />
+          <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule} />
 
-          <Route path="/Calculator" Component={Calculator} /> 
-          <Route path="/fertilizationMain" Component={fertilizationMain} /> 
+          <Route path="/Calculator" Component={Calculator} />
+          <Route path="/fertilizationMain" Component={fertilizationMain} />
+
+          <Route path="/ViewBudgetDetails" Component={ViewBudgetDetails} />
+          <Route path="/AddBudgetDetails" Component={AddBudgetDetails} />
+          <Route path="/editBudgetDetails/:id" Component={editBudgetDetails} />
 
 
         </Routes>

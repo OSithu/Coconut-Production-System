@@ -13,7 +13,7 @@ const ViewBudgetDetails = () => {
 
       await axios.get(`http://localhost:8000/budgetRecords`)
       .then((res) => {
-        setAllDetails(res.data.existingfinance);
+        setAllDetails(res.data.existingbudget);
         console.log('Status:' +res.data.success);
       })
       .catch((err) =>{
