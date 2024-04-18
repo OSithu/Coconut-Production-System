@@ -90,53 +90,6 @@ const ViewFertilizationDetails = () => {
   return (
     <div className="container">
       <p>All Fertilization Details</p>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-              <th scope="col" className="text-center">Tree No</th>
-              <th scope="col" className="text-center">Tree Stage</th>
-              <th scope="col" className="text-center">Date</th>
-              <th scope="col" className="text-center">Urea(g)</th>
-              <th scope="col" className="text-center">EppawalaRockPhosphate(g)</th>
-              <th scope="col" className="text-center">MuriateOfPotasium(g)</th>
-              <th scope="col" className="text-center">Dolamite(g)</th>
-              <th scope="col" className="text-center">Description</th>
-              <th scope="col" className="text-center"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {allFertilization.map((fertilization, index) => (
-            <tr key={index}>
-              <th scope="row">OR{index + 1}</th>
-               <td className="text-center">{fertilization.TreeNo}</td>
-                <td className="text-center">{fertilization.TreeStage}</td>
-                <td className="text-center">{new Date(fertilization.Date).toLocaleDateString()}</td>
-                <td className="text-center">{fertilization.UreaAmount}</td>
-                <td className="text-center">{fertilization.EppawalaRockPhosphateAmount}</td>
-                <td className="text-center">{fertilization.MuriateOfPotasiumAmount}</td>
-                <td className="text-center">{fertilization.DolamiteAmount}</td>
-                <td className="text-center">{fertilization.Description}</td>
-              <td>
-                <a
-                  className="btn btn-warning"
-                  href={`/fertilizationupdate/${fertilization._id}`}
-                >
-                  <i className="fas fa-edit"></i>&nbsp;Edit
-                </a>
-                &nbsp;
-                <a
-                  className="btn btn-danger"
-                  href="#"
-                  onClick={() => handleDelete (fertilization._id)}
-                >
-                  <i className="far fa-trash-alt"></i>&nbsp;Delete
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
       <button className="btn btn-success">
         <a
           href="/fertilizationsave"
@@ -145,6 +98,55 @@ const ViewFertilizationDetails = () => {
           Add Fertilization Record
         </a>
       </button>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+              <th scope="col" className="text-center">Tree No</th>
+              <th scope="col" className="text-center">Tree Stage</th>
+              <th scope="col" className="text-center">Date</th>
+              <th scope="col" className="text-center">Urea(g)</th>
+              <th scope="col" className="text-center">EppawalaRock<br></br>Phosphate(g)</th>
+              <th scope="col" className="text-center">MuriateOf<br></br>Potasium(g)</th>
+              <th scope="col" className="text-center">Dolamite(g)</th>
+              <th scope="col" className="text-center">Description</th>
+              <th scope="col" className="text-center"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {allFertilization.map((fertilization, index) => (
+            <tr key={index}>
+              <th scope="row">{index + 1}</th>
+               <td className="text-center">{fertilization.TreeNo}</td>
+                <td className="text-center">{fertilization.TreeStage}</td>
+                <td className="text-center">{new Date(fertilization.Date).toLocaleDateString()}</td>
+                <td className="text-center">{fertilization.UreaAmount}</td>
+                <td className="text-center">{fertilization.EppawalaRockPhosphateAmount}</td>
+                <td className="text-center">{fertilization.MuriateOfPotasiumAmount}</td>
+                <td className="text-center">{fertilization.DolamiteAmount}</td>
+              <td>
+                {/* <a
+                  className="btn btn-warning"
+                  href={`/fertilizationupdate/${fertilization._id}`}
+                >
+                  <i className="fas fa-edit"></i>&nbsp;Update
+                </a>
+                &nbsp;
+                <a className="btn btn-danger" href="#" onClick={() =>handleDelete(fertilization._id)}>
+                <i className="fas fa-trash-alt"></i>&nbsp;Delete
+                </a> */}
+                <a className="btn btn-warning" href={`/fertilizationupdate/${fertilization._id}`}>
+              <i className="fas fa-edit"></i>&nbsp;Update
+            </a>
+            &nbsp;
+           <a className="btn btn-danger" href="#" onClick={() =>handleDelete(fertilization._id)}>
+            <i className="fas fa-trash-alt"></i>&nbsp;Delete
+           </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -11,14 +11,14 @@ function fertilizationMain() {
           
           <h3>Manage Fertilization Plans</h3>
           <p>Create, view, edit, and delete fertilization plans for estate's coconut trees.</p>
-          <a href="#" className="button">Manage Plans</a>
+          <a href="/viewFertilization" className="button">Manage Plans</a>
         </section>
 
         <section className="card">
         
           <h3>Fertilization Calculator</h3>
           <p>Calculate the optimal fertilizer dosage based on .</p>
-          <a href="#" className="button">Open Calculator</a>
+          <a href="/Calculator" className="button">Open Calculator</a>
         </section>
       </div>
     </main>

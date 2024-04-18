@@ -58,111 +58,118 @@ const CreateFertilizationDetails = () => {
 
     return (
         <div className="col-md-8 mt-4 mx-auto">
-            <h1 className="h3 mb-3 font-weight-normal">Add new Fertilization detail</h1>
-            <form className="needs-validation" noValidate onSubmit={sendFertilizationData}>
-                <div className="form-group" style={{ marginBottom: "15px" }}>
-                        <label style={{ marginBottom: "5px" }}>Tree No</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="TreeNo"
-                            placeholder="Enter order name"
-                            onChange={(e) => setTreeNo(e.target.value)}
-                            value={TreeNo}  
-                            required
-                        />
-                    </div>
-
-                    <div className="form-group" style={{ marginBottom: "15px" }}>
-                        <label style={{ marginBottom: "5px" }}>Tree Stage</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="TreeStage"
-                            placeholder="Enter quantity"
-                            onChange={(e) => setTreeStage(e.target.value)}
-                            value={TreeStage}  
-                            required
-                        />
-                    </div>
-
-                    <div className="form-group" style={{marginBottom:'15px'}}>
-                      <label style={{marginBottom:'5px'}}>Date</label>
-                      <input 
-                          type="date" 
-                          className="form-control" 
-                          name="Date" 
-                          placeholder="Enter the Date of fertilization"
-                          value={Date}
-                          onChange={(e) => setDate(e.target.value)}
-                          required/>
-                   </div>
-
-                   <div className="form-group" style={{marginBottom:'15px'}}>
-                       <label style={{marginBottom:'5px'}}>Amount of Urea(g)</label>
-                      <input type="Number" 
-                      className="form-control" 
-                      name="UreaAmount" 
-                       placeholder="Enter the Urea Amount"
-                       value={UreaAmount}
-                       onChange={(e) => setUreaAmount(e.target.value)}
-                       required/>
-                   </div>
-
-                   <div className="form-group" style={{marginBottom:'15px'}}>
-                      <label style={{marginBottom:'5px'}}>Amount of EppawalaRock Phosphate Amount(g)</label>
-                      <input type="Number" 
-                      className="form-control" 
-                      name="EppawalaRockPhosphateAmount" 
-                       placeholder="Enter the EppawalaRockPhosphate Amount "
-                       value={EppawalaRockPhosphateAmount}
-                       onChange={(e) => setEppawalaRockPhosphateAmount(e.target.value)}
-                       required/>
-                   </div>
-
-                   <div className="form-group" style={{marginBottom:'15px'}}>
-                       <label style={{marginBottom:'5px'}}>Amount of Muriate Of Potasium Amount(g)</label>
-                       <input type="Number" 
-                       className="form-control" 
-                       name="MuriateOfPotasiumAmount" 
-                       placeholder="Enter the MuriateOfPotasium Amount"
-                     value={MuriateOfPotasiumAmount}
-                     onChange={(e) => setMuriateOfPotasiumAmount(e.target.value)}
-                       required/>
-                   </div>
-
-                   <div className="form-group" style={{marginBottom:'15px'}}>
-                     <label style={{marginBottom:'5px'}}>Amount of Dolamite Amount(g)</label>
-                      <input type="Number" 
-                      className="form-control" 
-                       name="DolamiteAmount" 
-                       placeholder="Enter the Dolamite Amount"
-                       value={DolamiteAmount}
-                       onChange={(e) => setDolamiteAmount(e.target.value)}
-                       required/>
-                   </div>
-
-                   <div className="form-group" style={{marginBottom:'15px'}}>
-                       <label style={{marginBottom:'5px'}}>Description</label>
-                      <textarea 
-                       className="form-control" 
-                       name="Description" 
-                       placeholder="Description"
-                      value={Description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      required/>
-                   </div>
-
-                <button
-                    className="btn btn-success"
-                    type="submit"
-                    style={{ marginTop: "15px" }}
-                >
-                    <i className="far fa-check-square"></i>
-                    &nbsp;Save
-                </button>
-            </form>
+    <h1 className="h3 mb-3 font-weight-normal">Add new Fertilization detail</h1>
+    <form className="needs-validation" noValidate onSubmit={sendFertilizationData}>
+        <div className="form-group">
+            <label>Tree No</label>
+            <input
+                type="text"
+                className="form-control"
+                name="TreeNo"
+                placeholder="Enter Tree No"
+                onChange={(e) => setTreeNo(e.target.value)}
+                value={TreeNo}  
+                required
+            />
         </div>
+
+        <div className="form-group">
+            <label>Tree Stage</label>
+            <input
+                type="text"
+                className="form-control"
+                name="TreeStage"
+                placeholder="Enter Tree Stage"
+                onChange={(e) => setTreeStage(e.target.value)}
+                value={TreeStage}  
+                required
+            />
+        </div>
+
+        <div className="form-group">
+            <label>Date</label>
+            <input 
+                type="date" 
+                className="form-control" 
+                name="Date" 
+                placeholder="Enter the Date of fertilization"
+                value={Date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+            />
+        </div>
+
+        <div className="form-group">
+            <label>Amount of Urea(g)</label>
+            <input type="Number" 
+                className="form-control" 
+                name="UreaAmount" 
+                placeholder="Enter the Urea Amount"
+                value={UreaAmount}
+                onChange={(e) => setUreaAmount(e.target.value)}
+                required
+            />
+        </div>
+
+        <div className="form-group">
+            <label>Eppawala Rock Phosphate Amount(g)</label>
+            <input type="Number" 
+                className="form-control" 
+                name="EppawalaRockPhosphateAmount" 
+                placeholder="Enter the EppawalaRockPhosphate Amount "
+                value={EppawalaRockPhosphateAmount}
+                onChange={(e) => setEppawalaRockPhosphateAmount(e.target.value)}
+                required
+            />
+        </div>
+
+        <div className="form-group">
+            <label>Muriate Of Potasium Amount(g)</label>
+            <input type="Number" 
+                className="form-control" 
+                name="MuriateOfPotasiumAmount" 
+                placeholder="Enter the MuriateOfPotasium Amount"
+                value={MuriateOfPotasiumAmount}
+                onChange={(e) => setMuriateOfPotasiumAmount(e.target.value)}
+                required
+            />
+        </div>
+
+        <div className="form-group">
+            <label>Amount of Dolamite Amount(g)</label>
+            <input type="Number" 
+                className="form-control" 
+                name="DolamiteAmount" 
+                placeholder="Enter the Dolamite Amount"
+                value={DolamiteAmount}
+                onChange={(e) => setDolamiteAmount(e.target.value)}
+                required
+            />
+        </div>
+
+        {/* <div className="form-group">
+            <label>Description</label>
+            <textarea 
+                className="form-control" 
+                name="Description" 
+                placeholder="Description"
+                value={Description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+            />
+        </div> */}
+
+        <button
+            className="btn btn-success"
+            type="submit"
+            style={{ marginTop: "15px" }}
+        >
+            <i className="far fa-check-square"></i>
+            &nbsp;Save
+        </button>
+    </form>
+</div>
+
     );
 };
 
