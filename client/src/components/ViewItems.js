@@ -26,7 +26,6 @@ const ViewItems = () => {
   }, []);
 
   return (
-    
     <div className="container">
       <div>
         <p
@@ -38,29 +37,34 @@ const ViewItems = () => {
         >
           View Items
         </p>
+        <div class="row">
+          {allProducts.map((products, index) => (
+            <div key={index} class="col-sm-4 mb-3 mb-sm-0">
+              <div class="card" style={{ width: "18rem" }}>
+                <div key={products._id}>
+                  {products.productImage && products.productImage.data ? (
+                    <img
+                      src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
+                      alt="Products"
+                      class="card-img-top"
+                      style={{ height: "200px", objectFit: "cover" }}
 
-        {allProducts.map((products) => (
-          <tr
-            key={products._id}
-            className={
-              products.quantity < products.reOrderLevel ? "table-danger" : ""
-            }
-          >
-            {products.productName}
-            {products.productImage && products.productImage.data ? (
-              <img
-                src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
-                alt="Products"
-                style={{ width: "100px" }}
-              />
-            ) : (
-              <span>No image</span>
-            )}
-          </tr>
-        ))}
+                    />
+                  ) : (
+                    <span>No image</span>
+                  )}
+                  <h5 class="card-title">{products.productName}</h5>
+                  <a href="#" class="btn btn-primary" >
+                    View Details
+                  </a>
+                </div>
+              </div>
+              <br/><br/>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-    // </div>
   );
 };
 
