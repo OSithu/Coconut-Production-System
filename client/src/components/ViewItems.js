@@ -54,7 +54,7 @@ const ViewItems = () => {
                     <span>No image</span>
                   )}
                   <h5 class="card-title">{products.productName}</h5>
-                  <a href="#" class="btn btn-primary" >
+                  <a href={`/viewDetails/${products._id}`} class="btn btn-primary" >
                     View Details
                   </a>
                 </div>
