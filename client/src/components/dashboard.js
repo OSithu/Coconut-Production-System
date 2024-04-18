@@ -20,7 +20,7 @@ export default class Dashboard extends Component {
     <div class="card w-75 p-3">
       <div class="card-body">
         <h2 class="card-title">Fertilizer Management</h2>
-        <a href="/viewFertilization" class="btn btn-primary">Enter</a>
+        <a href="/fertilizationMain" class="btn btn-primary">Enter</a>
       </div>
     </div>
   </div>

@@ -61,6 +61,7 @@ import AddHvstSchedule from "./components/AddHvstSchedule";
 import UpdateHvstSchedule from "./components/UpdateHvstSchedule";
 
 import Calculator from "./components/Calculator";
+import fertilizationMain from "./components/fertilizationMain";
 
 function App() {
   return (
@@ -128,6 +129,8 @@ function App() {
           <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule}/>
 
           <Route path="/Calculator" Component={Calculator} /> 
+          <Route path="/fertilizationMain" Component={fertilizationMain} /> 
+
 
         </Routes>
       </div>
