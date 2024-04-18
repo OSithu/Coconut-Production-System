@@ -59,6 +59,13 @@ const EditQualityRecords = () => {
 
     if (!qualityCheckedDate.trim()) {
       errors.qualityCheckedDate = "Quality checked date is required";
+    } else {
+      const today = new Date();
+      const selectedDate = new Date(qualityCheckedDate);
+  
+      if (selectedDate > today) {
+        errors.qualityCheckedDate = "Quality checked date cannot be a future date";
+      }
     }
 
     if (!testResult.trim()) {
