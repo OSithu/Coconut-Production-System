@@ -1,14 +1,42 @@
 const express = require("express");
 const ProductCnt = require("../models/productCntModel");
+const Products = require("../models/productModel");
 
 const router = express.Router();
 
-//save products
-router.post("/productCnt/save", async (req, res) => {
-  //instantiation
-  try {
-    let newProductCnt = new ProductCnt(req.body);
+// //save products
+// router.post("/productCnt/save", async (req, res) => {
+//   //instantiation
+//   try {
+//     let existingProduct = new Products(req.body.productId);
 
+//     let newProductCnt = new ProductCnt(req.body);
+
+//     await newProductCnt.save();
+
+//     return res.status(200).json({
+//       success: "Details saved successfully.",
+//     });
+//   } catch (err) {
+//     return res.status(400).json({
+//       error: err.message,
+//     });
+//   }
+// });
+
+// Save product count
+router.post("/productCnt/save", async (req, res) => {
+  try {
+    // Check if the product exists in the Products collection
+    const existingProduct = await Products.findOne({ productId: req.body.productId });
+
+    if (!existingProduct) {
+      // If the product does not exist, return an error
+      return res.status(400).json({ error: "Product ID does not exist." });
+    }
+
+    // If the product exists, save the new product count
+    const newProductCnt = new ProductCnt(req.body);
     await newProductCnt.save();
 
     return res.status(200).json({
@@ -38,7 +66,7 @@ router.get("/productCnt", async (req, res) => {
 });
 
 //get a specific product details
-router.get("/productsCnt/:id", async (req, res) => {
+router.get("/productCnt/:id", async (req, res) => {
   try {
     let productID = req.params.id;
     let productCnt = await ProductCnt.findById(productID);
@@ -53,7 +81,7 @@ router.get("/productsCnt/:id", async (req, res) => {
   }
 });
 
-//update products
+//update product Cnt
 router.put("/productCnt/update/:id", async (req, res) => {
   try {
     await ProductCnt.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();

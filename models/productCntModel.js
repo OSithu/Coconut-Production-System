@@ -11,11 +11,11 @@ const productCntSchema = new mongoose.Schema({
     required: true,
   },
 
-  Date: {
+  productDate: {
     type: Date,
     required: true,
   },
-  Description: {
+  description: {
     type: String,
     required: true,
   },

@@ -29,7 +29,13 @@ router.post('/tree/save',async (req,res)=>{
 //read
 router.get("/trees", async (req, res) => {
   try {
-      const trees = await Trees.find().exec();
+      const { blockName } = req.query;
+      let trees;
+      if (blockName) {
+          trees = await Trees.find({ blockName }).exec();
+      } else {
+          trees = await Trees.find().exec();
+      }
 
       const formattedTrees = trees.map(tree => ({
         ...tree.toObject(),
@@ -46,6 +52,7 @@ router.get("/trees", async (req, res) => {
       });
     }
 });
+
 
   //update
   router.patch("/trees/update/:id", async (req, res) => {
@@ -93,5 +100,27 @@ router.get("/trees", async (req, res) => {
         return res.status(400).json({ success: false, error: err.message });
       }
   });
+
+//get the tree count of a block
+router.get("/treeCount/:blockName", async (req, res) => {
+  try {
+      let blockName = req.params.blockName;
+      let count = await Trees.countDocuments({ blockName: blockName });
+      return res.status(200).json({ success: true, count: count });
+  } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+//get tree count
+router.get("/treeCount", async (req, res) => {
+  try {
+      let count = await Trees.countDocuments();
+      return res.status(200).json({ success: true, count: count });
+  } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
 
 module.exports = router;

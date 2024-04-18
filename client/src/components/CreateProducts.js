@@ -1,245 +1,277 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
-export default class CreateProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      productId: "",
-      productName: "",
-      quantity: "",
-      category: "",
-      manufacturedDate: "",
-      expirationDate: "",
-      reOrderLevel: "",
-      errors: {}
-    };
-  }
+const CreateProducts = () => {
+  const [productId, setProductId] = useState("");
+  const [productName, setProductName] = useState("");
+  const [productImage, setProductImage] = useState(null);
+  const [quantity, setProductQty] = useState("");
+  const [category, setProductCategory] = useState("");
+  const [manufacturedDate, setProductMD] = useState("");
+  const [expirationDate, setProductED] = useState("");
+  const [reOrderLevel, setProductROL] = useState("");
+  const [formErrors, setFormErrors] = useState({});
 
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    if (this.validateForm()) {
-      const {
-        productId,
-        productName,
-        quantity,
-        category,
-        manufacturedDate,
-        expirationDate,
-        reOrderLevel,
-      } = this.state;
-
-      const data = {
-        productId: productId,
-        productName: productName,
-        quantity: quantity,
-        category: category,
-        manufacturedDate: manufacturedDate,
-        expirationDate: expirationDate,
-        reOrderLevel: reOrderLevel,
-      };
-
-      console.log(data);
-
-      axios.post("http://localhost:8000/products/save", data).then((res) => {
-        if (res.data.success) {
-          this.setState({
-            productId: "",
-            productName: "",
-            quantity: "",
-            category: "",
-            manufacturedDate: "",
-            expirationDate: "",
-            reOrderLevel: "",
-            errors: {}
-          });
-        }
-      });
-    }
-  };
-
-  validateForm = () => {
-    const { productId, productName, quantity, category, manufacturedDate, expirationDate } = this.state;
-    let errors = {};
-    let isValid = true;
+  const validateForm = () => {
+    const errors = {};
+    let formIsValid = true;
 
     if (!productId.trim()) {
       errors.productId = "Product ID is required";
-      isValid = false;
+      formIsValid = false;
     }
 
     if (!productName.trim()) {
       errors.productName = "Product Name is required";
-      isValid = false;
+      formIsValid = false;
+    }
+
+    if (!productImage) {
+      errors.productImage = "Product Image is required";
+      formIsValid = false;
     }
 
     if (!quantity.trim()) {
       errors.quantity = "Quantity is required";
-      isValid = false;
-    } else if (!/^\d+$/.test(quantity)) {
-      errors.quantity = "Quantity should contain only numbers";
-      isValid = false;
+      formIsValid = false;
+    } else if (isNaN(quantity)) {
+      errors.quantity = "Quantity must be a number";
+      formIsValid = false;
     }
 
-    if (!category) {
+    if (!category.trim()) {
       errors.category = "Category is required";
-      isValid = false;
+      formIsValid = false;
     }
 
     if (!manufacturedDate) {
       errors.manufacturedDate = "Manufactured Date is required";
-      isValid = false;
+      formIsValid = false;
     }
 
     if (!expirationDate) {
       errors.expirationDate = "Expiration Date is required";
-      isValid = false;
+      formIsValid = false;
     }
 
-    this.setState({ errors });
-    return isValid;
+    if (!reOrderLevel.trim()) {
+      errors.reOrderLevel = "Re-order Level is required";
+      formIsValid = false;
+    } else if (isNaN(reOrderLevel)) {
+      errors.reOrderLevel = "Re-order Level must be a number";
+      formIsValid = false;
+    }
+
+    setFormErrors(errors);
+    return formIsValid;
   };
 
-  render() {
-    const { errors } = this.state;
+  const sendData = async (e) => {
+    e.preventDefault();
 
-    return (
-      <div className="col-md-8 mt-4 mx-auto">
-        <h1 className="h3 mb-3 font-weight-normal">Add new Product</h1>
-        <form className="needs-validation" noValidate onSubmit={this.onSubmit}>
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Product ID</label>
-            <input
-              type="text"
-              className={`form-control ${errors.productId && "is-invalid"}`}
-              name="productId"
-              placeholder="Enter Product Id"
-              value={this.state.productId}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.productId && (
-              <div className="invalid-feedback">{errors.productId}</div>
-            )}
-          </div>
+    if (!validateForm()) {
+      return;
+    }
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Product Name</label>
-            <input
-              type="text"
-              className={`form-control ${errors.productName && "is-invalid"}`}
-              name="productName"
-              placeholder="Enter Product Name"
-              value={this.state.productName}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.productName && (
-              <div className="invalid-feedback">{errors.productName}</div>
-            )}
-          </div>
+    try {
+      let newProductData = new FormData();
+      newProductData.append("productId", productId);
+      newProductData.append("productName", productName);
+      newProductData.append("quantity", quantity);
+      newProductData.append("category", category);
+      newProductData.append("manufacturedDate", manufacturedDate);
+      newProductData.append("expirationDate", expirationDate);
+      newProductData.append("reOrderLevel", reOrderLevel);
+      newProductData.append("productImage", productImage);
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Quantity</label>
-            <input
-              type="text"
-              className={`form-control ${errors.quantity && "is-invalid"}`}
-              name="quantity"
-              placeholder="Enter added quantity"
-              value={this.state.quantity}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.quantity && (
-              <div className="invalid-feedback">{errors.quantity}</div>
-            )}
-          </div>
+      await axios.post("http://localhost:8000/products/save", newProductData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Category</label>
-            <select
-              className={`form-control ${errors.category && "is-invalid"}`}
-              name="category"
-              value={this.state.category}
-              onChange={this.handleInputChange}
-              required
-            >
-              <option value="">Select a category</option>
-              <option value="products">Products</option>
-              <option value="by-products">By-products</option>
-              <option value="agrochemicals">Agrochemicals</option>
-            </select>
-            {errors.category && (
-              <div className="invalid-feedback">{errors.category}</div>
-            )}
-          </div>
+      alert("Product saved successfully");
+    } catch (error) {
+      console.error(
+        "Error occurred while processing axios post request:",
+        error
+      );
+      alert("Failed to save product");
+    }
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Manufactured Date</label>
-            <input
-              type="date"
-              className={`form-control ${errors.manufacturedDate && "is-invalid"}`}
-              name="manufacturedDate"
-              placeholder="Enter the manufactured date"
-              value={this.state.manufacturedDate}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.manufacturedDate && (
-              <div className="invalid-feedback">{errors.manufacturedDate}</div>
-            )}
-          </div>
+    //set state back to first state
+    setProductId("");
+    setProductName("");
+    setProductQty("");
+    setProductCategory("");
+    setProductMD("");
+    setProductED("");
+    setProductROL("");
+    setProductImage(null);
+  };
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Expiration Date</label>
-            <input
-              type="date"
-              className={`form-control ${errors.expirationDate && "is-invalid"}`}
-              name="expirationDate"
-              placeholder="Enter the expiration date"
-              value={this.state.expirationDate}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.expirationDate && (
-              <div className="invalid-feedback">{errors.expirationDate}</div>
-            )}
-          </div>
+  return (
+    <div className="col-md-8 mt-4 mx-auto">
+      <h1 className="h3 mb-3 font-weight-normal">Add new Product</h1>
+      <form className="needs-validation" noValidate onSubmit={sendData}>
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Product ID</label>
+          <input
+            type="text"
+            className={`form-control ${formErrors.productId && "is-invalid"}`}
+            name="productId"
+            placeholder="Enter Product Id"
+            onChange={(e) => setProductId(e.target.value)}
+            value={productId}
+            required
+          />
+          {formErrors.productId && (
+            <div className="invalid-feedback">{formErrors.productId}</div>
+          )}
+        </div>
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Re-order Level</label>
-            <input
-              type="text"
-              className={`form-control ${errors.quantity && "is-invalid"}`}
-              name="reOrderLevel"
-              placeholder="Enter re-order level"
-              value={this.state.reOrderLevel}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.quantity && (
-              <div className="invalid-feedback">{errors.reOrderLevel}</div>
-            )}
-          </div>
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Product Name</label>
+          <input
+            type="text"
+            className={`form-control ${formErrors.productName && "is-invalid"}`}
+            name="productName"
+            placeholder="Enter Product Name"
+            onChange={(e) => setProductName(e.target.value)}
+            value={productName}
+            required
+          />
+          {formErrors.productName && (
+            <div className="invalid-feedback">{formErrors.productName}</div>
+          )}
+        </div>
 
-          <button
-            className="btn btn-success"
-            type="submit"
-            style={{ marginTop: "15px" }}
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Product Image: </label>
+          <input
+            type="file"
+            className={`form-control ${
+              formErrors.productImage && "is-invalid"
+            }`}
+            name="productImage"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                setProductImage(e.target.files[0]);
+              }
+            }}
+            required
+          />
+          {formErrors.productImage && (
+            <div className="invalid-feedback">{formErrors.productImage}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Quantity</label>
+          <input
+            type="text"
+            className={`form-control ${
+              formErrors.quantity && "is-invalid"
+            }`}
+            name="quantity"
+            placeholder="Enter added quantity"
+            value={quantity}
+            onChange={(e) => setProductQty(e.target.value)}
+            required
+          />
+          {formErrors.quantity && (
+            <div className="invalid-feedback">{formErrors.quantity}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Category</label>
+          <select
+            className={`form-control ${
+              formErrors.category && "is-invalid"
+            } `}
+            name="category"
+            value={category}
+            onChange={(e) => setProductCategory(e.target.value)}
+            required
           >
-            <i className="far fa-check-square"></i>
-            &nbsp;Save
-          </button>
-        </form>
-      </div>
-    );
-  }
-}
+            <option value="">Select a category</option>
+            <option value="Products">Products</option>
+            <option value="By-products">By-products</option>
+            <option value="Agrochemicals">Agrochemicals</option>
+          </select>
+          {formErrors.category && (
+            <div className="invalid-feedback">{formErrors.category}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Manufactured Date</label>
+          <input
+          type="date"
+            className={`form-control ${
+              formErrors.manufacturedDate && "is-invalid"
+            } `}
+            name="manufacturedDate"
+            placeholder="Enter the manufactured date"
+            value={manufacturedDate}
+            onChange={(e) => setProductMD(e.target.value)}
+            required
+          />
+          {formErrors.manufacturedDate && (
+            <div className="invalid-feedback">
+              {formErrors.manufacturedDate}
+            </div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Expiration Date</label>
+          <input
+            type="date"
+            className={`form-control ${
+              formErrors.expirationDate && "is-invalid"
+            } `}
+            name="expirationDate"
+            placeholder="Enter the expiration date"
+            value={expirationDate}
+            onChange={(e) => setProductED(e.target.value)}
+            required
+          />
+          {formErrors.expirationDate && (
+            <div className="invalid-feedback">{formErrors.expirationDate}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Re-order Level</label>
+          <input
+            type="text"
+            className={`form-control ${
+              formErrors.reOrderLevel && "is-invalid"
+            } `}
+            name="reOrderLevel"
+            placeholder="Enter re-order level"
+            value={reOrderLevel}
+            onChange={(e) => setProductROL(e.target.value)}
+            required
+          />
+          {formErrors.reOrderLevel && (
+            <div className="invalid-feedback">{formErrors.reOrderLevel}</div>
+          )}
+        </div>
+
+        <button
+          className="btn btn-success"
+          type="submit"
+          style={{ marginTop: "15px" }}
+        >
+          <i className="far fa-check-square"></i>
+          &nbsp;Save
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default CreateProducts;

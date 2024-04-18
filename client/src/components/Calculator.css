@@ -1,0 +1,95 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  
+.calculator {
+    display: flex;
+    flex-direction: row;
+    max-width: 1050px; 
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inputs {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .results {
+    flex: 1;
+    padding: 40px;
+    border-left: 2px solid #ddd;
+  }
+  
+  label {
+    font-size: 20px;
+  }
+  
+  select,
+  input[type="number"] {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 20px;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .results h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 24px;
+  }
+  
+   .amounts > div {
+    width: 350px;
+    background-color: #e8f0fe;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  } 
+  
+  .amounts p {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  
+  .amounts span {
+    font-weight: bold;
+    color: #4caf50;
+  }
+  
+  .age-message {
+    font-size: 15px; /* Smaller font size */
+    color: red; 
+    font-weight: bold; 
+    margin-top: 5px; 
+  }
+  

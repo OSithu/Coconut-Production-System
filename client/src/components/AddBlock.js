@@ -1,124 +1,122 @@
-import React, { Component } from "react";
-import axios from 'axios';
+import React, { useState } from 'react'
+import axios from 'axios'
 import PlantationNav from './PlantationNav';
+import { useNavigate } from 'react-router-dom';
 
-export default class AddBlock extends Component {
+const AddBlock = () => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            blockName: "",
-            area: "",
-            treeCount: "",
-            lastHarvested: "",
-            nextHarvesting: "",
-            lastFertilized: "",
-            nextFertilization: "",
-            errors: {}
-        }
-    }
+    const [blockName, setBlockName] = useState('');
+    const [areaValue, setAreaValue] = useState('');
+    const [areaUnit, setAreaUnit] = useState('');
+    const [errors, setErrors] = useState({});
 
-    validateForm = () => {
-        const { blockName, area, treeCount } = this.state;
-        const errors = {};
+    const navigate = useNavigate();
 
-        // Check if required fields are empty
-        if (!blockName.trim()) {
-            errors.blockName = 'Tree ID is required';
-        }
-        if (!area.trim()) {
-            errors.area = 'Type of Tree is required';
-        }
-        if (!treeCount) {
-            errors.treeCount = 'Planted Date is required';
-        }
-
-        // Update state with errors
-        this.setState({ errors });
-
-        // If errors object is empty, form is valid
-        return Object.keys(errors).length === 0;
-    }
-
-
-    handleInputChange = (e) => {
-        const { name, value } = e.target;
-        this.setState({
-            ...this.state,
-            [name]: value
-        })
-    }
-
-    onSubmit = (e) => {
+    const saveDetails = async (e) => {
         e.preventDefault();
-        if (this.validateForm()) {
-        const { blockName, area, treeCount } = this.state;
-        const data = {
-            blockName: blockName,
-            area: area,
-            treeCount: treeCount
+    
+        // Clear previous errors
+        setErrors({});
+    
+        // Validation
+        let formValid = true;
+        let errorsData = {};
+    
+        if (!blockName.trim()) {
+            formValid = false;
+            errorsData.blockName = "Block Name is required";
         }
+        if (!areaValue.trim()) {
+            errorsData.area = 'Area is required';
+            formValid = false;
+        }
+        if (!areaUnit.trim()) {
+            errorsData.areaUnit = 'Unit is required';
+            formValid = false;
+        }
+    
+        // If form is not valid, set errors and return
+        if (!formValid) {
+            setErrors(errorsData);
+            return;
+        }
+    
+        let newBlock = {
+            blockName: blockName,
+            area: { value: areaValue , unit: areaUnit }
+        }
+    
+        axios.post("http://localhost:8000/blocks/save", newBlock)
+            .then((res) => {
+                alert(res.data.success);
+                console.log(res.data.success);
+                navigate("/estateDetails")
+            })
+            .catch((err) => {
+                if (err.response) {
+                    console.log(err.response.data.message);
+                    alert(err.response.data.error)
+                } else {
+                    console.log("Error occurred while processing axios post request" + err.message);
+                }
+            });
+    };
+    
 
-        console.log(data)
+    return (
+        <div className="col-md-8 mt-4 mx auto">
+                 <PlantationNav />
+                 &nbsp;
+                 <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
+                 <form className="needs-validation" noValidate onSubmit={saveDetails}>
 
-        axios.post("http://localhost:8000/blocks/save", data).then((res) => {
-            if (res.data.success) {
-                this.setState(
-                    {
-                        blockName: "",
-                        area: "",
-                        treeCount: "",
-                        errors:{}
-                    }
-                )
-            }
-        })
-    }
-    }
-
-    render() {
-        const { errors } = this.state;
-        return (
-            <div className="col-md-8 mt-4 mx auto">
-                <PlantationNav/>
-            &nbsp;
-                <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
-                <form className="needs-validation" noValidate>
-                    <div class="form-group" style={{ marginBottom: '15px' }}>
-                        <label style={{ marginBottom: '5px' }}> Block Name </label>
-                        <input type="text"
-                            class={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
-                            name="blockName"
-                            placeholder="Enter Block Name"
-                            value={this.state.blockName}
-                            onChange={this.handleInputChange} />
+                     <div class="row mb-3">
+                         <label className="col-sm-2 col-form-label"> Block Name </label>
+                         <div className="col-sm-10">
+                             <input type="text"
+                                class={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
+                                name="blockName"
+                                placeholder="Enter Block Name"
+                                value={blockName}
+                                onChange={(e) => setBlockName(e.target.value)} />
                             {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
+                        </div>
                     </div>
 
-                    <div class="form-group" style={{ marginBottom: '15px' }}>
-                        <label style={{ marginBottom: '5px' }}> Area </label>
-                        <input type="text"
-                            class={`form-control ${errors.area ? 'is-invalid' : ''}`}
+                    <div class="row mb-3">
+                        <label className="col-sm-2 col-form-label"> Area </label>
+                        <div className="col-sm-8">
+                        <input
+                            type="text"
+                            className={`form-control ${errors.area ? 'is-invalid' : ''}`}
                             name="area"
                             placeholder="Enter Area"
-                            value={this.state.area}
-                            onChange={this.handleInputChange} />
+                            value={areaValue}
+                            onChange={(e) => setAreaValue(e.target.value)}
+                        />
                             {errors.area && <div className="invalid-feedback">{errors.area}</div>}
+
+                            <select
+                            className="form-select"
+                            name="unit"
+                            value={areaUnit}
+                            onChange={(e) => setAreaUnit(e.target.value)}
+                        >
+                            <option value="">Select Unit</option>
+                            <option value="sqm">sqm</option>
+                            <option value="sqft">sqft</option>
+                            <option value="hectare">hectare</option>
+                            <option value="acre">acre</option>
+                        </select>
+
+                        </div>
                     </div>
 
-                    <div class="form-group" style={{ marginBottom: '15px' }}>
-                        <label style={{ marginBottom: '5px' }}> Number of Trees </label>
-                        <input type="text"
-                            class={`form-control ${errors.treeCount ? 'is-invalid' : ''}`}
-                            name="treeCount"
-                            value={this.state.treeCount}
-                            onChange={this.handleInputChange} />
-                            {errors.treeCount && <div className="invalid-feedback">{errors.treeCount}</div>}
-                    </div>
-
-                    <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>Submit</button>
+                    <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
                 </form>
             </div>
-        )
-    }
+    )
+
 }
+
+export default AddBlock

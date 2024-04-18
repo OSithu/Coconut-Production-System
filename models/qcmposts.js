@@ -1,28 +1,27 @@
 const mongoose = require('mongoose');
 
 const qualityControlSchema = new mongoose.Schema({
-
-    RecordId:{
+    recordId:{
         type:String,
         required:true
     },
-    ProductType:{
+    productType:{
         type:String,
         required:true
     },
-    QualityCheckedDate:{
+    qualityCheckedDate:{
         type:Date,
         required:true
     },
-    SpecialNotes:{
+    specialNotes:{
         type:String,
         required:true
     },
-    TestResult:{
+    testResult:{
         type:String,
         required:true
     },
-
+    
 });
 
 module.exports = mongoose.model('qualityControl',qualityControlSchema);

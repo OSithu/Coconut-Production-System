@@ -1,189 +1,154 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
-export default class CreateProductCnt extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      productId: "",
-      quantity: "",
-      Date: "",
-      Description: "",
-      errors: {},
-    };
-  }
 
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
+const CreateProductCnt = () => {
+  const [productId, setProductId] = useState("");
+  const [quantity, setProductQty] = useState("");
+  const [productDate, setProductDate] = useState("");
+  const [description, setProductDesc] = useState("");
+  // const [error, setError] = useState("");
 
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  onSubmit = (e) => {
+  const sendData = async (e) => {
     e.preventDefault();
-    if (this.validateForm()) {
-      const { productId, quantity, Date, Description } = this.state;
+  
+    try {
 
-      const data = {
+      let newProductRecData = {
         productId: productId,
         quantity: quantity,
-        Date: Date,
-        Description: Description,
+        productDate: productDate,
+        description: description,
       };
+  
+      const res = await axios.post("http://localhost:8000/productCnt/save", newProductRecData);
+  
+      // if (res.data.error) {
+      //   setError(res.data.error);
+      //   return; 
+      // }
 
-      console.log(data);
-
-      axios.post("http://localhost:8000/productCnt/save", data).then((res) => {
-        if (res.data.success) {
-          this.setState({
-            productId: "",
-            quantity: "",
-            Date: "",
-            Description: "",
-            errors: {},
-          });
-        }
-      });
+      alert(res.data.success);
+      console.log(res.data.success);
+  
+      if (description === 'Incremented') {
+        // Call updateProductQuantity to add quantity
+        await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
+          quantity: +quantity
+        });
+      } else if (description === 'Decremented') {
+        // Call updateProductQuantity to subtract quantity
+        await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
+          quantity: -quantity
+        });
+      } else {
+        console.error('Invalid description:', description);
+        return; // Exit the function if description is invalid
+      }
+  
+      // Display success message
+      alert('Product quantity updated successfully.');
+  
+      // Reset the form fields
+      setProductId('');
+      setProductQty('');
+      setProductDate('');
+      setProductDesc('');
+    } catch (error) {
+      console.error("Error occurred while updating product quantity:", error);
+      alert("Failed to update product quantity. Please try again.");
     }
   };
 
-  validateForm = () => {
-    const { productId, quantity, Date, Description } = this.state;
-    let errors = {};
-    let isValid = true;
+  return (
+    <div className="col-md-5 mt-5 mx-auto">
+      <h1 className="h3 mb-4 font-weight-normal">
+        Add new Product Count Record
+      </h1>
+      <form className="needs-validation" noValidate onSubmit={sendData}>
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Product ID</label>
+          <input
+            type="text"
+            className={`form-control`}
+            name="productId"
+            placeholder="Enter Product Id"
+            value={productId}
+            onChange={(e) => setProductId(e.target.value)}
+            required
+          />
+        </div>
 
-    if (!productId.trim()) {
-      errors.productId = "Product ID is required";
-      isValid = false;
-    }
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Quantity</label>
+          <input
+            type="text"
+            className={`form-control`}
+            name="quantity"
+            placeholder="Enter added quantity"
+            value={quantity}
+            onChange={(e) => setProductQty(e.target.value)}
+            required
+          />
+        </div>
 
-    if (!quantity.trim()) {
-      errors.quantity = "Quantity is required";
-      isValid = false;
-    } else if (!/^\d+$/.test(quantity)) {
-      errors.quantity = "Quantity should contain only numbers";
-      isValid = false;
-    }
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Date</label>
+          <input
+            type="date"
+            className={`form-control`}
+            name="productDate"
+            placeholder="Enter the date"
+            value={productDate}
+            onChange={(e) => setProductDate(e.target.value)}
+            required
+          />
+        </div>
 
-    if (!Date) {
-      errors.Date = "Date is required";
-      isValid = false;
-    }
-
-    if (!Description) {
-      errors.Description = "Description is required";
-      isValid = false;
-    }
-
-    this.setState({ errors });
-    return isValid;
-  };
-
-  render() {
-    const { errors } = this.state;
-
-    return (
-      <div className="col-md-5 mt-5 mx-auto">
-        <h1 className="h3 mb-4 font-weight-normal">
-          Add new Product Count Record
-        </h1>
-        <form className="needs-validation" noValidate onSubmit={this.onSubmit}>
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Product ID</label>
-            <input
-              type="text"
-              className={`form-control ${errors.productId && "is-invalid"}`}
-              name="productId"
-              placeholder="Enter Product Id"
-              value={this.state.productId}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.productId && (
-              <div className="invalid-feedback">{errors.productId}</div>
-            )}
+        <div
+          className="form-group"
+          style={{
+            marginBottom: "15px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div>
+            <label style={{ marginRight: "10px" }}>
+              <input
+                type="radio"
+                name="description"
+                value="Incremented"
+                checked={description === "Incremented"}
+                onChange={(e) => setProductDesc(e.target.value)}
+              />
+              &nbsp;Increment
+            </label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>
+              <input
+                type="radio"
+                name="description"
+                value="Decremented"
+                checked={description === "Decremented"}
+                onChange={(e) => setProductDesc(e.target.value)}
+              />
+              &nbsp;Decrement
+            </label>
           </div>
+        </div>
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Quantity</label>
-            <input
-              type="text"
-              className={`form-control ${errors.quantity && "is-invalid"}`}
-              name="quantity"
-              placeholder="Enter added quantity"
-              value={this.state.quantity}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.quantity && (
-              <div className="invalid-feedback">{errors.quantity}</div>
-            )}
-          </div>
+        <button
+          className="btn btn-success"
+          type="submit"
+          style={{ marginTop: "15px" }}
+        >
+          <i className="far fa-check-square"></i>
+          &nbsp;Save
+        </button>
+      </form>
+    </div>
+  );
+};
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Date</label>
-            <input
-              type="date"
-              className={`form-control ${errors.Date && "is-invalid"}`}
-              name="Date"
-              placeholder="Enter the date"
-              value={this.state.Date}
-              onChange={this.handleInputChange}
-              required
-            />
-            {errors.Date && (
-              <div className="invalid-feedback">{errors.Date}</div>
-            )}
-          </div>
-
-          <div
-            className="form-group"
-            style={{
-              marginBottom: "15px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <div>
-              <label style={{ marginRight: "10px" }}>
-                <input
-                  type="radio"
-                  name="Description"
-                  value="increment"
-                  checked={this.state.Description === "increment"}
-                  onChange={this.handleInputChange}
-                />
-                &nbsp;Increment
-              </label>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <label>
-                <input
-                  type="radio"
-                  name="Description"
-                  value="decrement"
-                  checked={this.state.Description === "decrement"}
-                  onChange={this.handleInputChange}
-                />
-                &nbsp;Decrement
-              </label>
-            </div>
-            {errors.Description && (
-              <div className="invalid-feedback">{errors.Description}</div>
-            )}
-          </div>
-
-          <button
-            className="btn btn-success"
-            type="submit"
-            style={{ marginTop: "15px" }}
-          >
-            <i className="far fa-check-square"></i>
-            &nbsp;Save
-          </button>
-        </form>
-      </div>
-    );
-  }
-}
+export default CreateProductCnt;
