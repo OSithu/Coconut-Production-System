@@ -68,6 +68,7 @@ import AddBudgetDetails from "./components/AddBudgetDetails";
 import editBudgetDetails from "./components/editBudgetDetails";
 
 import ViewItems from "./components/ViewItems";
+import ViewDetails from "./components/ViewDetails";
 
 function App() {
   return (
@@ -142,6 +143,7 @@ function App() {
           <Route path="/editBudgetDetails/:id" Component={editBudgetDetails} />
 
           <Route path="viewItems" Component={ViewItems}/>
+          <Route path="/viewDetails/:id" Component={ViewDetails}/>
 
         </Routes>
       </div>

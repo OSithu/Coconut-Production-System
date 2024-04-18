@@ -97,21 +97,34 @@ router.get("/products", async (req, res) => {
   }
 });
 
-//get a specific product details
 router.get("/products/:id", async (req, res) => {
   try {
     let productID = req.params.id;
     let product = await Products.findById(productID);
+
     if (!product) {
       return res
         .status(404)
         .json({ success: false, message: "Product not found" });
     }
-    return res.status(200).json({ success: true, product });
+
+    // Format the dates without the time component
+    const formattedProduct = {
+      ...product.toObject(),
+      manufacturedDate: product.manufacturedDate
+        ? product.manufacturedDate.toISOString().split('T')[0]
+        : null,
+      expirationDate: product.expirationDate
+        ? product.expirationDate.toISOString().split('T')[0]
+        : null,
+    };
+
+    return res.status(200).json({ success: true, product: formattedProduct });
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
   }
 });
+
 
 //serve images
 router.get("/products/images/:id", async (req, res) => {
