@@ -1,9 +1,9 @@
 import React,{ useEffect,useState } from "react";
 import axios from 'axios';
 import {Link} from 'react-router-dom'
-import FinanceNv from "./FinanceNv";
+import FinanceNv from './FinanceNv'
 
-const ViewFianceDetails = () => {
+const ViewBudgetDetails = () => {
 
   const [allDetails, setAllDetails] = useState([]);
 
@@ -11,7 +11,7 @@ const ViewFianceDetails = () => {
 
     const getDetails = async () =>{
 
-      await axios.get(`http://localhost:8000/financeRecords`)
+      await axios.get(`http://localhost:8000/budgetRecords`)
       .then((res) => {
         setAllDetails(res.data.existingfinance);
         console.log('Status:' +res.data.success);
@@ -32,7 +32,7 @@ const handleDelete = async (id) =>{
     const confirm = window.confirm('Are you sure you want to delete?');
 
     if(confirm){
-      await axios.delete(`http://localhost:3000/financeRecords/delete/${id}`)
+      await axios.delete(`http://localhost:3000/budgetRecords/delete/${id}`)
       .then((res) =>{
         alert(res.data.message);
         console.log(res.data.message);
@@ -58,36 +58,33 @@ const handleDelete = async (id) =>{
 return (
   <div>
     <FinanceNv/>
-        <p>All Financial Transactions</p>
+        <p>Budget Details</p>
         <table className="table">
          <thead>
           <tr>
              {/* <th scope="col">#</th> */}
-             <th scope="col">Date</th>
-             <th scope="col">Type</th>
-            <th scope="col">Description</th>
-           <th scope="col">Income</th>
-            <th scope="col">Expenses</th>
-                         <th scope="col">TotalAmount</th>
+             <th scope="col">Month</th>
+             <th scope="col">Total Income</th>
+            <th scope="col">Total Expences</th>
+           <th scope="col">Profit/Loss</th>
           </tr>
         </thead>
          <tbody>
-           {allDetails.map(finance => (
-            <tr>
-              <td>{finance.date}</td>
-              <td>{finance.type}</td>
-              <td>{finance.Description}</td>
-              <td>{finance.Income}</td>
-              <td>{finance.Expenses}</td>
-              <td>{finance.totalAmount}</td>
+           {allDetails.map(budget => (
+            <tr key={budget._id}>
+              <td>{budget.month}</td>
+              <td>{budget.totalIncome}</td>
+              <td>{budget.totalExpences}</td>
+              <td>{budget.profitLoss}</td>
+             
               <td>
-               <Link to={`/editFinanceDetails/${finance._id}`}>
+               <Link to={`/editbudgetDetails/${budget._id}`}>
                 <button type="button" className = "btn btn-warining">
                   <i className = 'fas fa-edit'></i>&nbsp; Edit
                 </button>
                </Link>
                 &nbsp;
-              <button type="button" className='btn btn-danger' onClick={()=> handleDelete(finance._id)}>
+              <button type="button" className='btn btn-danger' onClick={()=> handleDelete(budget._id)}>
               <i className="far fa-trash-alt"></i>&nbsp;Delete
               </button>
               </td>
@@ -95,7 +92,7 @@ return (
           ))}
         </tbody>
        </table>
-       <button className="btn btn-success"><a href="/createFinanceDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button>
+       <button className="btn btn-success"><a href="/AddBudgetDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button>
       </div>
 
 )
@@ -104,4 +101,4 @@ return (
 
 }
 
-export default ViewFianceDetails;
+export default ViewBudgetDetails;

@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-const AddTransaction = () => {
+const AddBudgetDetails = () => {
 
     const [month, setMonth] = useState('');
-    const [TotalIncome, setTotalIncome] = useState('');
-    const [TotalExpences, setTotalExpences] = useState('');
-    const [ProfitLoss, setProfitLoss] = useState('');
+    const [totalIncome, setTotalIncome] = useState('');
+    const [totalExpences, setTotalExpences] = useState('');
+    const [profitLoss, setProfitLoss] = useState('');
     
     // Implementing send data function
     const sendData = async (e) => {
         e.preventDefault();
 
         try {
-            let newTransaction = {
+            let AddB = {
                 month: month,
-                TotalIncome: TotalIncome,
-                TotalExpences: TotalExpences,
-                ProfitLoss: ProfitLoss,
+                totalIncome: totalIncome,
+                totalExpences: totalExpences,
+                profitLoss: profitLoss,
             };
 
-            await axios.post(`http://localhost:8000/financeRecords/save`, newTransaction)
+            await axios.post(`http://localhost:8000/budgetRecords/save`, AddB)
                 .then((res) => {
                     alert(res.data.success);
                     console.log('status: ' + res.data.status);
@@ -56,7 +56,7 @@ const AddTransaction = () => {
                         name="month"
                         placeholder="month"
                         value={month}
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={(e) => setMonth(e.target.value)}
                     />
                 </div>
 
@@ -67,8 +67,8 @@ const AddTransaction = () => {
                         className="form-control"
                         name="Income"
                         placeholder="Income"
-                        value={TotalIncome}
-                        onChange={(e) => setType(e.target.value)}
+                        value={totalIncome}
+                        onChange={(e) => setTotalIncome(e.target.value)}
                     />
                 </div>
 
@@ -79,8 +79,8 @@ const AddTransaction = () => {
                         className="form-control"
                         name="Expences"
                         placeholder="Expences"
-                        value={TotalExpences}
-                        onChange={(e) => setDescription(e.target.value)}
+                        value={totalExpences}
+                        onChange={(e) => setTotalExpences(e.target.value)}
                     />
                 </div>
 
@@ -91,8 +91,8 @@ const AddTransaction = () => {
                         className="form-control"
                         name="Profit/Loss"
                         placeholder="Profit/Loss"
-                        value={ProfitLoss}
-                        onChange={(e) => setIncome(e.target.value)}
+                        value={profitLoss}
+                        onChange={(e) => setProfitLoss(e.target.value)}
                     />
                 </div>
 
@@ -105,4 +105,4 @@ const AddTransaction = () => {
     );
 };
 
-export default AddTransaction;
+export default AddBudgetDetails;
