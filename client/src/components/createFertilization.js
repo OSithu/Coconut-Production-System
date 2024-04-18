@@ -9,7 +9,6 @@ const CreateFertilizationDetails = () => {
     const [EppawalaRockPhosphateAmount, setEppawalaRockPhosphateAmount] = useState('');
     const [MuriateOfPotasiumAmount, setMuriateOfPotasiumAmount] = useState('');
     const [DolamiteAmount, setDolamiteAmount] = useState('');
-    const [Description, setDescription] = useState('');
     
 
     //implement sendData function
@@ -25,7 +24,6 @@ const CreateFertilizationDetails = () => {
                 EppawalaRockPhosphateAmount: EppawalaRockPhosphateAmount,
                 MuriateOfPotasiumAmount: MuriateOfPotasiumAmount,
                 DolamiteAmount: DolamiteAmount,
-                Description: Description,
             };
 
             await axios.post('http://localhost:8000/fertilizationrec/save', newFertilizationData)
@@ -49,7 +47,6 @@ const CreateFertilizationDetails = () => {
                    setEppawalaRockPhosphateAmount('');
                    setMuriateOfPotasiumAmount('');
                    setDolamiteAmount('');
-                   setDescription('');
 
         } catch (err) {
             console.log('sendData function failed! ERROR: ' + err.message);
