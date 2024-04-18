@@ -4,7 +4,7 @@ import axios from 'axios';
 const CreateFertilizationDetails = () => {
     const [TreeNo, setTreeNo] = useState('');
     const [TreeStage, setTreeStage] = useState('');
-    const [Date, setDate] = useState('');
+    const [FertilizationDate, setFertilizationDate] = useState('');
     const [UreaAmount, setUreaAmount] = useState('');
     const [EppawalaRockPhosphateAmount, setEppawalaRockPhosphateAmount] = useState('');
     const [MuriateOfPotasiumAmount, setMuriateOfPotasiumAmount] = useState('');
@@ -19,7 +19,7 @@ const CreateFertilizationDetails = () => {
             let newFertilizationData = {
                 TreeNo: TreeNo,
                 TreeStage: TreeStage,
-                Date: Date,
+                FertilizationDate: FertilizationDate,
                 UreaAmount: UreaAmount,
                 EppawalaRockPhosphateAmount: EppawalaRockPhosphateAmount,
                 MuriateOfPotasiumAmount: MuriateOfPotasiumAmount,
@@ -42,7 +42,7 @@ const CreateFertilizationDetails = () => {
                  //set state back to first state
                    setTreeNo('');
                    setTreeStage('');
-                   setDate('');
+                   setFertilizationDate('');
                    setUreaAmount('');
                    setEppawalaRockPhosphateAmount('');
                    setMuriateOfPotasiumAmount('');
@@ -88,10 +88,10 @@ const CreateFertilizationDetails = () => {
             <input 
                 type="date" 
                 className="form-control" 
-                name="Date" 
+                name="FertilizationDate" 
                 placeholder="Enter the Date of fertilization"
-                value={Date}
-                onChange={(e) => setDate(e.target.value)}
+                value={FertilizationDate}
+                onChange={(e) => setFertilizationDate(e.target.value)}
                 required
             />
         </div>

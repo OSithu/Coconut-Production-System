@@ -119,7 +119,7 @@ const ViewFertilizationDetails = () => {
               <th scope="row">{index + 1}</th>
                <td className="text-center">{fertilization.TreeNo}</td>
                 <td className="text-center">{fertilization.TreeStage}</td>
-                <td className="text-center">{new Date(fertilization.Date).toLocaleDateString()}</td>
+                <td className="text-center">{new Date(fertilization.FertilizationDate).toLocaleDateString()}</td>
                 <td className="text-center">{fertilization.UreaAmount}</td>
                 <td className="text-center">{fertilization.EppawalaRockPhosphateAmount}</td>
                 <td className="text-center">{fertilization.MuriateOfPotasiumAmount}</td>

@@ -10,7 +10,6 @@ const UpdateFertilizationDetails = () => {
   const [EppawalaRockPhosphateAmount, setEppawalaRockPhosphateAmount] = useState("");
   const [MuriateOfPotasiumAmount, setMuriateOfPotasiumAmount] = useState("");
   const [DolamiteAmount, setDolamiteAmount] = useState("");
-  const [Description, setDescription] = useState("");
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -40,7 +39,6 @@ const UpdateFertilizationDetails = () => {
           setEppawalaRockPhosphateAmount(res.data.record.EppawalaRockPhosphateAmount);
           setMuriateOfPotasiumAmount(res.data.record.MuriateOfPotasiumAmount);
           setDolamiteAmount(res.data.record.DolamiteAmount);
-          setDescription(res.data.record.Description);
           console.log(res.data.message);
         })
         .catch((err) => {
@@ -71,7 +69,6 @@ const UpdateFertilizationDetails = () => {
             EppawalaRockPhosphateAmount: EppawalaRockPhosphateAmount,
             MuriateOfPotasiumAmount: MuriateOfPotasiumAmount,
             DolamiteAmount: DolamiteAmount,
-            Description: Description,
         };
 
         await axios
@@ -187,7 +184,7 @@ const UpdateFertilizationDetails = () => {
                        required/>
                    </div>
 
-                   <div className="form-group" style={{marginBottom:'15px'}}>
+                   {/* <div className="form-group" style={{marginBottom:'15px'}}>
                        <label style={{marginBottom:'5px'}}>Description</label>
                       <textarea 
                        className="form-control" 
@@ -196,7 +193,7 @@ const UpdateFertilizationDetails = () => {
                       value={Description}
                       onChange={(e) => setDescription(e.target.value)}
                       required/>
-                   </div>
+                   </div> */}
 
         <button
           className="btn btn-success"
