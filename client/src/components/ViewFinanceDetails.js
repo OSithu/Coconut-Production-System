@@ -79,7 +79,7 @@ return (
               <td>{finance.Expenses}</td>
               <td>{finance.totalAmount}</td>
               <td>
-               <Link to={`/update/${finance._id}`}>
+               <Link to={`/editFinanceDetails/${finance._id}`}>
                 <button type="button" className = "btn btn-warining">
                   <i className = 'fas fa-edit'></i>&nbsp; Edit
                 </button>

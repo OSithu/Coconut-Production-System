@@ -20,7 +20,7 @@ router.post("/financeRecords/save", async (req, res) => {
   }
 });
 
-module.exports = router;
+
 
 //get posts
 
@@ -74,7 +74,7 @@ router.get("/financeRecords", async (req, res) => {
 router.get("/financeRecords/:id", async (req, res) => {
     try {
         let financerecordID = req.params.id;
-        let financerecord = await financeRecords.findById(financerecordID);
+        let financerecord = await finance.findById(financerecordID);
         if (!financerecord) {
             return res.status(404).json({ success: false, message: "Record not found" });
         }
@@ -139,3 +139,5 @@ router.put("/financerecords/update/:id", async (req, res) => {
       });
     }
   });
+
+  module.exports = router;
