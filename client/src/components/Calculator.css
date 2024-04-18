@@ -1,4 +1,4 @@
-html, body {
+/* html, body {
     height: 100%;
     margin: 0;
     display: flex;
@@ -85,7 +85,7 @@ html, body {
     font-weight: bold;
     color: #4caf50;
   }
-  
+   */
   .age-message {
     font-size: 15px; /* Smaller font size */
     color: red; 
