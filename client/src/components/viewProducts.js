@@ -104,7 +104,7 @@ const ViewProducts = () => {
             </tr>
           </thead>
           <tbody>
-            {allProducts.map((products, index) => (
+            {allProducts.map((products) => (
               <tr
                 key={products._id}
                 className={
