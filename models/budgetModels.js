@@ -1,6 +1,6 @@
 const mongoose =require('mongoose');
 
-const FinancepostSchema = new mongoose.Schema({
+const BudgetpostSchema = new mongoose.Schema({
 
     month:{
         type:String,
@@ -20,4 +20,4 @@ const FinancepostSchema = new mongoose.Schema({
     },
 });
 
-module.exports =mongoose.model('financeManagement', FinancepostSchema)
+module.exports =mongoose.model('budgetManagement', BudgetpostSchema)
