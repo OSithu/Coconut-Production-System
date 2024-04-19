@@ -76,16 +76,19 @@ const EstateDetails = () => {
             </div>
           </div>
           <div className="col">
-          <div className='plantCard'>
-          <div className="plantCard-body">
-                <h2 className="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h2>
-                <h3 className="card-subtitle mb-2 text-body-secondary">Trees</h3>
+            <Link to={'/allTrees'} style={{ textDecoration: 'none' }}>
+              <div className='plantCard'>
+                <div className="plantCard-body">
+                  <h2 className="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h2>
+                  <h3 className="card-subtitle mb-2 text-body-secondary">Trees</h3>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
           <div className="col">
-          <div className='plantCard'>
-          <div className="plantCard-body">                <h2 className="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h2>
+            <div className='plantCard'>
+              <div className="plantCard-body">
+                <h2 className="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h2>
                 <h3 className="card-subtitle mb-2 text-body-secondary">Blocks</h3>
               </div>
             </div>
@@ -99,12 +102,12 @@ const EstateDetails = () => {
 
       <div className="container text-center">
         <div className="row align-items-start">
-          <div className="col">
+          <div className="col" id="plantDiv">
             &nbsp;
             <h1> Estate Layout </h1>
-            <img src = "/images/layout.jpg" className='layoutImg'/> 
+            <img src="/images/layout.png" alt="estateLayout" className='layoutImg' />
           </div>
-          <div className="col">
+          <div className="col" id="plantDiv">
             &nbsp;
             <h1> Block Details </h1>
             &nbsp;

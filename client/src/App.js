@@ -72,6 +72,7 @@ import ViewItems from "./components/ViewItems";
 import ViewDetails from "./components/ViewDetails";
 
 import EstateStaff from "./components/EstateStaff";
+import ViewAllTrees from "./components/ViewAllTrees";
 
 
 function App() {
@@ -148,6 +149,7 @@ function App() {
           <Route path="/" Component={WelcomeScreen} />
 
 		      <Route path="/estStaff" Component={EstateStaff}/>
+          <Route path="/allTrees" Component={ViewAllTrees}/>
 
         </Routes>
       </div>
