@@ -89,9 +89,10 @@ const AddTrees = () => {
     };
 
     return (
-        <div className="container text-center">
-
-            <PlantationNav />
+        
+<div className='plantBody'>
+<div className="container text-center">
+<PlantationNav />
             &nbsp;
             <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
             &nbsp; &nbsp;
@@ -172,7 +173,7 @@ const AddTrees = () => {
 
                 <button className="btn btn-success" type="submit">Submit</button>
             </form >
-
+            </div>
         </div >
     )
 }

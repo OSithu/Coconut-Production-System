@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import '../stylesheets/plantation.css';
 
 export default class PlantationNav extends Component {
     render() {
@@ -9,16 +10,16 @@ export default class PlantationNav extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="nav nav-tabs">
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/estateDetails">Estate Details</NavLink>
+                                <NavLink className="plantNav-link" activeClassName="active" to="/estateDetails">Estate Details</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/viewHarvest">Harvest Details</NavLink>
+                                <NavLink className="plantNav-link" activeClassName="active" to="/viewHarvest">Harvest Details</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/viewHvstSchedules">Harvesting Schedules</NavLink>
+                                <NavLink className="plantNav-link" activeClassName="active" to="/viewHvstSchedules">Harvesting Schedules</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/estStaff">Estate Staff</NavLink>
+                                <NavLink className="plantNav-link" activeClassName="active" to="/estStaff">Estate Staff</NavLink>
                             </li>
                         </ul>
                     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 
 const EstateDetails = () => {
 
@@ -59,34 +60,33 @@ const EstateDetails = () => {
 
 
   return (
-    <div>
+    <div className='plantBody'>
       <PlantationNav />
       &nbsp;
       <div className="container text-center">
-        <h2> Estate Details </h2>
+        <h1> Estate Details </h1>
         &nbsp;&nbsp;
         <div className="row align-items-start">
           <div className="col">
-            <div class="card" >
-              <div class="card-body">
-                <h5 class="card-title">5 acres</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Area</h6>
+            <div className='plantCard'>
+              <div className="plantCard-body">
+                <h2 className="card-title">5 acres</h2>
+                <h3 className="card-subtitle mb-2 text-body-secondary">Area</h3>
               </div>
             </div>
           </div>
           <div className="col">
-            <div class="card" >
-              <div class="card-body">
-                <h5 class="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Trees</h6>
+          <div className='plantCard'>
+          <div className="plantCard-body">
+                <h2 className="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h2>
+                <h3 className="card-subtitle mb-2 text-body-secondary">Trees</h3>
               </div>
             </div>
           </div>
           <div className="col">
-            <div class="card" >
-              <div class="card-body">
-                <h5 class="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Blocks</h6>
+          <div className='plantCard'>
+          <div className="plantCard-body">                <h2 className="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h2>
+                <h3 className="card-subtitle mb-2 text-body-secondary">Blocks</h3>
               </div>
             </div>
           </div>
@@ -101,12 +101,12 @@ const EstateDetails = () => {
         <div className="row align-items-start">
           <div className="col">
             &nbsp;
-            <h2> Estate Layout </h2>
-            {/* <img src = "C:\Users\user\OneDrive\Documents\images\estateLayout.png"/> */}
+            <h1> Estate Layout </h1>
+            <img src = "/images/layout.jpg" className='layoutImg'/> 
           </div>
           <div className="col">
             &nbsp;
-            <h2> Block Details </h2>
+            <h1> Block Details </h1>
             &nbsp;
             <table className="table">
               <thead>
