@@ -145,7 +145,7 @@ const ViewProducts = () => {
                   <a
                     className="btn btn-warning"
                     href={`/editProduct/${products._id}`}
-                    style={{ width: "100px" }}
+                    style={{ width: "90px" }}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
@@ -153,7 +153,7 @@ const ViewProducts = () => {
                     className="btn btn-danger"
                     href="#"
                     onClick={() => handleDelete(products._id)}
-                    style={{ width: "100px" }}
+                    style={{ width: "90px" }}
                   >
                     <i className="far fa-trash-alt"></i>&nbsp;Delete
                   </a>
