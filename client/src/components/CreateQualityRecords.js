@@ -24,11 +24,6 @@ const CreateQualityRecords = () => {
     isValid = false;
   }
 
-  // if(!qualityCheckedDate) {
-  //   errors.qualityCheckedDate = 'Quality checked date is required';
-  //   isValid = false;
-  // }
-
   if (!qualityCheckedDate) {
     errors.qualityCheckedDate = 'Quality checked date is required';
     isValid = false;
@@ -163,12 +158,10 @@ const CreateQualityRecords = () => {
                            />
                            {errors.testResult && <div className="invalid-feedback">{errors.testResult}</div>}
                         </div>
-    
-    
-                        <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
-                            <i className="far fa check-square"></i>
-                            &nbsp: Save
-                        </button>
+
+                      <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
+                      <i className="fas fa check-square"></i>&nbsp;Save Record
+                      </button>
       </form>
     </div>
     )
