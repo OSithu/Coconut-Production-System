@@ -84,6 +84,12 @@ const ViewDetails = () => {
             </dd>
 
             <dd>
+              <strong>Unit Price: </strong>
+              Rs.{product.price || "Loading..."}
+            </dd>
+
+
+            <dd>
               <strong>Available Quantity: </strong>
               {product.quantity || "Loading..."}
             </dd>
