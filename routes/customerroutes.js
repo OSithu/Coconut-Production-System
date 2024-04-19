@@ -1,8 +1,7 @@
 const express = require("express");
+const router = express.Router();
 const CustomerDetails = require("../models/customerposts");
 const customerposts = require("../models/customerposts");
-
-const router = express.Router();
 
 //save posts
 router.post("/cusDetails/save", async (req, res) => {
@@ -22,22 +21,6 @@ router.post("/cusDetails/save", async (req, res) => {
 });
 
 //get posts
-
-// router.get('/cusDetails',(req,res)=>{
-//   CustomerDetails.find().exec((err,cusDetails) =>{
-//     if(err){
-//       return res.status(400).json({
-//         error:err
-//       });
-//     }
-//     return res.status(200).json({
-//       success: true,
-//       existingRecords:cusDetails,
-//     });
-//   });
-// });
-
-//get posts
 router.get("/cusDetails", async (req, res) => {
   try {
     const cusDetails = await CustomerDetails.find().exec();
@@ -51,25 +34,6 @@ router.get("/cusDetails", async (req, res) => {
     });
   }
 });
-
-//update posts
-// router.put('/cusDetails/update/:id',(req,res)=>{
-//   CustomerDetails.findByIdAndUpdate(
-//     req.params.id,
-//     {
-//       $set: req.body,
-//     },
-//     (err, cusDetails) => {
-//       if(err) {
-//         return res.status(400).json({ error: err });
-//       }
-
-//       return res.status(200).json({
-//         success: "Updated successfully",
-//       });
-//     }
-//   );
-// });
 
 //update posts
 router.put("/cusDetails/update/:id", async (req, res) => {
@@ -89,27 +53,11 @@ router.put("/cusDetails/update/:id", async (req, res) => {
 });
 
 //delete post
-// router.delete("/cusDetails/delete/:id", (req, res) => {
-//   CustomerDetails.findByIdAndDelete(req.params.id).exec(
-//     (err, deletedRecords) => {
-//       if (err)
-//         return res.status(400).json({
-//           message: "Delete unsuccessful",
-//           err,
-//         });
-//       return res.json({
-//         message: "Delete Successfull",
-//         deletedRecords,
-//       });
-//     }
-//   );
-// });
-
-
-//delete post
 router.delete("/cusDetails/delete/:id", async (req, res) => {
   try {
-    const deletedRecords = await CustomerDetails.findByIdAndDelete(req.params.id).exec();
+    const deletedRecords = await CustomerDetails.findByIdAndDelete(
+      req.params.id
+    ).exec();
 
     return res.json({
       message: "Delete Successfully",
@@ -119,23 +67,59 @@ router.delete("/cusDetails/delete/:id", async (req, res) => {
     return res.status(400).json({
       message: "Deleted unsuccessfully",
       error: err.message,
-    });
-    }
-  });
+    });
+  }
+});
 
 //Get Specific Post
 router.get("/cusDetails/:id", async (req, res) => {
-    try {
-        let cusID = req.params.id;
-        let cusDetails = await CustomerDetails.findById(cusID);
-        if (!CustomerDetails) {
-            return res.status(404).json({ success: false, message: "Record not found" });
-        }
-        return res.status(200).json({ success: true, cusDetails });
-    } catch (err) {
-        return res.status(400).json({ success: false, error: err.message });
-    }
+  try {
+    let cusID = req.params.id;
+    let cusDetails = await CustomerDetails.findById(cusID);
+    if (!cusDetails) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Record not found" });
+    }
+    return res.status(200).json({ success: true, cusDetails });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
 });
 
+// Login route
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Check if user exists
+    const user = await CustomerDetails.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if password matches
+    if (password !== user.password) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    // Redirect user based on role
+    let redirectUrl;
+    if (user.userRole === "admin") {
+      return res.json({ redirectTo: "/dashboard" }); // Assuming '/adminView' is your admin dashboard route
+    } else if (user.userRole === "Customer") {
+      return res.json({ redirectTo: "/estateDetails" }); // Assuming '/customerDashboard' is your customer dashboard route
+    } else {
+      return res.status(403).json({ message: "Unauthorized role" });
+    }
+
+    // If everything is fine, send success response with redirect URL
+    res.status(200).json({ message: "Login successful", redirectUrl });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 module.exports = router;

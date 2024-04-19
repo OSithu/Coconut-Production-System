@@ -38,10 +38,10 @@ const UpdateHvstSchedule = () => {
               const { schedule } = res.data;
               setDate(formatDate(schedule.date));
               setBlockName(schedule.blockName);
-              setInCharge(schedule.blockName);
-              setStaff01(schedule.blockName);
-              setStaff02(schedule.blockName);
-              setStaff03(schedule.blockName);
+              setInCharge(schedule.inCharge);
+              setStaff01(schedule.staff01);
+              setStaff02(schedule.staff02);
+              setStaff03(schedule.staff03);
               
           } catch (err) {
               if (err.response) {
@@ -139,7 +139,7 @@ const validateForm = () => {
     <div>
             <PlantationNav />
             <div className="container text-center">
-                <h2> Add New Schedule </h2>
+                <h2> Update Schedule </h2>
                 <form className="needs-validation" noValidate onSubmit={updateDetails}>
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Date </label>

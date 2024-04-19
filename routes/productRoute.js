@@ -4,52 +4,12 @@ const multer = require("multer");
 
 const router = express.Router();
 
-// // Multer storage configuration
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname);
-//   },
-// });
 const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
   limits: { fileSize: 1024 * 1024 * 5 }, //5mb
 });
-
-// //save products
-// router.post("/products/save", async (req, res) => {
-//   //instantiation
-//   try {A
-//     //check if productID already exists in the database
-//     const existingProductID = await Products.findOne({productId: req.body.productId})
-//     if(existingProductID) {
-//       return res.status(400).json({ error: "Product ID already exists"});
-//     }
-
-//     const existingProductName = await Products.findOne({productName: req.body.productName})
-//     if (existingProductName) {
-//       return res.status(400).json({error: "Product Name already exists"});
-//     }
-
-//     //if productID doesn't exists, save new product details
-//     let newProduct = new Products(req.body);
-
-//     await newProduct.save();
-
-//     return res.status(200).json({
-//       success: "Details saved successfully.",
-//     });
-
-//   } catch (err) {
-//     return res.status(400).json({
-//       error: err.message,
-//     });
-//   }
-// });
 
 //save products with image
 router.post(
@@ -83,9 +43,10 @@ router.post(
         expirationDate: req.body.expirationDate,
         reOrderLevel: req.body.reOrderLevel,
         productImage: {
-          data: req.file.buffer, // Correctly assign Multer buffer to data field
+          data: req.file.buffer, 
           contentType: req.file.mimetype,
         },
+        price: req.body.price,
       });
 
       // Save the new product to the database
@@ -107,8 +68,13 @@ router.get("/products", async (req, res) => {
   try {
     const products = await Products.find({});
     const convertedProducts = products.map((product) => {
+      const manufacturedDate = product.manufacturedDate.toISOString().split('T')[0];
+      const expirationDate = product.expirationDate.toISOString().split('T')[0];
+
       return {
         ...product._doc,
+        manufacturedDate,
+        expirationDate,
         productImage: product.productImage
           ? {
               contentType: product.productImage.contentType,
@@ -132,21 +98,34 @@ router.get("/products", async (req, res) => {
   }
 });
 
-//get a specific product details
 router.get("/products/:id", async (req, res) => {
   try {
     let productID = req.params.id;
     let product = await Products.findById(productID);
+
     if (!product) {
       return res
         .status(404)
         .json({ success: false, message: "Product not found" });
     }
-    return res.status(200).json({ success: true, product });
+
+    // Format the dates without the time component
+    const formattedProduct = {
+      ...product.toObject(),
+      manufacturedDate: product.manufacturedDate
+        ? product.manufacturedDate.toISOString().split('T')[0]
+        : null,
+      expirationDate: product.expirationDate
+        ? product.expirationDate.toISOString().split('T')[0]
+        : null,
+    };
+
+    return res.status(200).json({ success: true, product: formattedProduct });
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
   }
 });
+
 
 //serve images
 router.get("/products/images/:id", async (req, res) => {
@@ -186,6 +165,7 @@ router.put(
       product.manufacturedDate = req.body.manufacturedDate;
       product.expirationDate = req.body.expirationDate;
       product.reOrderLevel = req.body.reOrderLevel;
+      product.price = req.body.price;
 
       // Check if a new image was uploaded
       if (req.file) {
