@@ -140,6 +140,7 @@
 
 import React, { useState } from "react";
 import axios from 'axios';
+import '../stylesheets/finance.css'
 
 const AddTransaction = () => {
 
