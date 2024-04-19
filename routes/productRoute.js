@@ -126,6 +126,37 @@ router.get("/products/:id", async (req, res) => {
   }
 });
 
+//get products with 'Products' as category
+router.get("/productCat", async (req, res) => {
+  try {
+    const productCat = await Products.find({ category: "Products"});
+    const convertedProductCat = productCat.map((productCat) => {
+
+      return {
+        ...productCat._doc,
+        productImage: productCat.productImage
+          ? {
+              contentType: productCat.productImage.contentType,
+              data:
+              productCat.productImage && productCat.productImage.data
+                  ? productCat.productImage.data.toString("base64")
+                  : "",
+            }
+          : null,
+      };
+    });
+
+    return res.status(200).json({
+      success: true,
+      existingProductCat: convertedProductCat,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+});
+
 
 //serve images
 router.get("/products/images/:id", async (req, res) => {
