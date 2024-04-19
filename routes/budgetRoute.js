@@ -1,14 +1,14 @@
 const express = require("express");
-const finance = require('../models/budgetModels');
+const budget = require('../models/budgetModels');
 
 const router = express.Router();
 
 //save
-router.post("/financeRecords/save", async (req, res) => {
+router.post('/budgetRecords/save', async (req, res) => {
     try {
-      let newTransaction = new finance(req.body);
+      let newBudget = new budget(req.body);
   
-      await newTransaction.save();
+      await newBudget.save();
   
       return res.status(200).json({
         success: "Details saved successfully",
@@ -22,13 +22,13 @@ router.post("/financeRecords/save", async (req, res) => {
 
 
   //get
-  router.get("/financeRecords", async (req, res) => {
+  router.get("/budgetRecords", async (req, res) => {
     try {
-      const financerecords = await finance.find().exec();
+      const budgetrecords = await budget.find().exec();
   
       return res.status(200).json({
         success: true,
-        existingfinance: financerecords,
+        existingbudget: budgetrecords,
       });
     } catch (err) {
       return res.status(400).json({
@@ -38,14 +38,14 @@ router.post("/financeRecords/save", async (req, res) => {
   });
 
   //get a specific post
-  outer.get("/financeRecords/:id", async (req, res) => {
+  router.get("/budgetRecords/:id", async (req, res) => {
     try {
-        let financerecordID = req.params.id;
-        let financerecord = await financeRecords.findById(financerecordID);
-        if (!financerecord) {
+        let budgetrecordID = req.params.id;
+        let budgetrecord = await budgetRecord.findById(budgetrecordID);
+        if (!budgetrecord) {
             return res.status(404).json({ success: false, message: "Record not found" });
         }
-        return res.status(200).json({ success: true, financerecord });
+        return res.status(200).json({ success: true, budgetrecord });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
     }
@@ -53,9 +53,9 @@ router.post("/financeRecords/save", async (req, res) => {
 
 
   //update
-  router.put("/financerecords/update/:id", async (req, res) => {
+  router.put("/budgetrecords/update/:id", async (req, res) => {
     try {
-      await finance.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
+      await budget.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
   
       return res.status(200).json({
         success: "Updated Successfully",
@@ -68,9 +68,9 @@ router.post("/financeRecords/save", async (req, res) => {
   });
 
   //delete
-  router.delete("/financerecords/delete/:id", async (req, res) => {
+  router.delete("/budgetrecords/delete/:id", async (req, res) => {
     try {
-      const deletedRecord = await finance.findByIdAndDelete(
+      const deletedRecord = await budget.findByIdAndDelete(
         req.params.id
       ).exec();
   

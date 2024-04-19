@@ -58,8 +58,8 @@ const ViewQualityRecords = () => {
      
      <button className="btn btn-success">
          <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
-       </button>
-
+    </button>
+    
      <table className="table">
       <thead>
         <tr>

@@ -143,7 +143,7 @@ function App() {
           <Route path="viewItems" Component={ViewItems}/>
           <Route path="/viewDetails/:id" Component={ViewDetails}/>
 		  
-		  <Route path="/estStaff" Component={EstateStaff}/>
+		      <Route path="/estStaff" Component={EstateStaff}/>
 
         </Routes>
       </div>

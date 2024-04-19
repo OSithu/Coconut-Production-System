@@ -87,7 +87,7 @@ const EditProductCnt = () => {
 
   const updateData = async (e) => {
     e.preventDefault();
-  
+
     try {
       const confirmed = window.confirm(
         "Are you sure you want to update this product?"
@@ -99,32 +99,36 @@ const EditProductCnt = () => {
           productDate: productDate,
           description: description,
         };
-  
+
         const res = await axios.put(
           `http://localhost:8000/productCnt/update/${id}`,
           updatedProductData
         );
-  
-        if (description === 'Incremented') {
-          // Call updateProductQuantity to add quantity
-          await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
-            quantity: +quantity,
-            existedQuantity: updatedProductData.quantity
-          });
-        } else if (description === 'Decremented') {
-          // Call updateProductQuantity to subtract quantity
-          await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
-            quantity: -quantity, 
-            existedQuantity: updatedProductData.quantity
-          }); 
+
+        if (description === "Incremented") {
+          await axios.put(
+            `http://localhost:8000/products/updateQuantity/${productId}`,
+            {
+              quantity: +quantity,
+              existedQuantity: updatedProductData.quantity,
+            }
+          );
+        } else if (description === "Decremented") {
+          await axios.put(
+            `http://localhost:8000/products/updateQuantity/${productId}`,
+            {
+              quantity: -quantity,
+              existedQuantity: updatedProductData.quantity,
+            }
+          );
         } else {
-          console.error('Invalid description:', description);
-          return; // Exit the function if description is invalid
+          console.error("Invalid description:", description);
+          return;
         }
-  
+
         // Display success message
-        alert('Product quantity updated successfully.');
-  
+        alert("Product quantity updated successfully.");
+
         alert(res.data.success);
         console.log(res.data.success);
         navigate("/viewProductCnt");
@@ -134,9 +138,9 @@ const EditProductCnt = () => {
     } catch (err) {
       console.log("Update failed!");
       alert("Failed to update product. Please try again.");
+      
     }
   };
-  
 
   return (
     <div className="col-md-5 mt-5 mx-auto">

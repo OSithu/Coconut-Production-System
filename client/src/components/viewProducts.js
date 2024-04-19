@@ -55,21 +55,6 @@ const ViewProducts = () => {
     }
   };
 
-  //   //implement a method to update the product count
-  //   const updateProductQuantity = async (productId, newQuantity) => {
-  //   try {
-  //     const existingProduct = await axios.get(`http://localhost:8000/products/${productId}`);
-  //     const existingQuantity = existingProduct.data.product.quantity;
-
-  //     await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
-  //       quantity: existingQuantity+newQuantity
-  //     });
-  //     console.log("Product quantity updated successfully.");
-  //   } catch (error) {
-  //     console.error("Error occurred while updating product quantity:", error);
-  //   }
-  // };
-
   return (
     // <div style={{backgroundImage: "url(/productBack1.jpg)",}}>
     <div className="container">
@@ -119,7 +104,7 @@ const ViewProducts = () => {
             </tr>
           </thead>
           <tbody>
-            {allProducts.map((products, index) => (
+            {allProducts.map((products) => (
               <tr
                 key={products._id}
                 className={
