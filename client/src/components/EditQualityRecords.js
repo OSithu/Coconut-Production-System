@@ -1,125 +1,206 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-export default class EditQualityRecords extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          BatchId: "",
-          Product: "",
-          TestDate: "",
-          TestResult: "",
-        };
-      }
+const EditQualityRecords = () => {
+  const [recordId, setRecordId] = useState("");
+  const [productType, setProductType] = useState("");
+  const [qualityCheckedDate, setQualityCheckedDate] = useState("")
+  const [specialNotes, setSpecialNotes] = useState("");
+  const [testResult, setTestResult] = useState("");
+  const [formErrors, setFormErrors] = useState({});
 
-      handleInputChange = (e) => {
-        const { name, value } = e.target;
-    
-        this.setState({
-          ...this.state,
-          [name]: value,
-        });
-      }
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-      onSubmit = (e) => {
-        e.preventDefault();
-        const id = this.props.match.params.id;
-        const {BatchId,Product,TestDate,TestResult} = this.state;
-    
-        const data = {
-            BatchId:BatchId,
-            Product:Product,
-            TestDate:TestDate,
-            TestResult:TestResult,
-        };
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, "0");
+    let day = date.getDate().toString().padStart(2, "0");
+  
+    return `${year}-${month}-${day}`; 
+  };
+  
 
-        console.log(data);
-
-        axios.put('http://localhost:8000/qualityrecords/update/${id}', data).then((res) => {
-          if (res.data.success) {
-            alert("Record Updated Successfully")
-            this.setState({
-                BatchId: "",
-                Product: "",
-                TestDate: "",
-                TestResult: "",
-            });
+  useEffect(() => {
+    const getOneRecord = async () => {
+      await axios.get(`http://localhost:8000/qualityrecords/${id}`)
+        .then((res) => {
+          setRecordId(res.data.records.recordId);
+          setProductType(res.data.records.productType);
+          setQualityCheckedDate(formatDate(res.data.records.qualityCheckedDate));
+          setSpecialNotes(res.data.records.specialNotes);
+          setTestResult(res.data.records.testResult);
+          console.log(res.data.message);
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data.error);
+          } else {
+            console.log("Error occured while processing your get request");
           }
         });
-      }
-    
-    componentDidMount() {
+    }
 
-        const id = this.props.match.params.id;
-       
-        axios.get(`http://localhost:8000/qrecords/${id}`).then(res => {
-            if (res.data.success) {
-              this.setState({
-                BatchId: res.data.records.BatchId,
-                Product: res.data.records.Product,
-                TestDate: res.data.records.TestDate,
-                TestResult: res.data.records.TestResult
-              });
-              console.log(this.state.records);
+    getOneRecord();
+  }, [id]);
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (!recordId.trim()) {
+      errors.recordId = "Record Id is required";
+    }
+
+    if (!productType.trim()) {
+      errors.productType = "Product type is required";
+    }
+
+    if (!qualityCheckedDate.trim()) {
+      errors.qualityCheckedDate = "Quality checked date is required";
+    } else {
+      const today = new Date();
+      const selectedDate = new Date(qualityCheckedDate);
+  
+      if (selectedDate > today) {
+        errors.qualityCheckedDate = "Quality checked date cannot be a future date";
+      }
+    }
+
+    if (!testResult.trim()) {
+      errors.testResult = "Test result is required";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const UpdateRecord = async (e) => {
+    e.preventDefault();
+
+     if (!validateForm()) {
+      return;
+    }
+
+    try {
+      const confirmed = window.confirm("Are you sure you want to update this record?");
+      if (confirmed) {
+        let updatedQualityRecord = {
+          recordId: recordId,
+          productType: productType,
+          qualityCheckedDate: qualityCheckedDate,
+          specialNotes: specialNotes,
+          testResult: testResult,
+        };
+        await axios.put(`http://localhost:8000/qualityrecords/update/${id}`, updatedQualityRecord)
+
+          .then((res) => {
+            alert(res.data.message);
+            console.log(res.data.message);
+            navigate("/viewQualityRecords");
+          })
+          .catch((err) => {
+            if (err.response) {
+              console.log(err.response.data.message);
+            } else {
+              console.log("Error occurred while processing your axios put request" + err.message);
             }
           });
-        }
-    
-    render(){
-        return (
-            <div className="col-md-8 mt-4 mx-auto">
-                <h1 className="h3 mb-3 font-weight-normal">Update Record</h1>
-                <form className="needs-validation" noValidate>
-
-                <div className="form-group" style={{marginBottom:'15px'}}>
-                        <label style={{marginBottom:'5px'}}>BatchId</label>
-                        <input type="text"
-                        className="form-control"
-                        name="BatchId"
-                        placeholder="Enter BatchId "
-                        value={this.state.BatchId}
-                        onChange={this.handleInputChange}/>
-                    </div>
-
-                    <div className="form-group" style={{marginBottom:'15px'}}>
-                        <label style={{marginBottom:'5px'}}>Product</label>
-                        <input type="text"
-                        className="form-control"
-                        name="Product"
-                        placeholder="Enter Product Name"
-                        value={this.state.Product}
-                        onChange={this.handleInputChange}/>
-                    </div>
-
-                    <div className="form-group" style={{marginBottom:'15px'}}>
-                        <label style={{marginBottom:'5px'}}>TestDate</label>
-                        <input type="date"
-                        className="form-control"
-                        name="TestDate"
-                        placeholder="Enter Test Date"
-                        value={this.state.TestDate}
-                        onChange={this.handleInputChange}/>
-                    </div>
-
-                    <div className="form-group" style={{marginBottom:'15px'}}>
-                        <label style={{marginBottom:'5px'}}>TestResult</label>
-                        <input type="text"
-                        className="form-control"
-                        name="TestResult"
-                        placeholder="Enter Test Result"
-                        value={this.state.TestResult}
-                        onChange={this.handleInputChange}/>
-                    </div>
-
-                    <button className="btn btn-success" type="submit" style={{marginTop:'15px'}} cnClick={this.onSubmit}>
-                        <i className="far fa check-square"></i>
-                        &nbsp: Update
-                    </button>
-
-                    
-
-                </form>
-            </div>
-        )
+      } else {
+        alert('Update canceled!');
+      }
+    } catch (err) {
+      console.log("Update Failed!", err.message);
     }
-}
+  }
+
+  return (
+    <div className="col-md-8 mt-4 mx-auto">
+      <h1 className="h3 mb-3 font-weight-normal">Update Record</h1>
+      <form className="needs-validation" noValidate onSubmit={UpdateRecord}>
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Record ID</label>
+          <input
+            type="text"
+            className={`form-control ${formErrors.recordId && 'is-invalid'}`}
+            name="recordId"
+            placeholder="Enter RecordID "
+            onChange={(e) => setRecordId(e.target.value)}
+            value={recordId}
+            required
+          />
+           {formErrors.recordId && (
+            <div className="invalid-feedback">{formErrors.recordId}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Product Type</label>
+          <input type="text"
+            className={`form-control ${formErrors.productType && 'is-invalid'}`}
+            name="productType"
+            placeholder="Enter Product Type"
+            onChange={(e) => setProductType(e.target.value)}
+            value={productType}
+            required
+          />
+          {formErrors.productType && (
+            <div className="invalid-feedback">{formErrors.productType}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Quality Checked Date</label>
+          <input
+            type="date"
+            className={`form-control ${formErrors.qualityCheckedDate && 'is-invalid'}`}
+            name="qualityCheckedDate"
+            placeholder="Enter Quality Checked Date"
+            onChange={(e) => setQualityCheckedDate(e.target.value)}
+            value={qualityCheckedDate}
+            required
+          />
+          {formErrors.qualityCheckedDate && (
+            <div className="invalid-feedback">{formErrors.qualityCheckedDate}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Special Notes</label>
+          <input type="text"
+            className="form-control"
+            name="specialNotes"
+            placeholder="Enter Special Notes"
+            onChange={(e) => setSpecialNotes(e.target.value)}
+            value={specialNotes}
+            required
+          />
+        </div>
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Test Result</label>
+          <input type="text"
+            className={`form-control ${formErrors.testResult && 'is-invalid'}`}
+            name="testResult"
+            placeholder="Enter Test Result"
+            onChange={(e) => setTestResult(e.target.value)}
+            value={testResult}
+            required
+          />
+          {formErrors.testResult && (
+            <div className="invalid-feedback">{formErrors.testResult}</div>
+          )}
+        </div>
+
+        <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
+          <i className="fas fa check-square"></i>&nbsp;Submit Record
+        </button>
+
+      </form>
+    </div>
+  );
+};
+
+export default EditQualityRecords;

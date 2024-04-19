@@ -1,12 +1,12 @@
 const express = require("express");
-const qcmposts = require('../models/qcmposts');
+const qualityControl = require("../models/qcmposts");
 
 const router = express.Router();
 
 //save records
 router.post("/qualityrecords/save", async (req, res) => {
   try {
-    let newRecord = new qcmposts(req.body);
+    let newRecord = new qualityControl(req.body);
 
     await newRecord.save();
 
@@ -15,51 +15,53 @@ router.post("/qualityrecords/save", async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({
-      error: err.message
+      error: err,
     });
   }
 });
 
 //get record
-router.get("/qrecords", async (req, res) => {
+router.get("/qualityrecords", async (req, res) => {
   try {
-    const qualityrecords = await qcmposts.find().exec();
+    const qualityrecords = await qualityControl.find().exec();
+
+    const formattedRecords = qualityrecords.map(records => ({
+      ...records.toObject(),
+      qualityCheckedDate: records.qualityCheckedDate?.toISOString()?.split('T')[0]
+    }));
 
     return res.status(200).json({
       success: true,
-      existingPosts: qualityrecords
+      existingQualityRecords: formattedRecords,
     });
   } catch (err) {
     return res.status(400).json({
-      error: err.message
-    });
-  }
+      error: err.message,
+    });
+  }
 });
 
 //get a specific record
-
-router.get("/qrecords/:id",(req,res)=> {
-
-  let recordId = req.params.id;
-  
-  qcmposts.findById(recordId,(err,records) => {
-    if(err){
-       return res.status(400).json({success:false,err});
+router.get("/qualityrecords/:id", async (req, res) => {
+  try {
+    let recordId = req.params.id;
+    let records = await qualityControl.findById(recordId);
+    if (!records) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Record not found" });
     }
-    return res.status(200).json({
-      success:true,
-      records
-    });
-  });
-  
+    return res.status(200).json({ success: true, records });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
 });
-  
-  
+
 
 //update record
 router.put("/qualityrecords/update/:id",async (req, res) => {
   try{
-    await qcmposts.findByIdAndUpdate(req.params.id,{ $set: req.body}).exec();
+    await qualityControl.findByIdAndUpdate(req.params.id, { $set: req.body}).exec();
 
     return res.status(200).json({
       success: "Updated Successfully",
@@ -72,32 +74,17 @@ router.put("/qualityrecords/update/:id",async (req, res) => {
 });
 
 //delete record
-
-// router.delete("/qualityrecords/delete/:id",async (req, res) => {
-//   try{
-//     const deletedRecord = await qcmposts.findByIdAndRemove(req.params.id).exec();
-
-//     return res.json({
-//       message:"Delete Successfull",
-//       deletedRecord
-//     });
-//   }catch(err){
-//     if(err) return res.status(400).json({
-//       message:"Delete unsuccessfull",
-//       error:err.message,
-//     });
-//   }
-// });
-
 router.delete("/qualityrecords/delete/:id", async (req, res) => {
   try {
-      const deleteRecords = await qcmposts.findByIdAndDelete(req.params.id).exec();
-      return res.status(200).json({
-          message: "Records Deleted Successfully",
+      const deleteRecords = await qualityControl.findByIdAndDelete(req.params.id).exec();
+
+      return res.json({
+          message: "Record Deleted Successfully",
           deleteRecords,
       });
   } catch (err) {
       return res.status(400).json({
+          message: "Delete unsuccessfull",
           error: err.message
       });
   }

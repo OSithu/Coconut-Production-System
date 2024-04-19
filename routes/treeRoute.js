@@ -26,7 +26,7 @@ router.post('/tree/save',async (req,res)=>{
 }
 }); 
 
-//read
+//read trees of a specific block
 router.get("/trees", async (req, res) => {
   try {
       const { blockName } = req.query;
@@ -86,8 +86,7 @@ router.get("/trees", async (req, res) => {
     }
   });
 
-  //get a secific record
-
+ //get details of a tree
   router.get("/trees/:id", async (req, res) => {
     try {
         let treeID = req.params.id;
@@ -112,7 +111,7 @@ router.get("/treeCount/:blockName", async (req, res) => {
   }
 });
 
-//get tree count
+//get the tree count of whole estate
 router.get("/treeCount", async (req, res) => {
   try {
       let count = await Trees.countDocuments();

@@ -1,84 +1,123 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default class ViewQualityRecords extends Component {
-  constructor(props) {
-    super(props);
+const ViewQualityRecords = () => {
+  const [allRecords, setAllRecords] = useState([]);
 
-    this.state = {
-      records: []
+  useEffect(() => {
+
+    const getAllRecords = async () => {
+
+      await axios.get('http://localhost:8000/qualityrecords')
+        .then((res) => {
+          setAllRecords(res.data.existingQualityRecords);
+          console.log('Status: ' + res.data.success);
+          console.log(res.data.message);
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data.error);
+          } else {
+            console.log("Error occurred while processing your axios get request." + err.message);
+          }
+        });
     };
-  }
 
-  componentDidMount() {
-    this.retrieveRecords();
-  }
+    getAllRecords();
+  }, []);
 
-  retrieveRecords() {
-    axios.get("http://localhost:8000/qrecords")
-      .then(res => {
-        if (res.data.success) {
-          this.setState({
-            records: res.data.existingPosts
+  const handleDelete = async (id) => {
+
+    try {
+      const confirmed = window.confirm('Are you sure you want to delete this record?');
+      if (confirmed) {
+        await axios.delete(`http://localhost:8000/qualityrecords/delete/${id}`)
+          .then((res) => {
+            alert(res.data.message);
+            console.log(res.data.message);
+          })
+          .catch((err) => {
+            if (err.response) {
+              console.log(err.response.data.message);
+            } else {
+              console.log("Error occured while processing your axios delete");
+            }
           });
-          console.log(this.state.records);
-        }
-      });
+      } else {
+        alert('Delete cancelled!');
+      }
+    } catch (err) {
+      console.log('handleDelete function failed! ERROR' + err.message)
     }
-
-  onDelete = (id) => {
-    axios.delete(`http://localhost:8000/qualityrecords/delete/${id}`).then((res) => {
-      alert("Record Deleted Successfully");
-      this.retrieveRecords();
-    })
   }
 
+  return (
+    <div className="container">
+      <div>
+        <h1>Quality Control Records</h1>
 
-    render() {
-      return (
-        <div className="container">
-          <p>Quality Control Records</p>
+        <button className="btn btn-success">
+          <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
+        </button>
 
-          <table className="table">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Product</th>
-              <th scope="col">Test Date</th>
-              <th scope="col">Test Results</th>
+              <th scope="col">RecordID</th>
+              <th scope="col">ProductType</th>
+              <th scope="col">QualityCheckedDate</th>
+              <th scope="col">SpecialNotes</th>
+              <th scope="col">TestResult</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {this.state.records.map((records, index) => (
+            {allRecords.map((records, index) => (
               <tr key={index}>
-                <th scope="row">{index+1}</th>
-                <td>{records.Product}</td>
-                <td>{records.TestDate}</td>
-                <td>{records.TestResult}</td>
+                <th scope="row">{index + 1}</th>
+                <td>{records.recordId}</td>
+                <td>{records.productType}</td>
+                <td>{records.qualityCheckedDate}</td>
+                <td>{records.specialNotes}</td>
+                <td>{records.testResult}</td>
                 <td>
-                  <a className="btn btn-warning" href={'/editQualityRecord/${records.id}'}>
-                    <i className="fas fa-edit"></i>&nbsp;Update
-                  </a>
-                  &nbsp;
-                  <a className="btn btn-danger" href="#" onClick={() =>this.onDelete(records._id)}>
-                    <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                  </a>
+                  {/* <a className="btn-secondary" href={`/editQualityRecord/${records._id}`}>
+            <i className="fas fa-eye"></i>&nbsp;View Record
+           </a>
+           &nbsp;
+            <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
+              <i className="fas fa-edit"></i>&nbsp;Update
+            </a>
+            &nbsp;
+           <a className="btn btn-danger" href="#" onClick={() =>handleDelete(records._id)}>
+            <i className="fas fa-trash-alt"></i>&nbsp;Delete
+           </a> */}
+
+                  <div>
+                    <a className="btn btn-secondary" href={`/editQualityRecord/${records._id}`}>
+                      <i className="fas fa-eye"></i>&nbsp;View Record
+                    </a>
+                  </div>
+                  <div>
+                    <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
+                      <i className="fas fa-edit"></i>&nbsp;Update
+                    </a>
+                    &nbsp;
+                    <a className="btn btn-danger" href="#" onClick={() => handleDelete(records._id)}>
+                      <i className="fas fa-trash-alt"></i>&nbsp;Delete
+                    </a>
+                  </div>
+
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        
-
-        <button className="btn btn-success">
-          <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
-        </button>
       </div>
-    );
-  }
-}
-
-
+    </div>
+  )
+};
+export default ViewQualityRecords;

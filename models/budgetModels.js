@@ -1,28 +1,23 @@
 const mongoose =require('mongoose');
 
-const FinancepostSchema = new mongoose.Schema({
+const BudgetpostSchema = new mongoose.Schema({
 
-    date:{
-        type:Date,
-        required:true
-    },
-    type:{
+    month:{
         type:String,
         required:true
     },
-    Description:{
+    totalIncome:{
+        type:Number,
+        required:true
+    },
+    totalExpences:{
+        type:Number,
+        required:true
+    },
+    profitLoss:{
         type:String,
         required:true
     },
-    Year:{
-        type:Number,
-        required:true
-    },
-    totalAmount:{
-        type:Number,
-        required:true
-    }
-
 });
 
-module.exports =mongoose.model('financeManagement', FinancepostSchema)
+module.exports =mongoose.model('budgetManagement', BudgetpostSchema)

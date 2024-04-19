@@ -25,8 +25,8 @@ const ordRoutes = require("./routes/orderRoute");
 const productCntRoute = require("./routes/productCntRoute");
 const blockRoute = require("./routes/blockRoute");
 const harvestRoute = require("./routes/harvestRoute");
-// const harvestScheduleRoute = require("./routes/harvestScheduleRoute");
-// const budgetRoute = require("./routes/budgetRoute");
+const harvestScheduleRoute = require("./routes/harvestScheduleRoute");
+const budgetRoute = require("./routes/budgetRoute");
 
 //app middleware
 app.use(bodyParser.json());
@@ -45,8 +45,8 @@ app.use(ordRoutes);
 app.use(productCntRoute);
 app.use(blockRoute);
 app.use(harvestRoute);
-// app.use(harvestScheduleRoute);
-// app.use(budgetRoute);
+app.use(harvestScheduleRoute);
+app.use(budgetRoute);
 
 //declaring server running port
 const port = 8000;
