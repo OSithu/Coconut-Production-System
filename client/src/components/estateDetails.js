@@ -139,6 +139,7 @@ const EstateDetails = () => {
                 Add New Record
               </a>
             </button>
+            &nbsp;
           </div>
 
         </div>
