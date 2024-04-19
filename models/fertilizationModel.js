@@ -37,10 +37,10 @@ const FertilizationSchema = new mongoose.Schema({
         required:true
     },
 
-    Description:{
-        type:String,
-        required:true
-    }
+    // Description:{
+    //     type:String,
+    //     required:true
+    // }
 
 })
 
