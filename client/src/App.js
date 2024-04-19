@@ -53,6 +53,10 @@ import EditOrderDetails from "./components/editOrderDetails";
 import ViewHarvest from "./components/ViewHarvest";
 import AddHarvest from "./components/AddHarvest";
 import UpdateHarvest from "./components/UpdateHarvest";
+
+import LoginForm from "./components/LoginForm";
+import WelcomeScreen from "./components/WelcomeScreen";
+
 import HarvestingSchedules from "./components/HarvestingSchedules";
 import AddHvstSchedule from "./components/AddHvstSchedule";
 import UpdateHvstSchedule from "./components/UpdateHvstSchedule";
@@ -69,12 +73,13 @@ import ViewDetails from "./components/ViewDetails";
 
 import EstateStaff from "./components/EstateStaff";
 
+
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" Component={dashboard} />
+          <Route path="/dashboard" Component={dashboard} />
           <Route path="/viewDisease" Component={ViewSpread} />
           <Route path="/createDisease" Component={CreateSpread} />
           <Route path="/editDisease/:id" Component={EditSpread} />
@@ -82,10 +87,7 @@ function App() {
 
           <Route path="/viewFertilization" Component={viewFertilization} />
           <Route path="/fertilizationsave" Component={CreateFertilization} />
-          <Route
-            path="/fertilizationupdate/:id"
-            Component={editFertilization}
-          />
+          <Route path="/fertilizationupdate/:id" Component={editFertilization} />
 
           <Route path="/ViewTrees/:id" Component={ViewTrees} />
           <Route path="/AddTrees" Component={AddTrees} />
@@ -128,7 +130,6 @@ function App() {
           <Route path="/viewHarvest" Component={ViewHarvest} />
           <Route path="/addHarvest" Component={AddHarvest} />
           <Route path="/editHarvest/:id" Component={UpdateHarvest} />
-
           <Route path="viewHvstSchedules" Component={HarvestingSchedules} />
           <Route path="addHvstSchedules" Component={AddHvstSchedule} />
           <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule} />
@@ -142,7 +143,10 @@ function App() {
 
           <Route path="viewItems" Component={ViewItems}/>
           <Route path="/viewDetails/:id" Component={ViewDetails}/>
-		  
+
+          <Route path="/login" Component={LoginForm} />
+          <Route path="/" Component={WelcomeScreen} />
+
 		      <Route path="/estStaff" Component={EstateStaff}/>
 
         </Routes>
