@@ -194,11 +194,10 @@ const EditQualityRecords = () => {
           )}
         </div>
 
-
-        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
-          {/* <i className="far fa check-square"></i> */}
-          &nbsp: Save
+        <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
+          <i className="fas fa check-square"></i>&nbsp;Submit Record
         </button>
+
       </form>
     </div>
   );

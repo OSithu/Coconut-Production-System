@@ -95,6 +95,7 @@ const ViewProducts = () => {
               <th scope="col">productName</th>
               <th scope="col">productImage</th>
               <th scope="col">quantity(kg or litre)</th>
+              <th scope="col">unitPrice</th>
               <th scope="col">category</th>
               <th scope="col">manufacturedDate</th>
               <th scope="col">expirationDate</th>
@@ -104,7 +105,7 @@ const ViewProducts = () => {
             </tr>
           </thead>
           <tbody>
-            {allProducts.map((products, index) => (
+            {allProducts.map((products) => (
               <tr
                 key={products._id}
                 className={
@@ -128,6 +129,7 @@ const ViewProducts = () => {
                 </td>
 
                 <td>{products.quantity}</td>
+                <td>Rs.{products.price}</td>
                 <td>{products.category}</td>
                 <td>{products.manufacturedDate}</td>
                 <td>{products.expirationDate}</td>
@@ -143,7 +145,7 @@ const ViewProducts = () => {
                   <a
                     className="btn btn-warning"
                     href={`/editProduct/${products._id}`}
-                    style={{ width: "100px" }}
+                    style={{ width: "90px" }}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
@@ -151,7 +153,7 @@ const ViewProducts = () => {
                     className="btn btn-danger"
                     href="#"
                     onClick={() => handleDelete(products._id)}
-                    style={{ width: "100px" }}
+                    style={{ width: "90px" }}
                   >
                     <i className="far fa-trash-alt"></i>&nbsp;Delete
                   </a>

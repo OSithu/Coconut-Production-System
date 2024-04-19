@@ -12,7 +12,7 @@ const FertilizationSchema = new mongoose.Schema({
         required:true
     },
 
-    Date:{
+    FertilizationDate:{
         type:Date,
         required:true
     },

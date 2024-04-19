@@ -4,28 +4,83 @@ import axios from 'axios';
 const CreateFertilizationDetails = () => {
     const [TreeNo, setTreeNo] = useState('');
     const [TreeStage, setTreeStage] = useState('');
-    const [Date, setDate] = useState('');
+    const [FertilizationDate, setFertilizationDate] = useState('');
     const [UreaAmount, setUreaAmount] = useState('');
     const [EppawalaRockPhosphateAmount, setEppawalaRockPhosphateAmount] = useState('');
     const [MuriateOfPotasiumAmount, setMuriateOfPotasiumAmount] = useState('');
     const [DolamiteAmount, setDolamiteAmount] = useState('');
-    const [Description, setDescription] = useState('');
-    
+    const [errors, setErrors] = useState({});
+
+    // Validate Form
+    const validateForm = () => {
+        const errors = {};
+        let isValid = true;
+
+        if (!TreeNo.trim()) {
+            errors.TreeNo = "Tree No is required";
+            isValid = false;
+        }
+
+        if (!TreeStage.trim()) {
+            errors.TreeStage = "Tree Stage is required";
+            isValid = false;
+        }
+
+        if (!FertilizationDate.trim()) {
+            errors.FertilizationDate = "Fertilization Date is required";
+        }
+
+        if (!UreaAmount.trim()) {
+            errors.UreaAmount = "Urea Amount is required";
+            isValid = false;
+        }else if (UreaAmount < 100 || UreaAmount > 1000) {
+            errors.UreaAmount = "Urea Amount must be between 100 and 1000";
+            isValid = false;
+        }
+
+        if (!EppawalaRockPhosphateAmount.trim()) {
+            errors.EppawalaRockPhosphateAmount = "Eppawala Rock Phosphate Amount is required";
+            isValid = false;
+        }else if (EppawalaRockPhosphateAmount < 100 || EppawalaRockPhosphateAmount > 1000) {
+            errors.EppawalaRockPhosphateAmount = "EppawalaRock Phosphate Amount must be between 100 and 1000";
+            isValid = false;
+        }
+
+        if (!MuriateOfPotasiumAmount.trim()) {
+            errors.MuriateOfPotasiumAmount = "Muriate Of Potasium Amount is required";
+            isValid = false;
+        }else if (MuriateOfPotasiumAmount < 100 || MuriateOfPotasiumAmount > 1000) {
+            errors.MuriateOfPotasiumAmount = "MuriateOf Potasium Amount must be between 100 and 1000";
+            isValid = false;
+        }
+
+        if (!DolamiteAmount.trim()) {
+            errors.DolamiteAmount = "Dolamite Amount is required";
+            isValid = false;
+        }
+
+        setErrors(errors);
+        return isValid;
+    };
+
 
     //implement sendData function
     const sendFertilizationData = async (e) => {
         e.preventDefault();
 
+        if (!validateForm()) {
+            return;
+        }
+
         try {
             let newFertilizationData = {
                 TreeNo: TreeNo,
                 TreeStage: TreeStage,
-                Date: Date,
+                FertilizationDate: FertilizationDate,
                 UreaAmount: UreaAmount,
                 EppawalaRockPhosphateAmount: EppawalaRockPhosphateAmount,
                 MuriateOfPotasiumAmount: MuriateOfPotasiumAmount,
                 DolamiteAmount: DolamiteAmount,
-                Description: Description,
             };
 
             await axios.post('http://localhost:8000/fertilizationrec/save', newFertilizationData)
@@ -44,12 +99,12 @@ const CreateFertilizationDetails = () => {
                  //set state back to first state
                    setTreeNo('');
                    setTreeStage('');
-                   setDate('');
+                   setFertilizationDate('');
                    setUreaAmount('');
                    setEppawalaRockPhosphateAmount('');
                    setMuriateOfPotasiumAmount('');
                    setDolamiteAmount('');
-                   setDescription('');
+                   setErrors({});
 
         } catch (err) {
             console.log('sendData function failed! ERROR: ' + err.message);
@@ -64,88 +119,99 @@ const CreateFertilizationDetails = () => {
             <label>Tree No</label>
             <input
                 type="text"
-                className="form-control"
+                className={`form-control ${errors.TreeNo && 'is-invalid'}`}
                 name="TreeNo"
                 placeholder="Enter Tree No"
                 onChange={(e) => setTreeNo(e.target.value)}
                 value={TreeNo}  
                 required
             />
-        </div>
+         {errors.TreeNo && <div className="invalid-feedback">{errors.TreeNo}</div>}
+                </div>
 
-        <div className="form-group">
-            <label>Tree Stage</label>
-            <input
-                type="text"
-                className="form-control"
-                name="TreeStage"
-                placeholder="Enter Tree Stage"
-                onChange={(e) => setTreeStage(e.target.value)}
-                value={TreeStage}  
-                required
-            />
-        </div>
+                <div className="form-group">
+                <label>Tree Stage</label>
+                <select
+                       className={`form-control ${errors.TreeStage && 'is-invalid'}`}
+                       name="TreeStage"
+                       value={TreeStage}
+                       onChange={(e) => setTreeStage(e.target.value)}
+                    required
+                >
+                <option value="">Select Tree Stage</option>
+                <option value="Basel Dressing">Just Plant</option>
+                <option value="Young Palm">Young Palm-6months-4 years</option>
+                <option value="Adult Palm">Adult Palm-above 4 years</option>
+              </select>
+              {errors.TreeStage && <div className="invalid-feedback">{errors.TreeStage}</div>}
+                </div>
 
         <div className="form-group">
             <label>Date</label>
             <input 
                 type="date" 
-                className="form-control" 
-                name="Date" 
+                className={`form-control ${errors.FertilizationDate && 'is-invalid'}`} 
+                name="FertilizationDate" 
                 placeholder="Enter the Date of fertilization"
-                value={Date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-            />
-        </div>
+                value={FertilizationDate}
+                onChange={(e) => setFertilizationDate(e.target.value)}
+                max={new Date().toISOString().split('T')[0]} // Disable future dates
+                        required
+                    />
+                    {errors.FertilizationDate && <div className="invalid-feedback">{errors.FertilizationDate}</div>}
+                </div>
 
         <div className="form-group">
             <label>Amount of Urea(g)</label>
             <input type="Number" 
-                className="form-control" 
+                className={`form-control ${errors.UreaAmount && 'is-invalid'}`} 
                 name="UreaAmount" 
                 placeholder="Enter the Urea Amount"
                 value={UreaAmount}
                 onChange={(e) => setUreaAmount(e.target.value)}
                 required
             />
-        </div>
+        {errors.UreaAmount && <div className="invalid-feedback">{errors.UreaAmount}</div>}
+                </div>
 
         <div className="form-group">
             <label>Eppawala Rock Phosphate Amount(g)</label>
             <input type="Number" 
-                className="form-control" 
+                className={`form-control ${errors.EppawalaRockPhosphateAmount && 'is-invalid'}`} 
                 name="EppawalaRockPhosphateAmount" 
                 placeholder="Enter the EppawalaRockPhosphate Amount "
                 value={EppawalaRockPhosphateAmount}
                 onChange={(e) => setEppawalaRockPhosphateAmount(e.target.value)}
                 required
             />
-        </div>
+        {errors.EppawalaRockPhosphateAmount && <div className="invalid-feedback">{errors.EppawalaRockPhosphateAmount}</div>}
+                </div>
 
         <div className="form-group">
             <label>Muriate Of Potasium Amount(g)</label>
             <input type="Number" 
-                className="form-control" 
+                className={`form-control ${errors.MuriateOfPotasiumAmount && 'is-invalid'}`} 
                 name="MuriateOfPotasiumAmount" 
                 placeholder="Enter the MuriateOfPotasium Amount"
                 value={MuriateOfPotasiumAmount}
                 onChange={(e) => setMuriateOfPotasiumAmount(e.target.value)}
                 required
             />
-        </div>
+        {errors.MuriateOfPotasiumAmount && <div className="invalid-feedback">{errors.MuriateOfPotasiumAmount}</div>}
+                </div>
 
         <div className="form-group">
             <label>Amount of Dolamite Amount(g)</label>
             <input type="Number" 
-                className="form-control" 
+                className={`form-control ${errors.DolamiteAmount && 'is-invalid'}`} 
                 name="DolamiteAmount" 
                 placeholder="Enter the Dolamite Amount"
                 value={DolamiteAmount}
                 onChange={(e) => setDolamiteAmount(e.target.value)}
                 required
             />
-        </div>
+        {errors.DolamiteAmount && <div className="invalid-feedback">{errors.DolamiteAmount}</div>}
+                </div>
 
         {/* <div className="form-group">
             <label>Description</label>
