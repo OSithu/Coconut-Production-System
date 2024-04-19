@@ -121,5 +121,27 @@ router.get("/treeCount", async (req, res) => {
   }
 });
 
+//get all tree details
+router.get("/allTrees", async(req,res) => {
+  try{
+      const trees = await Trees.find().exec();
+
+      const allTrees = trees.map(trees => ({
+          ...trees.toObject(),
+          plantedDate: trees.plantedDate?.toISOString()?.split('T')[0]
+      }));
+
+      return res.status(200).json({
+          success: true,
+          viewtrees: allTrees,
+      });
+  }
+  catch(err) {
+      return res.status(400).json({
+          error: err.message,
+      });
+  }
+});
+
 
 module.exports = router;
