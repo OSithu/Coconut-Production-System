@@ -7,9 +7,9 @@ const ViewItems = () => {
   useEffect(() => {
     const getAllItems = async () => {
       await axios
-        .get("http://localhost:8000/products")
+        .get("http://localhost:8000/productCat")
         .then((res) => {
-          setAllItem(res.data.existingProducts);
+          setAllItem(res.data.existingProductCat);
           console.log("Status: " + res.data.success);
           console.log("Message:" + res.data.message);
         })
@@ -38,28 +38,32 @@ const ViewItems = () => {
           View Items
         </p>
         <div class="row">
-          {allProducts.map((products, index) => (
+          {allProducts.map((productCat, index) => (
             <div key={index} class="col-sm-4 mb-3 mb-sm-0">
               <div class="card" style={{ width: "18rem" }}>
-                <div key={products._id}>
-                  {products.productImage && products.productImage.data ? (
+                <div key={productCat._id}>
+                  {productCat.productImage && productCat.productImage.data ? (
                     <img
-                      src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
+                      src={`data:${productCat.productImage.contentType};base64,${productCat.productImage.data}`}
                       alt="Products"
                       class="card-img-top"
                       style={{ height: "200px", objectFit: "cover" }}
-
                     />
                   ) : (
                     <span>No image</span>
                   )}
-                  <h5 class="card-title">{products.productName}</h5>
-                  <a href={`/viewDetails/${products._id}`} class="btn btn-primary" >
+                  <h5 class="card-title">{productCat.productName}</h5>
+
+                  <a
+                    href={`/viewDetails/${productCat._id}`}
+                    className="btn btn-primary"
+                  >
                     View Details
                   </a>
                 </div>
               </div>
-              <br/><br/>
+              <br />
+              <br />
             </div>
           ))}
         </div>
