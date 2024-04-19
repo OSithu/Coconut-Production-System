@@ -55,6 +55,7 @@ const AddHvstSchedule = () => {
         let formValid = true;
         let errorsData = {};
 
+        //check if the feilds are empty
         if (!blockName.trim()) {
             formValid = false;
             errorsData.blockName = "Required";
@@ -66,7 +67,9 @@ const AddHvstSchedule = () => {
         if (!date.trim()) {
             formValid = false;
             errorsData.date = "Required";
-        } else if (new Date(date) < new Date()) {
+        } 
+        //check if date is valid
+        else if (new Date(date) < new Date()) {
             formValid = false;
             errorsData.date = "Date must be a future date";
         }
@@ -84,6 +87,7 @@ const AddHvstSchedule = () => {
             staff03: staff03
         }
 
+        //add details to database
         axios.post("http://localhost:8000/hScedule/save", newSchedule)
             .then((res) => {
                 alert(res.data.success);
@@ -102,9 +106,13 @@ const AddHvstSchedule = () => {
 
     return (
         <div>
+
             <PlantationNav />
+            &nbsp;
+
             <div className="container text-center">
                 <h2> Add New Schedule </h2>
+
                 <form className="needs-validation" noValidate onSubmit={saveDetails}>
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Date </label>
@@ -126,7 +134,7 @@ const AddHvstSchedule = () => {
                                 name="blockName"
                                 value={blockName}
                                 onChange={(e) => setBlockName(e.target.value)}>
-                                <option value="">Select Type</option>
+                                <option value=""> Select </option>
                                 {allBlocks.map(blocks => (
                                     <option key={blocks.blockName} value={blocks.blockName}>{blocks.blockName}</option>
                                 ))}

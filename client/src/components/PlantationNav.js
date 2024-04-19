@@ -18,13 +18,9 @@ export default class PlantationNav extends Component {
                                 <NavLink className="nav-link" activeClassName="active" to="/viewHvstSchedules">Harvesting Schedules</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/#">Estate Staff</NavLink>
+                                <NavLink className="nav-link" activeClassName="active" to="/estStaff">Estate Staff</NavLink>
                             </li>
                         </ul>
-                        {/*<form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>*/}
                     </div>
                 </div>
             </nav>
