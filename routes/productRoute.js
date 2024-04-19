@@ -46,6 +46,7 @@ router.post(
           data: req.file.buffer, 
           contentType: req.file.mimetype,
         },
+        price: req.body.price,
       });
 
       // Save the new product to the database
@@ -164,6 +165,7 @@ router.put(
       product.manufacturedDate = req.body.manufacturedDate;
       product.expirationDate = req.body.expirationDate;
       product.reOrderLevel = req.body.reOrderLevel;
+      product.price = req.body.price;
 
       // Check if a new image was uploaded
       if (req.file) {

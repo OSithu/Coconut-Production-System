@@ -11,6 +11,7 @@ const EditProducts = () => {
   const [manufacturedDate, setProductMD] = useState("");
   const [expirationDate, setProductED] = useState("");
   const [reOrderLevel, setProductROL] = useState("");
+  const [price, SetProductPrice] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
   const { id } = useParams();
@@ -66,6 +67,7 @@ const EditProducts = () => {
           setProductMD(formatDate(res.data.product.manufacturedDate));
           setProductED(formatDate(res.data.product.expirationDate));
           setProductROL(res.data.product.reOrderLevel);
+          SetProductPrice(res.data.product.price);
           getProductImage(id);
           console.log(res.data.message);
         })
@@ -131,6 +133,14 @@ const EditProducts = () => {
       formIsValid = false;
     }
 
+    if (!price.trim()) {
+      errors.price = "Price is required";
+      formIsValid = false;
+    } else if (isNaN(price)) {
+      errors.reOrderLevel = "Price must be a number";
+      formIsValid = false;
+    }
+
     setFormErrors(errors);
     return formIsValid;
   };
@@ -156,6 +166,7 @@ const EditProducts = () => {
         updatedProductData.append("expirationDate", expirationDate);
         updatedProductData.append("reOrderLevel", reOrderLevel);
         updatedProductData.append("productImage", productImage);
+        updatedProductData.append("price", price);
 
         await axios
           .put(
@@ -239,7 +250,7 @@ const EditProducts = () => {
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Quantity</label>
+          <label style={{ marginBottom: "5px" }}>Available Quantity</label>
           <input
             type="text"
             className={`form-control ${formErrors.quantity && "is-invalid"}`}
@@ -251,6 +262,24 @@ const EditProducts = () => {
           />
           {formErrors.quantity && (
             <div className="invalid-feedback">{formErrors.quantity}</div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Unit Price</label>
+          <input
+            type="text"
+            className={`form-control ${
+              formErrors.price && "is-invalid"
+            }`}
+            name="price"
+            placeholder="Enter unit price"
+            value={price}
+            onChange={(e) => SetProductPrice(e.target.value)}
+            required
+          />
+          {formErrors.price && (
+            <div className="invalid-feedback">{formErrors.price}</div>
           )}
         </div>
 

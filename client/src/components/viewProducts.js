@@ -95,6 +95,7 @@ const ViewProducts = () => {
               <th scope="col">productName</th>
               <th scope="col">productImage</th>
               <th scope="col">quantity(kg or litre)</th>
+              <th scope="col">unitPrice</th>
               <th scope="col">category</th>
               <th scope="col">manufacturedDate</th>
               <th scope="col">expirationDate</th>
@@ -128,6 +129,7 @@ const ViewProducts = () => {
                 </td>
 
                 <td>{products.quantity}</td>
+                <td>Rs.{products.price}</td>
                 <td>{products.category}</td>
                 <td>{products.manufacturedDate}</td>
                 <td>{products.expirationDate}</td>

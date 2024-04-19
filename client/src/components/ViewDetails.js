@@ -39,7 +39,7 @@ const ViewDetails = () => {
                     const response = await axios.get(`http://localhost:8000/products/${id}`);
                     if (response.data.success) {
                         setProductDetails(response.data.product);
-                        getProductImage(id); // Call getProductImage to fetch image
+                        getProductImage(id); 
                     } else {
                         console.error("Error: ", response.data.error);
                     }
