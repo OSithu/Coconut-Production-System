@@ -1,0 +1,45 @@
+.plantCard {
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 200px;
+    border-radius: 25px;
+}
+
+.plantCard-body{
+    color: #566032;
+    padding-top: 50px;
+}
+
+body{
+    background-image: url('../../public/images/cardBG.png');
+    background-size: cover; 
+    background-position: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0; 
+    padding: 0;
+}
+
+.layoutImg{
+    height: 300px;
+    margin: 20px;
+}
+
+h1{
+    color: #3b4222;
+}
+
+.plantBody{
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+}
+
+.plantNav-link {
+    color: #463720;
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+}
+
+.plantNav-link.active {
+    color: #3b4222;
+}
