@@ -7,6 +7,7 @@ const EstateDetails = () => {
 
   const [allBlocks, setAllBlocks] = useState([]);
   const [treeCount, setTreeCount] = useState([]);
+  const [blockCount, setBlockCount] = useState([]);
 
   useEffect(() => {
     const getAllBlocks = async () => {
@@ -36,11 +37,22 @@ const EstateDetails = () => {
             console.log(err.response.data.error)
           }
         })
-
-
-
     };
-    
+
+    const getBlockCount = async () => {
+      await axios(`http://localhost:8000/blockCount`)
+        .then((res) => {
+          setBlockCount(res.data.count);
+          console.log('Status : ' + res.data.success);
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data.error)
+          }
+        })
+    };
+
+    getBlockCount();
     getTreeCount();
     getAllBlocks();
   }, []);
@@ -52,20 +64,39 @@ const EstateDetails = () => {
       &nbsp;
       <div className="container text-center">
         <h2> Estate Details </h2>
+        &nbsp;&nbsp;
         <div className="row align-items-start">
           <div className="col">
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item"> Area : 5 acres </li>
-              <li className="list-group-item"> Tree Count : {treeCount !== null ? treeCount : 'Loading...'} </li>              
-              <li className="list-group-item"> Block Count : 5 </li>
-            </ul>
+            <div class="card" >
+              <div class="card-body">
+                <h5 class="card-title">5 acres</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Area</h6>
+              </div>
+            </div>
           </div>
           <div className="col">
-            Google Map
+            <div class="card" >
+              <div class="card-body">
+                <h5 class="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Trees</h6>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div class="card" >
+              <div class="card-body">
+                <h5 class="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Blocks</h6>
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
+
+      &nbsp;
+      &nbsp;
+
       <div className="container text-center">
         <div className="row align-items-start">
           <div className="col">
@@ -82,6 +113,7 @@ const EstateDetails = () => {
                 <tr>
                   <th scope="col"> Block Name </th>
                   <th scope="col"> Area </th>
+                  <th scope="col">  </th>
                 </tr>
               </thead>
               <tbody>

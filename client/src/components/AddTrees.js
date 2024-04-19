@@ -46,7 +46,9 @@ const AddTrees = () => {
         if (!plantedDate.trim()) {
             formValid = false;
             errorsData.plantedDate = "Planted Date is required";
-        } else if (new Date(plantedDate) > new Date()) {
+        } 
+        //check if date is valid
+        else if (new Date(plantedDate) > new Date()) {
             formValid = false;
             errorsData.plantedDate = "Planted Date cannot be a future date";
         }
@@ -69,6 +71,7 @@ const AddTrees = () => {
             specialNotes: specialNotes
         };
 
+        //add details to database
         axios.post("http://localhost:8000/tree/save", newTree)
             .then((res) => {
                 alert(res.data.success);

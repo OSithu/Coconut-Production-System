@@ -12,9 +12,6 @@ import viewFertilization from "./components/viewFertilization";
 import CreateFertilization from "./components/createFertilization";
 import editFertilization from "./components/editFertilization";
 
-// import ViewProducts from './components/viewProducts';
-// import CreateProducts from './components/CreateProducts';
-
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
 import editCusDetails from "./components/editCusDetails";
@@ -70,6 +67,8 @@ import editBudgetDetails from "./components/editBudgetDetails";
 import ViewItems from "./components/ViewItems";
 import ViewDetails from "./components/ViewDetails";
 
+import EstateStaff from "./components/EstateStaff";
+
 function App() {
   return (
     <Router>
@@ -121,7 +120,6 @@ function App() {
           <Route path="/addBlock" Component={AddBlock} />
           <Route path="/viewBlock/:id" Component={ViewBlock} />
 
-
           <Route path="/viewOrder" Component={viewOrderDetails} />
 
           <Route path="/addOrder" Component={CreateOrderDetails} />
@@ -144,6 +142,8 @@ function App() {
 
           <Route path="viewItems" Component={ViewItems}/>
           <Route path="/viewDetails/:id" Component={ViewDetails}/>
+		  
+		      <Route path="/estStaff" Component={EstateStaff}/>
 
         </Routes>
       </div>
