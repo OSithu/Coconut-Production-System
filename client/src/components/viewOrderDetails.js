@@ -27,16 +27,16 @@ const ViewOrderDetails = () => {
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
-
     try {
-      const confirm = window.confirm('Are you sure you want to delete?');
+      const confirm = window.confirm("Are you sure you want to delete?");
 
       if (confirm) {
-        await axios.delete(`http://localhost:8000/orderDetails/delete/${id}`)
+        await axios
+          .delete(`http://localhost:8000/orderDetails/delete/${id}`)
           .then((res) => {
             alert(res.data.message);
             console.log(res.data.message);
-            setAllItem(allProducts.filter(order => order._id !== id));
+            setAllItem(allProducts.filter((order) => order._id !== id));
           })
           .catch((err) => {
             if (err.response) {
@@ -44,15 +44,14 @@ const ViewOrderDetails = () => {
             } else {
               console.log("Error occured while processing your axios delete");
             }
-          })
+          });
       } else {
-        alert('Deletion Cancel');
+        alert("Deletion Cancel");
       }
+    } catch (err) {
+      console.log("HandleDelete function failed ! Error" + err.message);
     }
-    catch (err) {
-      console.log('HandleDelete function failed ! Error' + err.message);
-    }
-  }
+  };
 
   return (
     <div className="container">
@@ -84,7 +83,7 @@ const ViewOrderDetails = () => {
                 <a
                   className="btn btn-danger"
                   href="#"
-                  onClick={() => handleDelete (orderDetails._id)}
+                  onClick={() => handleDelete(orderDetails._id)}
                 >
                   <i className="far fa-trash-alt"></i>&nbsp;Delete
                 </a>
@@ -94,10 +93,7 @@ const ViewOrderDetails = () => {
         </tbody>
       </table>
       <button className="btn btn-success">
-        <a
-          href="/addOrder"
-          style={{ textDecoration: "none", color: "white" }}
-        >
+        <a href="/addOrder" style={{ textDecoration: "none", color: "white" }}>
           Add Order
         </a>
       </button>

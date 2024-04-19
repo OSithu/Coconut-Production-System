@@ -3,17 +3,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import dashboard from "./components/dashboard";
 
-import viewSpread from "./components/viewSpread";
-import createSpread from "./components/createSpread";
-import editSpread from "./components/editSpread";
-import spreadDetails from "./components/spreadDetails";
+// import ViewSpread from "./components/ViewSpread";
+// import CreateSpread from "./components/CreateSpread";
+// import EditSpread from "./components/EditSpread";
+// import spreadDetails from "./components/spreadDetails";
 
 import viewFertilization from "./components/viewFertilization";
 import CreateFertilization from "./components/createFertilization";
 import editFertilization from "./components/editFertilization";
-
-// import ViewProducts from './components/viewProducts';
-// import CreateProducts from './components/CreateProducts';
 
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
@@ -31,9 +28,9 @@ import CreateQualityRecords from "./components/CreateQualityRecords";
 import ViewQualityRecords from "./components/ViewQualityRecords";
 import EditQualityRecords from "./components/EditQualityRecords";
 
-import viewEmployee from "./components/viewEmployee";
-import createEmployee from "./components/createEmployee";
-import editEmployee from "./components/editEmployee";
+// import ViewEmployee from "./components/ViewEmployee";
+// import CreateEmployee from "./components/CreateEmployee";
+// import EditEmployee from "./components/EditEmployee";
 
 import CreateProducts from "./components/CreateProducts";
 import viewProducts from "./components/viewProducts";
@@ -56,17 +53,35 @@ import EditOrderDetails from "./components/editOrderDetails";
 import ViewHarvest from "./components/ViewHarvest";
 import AddHarvest from "./components/AddHarvest";
 import UpdateHarvest from "./components/UpdateHarvest";
+// import HarvestingSchedules from "./components/HarvestingSchedules";
+// import AddHvstSchedule from "./components/AddHvstSchedule";
+// import UpdateHvstSchedule from "./components/UpdateHvstSchedule";
+
+// import Calculator from "./components/Calculator";
+// import fertilizationMain from "./components/fertilizationMain";
+
+// import ViewBudgetDetails from "./components/ViewBudgetDetails";
+// import AddBudgetDetails from "./components/AddBudgetDetails";
+// import editBudgetDetails from "./components/editBudgetDetails";
+
+// import ViewItems from "./components/ViewItems";
+// import ViewDetails from "./components/ViewDetails";
+
+// import EstateStaff from "./components/EstateStaff";
+
+import LoginForm from "./components/LoginForm";
+import WelcomeScreen from "./components/WelcomeScreen";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" Component={dashboard} />
-          <Route path="/viewDisease" Component={viewSpread} />
-          <Route path="/createDisease" Component={createSpread} />
-          <Route path="/editDisease/:id" Component={editSpread} />
-          <Route path="/spreadrecord/:id" Component={spreadDetails} />
+          <Route path="/dashboard" Component={dashboard} />
+          {/* <Route path="/viewDisease" Component={ViewSpread} />
+          <Route path="/createDisease" Component={CreateSpread} />
+          <Route path="/editDisease/:id" Component={EditSpread} />
+          <Route path="/spreadrecord/:id" Component={spreadDetails} /> */}
 
           <Route path="/viewFertilization" Component={viewFertilization} />
           <Route path="/fertilizationsave" Component={CreateFertilization} />
@@ -85,11 +100,11 @@ function App() {
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />
           <Route path="/createFinanceDetails" Component={AddTransaction} />
-          <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails}/>
+          <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails} />
 
-          <Route path="/viewEmployee" Component={viewEmployee} />
-          <Route path="/addEmp" Component={createEmployee} />
-          <Route path="/editEmp/:id" Component={editEmployee} />
+          {/* <Route path="/viewEmployee" Component={ViewEmployee} />
+          <Route path="/addEmp" Component={CreateEmployee} />
+          <Route path="/editEmp/:id" Component={EditEmployee} /> */}
 
           <Route path="/viewQualityRecord" Component={ViewQualityRecords} />
           <Route path="/addQualityRecord" Component={CreateQualityRecords} />
@@ -108,7 +123,6 @@ function App() {
           <Route path="/addBlock" Component={AddBlock} />
           <Route path="/viewBlock/:id" Component={ViewBlock} />
 
-
           <Route path="/viewOrder" Component={viewOrderDetails} />
 
           <Route path="/addOrder" Component={CreateOrderDetails} />
@@ -117,6 +131,26 @@ function App() {
           <Route path="/viewHarvest" Component={ViewHarvest} />
           <Route path="/addHarvest" Component={AddHarvest} />
           <Route path="/editHarvest/:id" Component={UpdateHarvest} />
+
+          {/* <Route path="viewHvstSchedules" Component={HarvestingSchedules} />
+          <Route path="addHvstSchedules" Component={AddHvstSchedule} />
+          <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule} />
+
+          <Route path="/Calculator" Component={Calculator} />
+          <Route path="/fertilizationMain" Component={fertilizationMain} />
+
+          <Route path="/ViewBudgetDetails" Component={ViewBudgetDetails} />
+          <Route path="/AddBudgetDetails" Component={AddBudgetDetails} />
+          <Route path="/editBudgetDetails/:id" Component={editBudgetDetails} />
+
+          <Route path="viewItems" Component={ViewItems}/>
+          <Route path="/viewDetails/:id" Component={ViewDetails}/>
+		  
+		      <Route path="/estStaff" Component={EstateStaff}/> */}
+
+          <Route path="/login" Component={LoginForm} />
+          <Route path="/" Component={WelcomeScreen} />
+
 
         </Routes>
       </div>

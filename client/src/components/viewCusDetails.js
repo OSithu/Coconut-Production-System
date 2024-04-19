@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"; // Make sure to use lowercase for 'useState' and 'useEffect'
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const ViewCusDetails = () => {
-  const [allCustomers, setAllCustomers] = useState([]); // Use 'useState' instead of 'UseState'
+  const [allCustomers, setAllCustomers] = useState([]);
 
-  useEffect(() => { // Use 'useEffect' instead of 'UseEffect'
+  useEffect(() => {
     const getAllCustomers = async () => {
       try {
         const res = await axios.get("http://localhost:8000/cusDetails");
@@ -23,18 +23,20 @@ const ViewCusDetails = () => {
     getAllCustomers();
   }, []);
 
-//implementing handleDelete function
+  //implementing handleDelete function
   const handleDelete = async (id) => {
-
     try {
-      const confirm = window.confirm('Are you sure you want to delete?');
+      const confirm = window.confirm("Are you sure you want to delete?");
 
       if (confirm) {
-        await axios.delete(`http://localhost:8000/cusDetails/delete/${id}`)
+        await axios
+          .delete(`http://localhost:8000/cusDetails/delete/${id}`)
           .then((res) => {
             alert(res.data.message);
             console.log(res.data.message);
-            setAllCustomers(allCustomers.filter(customer => customer._id !== id));
+            setAllCustomers(
+              allCustomers.filter((customer) => customer._id !== id)
+            );
           })
           .catch((err) => {
             if (err.response) {
@@ -42,15 +44,14 @@ const ViewCusDetails = () => {
             } else {
               console.log("Error occured while processing your axios delete");
             }
-          })
+          });
       } else {
-        alert('Deletion Cancel');
+        alert("Deletion Cancel");
       }
+    } catch (err) {
+      console.log("HandleDelete function failed ! Error" + err.message);
     }
-    catch (err) {
-      console.log('HandleDelete function failed ! Error' + err.message);
-    }
-  }
+  };
 
   return (
     <div className="container">
@@ -58,12 +59,12 @@ const ViewCusDetails = () => {
       <table className="table">
         <thead>
           <tr>
-              <th scope="col">#</th>
-              <th scope="col">cusName</th>
-              <th scope="col">cusEmail</th>
-              <th scope="col">contactNumber</th>
-              <th scope="col">cusLocation</th>
-              <th scope="col">Action</th>
+            <th scope="col">#</th>
+            <th scope="col">cusName</th>
+            <th scope="col">cusEmail</th>
+            <th scope="col">contactNumber</th>
+            <th scope="col">cusLocation</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -85,7 +86,7 @@ const ViewCusDetails = () => {
                 <a
                   className="btn btn-danger"
                   href="#"
-                  onClick={() => handleDelete (cusDetails._id)}
+                  onClick={() => handleDelete(cusDetails._id)}
                 >
                   <i className="far fa-trash-alt"></i>&nbsp;Delete
                 </a>
@@ -95,16 +96,16 @@ const ViewCusDetails = () => {
         </tbody>
       </table>
       <button className="btn btn-success">
-        <a
-          href="/addCus"
-          style={{ textDecoration: "none", color: "white" }}
-        >
+        <a href="/addCus" style={{ textDecoration: "none", color: "white" }}>
           Add Customer
+        </a>
+        &nbsp; &nbsp;
+        <a href="/login" style={{ textDecoration: "none", color: "white" }}>
+          Login
         </a>
       </button>
     </div>
   );
-
 };
 
 export default ViewCusDetails;
