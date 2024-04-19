@@ -1,84 +1,107 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const ViewDetails = () => {
-    const [product, setProductDetails] = useState({});
-    const [productImage, setProductImage] = useState('');
-    const { id } = useParams();
+  const [product, setProductDetails] = useState({});
+  const [productImage, setProductImage] = useState("");
+  const { id } = useParams();
 
-    const getProductImage = async (id) => {
-        try {
-          const response = await axios.get(
-            `http://localhost:8000/products/images/${id}`,
-            {
-              responseType: "arraybuffer",
-            }
-          );
-    
-          const blob = new Blob([response.data], {
-            type: response.headers["content-type"],
-          });
-          const reader = new FileReader();
-    
-          reader.onload = () => {
-            const imageData = reader.result;
-            setProductImage(imageData);
-          };
-    
-          reader.readAsDataURL(blob);
-        } catch (error) {
-          console.error("Error fetching product image:", error);
+  const getProductImage = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/products/images/${id}`,
+        {
+          responseType: "arraybuffer",
         }
+      );
+
+      const blob = new Blob([response.data], {
+        type: response.headers["content-type"],
+      });
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const imageData = reader.result;
+        setProductImage(imageData);
       };
 
-      useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (id) {
-                    const response = await axios.get(`http://localhost:8000/products/${id}`);
-                    if (response.data.success) {
-                        setProductDetails(response.data.product);
-                        getProductImage(id); 
-                    } else {
-                        console.error("Error: ", response.data.error);
-                    }
-                } else {
-                    console.error("No ID provided.");
-                }
-            } catch (error) {
-                console.error("Error fetching data: ", error);
-            }
-        };
+      reader.readAsDataURL(blob);
+    } catch (error) {
+      console.error("Error fetching product image:", error);
+    }
+  };
 
-        fetchData();
-    }, [id]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (id) {
+          const response = await axios.get(
+            `http://localhost:8000/products/${id}`
+          );
+          if (response.data.success) {
+            setProductDetails(response.data.product);
+            getProductImage(id);
+          } else {
+            console.error("Error: ", response.data.error);
+          }
+        } else {
+          console.error("No ID provided.");
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
 
-    return (
+    fetchData();
+  }, [id]);
+
+  return (
+    <div className="container d-flex justify-content-center align-items-center">
+      <div class="card text-center" style={{ width: "40rem", marginTop: "100px" }}>
         <div style={{ marginTop: "20px" }}>
-            <h4>{product.productName}</h4>
-            <hr />
+          {productImage ? (
+            <img
+              src={productImage}
+              class="card-img-top"
+              alt="Product"
+              style={{ maxWidth: "300px" }}
+            />
+          ) : (
+            "Loading..."
+          )}
 
-            <dl className="row">
-                <dt className="col-sm-3"> </dt>
-                <dd className="col-sm-9">
-                    {productImage ? <img src={productImage} alt="Product" style={{ maxWidth: "200px" }} /> : 'Loading...'}
-                </dd>
+          <hr />
 
-                <dt className="col-sm-3">Name: </dt>
-                <dd className="col-sm-9">{product.productName || 'Loading...'}</dd>
+          <dl className="row">
+            <dd>
+              <h4 style={{ textAlign: "center" }}>{product.productName}</h4>{" "}
+            </dd>
 
-                <dt className="col-sm-3">Available Quantity</dt>
-                <dd className="col-sm-9">{product.quantity || 'Loading...'}</dd>
+            <dd>
+              <strong>Product Name: </strong>
+              {product.productName || "Loading..."}
+            </dd>
 
-                <dt className="col-sm-3">Manufactured Date</dt>
-                <dd className="col-sm-9">{product.manufacturedDate || 'Loading...'}</dd>
+            <dd>
+              <strong>Available Quantity: </strong>
+              {product.quantity || "Loading..."}
+            </dd>
 
-                <dt className="col-sm-3">Expiration Date</dt>
-                <dd className="col-sm-9">{product.expirationDate || 'Loading...'}</dd>
-            </dl>
+            <dd>
+              <strong>Manufactured Date: </strong>
+              {product.manufacturedDate || "Loading..."}
+            </dd>
+
+            <dd>
+              <strong>Expiration Date: </strong>
+              {product.expirationDate || "Loading..."}
+            </dd>
+          </dl>
         </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
 
 export default ViewDetails;
