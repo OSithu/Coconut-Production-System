@@ -109,7 +109,7 @@ router.post("/login", async (req, res) => {
     if (user.userRole === "admin") {
       return res.json({ redirectTo: "/dashboard" }); // Assuming '/adminView' is your admin dashboard route
     } else if (user.userRole === "Customer") {
-      return res.json({ redirectTo: "/estateDetails" }); // Assuming '/customerDashboard' is your customer dashboard route
+      return res.json({ redirectTo: "/ViewItems" }); // Assuming '/customerDashboard' is your customer dashboard route
     } else {
       return res.status(403).json({ message: "Unauthorized role" });
     }
