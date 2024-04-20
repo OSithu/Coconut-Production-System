@@ -7,6 +7,7 @@ const EditProducts = () => {
   const [productName, setProductName] = useState("");
   const [productImage, setProductImage] = useState(null);
   const [quantity, setProductQty] = useState("");
+  const [quantityUnit, setProductQtyUnit] = useState("");
   const [category, setProductCategory] = useState("");
   const [manufacturedDate, setProductMD] = useState("");
   const [expirationDate, setProductED] = useState("");
@@ -64,6 +65,7 @@ const EditProducts = () => {
           setProductId(res.data.product.productId);
           setProductName(res.data.product.productName);
           setProductQty(res.data.product.quantity);
+          setProductQtyUnit(res.data.product.quantityUnit)
           setProductCategory(res.data.product.category);
           setProductMD(formatDate(res.data.product.manufacturedDate));
           setProductED(formatDate(res.data.product.expirationDate));
@@ -163,6 +165,7 @@ const EditProducts = () => {
         updatedProductData.append("productId", productId);
         updatedProductData.append("productName", productName);
         updatedProductData.append("quantity", quantity);
+        updatedProductData.append("quantityUnit", quantityUnit);
         updatedProductData.append("category", category);
         updatedProductData.append("manufacturedDate", manufacturedDate);
         updatedProductData.append("expirationDate", expirationDate);
@@ -252,19 +255,35 @@ const EditProducts = () => {
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Available Quantity</label>
-          <input
-            type="text"
-            className={`form-control ${formErrors.quantity && "is-invalid"}`}
-            name="quantity"
-            placeholder="Enter added quantity"
-            value={quantity}
-            onChange={(e) => setProductQty(e.target.value)}
-            required
-          />
-          {formErrors.quantity && (
+          <label className="col-sm-2 col-form-label"> Available Quantity </label>
+          <div className="col-sm-8">
+            <input
+              type="text"
+              className={`form-control ${
+                formErrors.quantity && "is-invalid"
+              }`}
+              name="quantity"
+              placeholder="Enter Quantity"
+              value={quantity}
+              onChange={(e) => setProductQty(e.target.value)}
+            />
+            {formErrors.quantity && (
             <div className="invalid-feedback">{formErrors.quantity}</div>
           )}
+
+            <select
+              className="form-select"
+              name="quantityUnit"
+              value={quantityUnit}
+              onChange={(e) => setProductQtyUnit(e.target.value)}
+            >
+              <option value=""> Select Unit </option>
+              <option value="packets"> packets </option>
+              <option value="bottles"> bottles </option>
+              <option value="g"> g </option>
+              <option value="litre"> litre </option>
+            </select>
+          </div>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
@@ -280,7 +299,7 @@ const EditProducts = () => {
               <option value="Rs."> Rs. </option>
               <option value="-"> - </option>
             </select>
-            
+
             <input
               type="text"
               className={`form-control `}
