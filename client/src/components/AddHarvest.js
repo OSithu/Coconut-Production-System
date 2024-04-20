@@ -90,19 +90,17 @@ const AddHarvest = () => {
     };
 
     return (
-        <div>
+        <div className='plantBody'>
+      <PlantationNav />
+      &nbsp;
+      <h1 className='plantTopic'> Add New Record </h1>
 
-            <PlantationNav />
-            &nbsp;
-            &nbsp;
+      &nbsp;
 
-            <div class="container text-center">
-                <h2> Add New Record </h2>
-
-                <form className="needs-validation" noValidate onSubmit={saveDetails}>
+                <form className="needs-validation" noValidate onSubmit={saveDetails} id='plantForm2'>
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Date </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input type="date"
                                 className={`form-control ${errors.date ? 'is-invalid' : ''}`}
                                 name="date"
@@ -113,7 +111,7 @@ const AddHarvest = () => {
 
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Block Name </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
                                 name="blockName"
@@ -130,7 +128,7 @@ const AddHarvest = () => {
 
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Collected Harvest </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input
                                 type="number"
                                 className={`form-control ${errors.harvest ? 'is-invalid' : ''}`}
@@ -147,7 +145,7 @@ const AddHarvest = () => {
                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
                 </form>
             </div>
-        </div>
+        
     )
 }
 

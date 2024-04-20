@@ -24,24 +24,26 @@
     margin: 20px;
 }
 
-/* h1{
+.plantTopic{
     color: #3b4222;
-} */
+    text-align: center;
+}
 
 .plantBody{
     margin: 10px;
     padding: 10px;
     align-items: center;
+    margin-top: 50px;
 }
 
-.plantNav-link {
+#plantNav-link {
     color: #463720;
     text-decoration: none;
     margin: 10px;
     padding: 10px;
 }
 
-.plantNav-link.active {
+#plantNav-link active {
     color: #3b4222;
 }
 
@@ -51,4 +53,71 @@
     margin: 10px;
     padding: 10px;
     min-height: 500px;
+}
+
+#plantTable {
+    margin: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    text-align: center;
+}
+
+#plantForm{
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    width:75%;
+    margin: 0 auto;
+}
+
+#plantForm2{
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    width:60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#plantForm label {
+    width:200px;
+    text-align: left;
+}
+
+#plantForm2 label {
+    width:200px;
+    text-align: left;
+}
+
+#plantFormFeild {
+    width:450px;
+}
+
+.plantReport {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    width:60%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 80px;
+}
+
+@media print {
+    .print-header, .print-footer {
+        display: block !important;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .print-header {
+        top: 20px;
+        bottom: 20px;
+    }
+    
+    .print-footer {
+        bottom: 20px;
+    }
 }

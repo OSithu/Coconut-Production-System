@@ -136,14 +136,15 @@ const validateForm = () => {
 };
 
   return (
-    <div>
-            <PlantationNav />
-            <div className="container text-center">
-                <h2> Update Schedule </h2>
-                <form className="needs-validation" noValidate onSubmit={updateDetails}>
+    <div className='plantBody'>
+      <PlantationNav />
+      &nbsp;
+      <h1 className='plantTopic'> Update Schedule </h1>
+      &nbsp;
+                <form className="needs-validation" noValidate onSubmit={updateDetails} id='plantForm2'>
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Date </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input type="date"
                                 className={`form-control ${errors.date ? 'is-invalid' : ''}`}
                                 name="date"
@@ -155,7 +156,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Block Name </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
                                 name="blockName"
@@ -172,7 +173,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Person In Charge </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control ${errors.inCharge ? 'is-invalid' : ''}`}
                                 name="inCharge"
@@ -189,7 +190,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Staff Member 01 </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control`}
                                 name="staff01"
@@ -205,7 +206,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Staff Member 02 </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control`}
                                 name="staff02"
@@ -221,7 +222,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Staff Member 03 </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control`}
                                 name="staff03"
@@ -238,7 +239,7 @@ const validateForm = () => {
                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Update</button>
                 </form>
             </div>
-        </div>
+        
   )
 }
 

@@ -65,10 +65,10 @@ const ViewHarvest = () => {
     }
 
     return (
-        <div>
-            <PlantationNav />
-            &nbsp;
-            <h2> Harvest Details </h2>
+        <div className='plantBody'>
+      <PlantationNav />
+      &nbsp;
+      <h1 className='plantTopic'> Harvest Details </h1>
             &nbsp;
             <Link to={`/addHarvest`}>
                 <button type="button" className="btn btn-success" style={{ float: "right" }}>
@@ -76,8 +76,8 @@ const ViewHarvest = () => {
                     Add New Record
                 </button>
             </Link>
-
-            <table className="table">
+&nbsp;
+            <table className="table"  id='plantTable'>
                 <thead>
                     <tr>
                         <th scope = "col">Date</th>
