@@ -43,7 +43,6 @@ const CreateOrderDetails = () => {
     setOrderDate("");
   };
 
-
   return (
     <div className="col-md-8 mt-4 mx-auto">
       <h1 className="h3 mb-3 font-weight-normal">Add new order detail</h1>
@@ -81,7 +80,7 @@ const CreateOrderDetails = () => {
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Order date</label>
           <input
-            type="text"
+            type="date"
             className={`form-control`}
             name="orderDate"
             placeholder="Enter order date"
