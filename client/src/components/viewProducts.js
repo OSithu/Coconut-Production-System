@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, Component } from "react";
 import axios from "axios";
 //import { Link } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 
 const ViewProducts = () => {
+  const componentPDF = useRef();
   const [allProducts, setAllItem] = useState([]);
 
   useEffect(() => {
@@ -25,6 +27,14 @@ const ViewProducts = () => {
 
     getAllItems();
   }, []);
+
+  //implement PDF Download Function
+
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitile: "ProductDetails",
+    onAfterPrint: () => alert("Data saved in PDF"),
+  });
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -87,6 +97,7 @@ const ViewProducts = () => {
             </a>
           </button>
         </div>
+        <div ref={componentPDF} style={{width: "100%"}}>
         <table className="table">
           <thead>
             <tr>
@@ -129,7 +140,7 @@ const ViewProducts = () => {
                 </td>
 
                 <td>{products.quantity}</td>
-                <td>Rs.{products.price}</td>
+                <td> {products.price.unit} {products.price.value}</td>
                 <td>{products.category}</td>
                 <td>{products.manufacturedDate}</td>
                 <td>{products.expirationDate}</td>
@@ -163,8 +174,13 @@ const ViewProducts = () => {
           </tbody>
         </table>
       </div>
+      <div className="d-grid d-md-flex justify-content-md-end mb-3">
+        <button className="btn btn-success" onClick={generatePDF}>
+          Generate PDF
+        </button>{" "}
+      </div>
     </div>
-    // </div>
+     </div>
   );
 };
 
