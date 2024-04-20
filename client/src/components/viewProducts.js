@@ -3,10 +3,12 @@ import axios from "axios";
 //import { Link } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import ProductNav from "./ProductNav";
+import { BsSearch } from "react-icons/bs";
 
 const ViewProducts = () => {
   const componentPDF = useRef();
   const [allProducts, setAllItem] = useState([]);
+  const [searchProducts, setSearchProducts] = useState("");
 
   useEffect(() => {
     const getAllItems = async () => {
@@ -29,8 +31,7 @@ const ViewProducts = () => {
     getAllItems();
   }, []);
 
-  //implement PDF Download Function
-
+  //implementing function for the pdf downloading
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
     documentTitile: "ProductDetails",
@@ -66,6 +67,13 @@ const ViewProducts = () => {
     }
   };
 
+  const filteredProducts = allProducts.filter(
+    (products) =>
+      products.productId.toLowerCase().includes(searchProducts.toLowerCase()) ||
+      products.productName.toLowerCase().includes(searchProducts.toLowerCase()) ||
+      products.category.toLowerCase().includes(searchProducts.toLowerCase())
+  );
+
   return (
     // <div style={{backgroundImage: "url(/productBack1.jpg)",}}>
     <div className="container">
@@ -79,6 +87,18 @@ const ViewProducts = () => {
           }}
         >
           All Products
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search products..."
+              value={searchProducts}
+              onChange={(e) => setSearchProducts(e.target.value)}
+            />
+            <button className="btn btn-outline-secondary" type="button">
+              <BsSearch />
+            </button>
+          </div>
         </p>
         <div style={{ textAlign: "right" }}>
           <button className="btn btn-success">
@@ -123,7 +143,7 @@ const ViewProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {allProducts.map((products) => (
+              {filteredProducts.map((products) => (
                 <tr
                   key={products._id}
                   className={
