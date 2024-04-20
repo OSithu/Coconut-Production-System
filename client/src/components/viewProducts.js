@@ -139,7 +139,7 @@ const ViewProducts = () => {
                   )}
                 </td>
 
-                <td>{products.quantity}</td>
+                <td>{products.quantity} {products.quantityUnit}</td>
                 <td> {products.price.unit} {products.price.value}</td>
                 <td>{products.category}</td>
                 <td>{products.manufacturedDate}</td>

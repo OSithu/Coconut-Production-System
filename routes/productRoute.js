@@ -42,7 +42,7 @@ router.post(
         priceUnit = JSON.parse(req.body.price).unit;
       } else {
         // If price value is not provided, set both value and unit to "-"
-        priceValue = "";
+        priceValue = " ";
         priceUnit = "-";
       }
       
@@ -52,6 +52,7 @@ router.post(
         productId: req.body.productId,
         productName: req.body.productName,
         quantity: req.body.quantity,
+        quantityUnit: req.body.quantityUnit,
         category: req.body.category,
         manufacturedDate: req.body.manufacturedDate,
         expirationDate: req.body.expirationDate,
@@ -142,6 +143,8 @@ router.get("/products/:id", async (req, res) => {
         
         formattedProduct.price = formattedPrice;
 
+        formattedProduct.quantityUnit = product.quantityUnit;
+
     return res.status(200).json({ success: true, product: formattedProduct });
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
@@ -214,6 +217,7 @@ router.put(
       product.productId = req.body.productId;
       product.productName = req.body.productName;
       product.quantity = req.body.quantity;
+      product.quantityUnit = req.body.quantityUnit
       product.category = req.body.category;
       product.manufacturedDate = req.body.manufacturedDate;
       product.expirationDate = req.body.expirationDate;
