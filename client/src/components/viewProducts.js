@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, Component } from "react";
 import axios from "axios";
 //import { Link } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import ProductNav from "./ProductNav";
 
 const ViewProducts = () => {
   const componentPDF = useRef();
@@ -68,6 +69,7 @@ const ViewProducts = () => {
   return (
     // <div style={{backgroundImage: "url(/productBack1.jpg)",}}>
     <div className="container">
+      <ProductNav />
       <div>
         <p
           style={{
@@ -97,90 +99,104 @@ const ViewProducts = () => {
             </a>
           </button>
         </div>
-        <div ref={componentPDF} style={{width: "100%"}}>
-        <table className="table">
-          <thead>
-            <tr>
-              {/* <th scope="col">#</th> */}
-              <th scope="col">productId</th>
-              <th scope="col">productName</th>
-              <th scope="col">productImage</th>
-              <th scope="col">quantity(kg or litre)</th>
-              <th scope="col">unitPrice</th>
-              <th scope="col">category</th>
-              <th scope="col">manufacturedDate</th>
-              <th scope="col">expirationDate</th>
-              <th scope="col">Re-orderLevel</th>
-              <th scope="col">Additional notes</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allProducts.map((products) => (
-              <tr
-                key={products._id}
-                className={
-                  products.quantity < products.reOrderLevel
-                    ? "table-danger"
-                    : ""
-                }
-              >
-                <td>{products.productId}</td>
-                <td>{products.productName}</td>
-                <td>
-                  {products.productImage && products.productImage.data ? (
-                    <img
-                      src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
-                      alt="Products"
-                      style={{ width: "100px" }}
-                    />
-                  ) : (
-                    <span>No image</span>
-                  )}
-                </td>
+        <div ref={componentPDF} style={{ width: "100%" }}>
+          <div className="print-header" style={{ display: "none" }}>
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
 
-                <td>{products.quantity} {products.quantityUnit}</td>
-                <td> {products.price.unit} {products.price.value}</td>
-                <td>{products.category}</td>
-                <td>{products.manufacturedDate}</td>
-                <td>{products.expirationDate}</td>
-                <td>{products.reOrderLevel}</td>
-                <td>
-                  {products.quantity < products.reOrderLevel && (
-                    <span style={{ color: "red" }}>
-                      Quantity below reorder level
-                    </span>
-                  )}
-                </td>
-                <td>
-                  <a
-                    className="btn btn-warning"
-                    href={`/editProduct/${products._id}`}
-                    style={{ width: "90px" }}
-                  >
-                    <i className="fas fa-edit"></i>&nbsp;Edit
-                  </a>
-                  <a
-                    className="btn btn-danger"
-                    href="#"
-                    onClick={() => handleDelete(products._id)}
-                    style={{ width: "90px" }}
-                  >
-                    <i className="far fa-trash-alt"></i>&nbsp;Delete
-                  </a>
-                </td>
+          <table className="table">
+            <thead>
+              <tr>
+                {/* <th scope="col">#</th> */}
+                <th scope="col">productId</th>
+                <th scope="col">productName</th>
+                <th scope="col">productImage</th>
+                <th scope="col">quantity(kg or litre)</th>
+                <th scope="col">unitPrice</th>
+                <th scope="col">category</th>
+                <th scope="col">manufacturedDate</th>
+                <th scope="col">expirationDate</th>
+                <th scope="col">Re-orderLevel</th>
+                <th scope="col">Additional notes</th>
+                <th scope="col">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="d-grid d-md-flex justify-content-md-end mb-3">
-        <button className="btn btn-success" onClick={generatePDF}>
-          Generate PDF
-        </button>{" "}
+            </thead>
+            <tbody>
+              {allProducts.map((products) => (
+                <tr
+                  key={products._id}
+                  className={
+                    products.quantity < products.reOrderLevel
+                      ? "table-danger"
+                      : ""
+                  }
+                >
+                  <td>{products.productId}</td>
+                  <td>{products.productName}</td>
+                  <td>
+                    {products.productImage && products.productImage.data ? (
+                      <img
+                        src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
+                        alt="Products"
+                        style={{ width: "100px" }}
+                      />
+                    ) : (
+                      <span>No image</span>
+                    )}
+                  </td>
+
+                  <td>
+                    {products.quantity} {products.quantityUnit}
+                  </td>
+                  <td>
+                    {" "}
+                    {products.price.unit} {products.price.value}
+                  </td>
+                  <td>{products.category}</td>
+                  <td>{products.manufacturedDate}</td>
+                  <td>{products.expirationDate}</td>
+                  <td>{products.reOrderLevel}</td>
+                  <td>
+                    {products.quantity < products.reOrderLevel && (
+                      <span style={{ color: "red" }}>
+                        Quantity below reorder level
+                      </span>
+                    )}
+                  </td>
+                  <td>
+                    <a
+                      className="btn btn-warning"
+                      href={`/editProduct/${products._id}`}
+                      style={{ width: "90px" }}
+                    >
+                      <i className="fas fa-edit"></i>&nbsp;Edit
+                    </a>
+                    <a
+                      className="btn btn-danger"
+                      href="#"
+                      onClick={() => handleDelete(products._id)}
+                      style={{ width: "90px" }}
+                    >
+                      <i className="far fa-trash-alt"></i>&nbsp;Delete
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="print-footer" style={{ display: "none" }}>
+            <hr />
+            {/* <p>Report Generated on {currentDate} </p> */}
+          </div>
+        </div>
+        <div className="d-grid d-md-flex justify-content-md-end mb-3">
+          <button className="btn btn-success" onClick={generatePDF}>
+            Generate PDF
+          </button>{" "}
+        </div>
       </div>
     </div>
-     </div>
   );
 };
 
