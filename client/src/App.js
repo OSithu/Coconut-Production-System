@@ -69,6 +69,7 @@ import ViewDetails from "./components/ViewDetails";
 
 import EstateStaff from "./components/EstateStaff";
 import ViewAllTrees from "./components/ViewAllTrees";
+import ViewHvstSchedule from "./components/ViewHvstSchedule";
 
 function App() {
   return (
@@ -146,6 +147,7 @@ function App() {
 		  
 		      <Route path="/estStaff" Component={EstateStaff}/>
           <Route path="/allTrees" Component={ViewAllTrees}/>
+          <Route path="/viewHvstSchedule/:id" Component={ViewHvstSchedule}/>
 
         </Routes>
       </div>

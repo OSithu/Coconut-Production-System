@@ -89,10 +89,10 @@ const HarvestingSchedules = () => {
      
 
     return (
-        <div>
-            <PlantationNav />
-            &nbsp;
-            <h2> Harvesting Schedules </h2>
+        <div className='plantBody'>
+      <PlantationNav />
+      &nbsp;
+      <h1 className='plantTopic'> Harvesting Schedules </h1>
             &nbsp;
             <Link to={`/addHvstSchedules`}>
                 <button type="button" className="btn btn-success" style={{ float: "right" }}>
@@ -101,15 +101,15 @@ const HarvestingSchedules = () => {
                 </button>
             </Link>
 
-            <table className="table">
+            <table className="table" id='plantTable'>
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
                         <th scope="col">Block</th>
                         <th scope="col">Person In Charge</th>
-                        <th scope="col">Staff Member 01</th>
+                        {/* <th scope="col">Staff Member 01</th>
                         <th scope="col">Staff Member 02</th>
-                        <th scope="col">Staff Member 03</th>
+                        <th scope="col">Staff Member 03</th> */}
                         <th scope="col">Assigned Date</th>
                         <th></th>
                     </tr>
@@ -122,14 +122,20 @@ const HarvestingSchedules = () => {
                             ) : null}
                             <td>{schedule.blockName}</td>
                             <td>{schedule.inCharge}</td>
-                            <td>{schedule.staff01}</td>
+                            {/* <td>{schedule.staff01}</td>
                             <td>{schedule.staff02}</td>
-                            <td>{schedule.staff03}</td>
+                            <td>{schedule.staff03}</td> */}
                             <td>{schedule.assignedDate}</td>
                             <td>
                                 {/* <button type="button" className='btn btn-success' onClick={() => notify(schedule)}>
                                  <i className='far fa-bell'></i>&nbsp;Notify
                                 </button> */}
+                                <Link to={`/viewHvstSchedule/${schedule._id}`}>
+                                    <button type="button" className="btn btn-success">
+                                        <i className='fa-regular fa-eye'></i>&nbsp; View Schedule
+                                    </button>
+                                </Link>
+                                &nbsp;
                                 <Link to={`/updateHvstSchedules/${schedule._id}`}>
                                     <button type="button" className="btn btn-warning">
                                         <i className='fas fa-edit'></i>&nbsp; Edit
