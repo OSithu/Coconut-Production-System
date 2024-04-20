@@ -1,0 +1,23 @@
+/* print.css */
+@media print {
+    .ph,
+    .pf {
+      display: block;
+    }
+    .vfd {
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    .tb {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .tb th,
+    .tb td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: left;
+    }
+  }
+  
