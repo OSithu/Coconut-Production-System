@@ -99,7 +99,7 @@ const ViewQualityRecords = () => {
                   <td>
 
                     <div>
-                      <a className="btn btn-secondary" href={`/editQualityRecord/${records._id}`}>
+                      <a className="btn btn-secondary" href={`/viewQRecord/${records._id}`}>
                         <i className="fas fa-eye"></i>&nbsp;View Record
                       </a>
                     </div>

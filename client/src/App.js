@@ -27,6 +27,7 @@ import EditFinanceDetails from "./components/EditFinanceDetails";
 import CreateQualityRecords from "./components/CreateQualityRecords";
 import ViewQualityRecords from "./components/ViewQualityRecords";
 import EditQualityRecords from "./components/EditQualityRecords";
+import ViewQRecord from "./components/ViewQRecord";
 
 import ViewEmployee from "./components/ViewEmployee";
 import CreateEmployee from "./components/CreateEmployee";
@@ -109,6 +110,7 @@ function App() {
           <Route path="/viewQualityRecord" Component={ViewQualityRecords} />
           <Route path="/addQualityRecord" Component={CreateQualityRecords} />
           <Route path="/editQualityRecord/:id" Component={EditQualityRecords} />
+          <Route path="viewQRecord" Component={ViewQRecord} />
 
           <Route path="/viewProduct" Component={viewProducts} />
           <Route path="/addProduct" Component={CreateProducts} />
