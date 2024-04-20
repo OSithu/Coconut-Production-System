@@ -14,14 +14,15 @@ const AddBlock = () => {
 
     const saveDetails = async (e) => {
         e.preventDefault();
-    
+
         // Clear previous errors
         setErrors({});
-    
+
         // Validation
         let formValid = true;
         let errorsData = {};
-    
+
+        //check if the feilds are empty
         if (!blockName.trim()) {
             formValid = false;
             errorsData.blockName = "Block Name is required";
@@ -34,18 +35,19 @@ const AddBlock = () => {
             errorsData.areaUnit = 'Unit is required';
             formValid = false;
         }
-    
+
         // If form is not valid, set errors and return
         if (!formValid) {
             setErrors(errorsData);
             return;
         }
-    
+
         let newBlock = {
             blockName: blockName,
-            area: { value: areaValue , unit: areaUnit }
+            area: { value: areaValue, unit: areaUnit }
         }
-    
+
+        //add details to database
         axios.post("http://localhost:8000/blocks/save", newBlock)
             .then((res) => {
                 alert(res.data.success);
@@ -61,62 +63,66 @@ const AddBlock = () => {
                 }
             });
     };
-    
+
 
     return (
-        <div className="col-md-8 mt-4 mx auto">
-                 <PlantationNav />
-                 &nbsp;
-                 <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
-                 <form className="needs-validation" noValidate onSubmit={saveDetails}>
+        <div className='plantBody'>
 
-                     <div class="row mb-3">
-                         <label className="col-sm-2 col-form-label"> Block Name </label>
-                         <div className="col-sm-10">
-                             <input type="text"
-                                class={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
-                                name="blockName"
-                                placeholder="Enter Block Name"
-                                value={blockName}
-                                onChange={(e) => setBlockName(e.target.value)} />
-                            {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
-                        </div>
+            <PlantationNav />
+            &nbsp;
+
+            <h1 className='plantTopic'> Add New Record </h1>
+
+            &nbsp;
+
+            <form className="needs-validation" noValidate onSubmit={saveDetails} id='plantForm'>
+
+                <div class="row mb-3">
+                    <label className="col-sm-2 col-form-label"> Block Name </label>
+                    <div className="col-sm-10" id={'plantFormFeild'}>
+                        <input type="text"
+                            class={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
+                            name="blockName"
+                            placeholder="Enter Block Name"
+                            value={blockName}
+                            onChange={(e) => setBlockName(e.target.value)} />
+                        {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
                     </div>
+                </div>
 
-                    <div class="row mb-3">
-                        <label className="col-sm-2 col-form-label"> Area </label>
-                        <div className="col-sm-8">
-                        <input
-                            type="text"
-                            className={`form-control ${errors.area ? 'is-invalid' : ''}`}
-                            name="area"
-                            placeholder="Enter Area"
-                            value={areaValue}
-                            onChange={(e) => setAreaValue(e.target.value)}
-                        />
+                <div class="row mb-3">
+                    <label className="col-sm-2 col-form-label"> Area </label>
+                    <div className="col-sm-10" id={'plantFormFeild'}>
+                        <div className="input-group" >
+                            <input
+                                type="text"
+                                className={`form-control ${errors.area ? 'is-invalid' : ''}`}
+                                name="area"
+                                placeholder="Enter Area"
+                                value={areaValue}
+                                onChange={(e) => setAreaValue(e.target.value)}
+                            />
                             {errors.area && <div className="invalid-feedback">{errors.area}</div>}
 
                             <select
-                            className="form-select"
-                            name="unit"
-                            value={areaUnit}
-                            onChange={(e) => setAreaUnit(e.target.value)}
-                        >
-                            <option value="">Select Unit</option>
-                            <option value="sqm">sqm</option>
-                            <option value="sqft">sqft</option>
-                            <option value="hectare">hectare</option>
-                            <option value="acre">acre</option>
-                        </select>
-
+                                className="form-select"
+                                name="unit"
+                                value={areaUnit}
+                                onChange={(e) => setAreaUnit(e.target.value)}
+                            >
+                                <option value=""> Select Unit </option>
+                                <option value="sqm"> sqm </option>
+                                <option value="sqft"> sqft </option>
+                                <option value="hectare"> hectare </option>
+                                <option value="acre"> acre </option>
+                            </select>
                         </div>
                     </div>
-
-                    <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
-                </form>
-            </div>
+                </div>
+                <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
+            </form>
+        </div>
     )
-
 }
 
 export default AddBlock

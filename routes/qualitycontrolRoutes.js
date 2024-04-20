@@ -25,9 +25,14 @@ router.get("/qualityrecords", async (req, res) => {
   try {
     const qualityrecords = await qualityControl.find().exec();
 
+    const formattedRecords = qualityrecords.map(records => ({
+      ...records.toObject(),
+      qualityCheckedDate: records.qualityCheckedDate?.toISOString()?.split('T')[0]
+    }));
+
     return res.status(200).json({
       success: true,
-      existingQualityRecords: qualityrecords,
+      existingQualityRecords: formattedRecords,
     });
   } catch (err) {
     return res.status(400).json({
@@ -72,6 +77,7 @@ router.put("/qualityrecords/update/:id",async (req, res) => {
 router.delete("/qualityrecords/delete/:id", async (req, res) => {
   try {
       const deleteRecords = await qualityControl.findByIdAndDelete(req.params.id).exec();
+
       return res.json({
           message: "Record Deleted Successfully",
           deleteRecords,
@@ -83,19 +89,5 @@ router.delete("/qualityrecords/delete/:id", async (req, res) => {
       });
   }
 });
-
-// router.get("/qrecords/:id", async (req, res) => {
-//   try {
-//       let RecordId = req.params.id;
-//       let records = await qualityControl.findById(mongoose.Types.ObjectId(RecordId)); // Convert id to ObjectId
-//       if (!records) {
-//           return res.status(404).json({ success: false, message: "Record not found" });
-//       }
-//       return res.status(200).json({ success: true, records });
-//   } catch (err) {
-//       return res.status(400).json({ success: false, error: err.message });
-//     }
-// });
-
 
 module.exports = router;

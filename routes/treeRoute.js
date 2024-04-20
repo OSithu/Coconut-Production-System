@@ -26,7 +26,7 @@ router.post('/tree/save',async (req,res)=>{
 }
 }); 
 
-//read
+//read trees of a specific block
 router.get("/trees", async (req, res) => {
   try {
       const { blockName } = req.query;
@@ -86,8 +86,7 @@ router.get("/trees", async (req, res) => {
     }
   });
 
-  //get a secific record
-
+ //get details of a tree
   router.get("/trees/:id", async (req, res) => {
     try {
         let treeID = req.params.id;
@@ -112,13 +111,35 @@ router.get("/treeCount/:blockName", async (req, res) => {
   }
 });
 
-//get tree count
+//get the tree count of whole estate
 router.get("/treeCount", async (req, res) => {
   try {
       let count = await Trees.countDocuments();
       return res.status(200).json({ success: true, count: count });
   } catch (err) {
       return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+//get all tree details
+router.get("/allTrees", async(req,res) => {
+  try{
+      const trees = await Trees.find().exec();
+
+      const allTrees = trees.map(trees => ({
+          ...trees.toObject(),
+          plantedDate: trees.plantedDate?.toISOString()?.split('T')[0]
+      }));
+
+      return res.status(200).json({
+          success: true,
+          viewtrees: allTrees,
+      });
+  }
+  catch(err) {
+      return res.status(400).json({
+          error: err.message,
+      });
   }
 });
 

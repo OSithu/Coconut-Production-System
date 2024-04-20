@@ -76,19 +76,20 @@ const UpdateTrees = () => {
     };
 
     return (
-        <div>
+        <div className='plantBody'>
             <PlantationNav />
-
+            &nbsp;
+            &nbsp;
             <div className="container text-center">
-                <h2>Edit Details</h2>
+            <h1 className='plantTopic'>Edit Details</h1>
                 &nbsp;
                     &nbsp;
-                <form className="needs-validation" noValidate onSubmit={updateDetails}>
+                <form className="needs-validation" noValidate onSubmit={updateDetails} id='plantForm'>
                     <div className="row justify-content-md-center">
                         <div className="col">
                             <div className="row mb-3">
                                 <label className="col-sm-2 col-form-label">Tree ID</label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="text"
                                         className="form-control"
                                         name="treeID"
@@ -101,7 +102,7 @@ const UpdateTrees = () => {
 
                             <div className="row mb-3">
                                 <label className="col-sm-2 col-form-label">Type of Tree</label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="text"
                                         className="form-control"
                                         name="typeOfTree"
@@ -114,7 +115,7 @@ const UpdateTrees = () => {
 
                             <div className="row mb-3">
                                 <label className="col-sm-2 col-form-label">Planted Date</label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="date"
                                         className="form-control"
                                         name="plantedDate"
@@ -126,7 +127,7 @@ const UpdateTrees = () => {
 
                             <div className="row mb-3">
                                 <label className="col-sm-2 col-form-label">Block Name</label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="text"
                                         className="form-control"
                                         name="blockName"
@@ -139,7 +140,7 @@ const UpdateTrees = () => {
 
                             <div className="row mb-3">
                                 <label className="col-sm-2 col-form-label">Special Notes</label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <textarea className="form-control"
                                         placeholder="Mention if there are any"
                                         name="specialNotes"

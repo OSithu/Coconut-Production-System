@@ -100,17 +100,16 @@ const UpdateHarvest = () => {
     };
 
     return (
-        <div>
-            <PlantationNav />
-
-            <div className="container text-center">
-                <h2>Edit Details</h2>
+        <div className='plantBody'>
+      <PlantationNav />
+      &nbsp;
+      <h1 className='plantTopic'>Edit Details</h1>
                 &nbsp;
                 &nbsp;
-                <form className="needs-validation" noValidate onSubmit={updateDetails}>
+                <form className="needs-validation" noValidate onSubmit={updateDetails} id='plantForm2'>
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Date </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input type="date"
                                 className={`form-control ${errors.date ? 'is-invalid' : ''}`}
                                 name="date"
@@ -121,7 +120,7 @@ const UpdateHarvest = () => {
 
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Block Name </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input
                                 type="text"
                                 className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
@@ -136,7 +135,7 @@ const UpdateHarvest = () => {
 
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Collected Harvest </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input
                                 type="number"
                                 className={`form-control ${errors.harvest ? 'is-invalid' : ''}`}
@@ -153,7 +152,7 @@ const UpdateHarvest = () => {
                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
                 </form>
             </div>
-        </div>
+        
     );
 };
 

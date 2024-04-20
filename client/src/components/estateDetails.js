@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 
 const EstateDetails = () => {
 
   const [allBlocks, setAllBlocks] = useState([]);
   const [treeCount, setTreeCount] = useState([]);
+  const [blockCount, setBlockCount] = useState([]);
 
   useEffect(() => {
     const getAllBlocks = async () => {
@@ -36,52 +38,85 @@ const EstateDetails = () => {
             console.log(err.response.data.error)
           }
         })
-
-
-
     };
-    
+
+    const getBlockCount = async () => {
+      await axios(`http://localhost:8000/blockCount`)
+        .then((res) => {
+          setBlockCount(res.data.count);
+          console.log('Status : ' + res.data.success);
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log(err.response.data.error)
+          }
+        })
+    };
+
+    getBlockCount();
     getTreeCount();
     getAllBlocks();
   }, []);
 
 
   return (
-    <div>
+    <div className='plantBody'>
       <PlantationNav />
       &nbsp;
       <div className="container text-center">
-        <h2> Estate Details </h2>
+        <h1 className='plantTopic'> Estate Details </h1>
+        &nbsp;&nbsp;
         <div className="row align-items-start">
           <div className="col">
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item"> Area : 5 acres </li>
-              <li className="list-group-item"> Tree Count : {treeCount !== null ? treeCount : 'Loading...'} </li>              
-              <li className="list-group-item"> Block Count : 5 </li>
-            </ul>
+            <div className='plantCard'>
+              <div className="plantCard-body">
+                <h2 className="card-title">5 acres</h2>
+                <h3 className="card-subtitle mb-2 text-body-secondary">Area</h3>
+              </div>
+            </div>
           </div>
           <div className="col">
-            Google Map
+            <Link to={'/allTrees'} style={{ textDecoration: 'none' }}>
+              <div className='plantCard'>
+                <div className="plantCard-body">
+                  <h2 className="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h2>
+                  <h3 className="card-subtitle mb-2 text-body-secondary">Trees</h3>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="col">
+            <div className='plantCard'>
+              <div className="plantCard-body">
+                <h2 className="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h2>
+                <h3 className="card-subtitle mb-2 text-body-secondary">Blocks</h3>
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
+
+      &nbsp;
+      &nbsp;
+
       <div className="container text-center">
         <div className="row align-items-start">
-          <div className="col">
+          <div className="col" id="plantDiv">
             &nbsp;
-            <h2> Estate Layout </h2>
-            {/* <img src = "C:\Users\user\OneDrive\Documents\images\estateLayout.png"/> */}
+            <h1 className='plantTopic'> Estate Layout </h1>
+            <img src="/images/layout.png" alt="estateLayout" className='layoutImg' />
           </div>
-          <div className="col">
+          <div className="col" id="plantDiv">
             &nbsp;
-            <h2> Block Details </h2>
+            <h1 className='plantTopic'> Block Details </h1>
             &nbsp;
             <table className="table">
               <thead>
                 <tr>
                   <th scope="col"> Block Name </th>
                   <th scope="col"> Area </th>
+                  <th scope="col">  </th>
                 </tr>
               </thead>
               <tbody>
@@ -107,6 +142,7 @@ const EstateDetails = () => {
                 Add New Record
               </a>
             </button>
+            &nbsp;
           </div>
 
         </div>

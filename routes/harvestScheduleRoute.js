@@ -103,7 +103,7 @@ router.get("/hScedule/:id", async (req,res) => {
     }
 });
 
-//get a specific record
+//get estate Staff details
 router.get("/estStaff", async (req,res) => {
 try {
     const estStaff = await Staff.find({ department: "sales" }).exec();

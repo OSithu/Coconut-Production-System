@@ -9,8 +9,16 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  productImage: {
+    data: Buffer,
+    contentType: String,
+  },
   quantity: {
     type: Number,
+    required: true,
+  },
+  quantityUnit: {
+    type: String,
     required: true,
   },
   category: {
@@ -29,6 +37,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  price: {
+    unit: { type: String, enum: ["Rs.", "-"], required: true },
+    value: { type: Number, required: false },
+  }
 });
 
 module.exports = mongoose.model("Products", productSchema);

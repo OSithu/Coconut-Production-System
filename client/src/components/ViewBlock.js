@@ -222,11 +222,11 @@ const ViewBlock = () => {
     };
 
     return (
-        <div>
+        <div className='plantBody'>
             <PlantationNav />
             &nbsp;
             &nbsp;
-            <form className="needs-validation" noValidate>
+            <form className="needs-validation" id='plantForm' noValidate>
                 <div class="container text-center">
                     <h2> Block {blockName} </h2>
                     &nbsp;
@@ -235,7 +235,7 @@ const ViewBlock = () => {
                         <div class="col">
                             <div class="row mb-3">
                                 <label className="col-sm-2 col-form-label"> Block Name </label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}> 
                                     <input type="text"
                                         class={`form-control`}
                                         name="blockName"
@@ -247,8 +247,8 @@ const ViewBlock = () => {
 
                             <div class="row mb-3">
                                 <label className="col-sm-2 col-form-label"> Area </label>
-                                <div className="col-sm-10">
-                                    <div className="input-group">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
+                                    <div className="input-group" >
                                         <input type="text"
                                             className={`form-control ${errors.area && 'is-invalid'}`}
                                             name="area"
@@ -275,7 +275,7 @@ const ViewBlock = () => {
 
                             <div class="row mb-3">
                                 <label className="col-sm-2 col-form-label"> Tree Count </label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="text"
                                         class={`form-control`}
                                         name="treeCount"
@@ -287,7 +287,7 @@ const ViewBlock = () => {
 
                             <div class="row mb-3">
                                 <label className="col-sm-2 col-form-label"> Last Harvested Date </label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="date"
                                         class={`form-control ${errors.lastHarvested && 'is-invalid'}`}
                                         name="lastHarvested"
@@ -300,7 +300,7 @@ const ViewBlock = () => {
 
                             <div class="row mb-3">
                                 <label className="col-sm-2 col-form-label"> Next Harvesting Date </label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="date"
                                         class={`form-control ${errors.nextHarvesting && 'is-invalid'}`}
                                         name="nextHarvesting"
@@ -313,7 +313,7 @@ const ViewBlock = () => {
 
                             <div class="row mb-3">
                                 <label className="col-sm-2 col-form-label"> Last Fertilized Date </label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="date"
                                         class={`form-control ${errors.lastFertilized && 'is-invalid'}`}
                                         name="lastFertilized"
@@ -326,7 +326,7 @@ const ViewBlock = () => {
 
                             <div class="row mb-3">
                                 <label className="col-sm-2 col-form-label"> Next Fertilization Date </label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-10" id={'plantFormFeild'}>
                                     <input type="date"
                                         class={`form-control ${errors.nextFertilization && 'is-invalid'}`}
                                         name="nextFertilization"

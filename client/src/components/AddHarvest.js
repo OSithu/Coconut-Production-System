@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PlantationNav from './PlantationNav';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ const AddHarvest = () => {
                 const res = await axios.get(`http://localhost:8000/blocks`);
                 const formattedBlocks = res.data.existingBlocks.map(block => ({
                     ...block,
-                    area: `${block.area.value} ${block.area.unit}` // Combine area value and unit
+                    area: `${block.area.value} ${block.area.unit}` // to combine area value and unit
                 }));
                 setAllBlocks(formattedBlocks);
                 console.log('Status : ' + res.data.success);
@@ -42,6 +42,7 @@ const AddHarvest = () => {
         let formValid = true;
         let errorsData = {};
 
+        //check if the feilds are empty
         if (!blockName.trim()) {
             formValid = false;
             errorsData.blockName = "Block Name is required";
@@ -53,7 +54,9 @@ const AddHarvest = () => {
         if (!date.trim()) {
             formValid = false;
             errorsData.date = "Date is required";
-        } else if (new Date(date) > new Date()) {
+        }
+        //check if date is valid
+        else if (new Date(date) > new Date()) {
             formValid = false;
             errorsData.date = "Date cannot be a future date";
         }
@@ -69,6 +72,7 @@ const AddHarvest = () => {
             harvest: harvest
         }
 
+        //add details to database
         axios.post("http://localhost:8000/harvest/save", newRecord)
             .then((res) => {
                 alert(res.data.success);
@@ -86,16 +90,17 @@ const AddHarvest = () => {
     };
 
     return (
-        <div>
-            <PlantationNav />
-            &nbsp;
-            &nbsp;
-            <div class="container text-center">
-                <h2> Add New Record </h2>
-                <form className="needs-validation" noValidate onSubmit={saveDetails}>
+        <div className='plantBody'>
+      <PlantationNav />
+      &nbsp;
+      <h1 className='plantTopic'> Add New Record </h1>
+
+      &nbsp;
+
+                <form className="needs-validation" noValidate onSubmit={saveDetails} id='plantForm2'>
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Date </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input type="date"
                                 className={`form-control ${errors.date ? 'is-invalid' : ''}`}
                                 name="date"
@@ -106,15 +111,7 @@ const AddHarvest = () => {
 
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Block Name </label>
-                        <div className="col-sm-10">
-                            {/* <input
-                        type="text"
-                        className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
-                        name="blockName"
-                        placeholder="Enter Block Name"
-                        value={blockName}
-                        onChange={(e) => setBlockName(e.target.value)}
-                    /> */}
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
                                 name="blockName"
@@ -131,7 +128,7 @@ const AddHarvest = () => {
 
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Collected Harvest </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input
                                 type="number"
                                 className={`form-control ${errors.harvest ? 'is-invalid' : ''}`}
@@ -148,7 +145,7 @@ const AddHarvest = () => {
                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
                 </form>
             </div>
-        </div>
+        
     )
 }
 

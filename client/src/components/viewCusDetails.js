@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react"; // Make sure to use lowercase for 'useState' and 'useEffect'
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import CustomerNav from "./CustomerNav";
+
+import { useReactToPrint } from "react-to-print";
 
 const ViewCusDetails = () => {
-  const [allCustomers, setAllCustomers] = useState([]); // Use 'useState' instead of 'UseState'
 
-  useEffect(() => { // Use 'useEffect' instead of 'UseEffect'
+  const componentPDF = useRef();
+
+  const [allCustomers, setAllCustomers] = useState([]);
+
+  useEffect(() => {
     const getAllCustomers = async () => {
       try {
         const res = await axios.get("http://localhost:8000/cusDetails");
@@ -23,18 +29,27 @@ const ViewCusDetails = () => {
     getAllCustomers();
   }, []);
 
-//implementing handleDelete function
-  const handleDelete = async (id) => {
+  //implementing PDF download function
+  const generatePDF = useReactToPrint({
+    content: ()=>componentPDF.current,
+    documentTitle:"UserData",
+    onAfterPrint:()=>alert("Data saved in PDF")
+  });
 
+  //implementing handleDelete function
+  const handleDelete = async (id) => {
     try {
-      const confirm = window.confirm('Are you sure you want to delete?');
+      const confirm = window.confirm("Are you sure you want to delete?");
 
       if (confirm) {
-        await axios.delete(`http://localhost:8000/cusDetails/delete/${id}`)
+        await axios
+          .delete(`http://localhost:8000/cusDetails/delete/${id}`)
           .then((res) => {
             alert(res.data.message);
             console.log(res.data.message);
-            setAllCustomers(allCustomers.filter(customer => customer._id !== id));
+            setAllCustomers(
+              allCustomers.filter((customer) => customer._id !== id)
+            );
           })
           .catch((err) => {
             if (err.response) {
@@ -42,28 +57,39 @@ const ViewCusDetails = () => {
             } else {
               console.log("Error occured while processing your axios delete");
             }
-          })
+          });
       } else {
-        alert('Deletion Cancel');
+        alert("Deletion Cancel");
       }
+    } catch (err) {
+      console.log("HandleDelete function failed ! Error" + err.message);
     }
-    catch (err) {
-      console.log('HandleDelete function failed ! Error' + err.message);
-    }
-  }
+  };
 
   return (
     <div className="container">
+      <CustomerNav />
       <p>All Customer Details</p>
+      <button className="btn btn-success">
+        <a href="/addCus" style={{ textDecoration: "none", color: "white" }}>
+          Add Customer
+        </a>
+      </button>
+
+      <div className="d-grid d-md-flex justify-content-md-end mb-3">
+      <button className="btn btn-success" onClick={ generatePDF}>Report</button>  </div>
+
+      <div ref={componentPDF} style={{width:"100%"}}>
+
       <table className="table">
         <thead>
           <tr>
-              <th scope="col">#</th>
-              <th scope="col">cusName</th>
-              <th scope="col">cusEmail</th>
-              <th scope="col">contactNumber</th>
-              <th scope="col">cusLocation</th>
-              <th scope="col">Action</th>
+            <th scope="col">#</th>
+            <th scope="col">cusName</th>
+            <th scope="col">cusEmail</th>
+            <th scope="col">contactNumber</th>
+            <th scope="col">cusLocation</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -74,37 +100,35 @@ const ViewCusDetails = () => {
               <td>{cusDetails.cusEmail}</td>
               <td>{cusDetails.contactNumber}</td>
               <td>{cusDetails.cusLocation}</td>
-              <td>
+              <td>              
+
                 <a
-                  className="btn btn-warning"
-                  href={`/editCus/${cusDetails._id}`}
+                  href={`/CustomerProfile/${cusDetails._id}`}
+                  className="btn btn-primary"
                 >
-                  <i className="fas fa-edit"></i>&nbsp;Edit
+                  View profile
                 </a>
                 &nbsp;
+
                 <a
                   className="btn btn-danger"
                   href="#"
-                  onClick={() => handleDelete (cusDetails._id)}
+                  onClick={() => handleDelete(cusDetails._id)}
                 >
                   <i className="far fa-trash-alt"></i>&nbsp;Delete
-                </a>
+                </a> 
+
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button className="btn btn-success">
-        <a
-          href="/addCus"
-          style={{ textDecoration: "none", color: "white" }}
-        >
-          Add Customer
-        </a>
-      </button>
+      </div>
+  
+      
+
     </div>
   );
-
 };
 
 export default ViewCusDetails;

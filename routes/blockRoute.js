@@ -125,7 +125,15 @@ router.get("/blocks", async (req, res) => {
     }
 });
 
-
+//get tree count
+router.get("/blockCount", async (req, res) => {
+  try {
+      let count = await Blocks.countDocuments();
+      return res.status(200).json({ success: true, count: count });
+  } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+  }
+});
 
 
 module.exports = router;

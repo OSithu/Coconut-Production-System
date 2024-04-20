@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 
 const ViewProducts = () => {
+  const componentPDF = useRef();
   const [allProducts, setAllItem] = useState([]);
 
   useEffect(() => {
@@ -12,7 +14,7 @@ const ViewProducts = () => {
         .then((res) => {
           setAllItem(res.data.existingProducts);
           console.log("Status: " + res.data.success);
-          console.log(res.data.message);
+          console.log("Message:" + res.data.message);
         })
         .catch((err) => {
           if (err.response) {
@@ -25,6 +27,14 @@ const ViewProducts = () => {
 
     getAllItems();
   }, []);
+
+  //implement PDF Download Function
+
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitile: "ProductDetails",
+    onAfterPrint: () => alert("Data saved in PDF"),
+  });
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -55,51 +65,48 @@ const ViewProducts = () => {
     }
   };
 
-//   //implement a method to update the product count
-//   const updateProductQuantity = async (productId, newQuantity) => {
-//   try {
-//     const existingProduct = await axios.get(`http://localhost:8000/products/${productId}`); 
-//     const existingQuantity = existingProduct.data.product.quantity;
-
-//     await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
-//       quantity: existingQuantity+newQuantity
-//     });
-//     console.log("Product quantity updated successfully.");
-//   } catch (error) {
-//     console.error("Error occurred while updating product quantity:", error);
-//   }
-// };
-
   return (
     // <div style={{backgroundImage: "url(/productBack1.jpg)",}}>
     <div className="container">
       <div>
-        <p style={{textAlign: "center", fontFamily: "sans-serif", fontSize: "24px"}}>All Products</p>
-        <div style={{textAlign: "right"}}>
-        <button className="btn btn-success">
-          <a
-            href="/addProduct"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Add New Product
-          </a>
-        </button> &nbsp;&nbsp;&nbsp;&nbsp;
-        <button className="btn btn-success">
-          <a
-            href="/viewProductCnt"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Product Count
-          </a>
-        </button>
+        <p
+          style={{
+            textAlign: "center",
+            fontFamily: "sans-serif",
+            fontSize: "24px",
+          }}
+        >
+          All Products
+        </p>
+        <div style={{ textAlign: "right" }}>
+          <button className="btn btn-success">
+            <a
+              href="/addProduct"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Add New Product
+            </a>
+          </button>{" "}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <button className="btn btn-success">
+            <a
+              href="/viewProductCnt"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Product Count
+            </a>
+          </button>
         </div>
+        <div ref={componentPDF} style={{width: "100%"}}>
         <table className="table">
           <thead>
             <tr>
               {/* <th scope="col">#</th> */}
               <th scope="col">productId</th>
               <th scope="col">productName</th>
+              <th scope="col">productImage</th>
               <th scope="col">quantity(kg or litre)</th>
+              <th scope="col">unitPrice</th>
               <th scope="col">category</th>
               <th scope="col">manufacturedDate</th>
               <th scope="col">expirationDate</th>
@@ -109,7 +116,7 @@ const ViewProducts = () => {
             </tr>
           </thead>
           <tbody>
-            {allProducts.map((products, index) => (
+            {allProducts.map((products) => (
               <tr
                 key={products._id}
                 className={
@@ -121,23 +128,35 @@ const ViewProducts = () => {
                 <td>{products.productId}</td>
                 <td>{products.productName}</td>
                 <td>
-                  {products.quantity}
-
+                  {products.productImage && products.productImage.data ? (
+                    <img
+                      src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
+                      alt="Products"
+                      style={{ width: "100px" }}
+                    />
+                  ) : (
+                    <span>No image</span>
+                  )}
                 </td>
+
+                <td>{products.quantity} {products.quantityUnit}</td>
+                <td> {products.price.unit} {products.price.value}</td>
                 <td>{products.category}</td>
                 <td>{products.manufacturedDate}</td>
                 <td>{products.expirationDate}</td>
                 <td>{products.reOrderLevel}</td>
                 <td>
-                {products.quantity < products.reOrderLevel && (
-                  <span style={{ color: "red" }}>Quantity below reorder level</span>
-                )}
-              </td>
+                  {products.quantity < products.reOrderLevel && (
+                    <span style={{ color: "red" }}>
+                      Quantity below reorder level
+                    </span>
+                  )}
+                </td>
                 <td>
                   <a
                     className="btn btn-warning"
                     href={`/editProduct/${products._id}`}
-                    style={{ width: "100px",  }}
+                    style={{ width: "90px" }}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
@@ -145,7 +164,7 @@ const ViewProducts = () => {
                     className="btn btn-danger"
                     href="#"
                     onClick={() => handleDelete(products._id)}
-                    style={{ width: "100px" }}
+                    style={{ width: "90px" }}
                   >
                     <i className="far fa-trash-alt"></i>&nbsp;Delete
                   </a>
@@ -155,8 +174,13 @@ const ViewProducts = () => {
           </tbody>
         </table>
       </div>
+      <div className="d-grid d-md-flex justify-content-md-end mb-3">
+        <button className="btn btn-success" onClick={generatePDF}>
+          Generate PDF
+        </button>{" "}
+      </div>
     </div>
-    // </div>
+     </div>
   );
 };
 

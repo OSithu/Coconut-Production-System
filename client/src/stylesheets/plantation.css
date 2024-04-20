@@ -1,0 +1,123 @@
+.plantCard {
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 200px;
+    border-radius: 25px;
+    text-decoration: none;
+}
+
+.plantCard-body{
+    color: #566032;
+    padding-top: 50px;
+}
+
+/* body{
+    background-image: url('../../public/images/cardBG.png');
+    background-size: cover; 
+    background-position: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0; 
+    padding: 0;
+}  */
+
+.layoutImg{
+    height: 300px;
+    margin: 20px;
+}
+
+.plantTopic{
+    color: #3b4222;
+    text-align: center;
+}
+
+.plantBody{
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#plantNav-link {
+    color: #463720;
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+}
+
+#plantNav-link active {
+    color: #3b4222;
+}
+
+#plantDiv{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    margin: 10px;
+    padding: 10px;
+    min-height: 500px;
+}
+
+#plantTable {
+    margin: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    text-align: center;
+}
+
+#plantForm{
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    width:75%;
+    margin: 0 auto;
+}
+
+#plantForm2{
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    width:60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#plantForm label {
+    width:200px;
+    text-align: left;
+}
+
+#plantForm2 label {
+    width:200px;
+    text-align: left;
+}
+
+#plantFormFeild {
+    width:450px;
+}
+
+.plantReport {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    width:60%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 80px;
+}
+
+@media print {
+    .print-header, .print-footer {
+        display: block !important;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .print-header {
+        top: 20px;
+        bottom: 20px;
+    }
+    
+    .print-footer {
+        bottom: 20px;
+    }
+}

@@ -9,7 +9,7 @@ const blockSchema = new mongoose.Schema({
 
     area: {
         value: { type: Number, required: true },
-        unit: { type: String, enum: ['sqm', 'sqft', 'hectare', 'acre'] } // Define possible unit options
+        unit: { type: String, enum: ['sqm', 'sqft', 'hectare', 'acre'] } 
     },
 
     lastHarvested:{
