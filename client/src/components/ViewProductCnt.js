@@ -3,10 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import ProductNav from "./ProductNav";
 import { useReactToPrint } from "react-to-print";
+import { BsSearch } from "react-icons/bs";
 
 const ViewProductCnt = () => {
   const componentPDF = useRef();
   const [allProductRecords, setAllRecords] = useState([]);
+  const [searchProductCnt, setSearchProductCnt] = useState("");
 
   useEffect(() => {
     const getAllRecords = async () => {
@@ -67,11 +69,30 @@ const ViewProductCnt = () => {
     }
   };
 
+  const filteredProductCnt = allProductRecords.filter(
+    (productCnt) =>
+    productCnt.productId.toLowerCase().includes(searchProductCnt.toLowerCase())
+  );
+
   return (
     <div className="container">
       <ProductNav />
       <div>
         <p>Product Records</p>
+        
+        <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search product records..."
+              value={searchProductCnt}
+              onChange={(e) => setSearchProductCnt(e.target.value)}
+            />
+            <button className="btn btn-outline-secondary" type="button">
+              <BsSearch />
+            </button>
+          </div>
+
         <div style={{ textAlign: "right" }}>
         <button className="btn btn-success">
           <a
@@ -94,7 +115,7 @@ const ViewProductCnt = () => {
             </tr>
           </thead>
           <tbody>
-            {allProductRecords.map((productCnt, index) => (
+            {filteredProductCnt.map((productCnt, index) => (
               <tr key={productCnt._id}>
                 <td>
                   {/* <a href={`/productCnt/${productCnt._id}`} style ={{textDecoration: 'none'}}>
