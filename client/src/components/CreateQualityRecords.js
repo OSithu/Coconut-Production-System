@@ -24,10 +24,11 @@ const CreateQualityRecords = () => {
     isValid = false;
   }
 
-  // if (!qualityCheckedDate) {
-  //   errors.qualityCheckedDate = 'Quality checked date is required';
-  //   isValid = false;
-  // } else {
+  if (!qualityCheckedDate) {
+    errors.qualityCheckedDate = 'Quality checked date is required';
+    isValid = false;
+  } 
+  //else {
   //   const currentDate = new Date();
   //   const checkedDate = new Date(qualityCheckedDate);
 
@@ -103,7 +104,6 @@ const CreateQualityRecords = () => {
                              onChange={(e) => setRecordId(e.target.value)}
                              value={recordId}
                              style={{ borderRadius: '5px', borderColor: errors.recordId ? 'red' : '' }}
-                             required
                             />
                             {errors.recordId && <div className="invalid-feedback">{errors.recordId}</div>}
                         </div>
@@ -116,7 +116,7 @@ const CreateQualityRecords = () => {
                             placeholder="Enter Product Type"
                             onChange={(e) => setProductType(e.target.value)}
                             value={productType}
-                            required
+                            
                            />
                            {errors.productType && <div className="invalid-feedback">{errors.productType}</div>}
                         </div>
@@ -132,7 +132,7 @@ const CreateQualityRecords = () => {
                             max={
                               new Date().toISOString().split('T')[0]
                             }
-                            required
+                            
                            />
                            {errors.qualityCheckedDate && <div className="invalid-feedback">{errors.qualityCheckedDate}</div>}
                         </div>
@@ -145,7 +145,7 @@ const CreateQualityRecords = () => {
                             placeholder="Enter Special Notes"
                             onChange={(e) => setSpecialNotes(e.target.value)}
                              value={specialNotes}
-                             required
+                             
                             />
                         </div>
     
@@ -157,7 +157,7 @@ const CreateQualityRecords = () => {
                             placeholder="Enter Test Result"
                             onChange={(e) => setTestResult(e.target.value)}
                             value={testResult}
-                            required
+                            
                            />
                            {errors.testResult && <div className="invalid-feedback">{errors.testResult}</div>}
                         </div>
