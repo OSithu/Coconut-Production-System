@@ -24,18 +24,18 @@ const CreateQualityRecords = () => {
     isValid = false;
   }
 
-  if (!qualityCheckedDate) {
-    errors.qualityCheckedDate = 'Quality checked date is required';
-    isValid = false;
-  } else {
-    const currentDate = new Date();
-    const checkedDate = new Date(qualityCheckedDate);
+  // if (!qualityCheckedDate) {
+  //   errors.qualityCheckedDate = 'Quality checked date is required';
+  //   isValid = false;
+  // } else {
+  //   const currentDate = new Date();
+  //   const checkedDate = new Date(qualityCheckedDate);
 
-    if (checkedDate > currentDate) {
-      errors.qualityCheckedDate = 'Quality checked date cannot be a future date';
-      isValid = false;
-    }
-  }
+  //   if (checkedDate > currentDate) {
+  //     errors.qualityCheckedDate = 'Quality checked date cannot be a future date';
+  //     isValid = false;
+  //   }
+  // }
 
 
   if(!testResult.trim()) {
@@ -129,6 +129,9 @@ const CreateQualityRecords = () => {
                             placeholder="Enter Quality Checked Date"
                             onChange={(e) => setQualityCheckedDate(e.target.value)}
                             value={qualityCheckedDate}
+                            max={
+                              new Date().toISOString().split('T')[0]
+                            }
                             required
                            />
                            {errors.qualityCheckedDate && <div className="invalid-feedback">{errors.qualityCheckedDate}</div>}
