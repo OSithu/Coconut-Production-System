@@ -5,6 +5,8 @@ import FinanceNv from "./FinanceNv";
 
 import {useReactToPrint} from "react-to-print";
 
+import "../stylesheets/viewFinanceDetails.css";
+
 const ViewFianceDetails = () => {
 
   const componentPDF = useRef();
@@ -70,6 +72,7 @@ const handleDelete = async (id) =>{
 
 return (
   <div>
+    <div className="view-finance-details">
     <FinanceNv/>
         <p>All Financial Transactions</p>
         <div ref={componentPDF} style={{width:"100%"}}></div>
@@ -113,6 +116,7 @@ return (
        <button className="btn btn-success"><a href="/createFinanceDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button>
        <div className="d-grid d-md-flex justify-content-md-end mb-3">
         <button className="btn btn-success" onClick={ generatePDF}>PDF</button>  </div>
+      </div>
       </div>
       
 
