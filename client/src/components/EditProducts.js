@@ -307,6 +307,7 @@ const EditProducts = () => {
               placeholder="Enter Unit Price"
               value={priceValue}
               onChange={(e) => setProductPriceValue(e.target.value)}
+              disabled={priceUnit === "-"}
             />
           </div>
         </div>
