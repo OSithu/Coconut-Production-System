@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 
 const ViewQRecord = () => {
+  const componentPDF = useRef();
+
   const [recordId, setRecordId] = useState("");
   const [productType, setProductType] = useState("");
   const [specialNotes, setSpecialNotes] = useState("");
@@ -31,9 +34,19 @@ const ViewQRecord = () => {
     getOneRecord();
   }, [id]);
 
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitle: "",
+    onAfterPrint: () => alert("Data saved in PDF")
+  });
+
   return (
     <div className="col-md-8 mt-4 mx-auto">
       <h1 className="h3 mb-3 font-weight-normal">Record Details</h1>
+
+      <div style={{ marginTop: "20px" }}>
+          <div ref={componentPDF} style={{ width: "100%" }}>
+
       <form className="needs-validation" noValidate>
 
         <div className="form-group" style={{ marginBottom: '15px' }}>
@@ -73,6 +86,11 @@ const ViewQRecord = () => {
           />
         </div>
       </form>
+      </div>
+      <div className="d-grid d-md-flex justify-content-md-end mb-3">
+            <button className="btn btn-success" onClick={generatePDF}>PDF</button>
+     </div>
+      </div>
     </div>
   );
 };
