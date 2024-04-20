@@ -110,7 +110,7 @@ function App() {
           <Route path="/viewQualityRecord" Component={ViewQualityRecords} />
           <Route path="/addQualityRecord" Component={CreateQualityRecords} />
           <Route path="/editQualityRecord/:id" Component={EditQualityRecords} />
-          <Route path="viewQRecord" Component={ViewQRecord} />
+          <Route path="/viewQRecord/:id" Component={ViewQRecord} />
 
           <Route path="/viewProduct" Component={viewProducts} />
           <Route path="/addProduct" Component={CreateProducts} />
