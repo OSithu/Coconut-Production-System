@@ -35,17 +35,8 @@ router.post(
 
       let priceValue, priceUnit;
 
-      // Check if price is provided
-      if (req.body.price && JSON.parse(req.body.price).value) {
-        // If price value is provided, use it
-        priceValue = JSON.parse(req.body.price).value;
-        priceUnit = JSON.parse(req.body.price).unit;
-      } else {
-        // If price value is not provided, set both value and unit to "-"
-        priceValue = " ";
-        priceUnit = "-";
-      }
-      
+      priceValue = JSON.parse(req.body.price).value;
+      priceUnit = JSON.parse(req.body.price).unit;
 
       //if productID doesn't exists, save new product details
       let newProduct = new Products({
