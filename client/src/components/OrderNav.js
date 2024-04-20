@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default class CustomerNav extends Component {
+export default class OrderNav extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg bg-body-tertiary">

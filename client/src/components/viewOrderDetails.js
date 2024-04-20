@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import OrderNav from "./OrderNav";
+
+import { useReactToPrint } from "react-to-print";
 
 const ViewOrderDetails = () => {
+
+  const componentPDF = useRef();
+
   const [allProducts, setAllItem] = useState([]);
 
   useEffect(() => {
@@ -24,6 +30,13 @@ const ViewOrderDetails = () => {
 
     getAllItems();
   }, []);
+
+  //implementing PDF download function
+  const generatePDF = useReactToPrint({
+    content: ()=>componentPDF.current,
+    documentTitle:"UserData",
+    onAfterPrint:()=>alert("Data saved in PDF")
+  });
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -55,7 +68,15 @@ const ViewOrderDetails = () => {
 
   return (
     <div className="container">
+      <OrderNav />
       <p>All Order Details</p>
+      <button className="btn btn-success">
+        <a href="/addOrder" style={{ textDecoration: "none", color: "white" }}>
+          Add Order
+        </a>
+      </button>
+
+      <div ref={componentPDF} style={{width:"100%"}}>
       <table className="table">
         <thead>
           <tr>
@@ -73,13 +94,15 @@ const ViewOrderDetails = () => {
               <td>{orderDetails.quantity}</td>
               <td>{orderDetails.orderDate}</td>
               <td>
+
                 <a
-                  className="btn btn-warning"
-                  href={`/editOrder/${orderDetails._id}`}
+                  href={`/OrderProfile/${orderDetails._id}`}
+                  className="btn btn-primary"
                 >
-                  <i className="fas fa-edit"></i>&nbsp;Edit
+                  View Order
                 </a>
                 &nbsp;
+
                 <a
                   className="btn btn-danger"
                   href="#"
@@ -92,11 +115,12 @@ const ViewOrderDetails = () => {
           ))}
         </tbody>
       </table>
-      <button className="btn btn-success">
-        <a href="/addOrder" style={{ textDecoration: "none", color: "white" }}>
-          Add Order
-        </a>
-      </button>
+      </div>
+
+      <div className="d-grid d-md-flex justify-content-md-end mb-3">
+      <button className="btn btn-success" onClick={ generatePDF}>PDF</button>  </div>
+
+      
     </div>
   );
 };

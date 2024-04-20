@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import CustomerNav from "./CustomerNav";
+
+import { useReactToPrint } from "react-to-print";
 
 const ViewCusDetails = () => {
+
+  const componentPDF = useRef();
+
   const [allCustomers, setAllCustomers] = useState([]);
 
   useEffect(() => {
@@ -22,6 +28,13 @@ const ViewCusDetails = () => {
 
     getAllCustomers();
   }, []);
+
+  //implementing PDF download function
+  const generatePDF = useReactToPrint({
+    content: ()=>componentPDF.current,
+    documentTitle:"UserData",
+    onAfterPrint:()=>alert("Data saved in PDF")
+  });
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -55,7 +68,19 @@ const ViewCusDetails = () => {
 
   return (
     <div className="container">
+      <CustomerNav />
       <p>All Customer Details</p>
+      <button className="btn btn-success">
+        <a href="/addCus" style={{ textDecoration: "none", color: "white" }}>
+          Add Customer
+        </a>
+      </button>
+
+      <div className="d-grid d-md-flex justify-content-md-end mb-3">
+      <button className="btn btn-success" onClick={ generatePDF}>Report</button>  </div>
+
+      <div ref={componentPDF} style={{width:"100%"}}>
+
       <table className="table">
         <thead>
           <tr>
@@ -75,35 +100,33 @@ const ViewCusDetails = () => {
               <td>{cusDetails.cusEmail}</td>
               <td>{cusDetails.contactNumber}</td>
               <td>{cusDetails.cusLocation}</td>
-              <td>
+              <td>              
+
                 <a
-                  className="btn btn-warning"
-                  href={`/editCus/${cusDetails._id}`}
+                  href={`/CustomerProfile/${cusDetails._id}`}
+                  className="btn btn-primary"
                 >
-                  <i className="fas fa-edit"></i>&nbsp;Edit
+                  View profile
                 </a>
                 &nbsp;
+
                 <a
                   className="btn btn-danger"
                   href="#"
                   onClick={() => handleDelete(cusDetails._id)}
                 >
                   <i className="far fa-trash-alt"></i>&nbsp;Delete
-                </a>
+                </a> 
+
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button className="btn btn-success">
-        <a href="/addCus" style={{ textDecoration: "none", color: "white" }}>
-          Add Customer
-        </a>
-        &nbsp; &nbsp;
-        <a href="/login" style={{ textDecoration: "none", color: "white" }}>
-          Login
-        </a>
-      </button>
+      </div>
+  
+      
+
     </div>
   );
 };
