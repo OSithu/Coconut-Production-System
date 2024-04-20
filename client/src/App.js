@@ -75,6 +75,8 @@ import ViewDetails from "./components/ViewDetails";
 import EstateStaff from "./components/EstateStaff";
 import ViewAllTrees from "./components/ViewAllTrees";
 
+import CustomerProfile from "./components/CustomerProfile";
+import OrderProfile from "./components/OrderProfile";
 
 function App() {
   return (
@@ -89,7 +91,10 @@ function App() {
 
           <Route path="/viewFertilization" Component={viewFertilization} />
           <Route path="/fertilizationsave" Component={CreateFertilization} />
-          <Route path="/fertilizationupdate/:id" Component={editFertilization} />
+          <Route
+            path="/fertilizationupdate/:id"
+            Component={editFertilization}
+          />
 
           <Route path="/ViewTrees/:id" Component={ViewTrees} />
           <Route path="/AddTrees" Component={AddTrees} />
@@ -101,7 +106,10 @@ function App() {
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />
           <Route path="/createFinanceDetails" Component={AddTransaction} />
-          <Route path="/editFinanceDetails/:id" Component={EditFinanceDetails} />
+          <Route
+            path="/editFinanceDetails/:id"
+            Component={EditFinanceDetails}
+          />
 
           <Route path="/viewEmployee" Component={ViewEmployee} />
           <Route path="/addEmp" Component={CreateEmployee} />
@@ -135,7 +143,10 @@ function App() {
           <Route path="/editHarvest/:id" Component={UpdateHarvest} />
           <Route path="viewHvstSchedules" Component={HarvestingSchedules} />
           <Route path="addHvstSchedules" Component={AddHvstSchedule} />
-          <Route path="updateHvstSchedules/:id" Component={UpdateHvstSchedule} />
+          <Route
+            path="updateHvstSchedules/:id"
+            Component={UpdateHvstSchedule}
+          />
 
           <Route path="/Calculator" Component={Calculator} />
           <Route path="/fertilizationMain" Component={fertilizationMain} />
@@ -144,15 +155,17 @@ function App() {
           <Route path="/AddBudgetDetails" Component={AddBudgetDetails} />
           <Route path="/editBudgetDetails/:id" Component={editBudgetDetails} />
 
-          <Route path="viewItems" Component={ViewItems}/>
-          <Route path="/viewDetails/:id" Component={ViewDetails}/>
+          <Route path="viewItems" Component={ViewItems} />
+          <Route path="/viewDetails/:id" Component={ViewDetails} />
 
           <Route path="/login" Component={LoginForm} />
           <Route path="/" Component={WelcomeScreen} />
 
-		      <Route path="/estStaff" Component={EstateStaff}/>
-          <Route path="/allTrees" Component={ViewAllTrees}/>
+          <Route path="/estStaff" Component={EstateStaff} />
+          <Route path="/allTrees" Component={ViewAllTrees} />
 
+          <Route path="/CustomerProfile/:id" Component={CustomerProfile} />
+          <Route path="/OrderProfile/:id" Component={OrderProfile} />
         </Routes>
       </div>
     </Router>
