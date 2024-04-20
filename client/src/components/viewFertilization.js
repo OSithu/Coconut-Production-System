@@ -33,12 +33,14 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { BsSearch } from 'react-icons/bs';
 
 import {useReactToPrint} from "react-to-print";
 
 const ViewFertilizationDetails = () => {
   const conponentPDF=useRef();
   const [allFertilization, setAllFertilization] = useState([]);
+  const [searchFertilization, setSearchFertilization] = useState('');
 
   useEffect(() => {
     const getAllFertilization = async () => {
@@ -97,9 +99,26 @@ const ViewFertilizationDetails = () => {
     }
   }
 
+    // Filter allFertilization based on searchFertilization
+  const filteredFertilization = allFertilization.filter(fertilization =>
+    fertilization.TreeNo.toLowerCase().includes(searchFertilization.toLowerCase())
+  );
+
   return (
     <div className="container">
       <p>All Fertilization Details</p>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by Tree No"
+          value={searchFertilization}
+          onChange={(e) => setSearchFertilization(e.target.value)}
+        />
+        <button className="btn btn-outline-secondary" type="button">
+          <BsSearch />
+        </button>
+      </div>
       <button className="btn btn-success">
         <a
           href="/fertilizationsave"
@@ -126,7 +145,7 @@ const ViewFertilizationDetails = () => {
           </tr>
         </thead>
         <tbody>
-          {allFertilization.map((fertilization, index) => (
+          {filteredFertilization.map((fertilization, index) => (
             <tr key={index}>
               <th scope="row">{index + 1}</th>
                <td className="text-center">{fertilization.TreeNo}</td>
