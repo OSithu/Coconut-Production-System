@@ -1,16 +1,22 @@
-.finance-form {
-    margin: 20px auto; /* Center the form horizontally */
-    padding: 20px;
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 8px; /* Rounded corners */
-    width: 80%; /* Adjust width as needed */
-    max-width: 600px; /* Limit maximum width */
-    background-color: #70ed72; /* Light background color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+/* Define a CSS class for the page background */
+.financepage-background {
+  background-color: #28a745; /* Green background color */
+}
 
-    /* Add background color */
-    background-color: #79ea5d; /* Light blue background color */
-  }
+.finance-form {
+  margin: 20px auto; /* Center the form horizontally */
+  padding: 20px;
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 8px; /* Rounded corners */
+  width: 80%; /* Adjust width as needed */
+  max-width: 600px; /* Limit maximum width */
+  background-color: #70ed72; /* Light background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+
+  /* Change background color to green */
+  background-color: #ebf4ed; /* white background color */
+}
+
   
   /* Style headings */
   .finance-heading {

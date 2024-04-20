@@ -1,9 +1,15 @@
-import React,{ useEffect,useState } from "react";
+import React,{ useEffect,useState , useRef} from "react";
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import FinanceNv from "./FinanceNv";
 
+import {useReactToPrint} from "react-to-print";
+
+import "../stylesheets/viewFinanceDetails.css";
+
 const ViewFianceDetails = () => {
+
+  const componentPDF = useRef();
 
   const [allDetails, setAllDetails] = useState([]);
 
@@ -25,6 +31,15 @@ const ViewFianceDetails = () => {
 
     getDetails();
 },[])
+
+//Implement PDF download function
+
+const generatePDF = useReactToPrint({
+  content:() =>componentPDF.current,
+  documentTitle:"UseData",
+  onAfterPrint: ()=>alert("Data Saved in PDF")
+
+});
 
 const handleDelete = async (id) =>{
 
@@ -57,8 +72,10 @@ const handleDelete = async (id) =>{
 
 return (
   <div>
+    <div className="view-finance-details">
     <FinanceNv/>
         <p>All Financial Transactions</p>
+        <div ref={componentPDF} style={{width:"100%"}}></div>
         <table className="table">
          <thead>
           <tr>
@@ -95,8 +112,13 @@ return (
           ))}
         </tbody>
        </table>
+      
        <button className="btn btn-success"><a href="/createFinanceDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button>
+       <div className="d-grid d-md-flex justify-content-md-end mb-3">
+        <button className="btn btn-success" onClick={ generatePDF}>PDF</button>  </div>
       </div>
+      </div>
+      
 
 )
 

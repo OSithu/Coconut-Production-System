@@ -194,7 +194,9 @@ const AddTransaction = () => {
     return (
         <div className="col-md-8 mt-4 mx-auto">
             <h1 className="h3 mb-3 font-weight-normal">Add New Transaction</h1>
-            <form className="needs-validation" noValidate>
+            <div className="financepage-background">
+                <div className="col-md-8 mt-4 mx-auto">
+            <form className="finance-form needs-validation" noValidate>
                 <div className="form-group" style={{ marginBottom: '15px' }}>
                     <label style={{ marginBottom: '5px' }}>Date</label>
                     <input
@@ -273,6 +275,8 @@ const AddTransaction = () => {
                 </button>
             </form>
         </div>
+        </div>
+            </div>
     );
 };
 
