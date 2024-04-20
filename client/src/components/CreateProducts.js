@@ -10,7 +10,8 @@ const CreateProducts = () => {
   const [manufacturedDate, setProductMD] = useState("");
   const [expirationDate, setProductED] = useState("");
   const [reOrderLevel, setProductROL] = useState("");
-  const [price, SetProductPrice] = useState("");
+  const [priceValue, setProductPriceValue] = useState("");
+  const [priceUnit, setProductPriceUnit] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
   const validateForm = () => {
@@ -63,13 +64,13 @@ const CreateProducts = () => {
       formIsValid = false;
     }
 
-    if (!price.trim()) {
-      errors.price = "Price is required";
-      formIsValid = false;
-    } else if (isNaN(price)) {
-      errors.reOrderLevel = "Price must be a number";
-      formIsValid = false;
-    }
+    // if (!price.trim()) {
+    //   errors.price = "Price is required";
+    //   formIsValid = false;
+    // } else if (isNaN(price)) {
+    //   errors.reOrderLevel = "Price must be a number";
+    //   formIsValid = false;
+    // }
 
     setFormErrors(errors);
     return formIsValid;
@@ -92,7 +93,15 @@ const CreateProducts = () => {
       newProductData.append("expirationDate", expirationDate);
       newProductData.append("reOrderLevel", reOrderLevel);
       newProductData.append("productImage", productImage);
-      newProductData.append("price", price);
+      //newProductData.append("price", JSON.stringify({ value: priceValue, unit: priceUnit }));
+
+      // Set price value and unit
+    if (priceUnit !== "-") {
+      newProductData.append("price", JSON.stringify({ value: priceValue, unit: priceUnit }));
+    } else {
+      // If price unit is "-", set price value as "-" and leave price unit empty
+      newProductData.append("price", JSON.stringify({ value: "", unit: "-" }));
+    }
 
       await axios.post("http://localhost:8000/products/save", newProductData, {
         headers: {
@@ -118,7 +127,8 @@ const CreateProducts = () => {
     setProductED("");
     setProductROL("");
     setProductImage(null);
-    SetProductPrice("");
+    setProductPriceValue("");
+    setProductPriceUnit("");
   };
 
   return (
@@ -195,7 +205,7 @@ const CreateProducts = () => {
           )}
         </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
+        {/* <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Unit Price</label>
           <input
             type="text"
@@ -211,7 +221,34 @@ const CreateProducts = () => {
           {formErrors.price && (
             <div className="invalid-feedback">{formErrors.price}</div>
           )}
+        </div> */}
+
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label className="col-sm-2 col-form-label"> Unit Price </label>
+          <div className="col-sm-8">
+          <select
+              className="form-select"
+              name="unit"
+              value={priceUnit}
+              onChange={(e) => setProductPriceUnit(e.target.value)}
+            >
+              <option value=""> Select Unit </option>
+              <option value="Rs."> Rs. </option>
+              <option value="-"> - </option>
+            </select>
+
+            <input
+              type="text"
+              className={`form-control `}
+              name="price"
+              placeholder="Enter Unit Price"
+              value={priceValue}
+              onChange={(e) => setProductPriceValue(e.target.value)}
+              disabled={priceUnit === "-"}
+            />
+          </div>
         </div>
+
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Category</label>

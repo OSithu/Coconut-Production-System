@@ -111,13 +111,6 @@ const CreateFertilizationDetails = () => {
         }
     };
 
-    const isValidDate = (date) => {
-        const today = new Date();
-        const inputDate = new Date(date);
-        return inputDate <= today;
-    };
- 
-
     return (
         <div className="col-md-8 mt-4 mx-auto">
     <h1 className="h3 mb-3 font-weight-normal">Add new Fertilization detail</h1>
@@ -162,10 +155,10 @@ const CreateFertilizationDetails = () => {
                 placeholder="Enter the Date of fertilization"
                 value={FertilizationDate}
                 onChange={(e) => setFertilizationDate(e.target.value)}
-                required
-            />
-       {errors.FertilizationDate && <div className="invalid-feedback">{errors.FertilizationDate}</div>}
-       {!isValidDate(FertilizationDate) && <div className="invalid-feedback">Date cannot be in the future</div>}
+                max={new Date().toISOString().split('T')[0]} // Disable future dates
+                        required
+                    />
+                    {errors.FertilizationDate && <div className="invalid-feedback">{errors.FertilizationDate}</div>}
                 </div>
 
         <div className="form-group">
@@ -176,7 +169,6 @@ const CreateFertilizationDetails = () => {
                 placeholder="Enter the Urea Amount"
                 value={UreaAmount}
                 onChange={(e) => setUreaAmount(e.target.value)}
-                max={new Date().toISOString().split('T')[0]}
                 required
             />
         {errors.UreaAmount && <div className="invalid-feedback">{errors.UreaAmount}</div>}

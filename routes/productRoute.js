@@ -33,6 +33,20 @@ router.post(
         return res.status(400).json({ error: "Product Name already exists" });
       }
 
+      let priceValue, priceUnit;
+
+      // Check if price is provided
+      if (req.body.price && JSON.parse(req.body.price).value) {
+        // If price value is provided, use it
+        priceValue = JSON.parse(req.body.price).value;
+        priceUnit = JSON.parse(req.body.price).unit;
+      } else {
+        // If price value is not provided, set both value and unit to "-"
+        priceValue = "";
+        priceUnit = "-";
+      }
+      
+
       //if productID doesn't exists, save new product details
       let newProduct = new Products({
         productId: req.body.productId,
@@ -46,7 +60,7 @@ router.post(
           data: req.file.buffer, 
           contentType: req.file.mimetype,
         },
-        price: req.body.price,
+        price: { value: priceValue, unit: priceUnit },
       });
 
       // Save the new product to the database
@@ -120,9 +134,48 @@ router.get("/products/:id", async (req, res) => {
         : null,
     };
 
+        // Format the price
+        const formattedPrice = {
+          value: product.price.value,
+          unit: product.price.unit,
+        };  
+        
+        formattedProduct.price = formattedPrice;
+
     return res.status(200).json({ success: true, product: formattedProduct });
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+//get products with 'Products' as category
+router.get("/productCat", async (req, res) => {
+  try {
+    const productCat = await Products.find({ category: "Products"});
+    const convertedProductCat = productCat.map((productCat) => {
+
+      return {
+        ...productCat._doc,
+        productImage: productCat.productImage
+          ? {
+              contentType: productCat.productImage.contentType,
+              data:
+              productCat.productImage && productCat.productImage.data
+                  ? productCat.productImage.data.toString("base64")
+                  : "",
+            }
+          : null,
+      };
+    });
+
+    return res.status(200).json({
+      success: true,
+      existingProductCat: convertedProductCat,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: err.message,
+    });
   }
 });
 
@@ -165,7 +218,7 @@ router.put(
       product.manufacturedDate = req.body.manufacturedDate;
       product.expirationDate = req.body.expirationDate;
       product.reOrderLevel = req.body.reOrderLevel;
-      product.price = req.body.price;
+      product.price = JSON.parse(req.body.price);
 
       // Check if a new image was uploaded
       if (req.file) {
