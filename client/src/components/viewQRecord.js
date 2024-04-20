@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ViewQRecord = () => {
   const [recordId, setRecordId] = useState("");
@@ -8,7 +8,6 @@ const ViewQRecord = () => {
   const [specialNotes, setSpecialNotes] = useState("");
 
   const { id } = useParams();
-  const navigate = useNavigate();
   
   useEffect(() => {
     const getOneRecord = async () => {
@@ -16,9 +15,8 @@ const ViewQRecord = () => {
         .then((res) => {
           setRecordId(res.data.records.recordId);
           setProductType(res.data.records.productType);
-          setQualityCheckedDate(formatDate(res.data.records.qualityCheckedDate));
           setSpecialNotes(res.data.records.specialNotes);
-          setTestResult(res.data.records.testResult);
+         
           console.log(res.data.message);
         })
         .catch((err) => {
