@@ -64,7 +64,7 @@ const EstateDetails = () => {
       <PlantationNav />
       &nbsp;
       <div className="container text-center">
-        <h1> Estate Details </h1>
+        <h1 className='plantTopic'> Estate Details </h1>
         &nbsp;&nbsp;
         <div className="row align-items-start">
           <div className="col">
@@ -104,12 +104,12 @@ const EstateDetails = () => {
         <div className="row align-items-start">
           <div className="col" id="plantDiv">
             &nbsp;
-            <h1> Estate Layout </h1>
+            <h1 className='plantTopic'> Estate Layout </h1>
             <img src="/images/layout.png" alt="estateLayout" className='layoutImg' />
           </div>
           <div className="col" id="plantDiv">
             &nbsp;
-            <h1> Block Details </h1>
+            <h1 className='plantTopic'> Block Details </h1>
             &nbsp;
             <table className="table">
               <thead>

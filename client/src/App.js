@@ -74,6 +74,7 @@ import ViewDetails from "./components/ViewDetails";
 
 import EstateStaff from "./components/EstateStaff";
 import ViewAllTrees from "./components/ViewAllTrees";
+import ViewHvstSchedule from "./components/ViewHvstSchedule";
 
 import CustomerProfile from "./components/CustomerProfile";
 import OrderProfile from "./components/OrderProfile";
@@ -163,6 +164,7 @@ function App() {
 
           <Route path="/estStaff" Component={EstateStaff} />
           <Route path="/allTrees" Component={ViewAllTrees} />
+          <Route path="/viewHvstSchedule/:id" Component={ViewHvstSchedule}/>
 
           <Route path="/CustomerProfile/:id" Component={CustomerProfile} />
           <Route path="/OrderProfile/:id" Component={OrderProfile} />

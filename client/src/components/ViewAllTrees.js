@@ -50,10 +50,10 @@ const ViewAllTrees = () => {
   // }
 
   return (
-    <div>
+    <div className='plantBody'>
       <PlantationNav />
       &nbsp;
-      <h2> Tree Details </h2>
+      <h1 className='plantTopic'> Tree Details </h1>
       &nbsp;
       {/* <Link to={`/addTrees`}>
         <button type="button" className="btn btn-success" style={{ float: "right" }}>
@@ -62,7 +62,7 @@ const ViewAllTrees = () => {
         </button>
       </Link> */}
 
-      <table className="table">
+      <table className="table" id='plantTable'>
         <thead>
           <tr>
             <th scope="col"> Tree ID </th>

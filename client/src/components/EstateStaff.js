@@ -28,13 +28,13 @@ const EstateStaff = () => {
     
 
     return (
-        <div>
-            <PlantationNav />
-            &nbsp;
-            <h2> Estate Staff Details </h2>
+        <div className='plantBody'>
+      <PlantationNav />
+      &nbsp;
+      <h1 className='plantTopic'> Estate Staff Details </h1>
             &nbsp;
 
-            <table className="table">
+            <table className="table" id='plantTable'>
                 <thead>
                     <tr>
                         <th scope = "col">Name</th>

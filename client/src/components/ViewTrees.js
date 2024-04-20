@@ -56,19 +56,19 @@ const ViewTrees = () => {
   }
 
   return (
-    <div>
+    <div className='plantBody'>
       <PlantationNav />
       &nbsp;
-      <h2> Tree Details </h2>
+      <h1 className='plantTopic'> Tree Details </h1>
       &nbsp;
       <Link to={`/addTrees?blockName=${blockName}`}>
-        <button type="button" className="btn btn-success" style={{ float: "right" }}>
+        <button type="button" className="btn btn-success" style={{ float: "right" , margin:"10px"}}>
           <i className="fa-solid fa-plus"></i>&nbsp;
           Add New Record
         </button>
       </Link>
 
-      <table className="table">
+      <table className="table" id='plantTable'>
         <thead>
           <tr>
             <th scope="col"> Tree ID </th>
