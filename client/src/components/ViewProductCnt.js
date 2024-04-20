@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ProductNav from "./ProductNav";
+import { useReactToPrint } from "react-to-print";
 
 const ViewProductCnt = () => {
+  const componentPDF = useRef();
   const [allProductRecords, setAllRecords] = useState([]);
 
   useEffect(() => {
@@ -26,6 +28,13 @@ const ViewProductCnt = () => {
 
     getAllRecords();
   }, []);
+
+  //implementing function for the pdf downloading
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitile: "ProductDetails",
+    onAfterPrint: () => alert("Data saved in PDF"),
+  });  
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -63,6 +72,17 @@ const ViewProductCnt = () => {
       <ProductNav />
       <div>
         <p>Product Records</p>
+        <div style={{ textAlign: "right" }}>
+        <button className="btn btn-success">
+          <a
+            href="/addProductCnt"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Add New Product Record
+          </a>
+        </button>
+        </div>
+        <div ref={componentPDF} style={{ width: "100%" }}>
         <table className="table">
           <thead>
             <tr>
@@ -111,15 +131,12 @@ const ViewProductCnt = () => {
             ))}
           </tbody>
         </table>
-
-        <button className="btn btn-success">
-          <a
-            href="/addProductCnt"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Add New Product Record
-          </a>
-        </button>
+        </div>
+        <div className="d-grid d-md-flex justify-content-md-end mb-3">
+          <button className="btn btn-success" onClick={generatePDF}>
+            Generate PDF
+          </button>{" "}
+        </div>
       </div>
     </div>
   );
