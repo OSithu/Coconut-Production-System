@@ -34,8 +34,12 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   price: {
-    type: Number,
-    required: true,
+    unit: { type: String, enum: ["Rs.", "-"] },
+    value: { type: Number, required: true },
+    
+
+    // type: Number,
+    // required: true,
   }
 });
 

@@ -58,7 +58,7 @@ const ViewDetails = () => {
 
   return (
     <div className="container d-flex justify-content-center align-items-center">
-      <div class="card text-center" style={{ width: "40rem", marginTop: "100px" }}>
+      <div class="card text-center" style={{ width: "40rem", marginTop: "80px", marginBottom: "20px" }}>
         <div style={{ marginTop: "20px" }}>
           {productImage ? (
             <img
@@ -84,8 +84,14 @@ const ViewDetails = () => {
             </dd>
 
             <dd>
-              <strong>Unit Price: </strong>
-              Rs.{product.price || "Loading..."}
+              <strong>Price: </strong>
+              {product.price && product.price.value && product.price.unit ? (
+                <>
+                  {product.price.unit} {product.price.value}
+                </>
+              ) : (
+                "Loading..."
+              )}
             </dd>
 
 
@@ -104,6 +110,14 @@ const ViewDetails = () => {
               {product.expirationDate || "Loading..."}
             </dd>
           </dl>
+          <button className="btn btn-success" style={{marginBottom: "10px"}}>
+            <a
+              href="/addOrder"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Place Order
+            </a>
+          </button>
         </div>
       </div>
     </div>

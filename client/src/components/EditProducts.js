@@ -11,7 +11,8 @@ const EditProducts = () => {
   const [manufacturedDate, setProductMD] = useState("");
   const [expirationDate, setProductED] = useState("");
   const [reOrderLevel, setProductROL] = useState("");
-  const [price, SetProductPrice] = useState("");
+  const [priceValue, setProductPriceValue] = useState("");
+  const [priceUnit, setProductPriceUnit] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
   const { id } = useParams();
@@ -67,7 +68,8 @@ const EditProducts = () => {
           setProductMD(formatDate(res.data.product.manufacturedDate));
           setProductED(formatDate(res.data.product.expirationDate));
           setProductROL(res.data.product.reOrderLevel);
-          SetProductPrice(res.data.product.price);
+          setProductPriceValue(res.data.product.price.value);
+          setProductPriceUnit(res.data.product.price.unit);
           getProductImage(id);
           console.log(res.data.message);
         })
@@ -133,13 +135,13 @@ const EditProducts = () => {
       formIsValid = false;
     }
 
-    if (!price.trim()) {
-      errors.price = "Price is required";
-      formIsValid = false;
-    } else if (isNaN(price)) {
-      errors.reOrderLevel = "Price must be a number";
-      formIsValid = false;
-    }
+    // if (!price.trim()) {
+    //   errors.price = "Price is required";
+    //   formIsValid = false;
+    // } else if (isNaN(price)) {
+    //   errors.reOrderLevel = "Price must be a number";
+    //   formIsValid = false;
+    // }
 
     setFormErrors(errors);
     return formIsValid;
@@ -166,7 +168,7 @@ const EditProducts = () => {
         updatedProductData.append("expirationDate", expirationDate);
         updatedProductData.append("reOrderLevel", reOrderLevel);
         updatedProductData.append("productImage", productImage);
-        updatedProductData.append("price", price);
+        updatedProductData.append("price", JSON.stringify({ value: priceValue, unit: priceUnit }));
 
         await axios
           .put(
@@ -266,21 +268,28 @@ const EditProducts = () => {
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Unit Price</label>
-          <input
-            type="text"
-            className={`form-control ${
-              formErrors.price && "is-invalid"
-            }`}
-            name="price"
-            placeholder="Enter unit price"
-            value={price}
-            onChange={(e) => SetProductPrice(e.target.value)}
-            required
-          />
-          {formErrors.price && (
-            <div className="invalid-feedback">{formErrors.price}</div>
-          )}
+          <label className="col-sm-2 col-form-label"> Unit Price </label>
+          <div className="col-sm-8">
+          <select
+              className="form-select"
+              name="unit"
+              value={priceUnit}
+              onChange={(e) => setProductPriceUnit(e.target.value)}
+            >
+              <option value=""> Select Unit </option>
+              <option value="Rs."> Rs. </option>
+              <option value="-"> - </option>
+            </select>
+            
+            <input
+              type="text"
+              className={`form-control `}
+              name="price"
+              placeholder="Enter Unit Price"
+              value={priceValue}
+              onChange={(e) => setProductPriceValue(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
