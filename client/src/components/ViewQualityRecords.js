@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
+import { useReactToPrint } from "react-to-print"
+
 const ViewQualityRecords = () => {
+  const componentPDF = useRef();
+
+
   const [allRecords, setAllRecords] = useState([]);
 
   useEffect(() => {
@@ -25,6 +30,12 @@ const ViewQualityRecords = () => {
 
     getAllRecords();
   }, []);
+
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitle: "",
+    onAfterPrint: () => alert("Data saved in PDF")
+  });
 
   const handleDelete = async (id) => {
 
@@ -60,63 +71,60 @@ const ViewQualityRecords = () => {
           <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
         </button>
 
+        <div style={{ marginTop: "20px" }}>
+          <div ref={componentPDF} style={{ width: "100%" }}>
+
         <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">RecordID</th>
-              <th scope="col">ProductType</th>
-              <th scope="col">QualityCheckedDate</th>
-              <th scope="col">SpecialNotes</th>
-              <th scope="col">TestResult</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {allRecords.map((records, index) => (
-              <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>{records.recordId}</td>
-                <td>{records.productType}</td>
-                <td>{records.qualityCheckedDate}</td>
-                <td>{records.specialNotes}</td>
-                <td>{records.testResult}</td>
-                <td>
-                  {/* <a className="btn-secondary" href={`/editQualityRecord/${records._id}`}>
-            <i className="fas fa-eye"></i>&nbsp;View Record
-           </a>
-           &nbsp;
-            <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
-              <i className="fas fa-edit"></i>&nbsp;Update
-            </a>
-            &nbsp;
-           <a className="btn btn-danger" href="#" onClick={() =>handleDelete(records._id)}>
-            <i className="fas fa-trash-alt"></i>&nbsp;Delete
-           </a> */}
-
-                  <div>
-                    <a className="btn btn-secondary" href={`/editQualityRecord/${records._id}`}>
-                      <i className="fas fa-eye"></i>&nbsp;View Record
-                    </a>
-                  </div>
-                  <div>
-                    <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
-                      <i className="fas fa-edit"></i>&nbsp;Update
-                    </a>
-                    &nbsp;
-                    <a className="btn btn-danger" href="#" onClick={() => handleDelete(records._id)}>
-                      <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                    </a>
-                  </div>
-
-                </td>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">RecordID</th>
+                <th scope="col">ProductType</th>
+                <th scope="col">QualityCheckedDate</th>
+                <th scope="col">SpecialNotes</th>
+                <th scope="col">TestResult</th>
+                <th scope="col">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
 
+            <tbody>
+              {allRecords.map((records, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{records.recordId}</td>
+                  <td>{records.productType}</td>
+                  <td>{records.qualityCheckedDate}</td>
+                  <td>{records.specialNotes}</td>
+                  <td>{records.testResult}</td>
+                  <td>
+
+                    <div>
+                      <a className="btn btn-secondary" href={`/editQualityRecord/${records._id}`}>
+                        <i className="fas fa-eye"></i>&nbsp;View Record
+                      </a>
+                    </div>
+                    <div>
+                      <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
+                        <i className="fas fa-edit"></i>&nbsp;Update
+                      </a>
+                      &nbsp;
+                      <a className="btn btn-danger" href="#" onClick={() => handleDelete(records._id)}>
+                        <i className="fas fa-trash-alt"></i>&nbsp;Delete
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+          <div className="d-grid d-md-flex justify-content-md-end mb-3">
+            <button className="btn btn-success" onClick={generatePDF}>PDF</button>
+          </div>
+        </div>
       </div>
+
+
     </div>
   )
 };
