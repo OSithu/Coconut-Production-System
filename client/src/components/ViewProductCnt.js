@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ProductNav from "./ProductNav";
 
 const ViewProductCnt = () => {
   const [allProductRecords, setAllRecords] = useState([]);
@@ -59,6 +60,7 @@ const ViewProductCnt = () => {
 
   return (
     <div className="container">
+      <ProductNav />
       <div>
         <p>Product Records</p>
         <table className="table">
