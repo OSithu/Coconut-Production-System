@@ -4,6 +4,7 @@ import axios from "axios";
 import { useReactToPrint } from "react-to-print";
 import ProductNav from "./ProductNav";
 import { BsSearch } from "react-icons/bs";
+import '../stylesheets/product.css';
 
 const ViewProducts = () => {
   const componentPDF = useRef();
@@ -95,7 +96,7 @@ const ViewProducts = () => {
               value={searchProducts}
               onChange={(e) => setSearchProducts(e.target.value)}
             />
-            <button className="btn btn-outline-secondary" type="button">
+            <button className="btn btn-outline-secondary" type="button" style={{backgroundColor:"#e6e6e6"}}>
               <BsSearch />
             </button>
           </div>
@@ -109,37 +110,27 @@ const ViewProducts = () => {
               Add New Product
             </a>
           </button>{" "}
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <button className="btn btn-success">
-            <a
-              href="/viewProductCnt"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Product Count
-            </a>
-          </button>
         </div>
         <div ref={componentPDF} style={{ width: "100%" }}>
           <div className="print-header" style={{ display: "none" }}>
             <h1> Jayakody Koppara Stores </h1>
             <hr />
           </div>
-
-          <table className="table">
+          <table className="table" style={{backgroundColor: "rgba(217, 255, 242, 0.6)", borderRadius:"10px", marginTop: "20px"}}>
             <thead>
               <tr>
                 {/* <th scope="col">#</th> */}
-                <th scope="col">productId</th>
-                <th scope="col">productName</th>
-                <th scope="col">productImage</th>
-                <th scope="col">quantity(kg or litre)</th>
-                <th scope="col">unitPrice</th>
-                <th scope="col">category</th>
-                <th scope="col">manufacturedDate</th>
-                <th scope="col">expirationDate</th>
-                <th scope="col">Re-orderLevel</th>
-                <th scope="col">Additional notes</th>
-                <th scope="col">Actions</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>productId</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>productName</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>productImage</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>quantity</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>unitPrice</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>category</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>manufacturedDate</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>expirationDate</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>Re-orderLevel</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>Additional notes</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -152,9 +143,9 @@ const ViewProducts = () => {
                       : ""
                   }
                 >
-                  <td>{products.productId}</td>
-                  <td>{products.productName}</td>
-                  <td>
+                  <td style={{ borderRight: "1px solid white" }}>{products.productId}</td>
+                  <td style={{ borderRight: "1px solid white" }}>{products.productName}</td>
+                  <td style={{ borderRight: "1px solid white" }}>
                     {products.productImage && products.productImage.data ? (
                       <img
                         src={`data:${products.productImage.contentType};base64,${products.productImage.data}`}
@@ -164,27 +155,27 @@ const ViewProducts = () => {
                     ) : (
                       <span>No image</span>
                     )}
-                  </td>
+                  </td >
 
-                  <td>
+                  <td style={{ borderRight: "1px solid white" }}>
                     {products.quantity} {products.quantityUnit}
                   </td>
-                  <td>
+                  <td style={{ borderRight: "1px solid white" }}>
                     {" "}
                     {products.price.unit} {products.price.value}
                   </td>
-                  <td>{products.category}</td>
-                  <td>{products.manufacturedDate}</td>
-                  <td>{products.expirationDate}</td>
-                  <td>{products.reOrderLevel}</td>
-                  <td>
+                  <td style={{ borderRight: "1px solid white" }}>{products.category}</td>
+                  <td style={{ borderRight: "1px solid white" }}>{products.manufacturedDate}</td>
+                  <td style={{ borderRight: "1px solid white" }}>{products.expirationDate}</td>
+                  <td style={{ borderRight: "1px solid white" }}>{products.reOrderLevel}</td>
+                  <td style={{ borderRight: "1px solid white" }}>
                     {products.quantity < products.reOrderLevel && (
                       <span style={{ color: "red" }}>
-                        Quantity below reorder level
+                        Stock level is low
                       </span>
                     )}
                   </td>
-                  <td>
+                  <td >
                     <a
                       className="btn btn-warning"
                       href={`/editProduct/${products._id}`}
@@ -205,6 +196,7 @@ const ViewProducts = () => {
               ))}
             </tbody>
           </table>
+
           <div className="print-footer" style={{ display: "none" }}>
             <hr />
             {/* <p>Report Generated on {currentDate} </p> */}
