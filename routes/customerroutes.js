@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
     if (user.userRole === "admin") {
       return res.json({ redirectTo: "/dashboard" }); // Assuming '/adminView' is your admin dashboard route
     } else if (user.userRole === "Customer") {
-      return res.json({ redirectTo: "/ViewItems" }); // Assuming '/customerDashboard' is your customer dashboard route
+      return res.json({ redirectTo: `/ViewItems/${user.username}` }); // Assuming '/customerDashboard' is your customer dashboard route
     } else {
       return res.status(403).json({ message: "Unauthorized role" });
     }
@@ -96,5 +96,23 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+router.get("/cusID/:username", async (req, res) => {
+  try {
+    let username = req.params.username;
+    let cusDetails = await CustomerDetails.findOne({ username: username });
+    if (!cusDetails) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Record not found" });
+    }
+    // Extract the _id from cusDetails
+    const userDetails = cusDetails.toObject();
+    return res.status(200).json({ success: true, userDetails });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
 
 module.exports = router;
