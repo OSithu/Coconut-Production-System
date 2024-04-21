@@ -17,6 +17,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  quantityUnit: {
+    type: String,
+    required: true,
+  },
   category: {
     type: String,
     required: true,
@@ -34,12 +38,8 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   price: {
-    unit: { type: String, enum: ["Rs.", "-"] },
-    value: { type: Number, required: true },
-    
-
-    // type: Number,
-    // required: true,
+    unit: { type: String, enum: ["Rs.", "-"], required: true },
+    value: { type: Number, required: false },
   }
 });
 

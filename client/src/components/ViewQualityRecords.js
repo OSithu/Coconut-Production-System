@@ -1,9 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { useReactToPrint } from "react-to-print"
+import { BsSearch} from 'react-icons/bs';
+import { useReactToPrint } from "react-to-print";
 
 const ViewQualityRecords = () => {
+
   const componentPDF = useRef();
+  // const [searchQualityRecords, setSearchQualityRecords] = useState([]);
+  const [searchQualityRecords, setSearchQualityRecords] = useState("");
 
 
   const [allRecords, setAllRecords] = useState([]);
@@ -61,10 +65,27 @@ const ViewQualityRecords = () => {
     }
   }
 
+  const filterQualityRecords = allRecords.filter(records =>
+  records.recordId.toLowerCase().includes(searchQualityRecords.toLowerCase()));
+
   return (
     <div className="container">
       <div>
         <h1>Quality Control Records</h1>
+
+        <div className='input-group mb-3'>
+          <input 
+          type="text"
+          className='orm-control'
+          placeholder='Search by Record ID'
+          value={searchQualityRecords}
+          onChange={(e)=> setSearchQualityRecords(e.target.value)}
+          />
+          <button className='btn btn-outline-secondary' type ="button">
+            <BsSearch />
+          </button>
+
+        </div>
 
         <button className="btn btn-success">
           <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
@@ -87,7 +108,7 @@ const ViewQualityRecords = () => {
               </thead>
 
               <tbody>
-                {allRecords.map((records, index) => (
+                {filterQualityRecords.map((records, index) => (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{records.recordId}</td>

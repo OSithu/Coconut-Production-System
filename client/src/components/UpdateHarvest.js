@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 
 const UpdateHarvest = () => {
     const [date, setDate] = useState('');
@@ -55,8 +56,6 @@ const UpdateHarvest = () => {
         e.preventDefault();
 
         try {
-
-
             if (validateForm()) {
                 let updatedRecord = {
                     date,
@@ -100,10 +99,13 @@ const UpdateHarvest = () => {
     };
 
     return (
-        <div className='plantBody'>
-      <PlantationNav />
-      &nbsp;
-      <h1 className='plantTopic'>Edit Details</h1>
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
+            &nbsp;
+            <div className='plantBody'>
+                <h1 className='plantTopic'>Edit Details</h1>
                 &nbsp;
                 &nbsp;
                 <form className="needs-validation" noValidate onSubmit={updateDetails} id='plantForm2'>
@@ -152,7 +154,7 @@ const UpdateHarvest = () => {
                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
                 </form>
             </div>
-        
+        </div>
     );
 };
 

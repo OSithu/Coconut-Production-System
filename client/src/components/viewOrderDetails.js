@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import OrderNav from "./OrderNav";
+import { BsSearch } from 'react-icons/bs';
 
 import { useReactToPrint } from "react-to-print";
 
 const ViewOrderDetails = () => {
-
   const componentPDF = useRef();
-
   const [allProducts, setAllItem] = useState([]);
+  const [searchOrder, setSearchOrder] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
     const getAllItems = async () => {
@@ -16,8 +17,10 @@ const ViewOrderDetails = () => {
         .get("http://localhost:8000/orderDetails")
         .then((res) => {
           setAllItem(res.data.existingRecords);
+          setCurrentDate(new Date().toString());
           console.log("Status: " + res.data.success);
           console.log(res.data.message);
+          
         })
         .catch((err) => {
           if (err.response) {
@@ -66,17 +69,37 @@ const ViewOrderDetails = () => {
     }
   };
 
+  //filter allProducts based on searchOrder
+  const filteredOrder = allProducts.filter(orderDetails =>
+    orderDetails.orderName.toLowerCase().includes(searchOrder.toLowerCase())
+  );
+
   return (
     <div className="container">
       <OrderNav />
       <p>All Order Details</p>
-      <button className="btn btn-success">
-        <a href="/addOrder" style={{ textDecoration: "none", color: "white" }}>
-          Add Order
-        </a>
-      </button>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by product name"
+          value={searchOrder}
+          onChange={(e) => setSearchOrder(e.target.value)}
+          />
+          <button className="btn btn-outline-secondary" type="button">
+            <BsSearch/>
+          </button>
+      </div>
+      <div className="d-grid d-md-flex justify-content-md-end mb-3">
+      <button className="btn btn-success" onClick={ generatePDF}>Report</button>  </div>
 
       <div ref={componentPDF} style={{width:"100%"}}>
+
+      <div className="print-header" style={{ display: "none" }}>
+                    <h1> Jayakody Koppara Stores </h1>
+                    <hr/>
+                </div>
+
       <table className="table">
         <thead>
           <tr>
@@ -87,7 +110,7 @@ const ViewOrderDetails = () => {
           </tr>
         </thead>
         <tbody>
-          {allProducts.map((orderDetails, index) => (
+          {filteredOrder.map((orderDetails, index) => (
             <tr key={index}>
               <th scope="row">OR{index + 1}</th>
               <td>{orderDetails.orderName}</td>
@@ -117,10 +140,13 @@ const ViewOrderDetails = () => {
       </table>
       </div>
 
-      <div className="d-grid d-md-flex justify-content-md-end mb-3">
-      <button className="btn btn-success" onClick={ generatePDF}>PDF</button>  </div>
+      <div className="print-footer" style={{ display: "none" }}>
+                    <hr/>
+                    <p>Report Generated on {currentDate} </p>
+                </div>
 
-      
+
+
     </div>
   );
 };
