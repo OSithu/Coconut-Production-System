@@ -104,20 +104,20 @@ const ViewProductCnt = () => {
         </button>
         </div>
         <div ref={componentPDF} style={{ width: "100%" }}>
-        <table className="table">
+        <table className="table" style={{backgroundColor: "rgba(217, 255, 242, 0.6)", borderRadius:"10px", marginTop: "20px"}}>
           <thead>
             <tr>
-              <th scope="col">productId</th>
-              <th scope="col">quantity(kg or litre)</th>
-              <th scope="col">Date</th>
-              <th scope="col">Description</th>
-              <th scope="col">Actions</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>productId</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>quantity(kg or litre)</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Date</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Description</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredProductCnt.map((productCnt, index) => (
               <tr key={productCnt._id}>
-                <td>
+                <td style={{ borderRight: "1px solid white" }}> 
                   {/* <a href={`/productCnt/${productCnt._id}`} style ={{textDecoration: 'none'}}>
                     {productCnt.productId}
                   </a> */}
@@ -129,10 +129,10 @@ const ViewProductCnt = () => {
                   </Link>
                 </td>
                 {/* <td>{productCnt.productId}</td> */}
-                <td>{productCnt.quantity}</td>
-                <td>{productCnt.productDate}</td>
-                <td>{productCnt.description}</td>
-                <td>
+                <td style={{ borderRight: "1px solid white" }}>{productCnt.quantity}</td>
+                <td style={{ borderRight: "1px solid white" }}>{productCnt.productDate}</td>
+                <td style={{ borderRight: "1px solid white" }}>{productCnt.description}</td>
+                <td style={{ borderRight: "1px solid white" }}>
                   <a
                     className="btn btn-warning"
                     href={`/editProductCnt/${productCnt._id}`}
