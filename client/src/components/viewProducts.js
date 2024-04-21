@@ -4,33 +4,52 @@ import axios from "axios";
 import { useReactToPrint } from "react-to-print";
 import ProductNav from "./ProductNav";
 import { BsSearch } from "react-icons/bs";
-import '../stylesheets/product.css';
+import "../stylesheets/product.css";
 
 const ViewProducts = () => {
   const componentPDF = useRef();
   const [allProducts, setAllItem] = useState([]);
   const [searchProducts, setSearchProducts] = useState("");
+  const [showWarning, setShowWarning] = useState(false);
+  const [warningProductId, setWarningProductId] = useState(null);
 
   useEffect(() => {
     const getAllItems = async () => {
-      await axios
-        .get("http://localhost:8000/products")
-        .then((res) => {
-          setAllItem(res.data.existingProducts);
-          console.log("Status: " + res.data.success);
-          console.log("Message:" + res.data.message);
-        })
-        .catch((err) => {
-          if (err.response) {
-            console.log(err.response.data.error);
-          } else {
-            console.log("Error occured while processing your get request");
-          }
-        });
+      try {
+        const response = await axios.get("http://localhost:8000/products");
+        const existingProducts = response.data.existingProducts;
+        setAllItem(existingProducts);
+        
+        // Trigger warning for all products that are low on stock
+        const lowStockProducts = existingProducts.filter(
+          (product) => product.quantity < product.reOrderLevel
+        );
+  
+        
+        if (lowStockProducts.length > 0) {
+          setShowWarning(true);
+          const warningProductIds = lowStockProducts.map(product => product.productId);
+          setWarningProductId(warningProductIds);
+        } else {
+          setShowWarning(false);
+          setWarningProductId([]);
+        }
+  
+        console.log("Status: " + response.data.success);
+        console.log("Message: " + response.data.message);
+      } catch (err) {
+        if (err.response) {
+          console.log(err.response.data.error);
+        } else {
+          console.log("Error occurred while processing your get request");
+        }
+      }
     };
-
+  
     getAllItems();
   }, []);
+  
+  
 
   //implementing function for the pdf downloading
   const generatePDF = useReactToPrint({
@@ -71,12 +90,13 @@ const ViewProducts = () => {
   const filteredProducts = allProducts.filter(
     (products) =>
       products.productId.toLowerCase().includes(searchProducts.toLowerCase()) ||
-      products.productName.toLowerCase().includes(searchProducts.toLowerCase()) ||
+      products.productName
+        .toLowerCase()
+        .includes(searchProducts.toLowerCase()) ||
       products.category.toLowerCase().includes(searchProducts.toLowerCase())
   );
 
   return (
-    // <div style={{backgroundImage: "url(/productBack1.jpg)",}}>
     <div className="container">
       <ProductNav />
       <div>
@@ -96,12 +116,16 @@ const ViewProducts = () => {
               value={searchProducts}
               onChange={(e) => setSearchProducts(e.target.value)}
             />
-            <button className="btn btn-outline-secondary" type="button" style={{backgroundColor:"#e6e6e6"}}>
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              style={{ backgroundColor: "#e6e6e6" }}
+            >
               <BsSearch />
             </button>
           </div>
         </p>
-        <div style={{ textAlign: "right" }}>
+        <div style={{ textAlign: "right", marginBottom: "10px" }}>
           <button className="btn btn-success">
             <a
               href="/addProduct"
@@ -116,21 +140,55 @@ const ViewProducts = () => {
             <h1> Jayakody Koppara Stores </h1>
             <hr />
           </div>
-          <table className="table" style={{backgroundColor: "rgba(217, 255, 242, 0.6)", borderRadius:"10px", marginTop: "20px"}}>
+          {showWarning && (
+        <div className="alert alert-warning" role="alert">
+          {warningProductId && `${warningProductId} is low on stock`}
+        </div>
+      )}
+          <table
+            className="table"
+            style={{
+              backgroundColor: "rgba(217, 255, 242, 0.6)",
+              borderRadius: "10px",
+              marginTop: "20px",
+            }}
+          >
             <thead>
               <tr>
                 {/* <th scope="col">#</th> */}
-                <th scope="col" style={{ borderRight: "1px solid white" }}>productId</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>productName</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>productImage</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>quantity</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>unitPrice</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>category</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>manufacturedDate</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>expirationDate</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>Re-orderLevel</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>Additional notes</th>
-                <th scope="col" style={{ borderRight: "1px solid white" }}>Actions</th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  productId
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  productName
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  productImage
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  quantity
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  unitPrice
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  category
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  manufacturedDate
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  expirationDate
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  Re-orderLevel
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  Additional notes
+                </th>
+                <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -143,8 +201,12 @@ const ViewProducts = () => {
                       : ""
                   }
                 >
-                  <td style={{ borderRight: "1px solid white" }}>{products.productId}</td>
-                  <td style={{ borderRight: "1px solid white" }}>{products.productName}</td>
+                  <td style={{ borderRight: "1px solid white" }}>
+                    {products.productId}
+                  </td>
+                  <td style={{ borderRight: "1px solid white" }}>
+                    {products.productName}
+                  </td>
                   <td style={{ borderRight: "1px solid white" }}>
                     {products.productImage && products.productImage.data ? (
                       <img
@@ -155,7 +217,7 @@ const ViewProducts = () => {
                     ) : (
                       <span>No image</span>
                     )}
-                  </td >
+                  </td>
 
                   <td style={{ borderRight: "1px solid white" }}>
                     {products.quantity} {products.quantityUnit}
@@ -164,18 +226,24 @@ const ViewProducts = () => {
                     {" "}
                     {products.price.unit} {products.price.value}
                   </td>
-                  <td style={{ borderRight: "1px solid white" }}>{products.category}</td>
-                  <td style={{ borderRight: "1px solid white" }}>{products.manufacturedDate}</td>
-                  <td style={{ borderRight: "1px solid white" }}>{products.expirationDate}</td>
-                  <td style={{ borderRight: "1px solid white" }}>{products.reOrderLevel}</td>
+                  <td style={{ borderRight: "1px solid white" }}>
+                    {products.category}
+                  </td>
+                  <td style={{ borderRight: "1px solid white" }}>
+                    {products.manufacturedDate}
+                  </td>
+                  <td style={{ borderRight: "1px solid white" }}>
+                    {products.expirationDate}
+                  </td>
+                  <td style={{ borderRight: "1px solid white" }}>
+                    {products.reOrderLevel}
+                  </td>
                   <td style={{ borderRight: "1px solid white" }}>
                     {products.quantity < products.reOrderLevel && (
-                      <span style={{ color: "red" }}>
-                        Stock level is low
-                      </span>
+                      <span style={{ color: "red" }}>Stock level is low</span>
                     )}
                   </td>
-                  <td >
+                  <td>
                     <a
                       className="btn btn-warning"
                       href={`/editProduct/${products._id}`}
