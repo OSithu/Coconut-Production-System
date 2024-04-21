@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 //import twilio from 'twilio';
 
 //const client = twilio('AC721f7de88d6670cf18b4ba4efb11f2dd', '4a1b1592cbb80354dbf96693aa87782c');
@@ -57,7 +58,7 @@ const HarvestingSchedules = () => {
     //     try {
     //         // Construct message body
     //         const messageBody = `Harvesting is scheduled on ${schedule.date} for block {schedule.blockName}.`;
-     
+
     //         // Fetch contact numbers of staff members from the database
     //         const staffMembers = await Employee.find({
     //             $or: [
@@ -67,10 +68,10 @@ const HarvestingSchedules = () => {
     //                 { fullName: schedule.staff03 }
     //             ]
     //         });
-     
+
     //         // Extract contact numbers
     //         const recipients = staffMembers.map(member => member.contactNumber);
-     
+
     //         // Send SMS to each staff member
     //         recipients.forEach(async (recipient) => {
     //             await client.messages.create({
@@ -79,77 +80,78 @@ const HarvestingSchedules = () => {
     //                 to: recipient
     //             });
     //         });
-     
+
     //         alert('SMS notifications sent successfully.');
     //     } catch (err) {
     //         console.error('Error sending SMS notifications:', err);
     //         alert('Failed to send SMS notifications.');
     //     }
     //  };
-     
+
 
     return (
-        <div className='plantBody'>
-      <PlantationNav />
-      &nbsp;
-      <h1 className='plantTopic'> Harvesting Schedules </h1>
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
             &nbsp;
-            <Link to={`/addHvstSchedules`}>
-                <button type="button" className="btn btn-success" style={{ float: "right" }}>
-                    <i className="fa-solid fa-plus"></i>&nbsp;
-                    New Schedule
-                </button>
-            </Link>
+            <div className='plantBody'>
+                <h1 className='plantTopic'> Harvesting Schedules </h1>
+                &nbsp;
+                <Link to={`/addHvstSchedules`}>
+                    <button type="button" className="btn btn-success" id='plantButton'>
+                        <i className="fa-solid fa-plus"></i>&nbsp;
+                        New Schedule
+                    </button>
+                </Link>
 
-            <table className="table" id='plantTable'>
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Block</th>
-                        <th scope="col">Person In Charge</th>
-                        {/* <th scope="col">Staff Member 01</th>
-                        <th scope="col">Staff Member 02</th>
-                        <th scope="col">Staff Member 03</th> */}
-                        <th scope="col">Assigned Date</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {scheduleDetails.map((schedule, index) => (
-                        <tr key={index}>
-                            {index === 0 || schedule.date !== scheduleDetails[index - 1].date ? (
-                                <td rowSpan={scheduleDetails.filter((h) => h.date === schedule.date).length}>{schedule.date}</td>
-                            ) : null}
-                            <td>{schedule.blockName}</td>
-                            <td>{schedule.inCharge}</td>
-                            {/* <td>{schedule.staff01}</td>
+                <table className="table" id='plantTable'>
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Block</th>
+                            <th scope="col">Person In Charge</th>
+                            <th scope="col">Assigned Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {scheduleDetails.map((schedule, index) => (
+                            <tr key={index}>
+                                {index === 0 || schedule.date !== scheduleDetails[index - 1].date ? (
+                                    <td rowSpan={scheduleDetails.filter((h) => h.date === schedule.date).length}>{schedule.date}</td>
+                                ) : null}
+                                <td>{schedule.blockName}</td>
+                                <td>{schedule.inCharge}</td>
+                                {/* <td>{schedule.staff01}</td>
                             <td>{schedule.staff02}</td>
                             <td>{schedule.staff03}</td> */}
-                            <td>{schedule.assignedDate}</td>
-                            <td>
-                                {/* <button type="button" className='btn btn-success' onClick={() => notify(schedule)}>
+                                <td>{schedule.assignedDate}</td>
+                                <td>
+                                    {/* <button type="button" className='btn btn-success' onClick={() => notify(schedule)}>
                                  <i className='far fa-bell'></i>&nbsp;Notify
                                 </button> */}
-                                <Link to={`/viewHvstSchedule/${schedule._id}`}>
-                                    <button type="button" className="btn btn-success">
-                                        <i className='fa-regular fa-eye'></i>&nbsp; View Schedule
+                                    <Link to={`/viewHvstSchedule/${schedule._id}`}>
+                                        <button type="button" className="btn btn-success">
+                                            <i className='fa-regular fa-eye'></i>&nbsp; View Schedule
+                                        </button>
+                                    </Link>
+                                    &nbsp;
+                                    <Link to={`/updateHvstSchedules/${schedule._id}`}>
+                                        <button type="button" className="btn btn-warning">
+                                            <i className='fas fa-edit'></i>&nbsp; Edit
+                                        </button>
+                                    </Link>
+                                    &nbsp;
+                                    <button type="button" className='btn btn-danger' onClick={() => handleDelete(schedule._id)}>
+                                        <i className='far fa-trash-alt'></i>&nbsp;Delete
                                     </button>
-                                </Link>
-                                &nbsp;
-                                <Link to={`/updateHvstSchedules/${schedule._id}`}>
-                                    <button type="button" className="btn btn-warning">
-                                        <i className='fas fa-edit'></i>&nbsp; Edit
-                                    </button>
-                                </Link>
-                                &nbsp;
-                                <button type="button" className='btn btn-danger' onClick={() => handleDelete(schedule._id)}>
-                                    <i className='far fa-trash-alt'></i>&nbsp;Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

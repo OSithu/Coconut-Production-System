@@ -4,15 +4,15 @@ const Harvest = require('../models/harvestModel');
 const router = express.Router();
 
 //create
-router.post('/harvest/save', async (req,res)=>{
-    try{
+router.post('/harvest/save', async (req, res) => {
+    try {
         let newHarvest = new Harvest(req.body);
         await newHarvest.save();
         return res.status(200).json({
             success: "Details saved successfully."
         });
     }
-    catch(err){
+    catch (err) {
         return res.status(400).json({
             error: err.message
         });
@@ -20,8 +20,8 @@ router.post('/harvest/save', async (req,res)=>{
 });
 
 //read
-router.get("/harvest", async(req,res) => {
-    try{
+router.get("/harvest", async (req, res) => {
+    try {
         const harvest = await Harvest.find().exec();
 
         const formattedHarvest = harvest.map(harvest => ({
@@ -34,7 +34,7 @@ router.get("/harvest", async(req,res) => {
             existingHarvest: formattedHarvest,
         });
     }
-    catch(err) {
+    catch (err) {
         return res.status(400).json({
             error: err.message,
         });
@@ -42,14 +42,14 @@ router.get("/harvest", async(req,res) => {
 });
 
 //update
-router.patch("/harvest/update/:id", async (req,res) => {
-    try{
-        await Harvest.findByIdAndUpdate(req.params.id, {$set: req.body}).exec();
+router.patch("/harvest/update/:id", async (req, res) => {
+    try {
+        await Harvest.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
         return res.status(200).json({
             success: "Successfully Updated"
         });
     }
-    catch(err){
+    catch (err) {
         return res.status(400).json({
             error: err.message
         })
@@ -57,15 +57,15 @@ router.patch("/harvest/update/:id", async (req,res) => {
 });
 
 //delete
-router.delete("/harvest/delete/:id", async(req, res) => {
-    try{
+router.delete("/harvest/delete/:id", async (req, res) => {
+    try {
         const harvestDelete = await Harvest.findByIdAndDelete(req.params.id).exec();
         return res.json({
             message: "Successfully Deleted",
             harvestDelete,
         });
     }
-    catch(err){
+    catch (err) {
         return req.status(400).json({
             message: "Unsuccessfull",
             error: err.message
@@ -73,12 +73,12 @@ router.delete("/harvest/delete/:id", async(req, res) => {
     }
 });
 
-//get a specific record
-router.get("/harvest/:id", async (req,res) => {
-    try{
+//get a specific record using id
+router.get("/harvest/:id", async (req, res) => {
+    try {
         let harvestID = req.params.id;
         let harvest = await Harvest.findById(harvestID);
-        if(!harvest){
+        if (!harvest) {
             return res.status(404).json({
                 success: false,
                 message: "Record not found"
@@ -89,10 +89,10 @@ router.get("/harvest/:id", async (req,res) => {
             harvest
         })
     }
-    catch(err){
+    catch (err) {
         return res.status(400).json({
             success: false,
-            error : err.message
+            error: err.message
         });
     }
 });
