@@ -5,31 +5,31 @@
     text-decoration: none;
 }
 
-.plantCard-body{
+.plantCard-body {
     color: #566032;
     padding-top: 50px;
 }
 
-/* body{
+body {
     background-image: url('../../public/images/cardBG.png');
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin: 0; 
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
     padding: 0;
-}  */
+}
 
-.layoutImg{
+.layoutImg {
     height: 300px;
     margin: 20px;
 }
 
-.plantTopic{
+.plantTopic {
     color: #3b4222;
     text-align: center;
 }
 
-.plantBody{
+.plantBody {
     margin: 10px;
     padding: 10px;
     align-items: center;
@@ -39,15 +39,12 @@
 #plantNav-link {
     color: #463720;
     text-decoration: none;
-    margin: 10px;
-    padding: 10px;
+    /* background-color: rgb(197, 185, 165); */
+    /* margin: 10px; */
+    /* padding: 10px; */
 }
 
-#plantNav-link active {
-    color: #3b4222;
-}
-
-#plantDiv{
+#plantDiv {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 25px;
     margin: 10px;
@@ -56,67 +53,96 @@
 }
 
 #plantTable {
-    margin: 20px;
-    padding: 10px;
+    /* margin: 20px;
+    padding: 10px; */
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
     text-align: center;
 }
 
-#plantForm{
+#plantForm {
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
-    width:75%;
+    width: 75%;
     margin: 0 auto;
 }
 
-#plantForm2{
+#plantForm2 {
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
-    width:60%;
+    width: 60%;
     margin: 0 auto;
     text-align: center;
 }
 
 #plantForm label {
-    width:200px;
+    width: 200px;
     text-align: left;
 }
 
 #plantForm2 label {
-    width:200px;
+    width: 200px;
     text-align: left;
 }
 
 #plantFormFeild {
-    width:450px;
+    width: 450px;
 }
 
 .plantReport {
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
-    width:60%;
+    width: 60%;
     margin: 0 auto;
     text-align: left;
     margin-top: 80px;
 }
 
+.plantReport1 {
+    padding: 30px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.plantSearch {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    width: 25%;
+}
+
+.plantHeader {
+    position: fixed;
+    top: 0;
+    background-color: rgb(255, 255, 255, 0.2);
+    width: 100%;
+}
+
+#plantButton {
+    float: right;
+    margin: 10px;
+}
+
 @media print {
-    .print-header, .print-footer {
+
+    .print-header,
+    .print-footer,
+    .print-body {
         display: block !important;
         position: fixed;
         width: 100%;
         text-align: center;
     }
-    
+
     .print-header {
         top: 20px;
         bottom: 20px;
     }
-    
+
     .print-footer {
         bottom: 20px;
     }

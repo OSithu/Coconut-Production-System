@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 
 const AddTrees = () => {
     const [treeID, setTreeID] = useState('');
@@ -46,7 +47,7 @@ const AddTrees = () => {
         if (!plantedDate.trim()) {
             formValid = false;
             errorsData.plantedDate = "Planted Date is required";
-        } 
+        }
         //check if date is valid
         else if (new Date(plantedDate) > new Date()) {
             formValid = false;
@@ -89,92 +90,100 @@ const AddTrees = () => {
     };
 
     return (
-        
-<div className='plantBody'>
-<div className="container text-center">
-<PlantationNav />
-            &nbsp;
-            <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
-            &nbsp; &nbsp;
-            <form className="needs-validation" noValidate onSubmit={saveDetails}>
-                <div className="row justify-content-md-center">
-                    <label className="col-sm-2 col-form-label">Tree ID</label>
-                    <div className="col-sm-10">
-                        <input type="text"
-                            className={`form-control ${errors.treeID ? 'is-invalid' : ''}`}
-                            name="treeID"
-                            placeholder="Enter Tree ID"
-                            value={treeID}
-                            onChange={(e) => setTreeID(e.target.value)} 
-                            style={{ marginBottom: '15px' }}/>
-                        {errors.treeID && <div className="invalid-feedback">{errors.treeID}</div>}
-                    </div>
+
+        <div className='plantBody'>
+
+            <div>
+                <div className='plantHeader'>
+                    <PlantationNav />
                 </div>
+                <div className='plantBody'>
+                    <div className="container text-center">
+                        <h1 className='plantTopic'>Add Details</h1>
+                        &nbsp;
+                        &nbsp;
+                        <form className="needs-validation" noValidate onSubmit={saveDetails} id='plantForm2'>
 
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Type of Tree</label>
-                    <div className="col-sm-10">
-                        <select
-                            className="form-select"
-                            name="unit"
-                            value={typeOfTree}
-                            onChange={(e) => setTypeOfTree(e.target.value)}
-                        >
-                            <option value="">Select Type</option>
-                            <option value="CRIC 60">CRIC 60</option>
-                            <option value="CRIC 65">CRIC 65</option>
-                            <option value="CRISL 98">CRISL 98</option>
-                        </select>
-                        {errors.typeOfTree && <div className="invalid-feedback">{errors.typeOfTree}</div>}
+                            <div className="row mb-3">
+                                <label className="col-sm-2 col-form-label">Tree ID</label>
+                                <div className="col-sm-10" id={'plantFormFeild'}>
+                                    <input type="text"
+                                        className={`form-control ${errors.treeID ? 'is-invalid' : ''}`}
+                                        name="treeID"
+                                        placeholder="Enter Tree ID"
+                                        value={treeID}
+                                        onChange={(e) => setTreeID(e.target.value)}
+                                        style={{ marginBottom: '15px' }} />
+                                    {errors.treeID && <div className="invalid-feedback">{errors.treeID}</div>}
+                                </div>
+                            </div>
+
+
+                            <div className="row mb-3">
+                                <label className="col-sm-2 col-form-label">Type of Tree</label>
+                                <div className="col-sm-10" id={'plantFormFeild'}>
+                                    <select
+                                        className="form-select"
+                                        name="unit"
+                                        value={typeOfTree}
+                                        onChange={(e) => setTypeOfTree(e.target.value)}
+                                    >
+                                        <option value="">Select Type</option>
+                                        <option value="CRIC 60">CRIC 60</option>
+                                        <option value="CRIC 65">CRIC 65</option>
+                                        <option value="CRISL 98">CRISL 98</option>
+                                    </select>
+                                    {errors.typeOfTree && <div className="invalid-feedback">{errors.typeOfTree}</div>}
+                                </div>
+                            </div>
+
+                            <div className="row mb-3">
+                                <label className="col-sm-2 col-form-label">Planted Date</label>
+                                <div className="col-sm-10" id={'plantFormFeild'}>
+                                    <input type="date"
+                                        className={`form-control ${errors.plantedDate ? 'is-invalid' : ''}`}
+                                        name="plantedDate"
+                                        value={plantedDate}
+                                        onChange={(e) => setPlantedDate(e.target.value)} />
+                                    {errors.plantedDate && <div className="invalid-feedback">{errors.plantedDate}</div>}
+                                </div>
+
+                            </div>
+
+
+                            <div className="row mb-3">
+                                <label className="col-sm-2 col-form-label">Block Name</label>
+                                <div className="col-sm-10" id={'plantFormFeild'}>
+                                    <input
+                                        type="text"
+                                        className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
+                                        name="blockName"
+                                        placeholder="Enter Block Name"
+                                        value={blockName}
+                                        onChange={(e) => setBlockName(e.target.value)}
+                                        disabled />
+                                    {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
+                                </div>
+                            </div>
+
+                            <div className="row mb-3">
+                                <label className="col-sm-2 col-form-label">Special Notes</label>
+                                <div className="col-sm-10" id={'plantFormFeild'}>
+                                    <textarea class="form-control"
+                                        placeholder="Mention if there are any"
+                                        name="specialNotes"
+                                        value={specialNotes}
+                                        onChange={(e) => setSpecialNotes(e.target.value)}>
+                                    </textarea>
+
+                                </div>
+                            </div>
+
+                            <button className="btn btn-success" type="submit">Submit</button>
+                        </form >
                     </div>
-                </div>
+                </div></div></div>
 
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Planted Date</label>
-                    <div className="col-sm-10">
-                        <input type="date"
-                            className={`form-control ${errors.plantedDate ? 'is-invalid' : ''}`}
-                            name="plantedDate"
-                            value={plantedDate}
-                            onChange={(e) => setPlantedDate(e.target.value)} />
-                        {errors.plantedDate && <div className="invalid-feedback">{errors.plantedDate}</div>}
-                    </div>
-
-                </div>
-
-
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Block Name</label>
-                    <div className="col-sm-10">
-                        <input
-                        type="text"
-                        className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
-                        name="blockName"
-                        placeholder="Enter Block Name"
-                        value={blockName}
-                        onChange={(e) => setBlockName(e.target.value)}
-                        disabled />
-                        {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
-                    </div>
-                </div>
-
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Special Notes</label>
-                    <div className="col-sm-10">
-                        <textarea class="form-control"
-                            placeholder="Mention if there are any"
-                            name="specialNotes"
-                            value={specialNotes}
-                            onChange={(e) => setSpecialNotes(e.target.value)}>
-                        </textarea>
-
-                    </div>
-                </div>
-
-                <button className="btn btn-success" type="submit">Submit</button>
-            </form >
-            </div>
-        </div >
     )
 }
 

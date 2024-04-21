@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 
 const UpdateTrees = () => {
     const [treeID, setTreeID] = useState('');
@@ -76,84 +77,87 @@ const UpdateTrees = () => {
     };
 
     return (
-        <div className='plantBody'>
-            <PlantationNav />
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
             &nbsp;
-            &nbsp;
-            <div className="container text-center">
-            <h1 className='plantTopic'>Edit Details</h1>
-                &nbsp;
+            <div className='plantBody'>
+                <div className="container text-center">
+                    <h1 className='plantTopic'>Edit Details</h1>
                     &nbsp;
-                <form className="needs-validation" noValidate onSubmit={updateDetails} id='plantForm'>
-                    <div className="row justify-content-md-center">
-                        <div className="col">
-                            <div className="row mb-3">
-                                <label className="col-sm-2 col-form-label">Tree ID</label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="text"
-                                        className="form-control"
-                                        name="treeID"
-                                        placeholder="Enter Tree ID"
-                                        value={treeID}
-                                        onChange={(e) => setTreeID(e.target.value)} 
-                                        disabled/>
+                    &nbsp;
+                    <form className="needs-validation" noValidate onSubmit={updateDetails} id='plantForm'>
+                        <div className="row justify-content-md-center">
+                            <div className="col">
+                                <div className="row mb-3">
+                                    <label className="col-sm-2 col-form-label">Tree ID</label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="text"
+                                            className="form-control"
+                                            name="treeID"
+                                            placeholder="Enter Tree ID"
+                                            value={treeID}
+                                            onChange={(e) => setTreeID(e.target.value)}
+                                            disabled />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="row mb-3">
-                                <label className="col-sm-2 col-form-label">Type of Tree</label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="text"
-                                        className="form-control"
-                                        name="typeOfTree"
-                                        placeholder="Enter Tree Type"
-                                        value={typeOfTree}
-                                        onChange={(e) => setTypeOfTree(e.target.value)} 
-                                        disabled/>
+                                <div className="row mb-3">
+                                    <label className="col-sm-2 col-form-label">Type of Tree</label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="text"
+                                            className="form-control"
+                                            name="typeOfTree"
+                                            placeholder="Enter Tree Type"
+                                            value={typeOfTree}
+                                            onChange={(e) => setTypeOfTree(e.target.value)}
+                                            disabled />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="row mb-3">
-                                <label className="col-sm-2 col-form-label">Planted Date</label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="date"
-                                        className="form-control"
-                                        name="plantedDate"
-                                        value={plantedDate}
-                                        onChange={(e) => setPlantedDate(e.target.value)} 
-                                        disabled/>
+                                <div className="row mb-3">
+                                    <label className="col-sm-2 col-form-label">Planted Date</label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="date"
+                                            className="form-control"
+                                            name="plantedDate"
+                                            value={plantedDate}
+                                            onChange={(e) => setPlantedDate(e.target.value)}
+                                            disabled />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="row mb-3">
-                                <label className="col-sm-2 col-form-label">Block Name</label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="text"
-                                        className="form-control"
-                                        name="blockName"
-                                        placeholder="Enter Block Name"
-                                        value={blockName}
-                                        onChange={(e) => setBlockName(e.target.value)} 
-                                        disabled/>
+                                <div className="row mb-3">
+                                    <label className="col-sm-2 col-form-label">Block Name</label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="text"
+                                            className="form-control"
+                                            name="blockName"
+                                            placeholder="Enter Block Name"
+                                            value={blockName}
+                                            onChange={(e) => setBlockName(e.target.value)}
+                                            disabled />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="row mb-3">
-                                <label className="col-sm-2 col-form-label">Special Notes</label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <textarea className="form-control"
-                                        placeholder="Mention if there are any"
-                                        name="specialNotes"
-                                        value={specialNotes}
-                                        onChange={(e) => setSpecialNotes(e.target.value)}>
-                                    </textarea>
+                                <div className="row mb-3">
+                                    <label className="col-sm-2 col-form-label">Special Notes</label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <textarea className="form-control"
+                                            placeholder="Mention if there are any"
+                                            name="specialNotes"
+                                            value={specialNotes}
+                                            onChange={(e) => setSpecialNotes(e.target.value)}>
+                                        </textarea>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <button className="btn btn-success" type="submit" style={{ width: '220px' }}>Update</button>
+                                <button className="btn btn-success" type="submit" style={{ width: '220px' }}>Update</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     );
