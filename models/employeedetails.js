@@ -7,6 +7,11 @@ const employeeSchema = new mongoose.Schema({
       required: true
    },
 
+   NIC:{
+    type : String,
+    required :true
+  },
+
    dateOfBirth:{
       type : Date,
       required :true

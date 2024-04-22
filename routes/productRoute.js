@@ -145,7 +145,7 @@ router.get("/products/:id", async (req, res) => {
 //get products with 'Products' as category
 router.get("/productCat", async (req, res) => {
   try {
-    const productCat = await Products.find({ category: "Products"});
+    const productCat = await Products.find({ $or: [{ category: "Products" }, { category: "By-products" }] });
     const convertedProductCat = productCat.map((productCat) => {
 
       return {

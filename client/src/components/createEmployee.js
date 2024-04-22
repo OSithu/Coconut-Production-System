@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 
+
 const CreateEmployee = () => {
 
     const [fullName,setfullName] = useState('');
+    const [NIC,setNIC] = useState('');
     const [dateOfBirth,setdateOfBirth] = useState('');
     const [gender,setgender] = useState('');
     const [contactNumber,setcontactNumber] = useState('');
@@ -17,10 +19,36 @@ const CreateEmployee = () => {
     //Implementing sendDate function
     const sendData = async (e) => {
         e.preventDefault();
+// Add date validation
+    const today = new Date();
+
+    const selectedDateObj = new Date(dateOfBirth);
+
+    if (selectedDateObj > today) {
+      alert("You cannot select a future date."); // if user selected future date display alert message
+      return;
+    }
+
+    // Validate contact number
+    if (contactNumber.length !== 10 || isNaN(contactNumber)) {
+        alert("Contact number should have exactly 10 digits.");
+        return;
+    }
+
+    
+    // Validate startDate
+    const selectedStartDate = new Date(startDate);
+    const isSameDate = today.toDateString() === selectedStartDate.toDateString();
+    if (!isSameDate) {
+        alert("Start date should be today.");
+        return;
+    }
+      
 
         try{
         let newRecord = {
             fullName:fullName,
+            NIC:NIC,
             dateOfBirth:dateOfBirth,
             gender:gender,
             contactNumber:contactNumber,
@@ -47,6 +75,7 @@ const CreateEmployee = () => {
 
         //set state back to first state
         setfullName('');
+        setNIC('');
         setdateOfBirth('');
         setgender('');
         setcontactNumber('');
@@ -64,7 +93,7 @@ const CreateEmployee = () => {
     }
 
     return (
-        <div>
+        <div className="form">
           <h1>Create Post</h1>
           <form className="needs-validation" noValidate onSubmit={sendData}>
           <div className="form-group" style={{marginBottom:'15px'}}>
@@ -75,6 +104,18 @@ const CreateEmployee = () => {
                   placeholder="Enter Full Name"
                   onChange={(e) => setfullName(e.target.value)}
                   value={fullName}/>
+
+  
+              </div>
+
+              <div className="form-group" style={{marginBottom:'15px'}}>
+                  <label style={{marginBottom:'5px'}}>National Identity Card no</label>
+                  <input type="text"
+                  className="form-control"
+                  name="NIC"
+                  placeholder="Enter NIC NO"
+                  onChange={(e) => setNIC(e.target.value)}
+                  value={NIC}/>
 
   
               </div>
@@ -90,18 +131,20 @@ const CreateEmployee = () => {
 
   
               </div>
-  
               <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>gender</label>
-                  <input type="text"
-                  className="form-control"
-                  name="gender"
-                  placeholder="Enter Gender"
-                  onChange={(e) => setgender(e.target.value)}
-                  value={gender}/>
-
-  
-              </div>
+                    <label style={{marginBottom:'5px'}}>Gender</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="gender" value="Male" checked={gender === 'Male'} onChange={(e) => setgender(e.target.value)} /> Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Female" checked={gender === 'Female'} onChange={(e) => setgender(e.target.value)} /> Female
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Other" checked={gender === 'Other'} onChange={(e) => setgender(e.target.value)} /> Other
+                        </label>
+                    </div>
+                </div>
   
               <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>contactNumber</label>
@@ -140,28 +183,35 @@ const CreateEmployee = () => {
               </div>
 
               <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>jobTitle</label>
-                  <input type="text"
-                  className="form-control"
-                  name="jobTitle"
-                  placeholder="Enter jobTitle"
-                  onChange={(e) =>  setjobTitle(e.target.value)}
-                  value={jobTitle}/>
+    <label style={{marginBottom:'5px'}}>Job Title</label>
+    <select
+        className="form-control"
+        name="jobTitle"
+        onChange={(e) => setjobTitle(e.target.value)}
+        value={jobTitle}
+    >
+        <option value="">Select Job Title</option>
+        <option value="manager">Manager</option>
+        <option value="labor">Labor</option>
+    </select>
+</div>
 
-  
-              </div>
+              
 
               <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>department</label>
-                  <input type="text"
-                  className="form-control"
-                  name="department"
-                  placeholder="Enter department"
-                  onChange={(e) => setdepartment(e.target.value)}
-                  value={department}/>
-
-  
-              </div>
+    <label style={{marginBottom:'5px'}}>Department</label>
+    <select
+        className="form-control"
+        name="department"
+        onChange={(e) => setdepartment(e.target.value)}
+        value={department}
+    >
+        <option value="">Select Department</option>
+        <option value="product">Product</option>
+        <option value="sales">Sales</option>
+        <option value="plantation">Plantation</option>
+    </select>
+             </div>
 
               <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>startDate	</label>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PlantationNav from './PlantationNav';
 import { useNavigate } from 'react-router-dom';
+import '../stylesheets/plantation.css';
 
 const AddHarvest = () => {
     const [date, setDate] = useState('');
@@ -90,12 +91,15 @@ const AddHarvest = () => {
     };
 
     return (
-        <div className='plantBody'>
-      <PlantationNav />
-      &nbsp;
-      <h1 className='plantTopic'> Add New Record </h1>
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
+            &nbsp;
+            <div className='plantBody'>
+                <h1 className='plantTopic'> Add New Record </h1>
 
-      &nbsp;
+                &nbsp;
 
                 <form className="needs-validation" noValidate onSubmit={saveDetails} id='plantForm2'>
                     <div class="row mb-3">
@@ -145,7 +149,7 @@ const AddHarvest = () => {
                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
                 </form>
             </div>
-        
+        </div>
     )
 }
 

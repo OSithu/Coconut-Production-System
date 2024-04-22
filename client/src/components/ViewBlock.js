@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import PlantationNav from './PlantationNav'
+import '../stylesheets/plantation.css';
 
 const ViewBlock = () => {
 
@@ -49,30 +50,6 @@ const ViewBlock = () => {
 
     useEffect(() => {
 
-        //const getBlock = async () => {
-
-            // await axios.get(`http://localhost:8000/blocks/${id}`)
-            //     .then((res) => {
-            //         setBlockName(res.data.block.blockName);
-            //         setArea(res.data.block.area.value);
-            //         setAreaUnit(res.data.block.area.unit);
-            //         setTreeCount(res.data.block.treeCount);
-            //         setLastHarvested(formatDate(res.data.block.lastHarvested));
-            //         setNextHarvesting(formatDate(res.data.block.nextHarvesting));
-            //         setLastFertilized(formatDate(res.data.block.lastFertilized));
-            //         setNextFertilization(formatDate(res.data.block.nextFertilization));
-            //         console.log('Status : ' + res.data.success);
-
-            //     })
-            //     .catch((err) => {
-            //         if (err.response) {
-            //             console.log(err.response.data.error)
-            //         } else {
-            //             console.log("Error occurred while getting axios get request")
-            //         }
-            //     })
-        //}
-
         const getBlock = async () => {
             try {
                 const blockResponse = await axios.get(`http://localhost:8000/blocks/${id}`);
@@ -85,7 +62,7 @@ const ViewBlock = () => {
                 setLastFertilized(formatDate(blockResponse.data.block.lastFertilized));
                 setNextFertilization(formatDate(blockResponse.data.block.nextFertilization));
                 console.log('Status : ' + blockResponse.data.success);
-    
+
                 const treeCountResponse = await axios.get(`http://localhost:8000/treeCount/${blockResponse.data.block.blockName}`);
                 setTreeCount(treeCountResponse.data.count);
             } catch (err) {
@@ -222,151 +199,153 @@ const ViewBlock = () => {
     };
 
     return (
-        <div className='plantBody'>
-            <PlantationNav />
-            &nbsp;
-            &nbsp;
-            <form className="needs-validation" id='plantForm' noValidate>
-                <div class="container text-center">
-                    <h2> Block {blockName} </h2>
-                    &nbsp;
-                    &nbsp;
-                    <div class="row justify-content-md-center">
-                        <div class="col">
-                            <div class="row mb-3">
-                                <label className="col-sm-2 col-form-label"> Block Name </label>
-                                <div className="col-sm-10" id={'plantFormFeild'}> 
-                                    <input type="text"
-                                        class={`form-control`}
-                                        name="blockName"
-                                        value={blockName}
-                                        onChange={(e) => setBlockName(e.target.value)}
-                                        disabled={!notEditable} />
-                                </div>
-                            </div>
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
 
-                            <div class="row mb-3">
-                                <label className="col-sm-2 col-form-label"> Area </label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <div className="input-group" >
+            <div className='plantBody'>
+                <form className="needs-validation" id='plantForm' noValidate>
+                    <div class="container text-center">
+                        <h2> Block {blockName} </h2>
+                        &nbsp;
+                        &nbsp;
+                        <div class="row justify-content-md-center">
+                            <div class="col">
+                                <div class="row mb-3">
+                                    <label className="col-sm-2 col-form-label"> Block Name </label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
                                         <input type="text"
-                                            className={`form-control ${errors.area && 'is-invalid'}`}
-                                            name="area"
-                                            value={area}
-                                            onChange={handleAreaChange}
-                                            disabled={!isEditable} />
-                                        <select
-                                            className="form-select"
-                                            name="unit"
-                                            value={areaUnit}
-                                            onChange={handleUnitChange}
-                                            disabled={!isEditable}>
-                                            <option value="">Select Unit</option>
-                                            <option value="sqm">sqm</option>
-                                            <option value="sqft">sqft</option>
-                                            <option value="hectare">hectare</option>
-                                            <option value="acre">acre</option>
-                                        </select>
-                                        {errors.area && <div className="invalid-feedback">{errors.area}</div>}
-                                        {errors.areaUnit && <div className="invalid-feedback">{errors.areaUnit}</div>}
+                                            class={`form-control`}
+                                            name="blockName"
+                                            value={blockName}
+                                            onChange={(e) => setBlockName(e.target.value)}
+                                            disabled={!notEditable} />
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label className="col-sm-2 col-form-label"> Tree Count </label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="text"
-                                        class={`form-control`}
-                                        name="treeCount"
-                                        value={treeCount}
-                                        onChange={(e) => setTreeCount(e.target.value)}
-                                        disabled={!notEditable} />
+                                <div class="row mb-3">
+                                    <label className="col-sm-2 col-form-label"> Area </label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <div className="input-group" >
+                                            <input type="text"
+                                                className={`form-control ${errors.area && 'is-invalid'}`}
+                                                name="area"
+                                                value={area}
+                                                onChange={handleAreaChange}
+                                                disabled={!isEditable} />
+                                            <select
+                                                className="form-select"
+                                                name="unit"
+                                                value={areaUnit}
+                                                onChange={handleUnitChange}
+                                                disabled={!isEditable}>
+                                                <option value="">Select Unit</option>
+                                                <option value="sqm">sqm</option>
+                                                <option value="sqft">sqft</option>
+                                                <option value="hectare">hectare</option>
+                                                <option value="acre">acre</option>
+                                            </select>
+                                            {errors.area && <div className="invalid-feedback">{errors.area}</div>}
+                                            {errors.areaUnit && <div className="invalid-feedback">{errors.areaUnit}</div>}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label className="col-sm-2 col-form-label"> Last Harvested Date </label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="date"
-                                        class={`form-control ${errors.lastHarvested && 'is-invalid'}`}
-                                        name="lastHarvested"
-                                        value={lastHarvested}
-                                        onChange={(e) => setLastHarvested(e.target.value)}
-                                        disabled={!isEditable} />
-                                    {errors.lastHarvested && <div className="invalid-feedback">{errors.lastHarvested}</div>}
+                                <div class="row mb-3">
+                                    <label className="col-sm-2 col-form-label"> Tree Count </label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="text"
+                                            class={`form-control`}
+                                            name="treeCount"
+                                            value={treeCount}
+                                            onChange={(e) => setTreeCount(e.target.value)}
+                                            disabled={!notEditable} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label className="col-sm-2 col-form-label"> Next Harvesting Date </label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="date"
-                                        class={`form-control ${errors.nextHarvesting && 'is-invalid'}`}
-                                        name="nextHarvesting"
-                                        value={nextHarvesting}
-                                        onChange={(e) => setNextHarvesting(e.target.value)}
-                                        disabled={!isEditable} />
-                                    {errors.nextHarvesting && <div className="invalid-feedback">{errors.nextHarvesting}</div>}
+                                <div class="row mb-3">
+                                    <label className="col-sm-2 col-form-label"> Last Harvested Date </label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="date"
+                                            class={`form-control ${errors.lastHarvested && 'is-invalid'}`}
+                                            name="lastHarvested"
+                                            value={lastHarvested}
+                                            onChange={(e) => setLastHarvested(e.target.value)}
+                                            disabled={!isEditable} />
+                                        {errors.lastHarvested && <div className="invalid-feedback">{errors.lastHarvested}</div>}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label className="col-sm-2 col-form-label"> Last Fertilized Date </label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="date"
-                                        class={`form-control ${errors.lastFertilized && 'is-invalid'}`}
-                                        name="lastFertilized"
-                                        value={lastFertilized}
-                                        onChange={(e) => setLastFertilized(e.target.value)}
-                                        disabled={!isEditable} />
-                                    {errors.lastFertilized && <div className="invalid-feedback">{errors.lastFertilized}</div>}
+                                <div class="row mb-3">
+                                    <label className="col-sm-2 col-form-label"> Next Harvesting Date </label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="date"
+                                            class={`form-control ${errors.nextHarvesting && 'is-invalid'}`}
+                                            name="nextHarvesting"
+                                            value={nextHarvesting}
+                                            onChange={(e) => setNextHarvesting(e.target.value)}
+                                            disabled={!isEditable} />
+                                        {errors.nextHarvesting && <div className="invalid-feedback">{errors.nextHarvesting}</div>}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label className="col-sm-2 col-form-label"> Next Fertilization Date </label>
-                                <div className="col-sm-10" id={'plantFormFeild'}>
-                                    <input type="date"
-                                        class={`form-control ${errors.nextFertilization && 'is-invalid'}`}
-                                        name="nextFertilization"
-                                        value={nextFertilization}
-                                        onChange={(e) => setNextFertilization(e.target.value)}
-                                        disabled={!isEditable} />
-                                    {errors.nextFertilization && <div className="invalid-feedback">{errors.nextFertilization}</div>}
+                                <div class="row mb-3">
+                                    <label className="col-sm-2 col-form-label"> Last Fertilized Date </label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="date"
+                                            class={`form-control ${errors.lastFertilized && 'is-invalid'}`}
+                                            name="lastFertilized"
+                                            value={lastFertilized}
+                                            onChange={(e) => setLastFertilized(e.target.value)}
+                                            disabled={!isEditable} />
+                                        {errors.lastFertilized && <div className="invalid-feedback">{errors.lastFertilized}</div>}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <button className="btn btn-success" type="submit" style={{ width: '220px' }} onClick={updateDetails} disabled={!isEditable}>
-                                Save Changes
-                            </button>
-                        </div>
-                        <div class="col col-lg-4">
+                                <div class="row mb-3">
+                                    <label className="col-sm-2 col-form-label"> Next Fertilization Date </label>
+                                    <div className="col-sm-10" id={'plantFormFeild'}>
+                                        <input type="date"
+                                            class={`form-control ${errors.nextFertilization && 'is-invalid'}`}
+                                            name="nextFertilization"
+                                            value={nextFertilization}
+                                            onChange={(e) => setNextFertilization(e.target.value)}
+                                            disabled={!isEditable} />
+                                        {errors.nextFertilization && <div className="invalid-feedback">{errors.nextFertilization}</div>}
+                                    </div>
+                                </div>
 
-                            <div class="d-grid gap-2 col-6 mx-auto">
-                                <button className="btn btn-warning" type="button" onClick={handleEdit}>
-                                    <i className='fas fa-edit'></i> &nbsp;
-                                    Update
+                                <button className="btn btn-success" type="submit" style={{ width: '220px' }} onClick={updateDetails} disabled={!isEditable}>
+                                    Save Changes
                                 </button>
+                            </div>
+                            <div class="col col-lg-4">
 
-                                <button type="button" className='btn btn-danger' onClick={() => handleDelete(id)}>
-                                    <i className='far fa-trash-alt'></i> &nbsp;
-                                    Delete
-                                </button>
-
-                                <Link to={`/ViewTrees/${blockName}?blockName=${blockName}`}>
-                                    <button type="button" className="btn btn-success" style={{ width: '220px' }}>
-                                        <i className="fa-regular fa-eye"></i>&nbsp;
-                                        View Tree Details
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <button className="btn btn-warning" type="button" onClick={handleEdit}>
+                                        <i className='fas fa-edit'></i> &nbsp;
+                                        Update
                                     </button>
-                                </Link>
-                            </div>
 
+                                    <button type="button" className='btn btn-danger' onClick={() => handleDelete(id)}>
+                                        <i className='far fa-trash-alt'></i> &nbsp;
+                                        Delete
+                                    </button>
+
+                                    <Link to={`/ViewTrees/${blockName}?blockName=${blockName}`}>
+                                        <button type="button" className="btn btn-success" style={{ width: '220px' }}>
+                                            <i className="fa-regular fa-eye"></i>&nbsp;
+                                            View Tree Details
+                                        </button>
+                                    </Link>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-
+                </form>
+            </div>
 
 
         </div>

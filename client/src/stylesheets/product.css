@@ -1,0 +1,26 @@
+/* body{
+    background-image: url('../../public/images/cardBG.png');
+    background-size: cover; 
+    background-position: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0; 
+    padding: 0;
+} 
+
+@media print {
+    .print-header, .print-footer {
+        display: block !important;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .print-header {
+        top: 20px;
+        bottom: 20px;
+    }
+    
+    .print-footer {
+        bottom: 20px;
+    }
+} */

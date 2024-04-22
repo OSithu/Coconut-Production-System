@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 
 const AddHvstSchedule = () => {
     const [date, setDate] = useState('');
@@ -67,7 +68,7 @@ const AddHvstSchedule = () => {
         if (!date.trim()) {
             formValid = false;
             errorsData.date = "Required";
-        } 
+        }
         //check if date is valid
         else if (new Date(date) < new Date()) {
             formValid = false;
@@ -105,12 +106,15 @@ const AddHvstSchedule = () => {
     };
 
     return (
-        <div className='plantBody'>
-      <PlantationNav />
-      &nbsp;
-      <h1 className='plantTopic'> Add New Schedule </h1>
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
+            &nbsp;
+            <div className='plantBody'>
+                <h1 className='plantTopic'> Add New Schedule </h1>
 
-      &nbsp;
+                &nbsp;
 
                 <form className="needs-validation" noValidate onSubmit={saveDetails} id='plantForm2'>
                     <div className="row mb-3">
@@ -210,7 +214,7 @@ const AddHvstSchedule = () => {
                     <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
                 </form>
             </div>
-       
+        </div>
     );
 };
 

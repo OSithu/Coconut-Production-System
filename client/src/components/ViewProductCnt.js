@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ProductNav from "./ProductNav";
+import { useReactToPrint } from "react-to-print";
+import { BsSearch } from "react-icons/bs";
 
 const ViewProductCnt = () => {
+  const componentPDF = useRef();
   const [allProductRecords, setAllRecords] = useState([]);
+  const [searchProductCnt, setSearchProductCnt] = useState("");
 
   useEffect(() => {
     const getAllRecords = async () => {
@@ -25,6 +30,13 @@ const ViewProductCnt = () => {
 
     getAllRecords();
   }, []);
+
+  //implementing function for the pdf downloading
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitile: "ProductDetails",
+    onAfterPrint: () => alert("Data saved in PDF"),
+  });  
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -57,24 +69,55 @@ const ViewProductCnt = () => {
     }
   };
 
+  const filteredProductCnt = allProductRecords.filter(
+    (productCnt) =>
+    productCnt.productId.toLowerCase().includes(searchProductCnt.toLowerCase())
+  );
+
   return (
     <div className="container">
+      <ProductNav />
       <div>
         <p>Product Records</p>
-        <table className="table">
+        
+        <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search product records..."
+              value={searchProductCnt}
+              onChange={(e) => setSearchProductCnt(e.target.value)}
+            />
+            <button className="btn btn-outline-secondary" type="button">
+              <BsSearch />
+            </button>
+          </div>
+
+        <div style={{ textAlign: "right" }}>
+        <button className="btn btn-success">
+          <a
+            href="/addProductCnt"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Add New Product Record
+          </a>
+        </button>
+        </div>
+        <div ref={componentPDF} style={{ width: "100%" }}>
+        <table className="table" style={{backgroundColor: "rgba(217, 255, 242, 0.6)", borderRadius:"10px", marginTop: "20px"}}>
           <thead>
             <tr>
-              <th scope="col">productId</th>
-              <th scope="col">quantity(kg or litre)</th>
-              <th scope="col">Date</th>
-              <th scope="col">Description</th>
-              <th scope="col">Actions</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>productId</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>quantity(kg or litre)</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Date</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Description</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {allProductRecords.map((productCnt, index) => (
+            {filteredProductCnt.map((productCnt, index) => (
               <tr key={productCnt._id}>
-                <td>
+                <td style={{ borderRight: "1px solid white" }}> 
                   {/* <a href={`/productCnt/${productCnt._id}`} style ={{textDecoration: 'none'}}>
                     {productCnt.productId}
                   </a> */}
@@ -86,10 +129,10 @@ const ViewProductCnt = () => {
                   </Link>
                 </td>
                 {/* <td>{productCnt.productId}</td> */}
-                <td>{productCnt.quantity}</td>
-                <td>{productCnt.productDate}</td>
-                <td>{productCnt.description}</td>
-                <td>
+                <td style={{ borderRight: "1px solid white" }}>{productCnt.quantity}</td>
+                <td style={{ borderRight: "1px solid white" }}>{productCnt.productDate}</td>
+                <td style={{ borderRight: "1px solid white" }}>{productCnt.description}</td>
+                <td style={{ borderRight: "1px solid white" }}>
                   <a
                     className="btn btn-warning"
                     href={`/editProductCnt/${productCnt._id}`}
@@ -109,15 +152,12 @@ const ViewProductCnt = () => {
             ))}
           </tbody>
         </table>
-
-        <button className="btn btn-success">
-          <a
-            href="/addProductCnt"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Add New Product Record
-          </a>
-        </button>
+        </div>
+        <div className="d-grid d-md-flex justify-content-md-end mb-3">
+          <button className="btn btn-success" onClick={generatePDF}>
+            Generate PDF
+          </button>{" "}
+        </div>
       </div>
     </div>
   );
