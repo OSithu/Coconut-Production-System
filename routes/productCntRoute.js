@@ -7,15 +7,15 @@ const router = express.Router();
 // Save product count
 router.post("/productCnt/save", async (req, res) => {
   try {
-    // Check if the product exists in the Products collection
-    const existingProduct = await Products.findOne({
-      productId: req.body.productId,
-    });
+    // // Check if the product exists in the Products collection
+    // const existingProduct = await Products.findOne({
+    //   productId: req.body.productId,
+    // });
 
-    if (!existingProduct) {
-      // If the product does not exist, return an error
-      return res.status(400).json({ error: "Product ID does not exist." });
-    }
+    // if (!existingProduct) {
+    //   // If the product does not exist, return an error
+    //   return res.status(400).json({ error: "Product ID does not exist." });
+    // }
 
     // If the product exists, save the new product count
     const newProductCnt = new ProductCnt(req.body);
