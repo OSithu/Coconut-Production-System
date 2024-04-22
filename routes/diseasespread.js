@@ -1,4 +1,5 @@
 const express = require("express");
+const Trees = require('../models/treeModel');
 
 // Import our user model
 const Spread_Records = require("../models/diseasespread");
@@ -9,6 +10,11 @@ const router = express.Router();
 
 router.post("/diseasespread/create", async (req, res) => {
   try {
+    // Check if treeID already exists in the database
+    const existingTree = await Trees.findOne({ treeID: req.body.treeID });
+    if (!existingTree) {
+      return res.status(400).json({ error: "Tree ID is Invalid" });
+    }
     // Create a new Records instance
     let newSpread = new Spread_Records(req.body);
 
