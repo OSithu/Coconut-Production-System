@@ -49,4 +49,24 @@ router.get("/pestaddrecords", async (req, res) => {
     }
   });
 
+
+//Update Pest Add Records
+router.put("/pestrecord/update/:id", async (req, res) => {
+    try {
+      await Pest_Add_Records.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+      }).exec();
+      return res.status(200).json({
+        success: "Pest Add Record updated Successfully",
+        message: "Pest Add Record updated Successfully",
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: err.message,
+      });
+    }
+  });
+
+ 
+
   module.exports = router;

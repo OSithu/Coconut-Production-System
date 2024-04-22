@@ -66,7 +66,7 @@ router.put("/diseasespread/update/:id", async (req, res) => {
   }
 });
 
-//Get Specific Post
+//Get Specific Spread Record
 router.get("/record/:id", async (req, res) => {
   try {
     let recordID = req.params.id;
@@ -82,7 +82,7 @@ router.get("/record/:id", async (req, res) => {
   }
 });
 
-//Delete Records
+//Delete Spread Records
 
 router.delete("/diseasespread/delete/:id", async (req, res) => {
   try {
