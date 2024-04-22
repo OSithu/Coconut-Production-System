@@ -104,4 +104,20 @@ router.delete("/productCnt/delete/:id", async (req, res) => {
   }
 });
 
+//get product ID from product table
+
+router.get("/productsDet", async (req, res) => {
+  try {
+    const product = await Products.find().exec();
+
+    return res.status(200).json({
+      success: true,
+      existingProducts: product
+    });
+  }catch (err){
+    return res.status(400).json({
+      error:err.message
+    });
+  }
+})
 module.exports = router;

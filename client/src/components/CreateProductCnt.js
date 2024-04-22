@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 
 const CreateProductCnt = () => {
   const [productId, setProductId] = useState("");
+  const [productIds, setProductIds] = useState([]);
   const [quantity, setProductQty] = useState("");
   const [quantityUnit, setProductQtyUnit] = useState("");
   const [productDate, setProductDate] = useState("");
   const [description, setProductDesc] = useState("");
   // const [error, setError] = useState("");
 
+  useEffect(() => {
+    const getProductIds = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8000/productsDet`);
+        setProductIds(res.data.existingProducts);
+        console.log("Status : " + res.data.success);
+      } catch (err) {
+        if (err.response) {
+          console.log(err.response.data.error);
+        }
+      }
+    };
+
+    getProductIds();
+  }, []);
+
   const sendData = async (e) => {
     e.preventDefault();
-  
-    try {
 
+    try {
       let newProductRecData = {
         productId: productId,
         quantity: quantity,
@@ -22,41 +37,50 @@ const CreateProductCnt = () => {
         productDate: productDate,
         description: description,
       };
-  
-      const res = await axios.post("http://localhost:8000/productCnt/save", newProductRecData);
-  
+
+      const res = await axios.post(
+        "http://localhost:8000/productCnt/save",
+        newProductRecData
+      );
+
       // if (res.data.error) {
       //   setError(res.data.error);
-      //   return; 
+      //   return;
       // }
 
       alert(res.data.success);
       console.log(res.data.success);
-  
-      if (description === 'Incremented') {
+
+      if (description === "Incremented") {
         // Call updateProductQuantity to add quantity
-        await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
-          quantity: +quantity
-        });
-      } else if (description === 'Decremented') {
+        await axios.put(
+          `http://localhost:8000/products/updateQuantity/${productId}`,
+          {
+            quantity: +quantity,
+          }
+        );
+      } else if (description === "Decremented") {
         // Call updateProductQuantity to subtract quantity
-        await axios.put(`http://localhost:8000/products/updateQuantity/${productId}`, {
-          quantity: -quantity
-        });
+        await axios.put(
+          `http://localhost:8000/products/updateQuantity/${productId}`,
+          {
+            quantity: -quantity,
+          }
+        );
       } else {
-        console.error('Invalid description:', description);
+        console.error("Invalid description:", description);
         return; // Exit the function if description is invalid
       }
-  
+
       // Display success message
-      alert('Product quantity updated successfully.');
-  
+      alert("Product quantity updated successfully.");
+
       // Reset the form fields
-      setProductId('');
-      setProductQty('');
-      setProductQtyUnit('');
-      setProductDate('');
-      setProductDesc('');
+      setProductId("");
+      setProductQty("");
+      setProductQtyUnit("");
+      setProductDate("");
+      setProductDesc("");
     } catch (error) {
       console.error("Error occurred while updating product quantity:", error);
       alert("Failed to update product quantity. Please try again.");
@@ -71,19 +95,26 @@ const CreateProductCnt = () => {
       <form className="needs-validation" noValidate onSubmit={sendData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Product ID</label>
-          <input
-            type="text"
+          <select
             className={`form-control`}
             name="productId"
-            placeholder="Enter Product Id"
             value={productId}
             onChange={(e) => setProductId(e.target.value)}
-            required
-          />
+          >
+            <option value="">Select Product ID</option>
+            {productIds.map((productId, index) => (
+              <option key={index} value={productId.productId}>
+                {productId.productId}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label className="col-sm-2 col-form-label"> Available Quantity </label>
+          <label className="col-sm-2 col-form-label">
+            {" "}
+            Available Quantity{" "}
+          </label>
           <div className="col-sm-8">
             <input
               type="text"
