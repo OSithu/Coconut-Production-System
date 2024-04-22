@@ -57,6 +57,7 @@ router.put("/diseasespread/update/:id", async (req, res) => {
     }).exec();
     return res.status(200).json({
       success: "Record updated Successfully",
+      message: "Record updated Successfully",
     });
   } catch (err) {
     return res.status(400).json({
