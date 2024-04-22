@@ -1,19 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState , useRef } from "react";
-import "./../stylesheets/disease.css"
+import React, { useEffect, useState, useRef } from "react";
+import "./../stylesheets/disease.css";
 
 //npm install react-to-print
 import { useReactToPrint } from "react-to-print";
-import { BsSearch } from 'react-icons/bs';
-
 
 const ViewSpread = () => {
+  const conponentPDF = useRef();
 
-  const conponentPDF= useRef();
-  
   const [allRecords, setAllRecord] = useState([]);
-  const [searchRecord, setSearchRecord] = useState('');
-
 
   useEffect(() => {
     const getAllRecords = async () => {
@@ -38,60 +33,31 @@ const ViewSpread = () => {
     getAllRecords();
   }, []);
 
+  //Implement PDF Download Function
 
-//Implement PDF Download Function
-
-const generatePDF = useReactToPrint({
-
-    content: ()=>conponentPDF.current,
-    documentTitle:"UserData",
-    onAfterPrint:()=>alert("Data Saved In PDF")
-
-});
-
-
-
-  //Implementing handleDelete Function
-
-  const handleDelete = async (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this items..?"
-    );
-    if (confirmed) {
-      await axios
-        .delete(`http://localhost:8000/diseasespread/delete/${id}`)
-        .then((res) => {
-          alert(res.data.message);
-          console.log(res.data.message);
-        })
-        .catch((err) => {
-          if (err.response) {
-            console.log(err.response.data.error);
-          } else {
-            console.log(
-              "Error Occured While Processing Your Axios Delete Request. " +
-                err.error
-            );
-          }
-        });
-    } else {
-      alert("Delete cancelled!");
-    }
-  };
-
-      // Filter allRecords based on searchFertilization
-      const filteredRecord = allRecords.filter(records =>
-        records.treeID.toLowerCase().includes(searchRecord.toLowerCase())
-      );
+  const generatePDF = useReactToPrint({
+    content: () => conponentPDF.current,
+    documentTitle: "UserData",
+    onAfterPrint: () => alert("Data Saved In PDF"),
+  });
 
   return (
     <div>
-      <h1 className='plantTopic'>Generate Report</h1>
+     
 
-      <div className="container">
-        <div style={{ marginTop: "20px" }}>
-          <div ref={conponentPDF} style={{width:"100%"}}>
-          <table className="table" id='plantTable'>
+      <div className="card" ref={conponentPDF} style={{ width: "100%" }}>
+      <div className="reportlogo">
+              <img src="./images/logo.png" className="imageReport"></img>
+              <br></br>
+              <h1 className="plantTopic">Jayakody Koppara Stores</h1>
+              <br></br>
+              <h2 className="plantTopic">Disease Spread Records</h2>
+            </div>
+  <div className="card-body">
+    <div className="container" >
+      <div style={{ marginTop: "20px" }}>
+        <div>
+          <table className="table" id="plantTable">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -102,10 +68,9 @@ const generatePDF = useReactToPrint({
                 <th scope="col">Special Notes</th>
               </tr>
             </thead>
-
             <tbody>
-            { filteredRecord.map((records, index) => (
-                <tr>
+              {allRecords.map((records, index) => (
+                <tr key={index}>
                   <td scope="row">{index + 1}</td>
                   <td>{records.treeID}</td>
                   <td>{records.identifyDate}</td>
@@ -114,22 +79,23 @@ const generatePDF = useReactToPrint({
                     {records.spreadLevel}
                   </td>
                   <td>{records.specialNote}</td>
-       
                 </tr>
               ))}
             </tbody>
           </table>
-          </div>
-
-          <div className="d-grid d-md-flex justify-content-md-end mb-3">
-          <button className="btn btn-success" onClick={generatePDF}>PDF</button>  </div> 
-
-          </div>
-
-         
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
+<br></br>
+      <div className="d-flex justify-content-center mb-3">
+        <button className="btn btn-success" onClick={generatePDF}>
+          Download
+        </button>
+      </div>
+    </div>
   );
 };
 
