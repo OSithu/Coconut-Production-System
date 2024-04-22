@@ -5,6 +5,7 @@ import axios from "axios";
 const CreateProductCnt = () => {
   const [productId, setProductId] = useState("");
   const [quantity, setProductQty] = useState("");
+  const [quantityUnit, setProductQtyUnit] = useState("");
   const [productDate, setProductDate] = useState("");
   const [description, setProductDesc] = useState("");
   // const [error, setError] = useState("");
@@ -17,6 +18,7 @@ const CreateProductCnt = () => {
       let newProductRecData = {
         productId: productId,
         quantity: quantity,
+        quantityUnit: quantityUnit,
         productDate: productDate,
         description: description,
       };
@@ -52,6 +54,7 @@ const CreateProductCnt = () => {
       // Reset the form fields
       setProductId('');
       setProductQty('');
+      setProductQtyUnit('');
       setProductDate('');
       setProductDesc('');
     } catch (error) {
@@ -80,16 +83,30 @@ const CreateProductCnt = () => {
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Quantity</label>
-          <input
-            type="text"
-            className={`form-control`}
-            name="quantity"
-            placeholder="Enter added quantity"
-            value={quantity}
-            onChange={(e) => setProductQty(e.target.value)}
-            required
-          />
+          <label className="col-sm-2 col-form-label"> Available Quantity </label>
+          <div className="col-sm-8">
+            <input
+              type="text"
+              className={`form-control`}
+              name="quantity"
+              placeholder="Enter Quantity"
+              value={quantity}
+              onChange={(e) => setProductQty(e.target.value)}
+            />
+
+            <select
+              className="form-select"
+              name="quantityUnit"
+              value={quantityUnit}
+              onChange={(e) => setProductQtyUnit(e.target.value)}
+            >
+              <option value=""> Select Unit </option>
+              <option value="packets"> packets </option>
+              <option value="bottles"> bottles </option>
+              <option value="g"> g </option>
+              <option value="litre"> litre </option>
+            </select>
+          </div>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
