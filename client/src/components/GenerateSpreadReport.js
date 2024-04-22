@@ -86,67 +86,9 @@ const generatePDF = useReactToPrint({
 
   return (
     <div>
-            <div className="header">
-        <div>
-         
-          <ul className="navbar">
-          <div className="nav-left">
-          <li>
-              <a class="active" href="#home">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#news">Spread Records</a>
-            </li>
-            <li>
-              <a href="#contact">Pest Records</a>
-            </li>
-           
-          </div>
-            <div className="logo">
-              <img src="./images/logo.png" className="image"></img>
-            </div>
-            <div className="nav-right">
-            <li>
-              <a href="#news">Diseases</a>
-            </li>
-            <li>
-              <a href="#contact">Pest Finder</a>
-            </li>
-            <li>
-              <a href="#about">About</a>
-            </li>
-            </div>
+      <h1 className='plantTopic'>Generate Report</h1>
 
-          </ul>
-        </div>
-      </div>
-      <br></br>
-      <h1 className='plantTopic'>Spread Records</h1>
-      {/* search */}
-     <div className="input-group mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search by Tree No"
-          value={searchRecord}
-          onChange={(e) => setSearchRecord(e.target.value)}
-        />
-        <button className="btn btn-outline-secondary" type="button">
-          <BsSearch />
-        </button>
-      </div>
       <div className="container">
-        <button className="btn btn-success">
-          <a
-            href="/createDisease"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Add New Records
-          </a>
-        </button>
-
         <div style={{ marginTop: "20px" }}>
           <div ref={conponentPDF} style={{width:"100%"}}>
           <table className="table" id='plantTable'>
@@ -158,7 +100,6 @@ const generatePDF = useReactToPrint({
                 <th scope="col">Disease</th>
                 <th scope="col">Spread Level</th>
                 <th scope="col">Special Notes</th>
-                <th scope="col">Action</th>
               </tr>
             </thead>
 
@@ -173,22 +114,7 @@ const generatePDF = useReactToPrint({
                     {records.spreadLevel}
                   </td>
                   <td>{records.specialNote}</td>
-                  <td>
-                    <a
-                      className="btn btn-warning"
-                      href={`/editDisease/${records._id}`}
-                    >
-                      <i className="fas fa-edit"></i>&nbsp;Edit
-                    </a>
-                    &nbsp;
-                    <a
-                      className="btn btn-danger"
-                      href="#"
-                      onClick={() => handleDelete(records._id)}
-                    >
-                      <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                    </a>
-                  </td>
+       
                 </tr>
               ))}
             </tbody>
@@ -196,14 +122,7 @@ const generatePDF = useReactToPrint({
           </div>
 
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
-          <button className="btn btn-success">
-          <a
-            href="/spreadReport"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Generate PDF
-          </a>
-        </button>  </div> 
+          <button className="btn btn-success" onClick={generatePDF}>PDF</button>  </div> 
 
           </div>
 

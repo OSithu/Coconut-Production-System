@@ -106,10 +106,10 @@
   }
   
   .spread-level.Medium {
-    background-color: yellow;
+    background-color: rgb(240, 240, 166);
   }
   
   .spread-level.Low {
-    background-color: green;
+    background-color: rgb(154, 233, 154);
   }
   
