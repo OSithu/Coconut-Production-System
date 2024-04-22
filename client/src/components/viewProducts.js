@@ -157,31 +157,31 @@ const ViewProducts = () => {
               <tr>
                 {/* <th scope="col">#</th> */}
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  productId
+                  Product ID
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  productName
+                  Product Name
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  productImage
+                  Product Image
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  quantity
+                  Available Quantity
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  unitPrice
+                  Unit Price
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  category
+                  Category
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  manufacturedDate
+                  Manufactured Date
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  expirationDate
+                  Expiration Date
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
-                  Re-orderLevel
+                  Re-order Level
                 </th>
                 <th scope="col" style={{ borderRight: "1px solid white" }}>
                   Additional notes
