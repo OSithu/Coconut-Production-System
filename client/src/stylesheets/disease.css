@@ -113,3 +113,20 @@
     background-color: rgb(154, 233, 154);
   }
   
+  /* Generate Report CSS */
+
+  .reportlogo {
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center elements horizontally */
+    align-items: center; /* Center elements vertically */
+    flex-direction: column; /* Arrange elements vertically */
+    margin-top: 10px; /* Maintain the margin */
+  }
+  
+  .imageReport {
+    width: 200px; 
+    height: 200px; 
+  }
+  
+  
+  
