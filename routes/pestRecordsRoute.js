@@ -67,6 +67,24 @@ router.put("/pestrecord/update/:id", async (req, res) => {
     }
   });
 
+   //Get Specific Pest Add Record
+router.get("/pestrecord/:id", async (req, res) => {
+    try {
+      let pest_recordID = req.params.id;
+      let pest_record = await Pest_Add_Records.findById(pest_recordID);
+      if (!pest_record) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Record not found" });
+      }
+      return res.status(200).json({ success: true, pest_record });
+    } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+    }
+  });
+
+ 
+
  
 
   module.exports = router;
