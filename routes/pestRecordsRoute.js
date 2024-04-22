@@ -2,11 +2,11 @@ const express = require("express");
 const Trees = require('../models/treeModel');
 
 // Import our Pest Records Model 
-const Spread_Records = require("../models/pestRecordsModel");
+const Pest_Add_Records = require("../models/pestRecordsModel");
 
 const router = express.Router();
 
-//Create Spread Record
+//Create Pest Add Record
 
 router.post("/pestrecord/create", async (req, res) => {
     try {
@@ -33,3 +33,20 @@ router.post("/pestrecord/create", async (req, res) => {
       });
     }
   });
+
+//View Pest Add Records
+router.get("/pestaddrecords", async (req, res) => {
+    try {
+      const pestaddrecords = await Pest_Add_Records.find().exec();
+      return res.status(200).json({
+        success: true,
+        existingPestAddRecords: pestaddrecords,
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: err.message,
+      });
+    }
+  });
+
+  module.exports = router;
