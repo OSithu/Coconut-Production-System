@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState , useRef } from "react";
 
-
-// import { useReactToPrint } from "react-to-print";
 //npm install react-to-print
 import { useReactToPrint } from "react-to-print";
+import { BsSearch } from 'react-icons/bs';
 
 
 const ViewSpread = () => {
@@ -12,6 +11,8 @@ const ViewSpread = () => {
   const conponentPDF= useRef();
   
   const [allRecords, setAllRecord] = useState([]);
+  const [searchRecord, setSearchRecord] = useState('');
+
 
   useEffect(() => {
     const getAllRecords = async () => {
@@ -77,6 +78,11 @@ const generatePDF = useReactToPrint({
     }
   };
 
+      // Filter allRecords based on searchFertilization
+      const filteredRecord = allRecords.filter(records =>
+        records.treeID.toLowerCase().includes(searchRecord.toLowerCase())
+      );
+
   return (
     <div>
       <div>
@@ -100,7 +106,20 @@ const generatePDF = useReactToPrint({
           </li>
         </ul>
       </div>
-      <h1>All Records</h1>
+      <h1 className='plantTopic'>All Records</h1>
+      {/* search */}
+     <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by Tree No"
+          value={searchRecord}
+          onChange={(e) => setSearchRecord(e.target.value)}
+        />
+        <button className="btn btn-outline-secondary" type="button">
+          <BsSearch />
+        </button>
+      </div>
       <div className="container">
         <button className="btn btn-success">
           <a
@@ -113,7 +132,7 @@ const generatePDF = useReactToPrint({
 
         <div style={{ marginTop: "20px" }}>
           <div ref={conponentPDF} style={{width:"100%"}}>
-          <table className="table">
+          <table className="table" id='plantTable'>
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -127,7 +146,7 @@ const generatePDF = useReactToPrint({
             </thead>
 
             <tbody>
-              {allRecords.map((records, index) => (
+            { filteredRecord.map((records, index) => (
                 <tr>
                   <td scope="row">{index + 1}</td>
                   <td>{records.treeID}</td>
