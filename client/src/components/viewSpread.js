@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState , useRef } from "react";
+import "./../stylesheets/disease.css"
 
 //npm install react-to-print
 import { useReactToPrint } from "react-to-print";
@@ -85,28 +86,44 @@ const generatePDF = useReactToPrint({
 
   return (
     <div>
-      <div>
-        <ul className="navbar">
+            <div className="header">
+        <div>
+         
+          <ul className="navbar">
+          <div className="nav-left">
           <li>
-            <a class="active" href="#home">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#news">Spread Records</a>
-          </li>
-          <li>
-            <a href="#contact">Pest Records</a>
-          </li>
-          <li>
-            <a href="#about">Pest Finder</a>
-          </li>
-          <li>
-            <a href="#about">Diseases</a>
-          </li>
-        </ul>
+              <a class="active" href="#home">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#news">Spread Records</a>
+            </li>
+            <li>
+              <a href="#contact">Pest Records</a>
+            </li>
+           
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="nav-right">
+            <li>
+              <a href="#news">Diseases</a>
+            </li>
+            <li>
+              <a href="#contact">Pest Finder</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            </div>
+
+          </ul>
+        </div>
       </div>
-      <h1 className='plantTopic'>All Records</h1>
+      <br></br>
+      <h1 className='plantTopic'>Spread Records</h1>
       {/* search */}
      <div className="input-group mb-3">
         <input

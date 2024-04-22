@@ -1,0 +1,115 @@
+.navbar {
+    margin: 0;
+    padding: 5px;
+    overflow: hidden;
+    background-color:  rgba(255, 255, 255, 0.7); /* Background color for the navbar */
+    
+    margin-top: 4px;
+    margin-left: 8px;
+    margin-right: 8px;
+    display: flex;
+  }
+  
+  .navbar li {
+    float: left;
+  }
+  
+  .navbar li a {
+    display: block;
+    color: rgb(51, 63, 55);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: larger;
+    font-weight: bold;
+    font-size: 20px;
+    
+  }
+  
+  .navbar li a:hover {
+    background-color: #289661;
+    color:  rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+  }
+   ul {
+    list-style-type: none;
+  }
+  
+
+  
+  .image{
+    width: 100px;
+    height: 100px;
+  }
+  
+  .logo{
+    justify-content: center;
+    margin-right: 160px;
+    margin-left: 80px;}
+
+    /* General styles for the input group */
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1); 
+    width: 400px;
+    margin-left: 35%;
+    
+  }
+  
+  /* Styling the input field */
+  .input-group .form-control {
+    flex: 1; 
+    padding: 10px; 
+    border: none; 
+    border-radius: 0; 
+    outline: none; 
+    transition: background-color 0.3s; 
+  }
+  
+  .input-group .form-control:hover {
+    background-color: #f0f0f0; 
+  }
+  
+  .input-group .form-control:focus {
+    background-color: #e0e0e0;
+  }
+  
+  /* Styling the button */
+  .input-group .btn {
+    padding: 10px; 
+    border: none; 
+    background-color: #f5f5f5; 
+    transition: background-color 0.3s; 
+  }
+  
+  .input-group .btn:hover {
+    background-color: #ddd; 
+  }
+  
+  .input-group .btn:focus {
+    background-color: #ccc; 
+  }
+  
+  /* Styling the search icon */
+  .input-group .btn svg {
+    width: 16px; 
+    height: 16px;
+  }
+
+  .spread-level.High {
+    background-color: rgb(247, 124, 124);
+  }
+  
+  .spread-level.Medium {
+    background-color: yellow;
+  }
+  
+  .spread-level.Low {
+    background-color: green;
+  }
+  
