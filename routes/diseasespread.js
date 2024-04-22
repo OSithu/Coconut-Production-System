@@ -1,7 +1,7 @@
 const express = require("express");
 const Trees = require('../models/treeModel');
 
-// Import our user model
+// Import our Disease Spread model
 const Spread_Records = require("../models/diseasespread");
 
 const router = express.Router();
