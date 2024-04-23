@@ -1,23 +1,24 @@
 import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
-import "./../stylesheets/plantation.css"; // Import the CSS file
+import React, {useEffect , useState , useRef} from "react";
+import "./../stylesheets/plantation.css"; // import css file
 import { BsSearch } from "react-icons/bs";
 
-//import {useReactprint}
+//import {useReactPrint}
 import { useReactToPrint } from "react-to-print";
 
-const ViewEmployee = () => {
-  const ComponentPDF = useRef();
+const ViewTaskShedule = () => {
+    const ComponentPDF = useRef();
 
-  const [allEmployee, setAllEmployee] = useState([]);
-  const [searchEmployee, setSearchEmployee] = useState("");
+    
+  const [allTaskShedule, setAllTaskShedule] = useState([]);
+  // const [searchTaskShedule, setSearchTaskShedule] = useState('');
 
   useEffect(() => {
-    const getAllEmployee = async () => {
+    const getAllTask = async () => {
       await axios
-        .get(`http://localhost:8000/view`)
+        .get("http://localhost:8000/viewShedule")
         .then((res) => {
-          setAllEmployee(res.data.existingRecords);
+          setAllTaskShedule(res.data.existingShedule);
           console.log("Status: " + res.data.success);
         })
         .catch((err) => {
@@ -32,17 +33,22 @@ const ViewEmployee = () => {
         });
     };
 
-    getAllEmployee();
+    getAllTask();
   }, []);
 
-  //implement PDF Download function
+    //implement PDF Download function
 
+    
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
     documentTitle: "userData",
     onAfterPrint: () => alert("download successful"),
   });
 
+
+
+
+  
   //Implementing handleDelete Function
 
   const handleDelete = async (id) => {
@@ -51,7 +57,7 @@ const ViewEmployee = () => {
     );
     if (confirmed) {
       await axios
-        .delete(`http://localhost:8000/employee/delete/${id}`)
+        .delete(`http://localhost:8000/taskShedule/delete/${id}`)
         .then((res) => {
           alert(res.data.message);
           console.log(res.data.message);
@@ -70,60 +76,53 @@ const ViewEmployee = () => {
       alert("Delete cancelled!");
     }
   };
-  // Employee based on searchemployee
-  const filteredEmployee = allEmployee.filter((records) =>
-    records.fullName.toLowerCase().includes(searchEmployee.toLowerCase())
-  );
-  return (
-    <div>
-      <p>All Records</p>
 
-      <div className="input-group mb-3">
+  {/*//Employee based on searchemployee
+   const filteredTask = allTaskShedule.filter((records) =>
+    records.Department.toLowerCase().includes(searchTaskShedule.toLowerCase())
+  );*/}
+
+ return(
+ <div>
+    <p>All Task Shedules</p>
+
+{/*
+    <div className="input-group mb-3">
         <input
           type="text"
           className="form-control"
-          placeholder="Search by Employee  No"
-          value={searchEmployee}
-          onChange={(e) => setSearchEmployee(e.target.value)}
+          placeholder="Search by Department Name"
+          value={searchTaskShedule}
+          onChange={(e) => setSearchTaskShedule(e.target.value)}
         />
         <button className="btn btn-outline-secondary" type="button">
           <BsSearch />
         </button>
-      </div>
+ </div>  */}
 
+
+      {allTaskShedule.map((records, index) => (
       <div ref={ComponentPDF} style={{ width: "100%" }}>
-        <table class="table" id="plantTable">
+        <table className="table" id="plantTable">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">fullName</th>
-              <th scope="col">NIC</th>
-              <th scope="col">dateOfBirth</th>
-              <th scope="col">gender</th>
-              <th scope="col">contactNumber</th>
-              <th scope="col">contactEmail</th>
-              <th scope="col">address</th>
-              <th scope="col">jobTitle</th>
-              <th scope="col">department</th>
+              <th scope="col">Department</th>
+              <th scope="col">Tasks</th>
               <th scope="col">startDate</th>
-              <th scope="col">Action</th>
+              <th scope="col">EndDate</th>
+              <th scope="col">PriorityLevel</th>
             </tr>
           </thead>
-
           <tbody>
-            {filteredEmployee.map((records, index) => (
               <tr>
                 <th scope="row">{index + 1}</th>
-                <td>{records.fullName}</td>
-                <td>{records.NIC}</td>
-                <td>{records.dateOfBirth}</td>
-                <td>{records.gender}</td>
-                <td>{records.contactNumber}</td>
-                <td>{records.contactEmail}</td>
-                <td>{records.address}</td>
-                <td>{records.jobTitle}</td>
-                <td>{records.department}</td>
+                <td>{records.Department}</td>
+                <td>{records.Tasks}</td>
                 <td>{records.startDate}</td>
+                <td>{records.EndDate}</td>
+                <td>{records.PriorityLevel}</td>
+                
                 <td>
                   <a
                     className="btn btn-warning"
@@ -141,31 +140,17 @@ const ViewEmployee = () => {
                   </a>
                 </td>
               </tr>
-            ))}
           </tbody>
         </table>
       </div>
+      
+    ))}
 
       <button className="btn btn-success">
-        <a href="/addEmp" style={{ textDecoration: "none", color: "white" }}>
-          Add New Records
+        <a href="/addTask" style={{ textDecoration: "none", color: "white" }}>
+          Add NewTask Shedule
         </a>
       </button>
-
-      
-      <button className="btn btn-success">
-        <a href="/CtreateTaskShedule" style={{ textDecoration: "none", color: "white" }}>
-          Add Task SHedule
-          </a>
-      </button>
-
-      <button className="btn btn-success">
-        <a href="/ViewTaskShedule" style={{ textDecoration: "none", color: "white" }}>
-          view Task SHedule
-          </a>
-      </button>
-
-      
 
       <div className="d-grid d-md-flex justify-content-md-end mb-3">
         <button className="btn btn-success" onClick={generatePDF}>
@@ -176,4 +161,8 @@ const ViewEmployee = () => {
   );
 };
 
-export default ViewEmployee;
+export default ViewTaskShedule;
+
+
+
+  

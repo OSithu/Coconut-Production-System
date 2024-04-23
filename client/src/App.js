@@ -82,6 +82,11 @@ import OrderProfile from "./components/OrderProfile";
 import Profile from "./components/Profile";
 import GenerateSpreadReport from "./components/GenerateSpreadReport";
 
+import ViewTaskShedule from "./components/ViewTaskShedule";
+import CreateShedule from "./components/CreateShedule";
+import EditTaskShedule from "./components/EditTaskShedule";
+
+
 function App() {
   return (
     <Router>
@@ -174,6 +179,11 @@ function App() {
 
           <Route path="/Profile/:username" Component={Profile} />
           <Route path="/spreadReport" Component={GenerateSpreadReport} />
+
+          <Route path="/ViewTaskShedule" Component={ViewTaskShedule}  />
+          <Route path="/CtreateTaskShedule" Component={CreateShedule}  />
+          <Route path="/EditTaskShedule" Component={EditTaskShedule}  />
+
 
         </Routes>
       </div>

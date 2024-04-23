@@ -1,110 +1,3 @@
-// import React, { Component } from 'react'
-// import axios from 'axios'
-
-// export default class editEmployee extends Component {
-
-//     constructor(props){
-//         super(props);
-//         this.state={
-//             fullName:"",
-//             dateOfBirth:"",
-//             gender:"",
-//             contactNumber:"",
-//             contactEmail:"",
-//             address:"",
-//             jobTitle:"",
-//             department:"",
-//             startDate:""
-//         }
-//     }
-
-//     handleInputChange =(e) =>{
-//         const{name,value} = e.target;
-
-//         this.setState({
-//             ...this.State,
-//             [name]:value
-//         })
-//     }
-
-//    onSubmit =(e) =>{
-
-    
-
-//     e.preventDefault();
-//     const id = this.props.match.params.id;
-
-//     const {fullName,dateOfBirth,gender,contactNumber,contactEmail,address,jobTitle,department,startDate} = this.state
-
-//     const data ={
-
-//         fullName:fullName,
-//         dateOfBirth:dateOfBirth,
-//         gender:gender,
-//         contactNumber:contactNumber,
-//         contactEmail:contactEmail,
-//         address:address,
-//         jobTitle:jobTitle,
-//         department:department,
-//         startDate:startDate,
-//     }
-//     console.log(data)
-
-//     // axios.put(`/employee/update/${id}`,data).then((res) =>{
-//     //     if(res.data.success){
-//              alert("Post updated successfully")
-//     //         this.setState(
-//     //             {
-//     //                 fullName:"",
-//     //                 dateOfBirth:"",
-//     //                 gender:"",
-//     //                 contactNumber:"",
-//     //                 contactEmail:"",
-//     //                 address:"",
-//     //                 jobTitle:"",
-//     //                 department:"",
-//     //                 startDate:"" 
-//     //             }
-//     //         )
-//     //     }
-//     //    })
-//    } 
-
-// componentDidMount(){
-//     const id = this.props.match.params.id;
-
-//     axios.put('/post/${id}').then((res) =>{
-//         if(res.data.success){
-//             this.setState({
-//               fullName:res.data.existingRecords.fullName,
-//               dateOfBirth:res.data.existingRecords.dateOfBirth,
-//               gender:res.data.existingRecords.gender,
-//               contactNumber:res.data.existingRecords.contactNumber,
-//               contactEmail:res.data.existingRecords.contactEmail,
-//               address:res.data.existingRecords.address,
-//               jobTitle:res.data.existingRecords.jobTitle,
-//               department:res.data.existingRecords.department,
-//               startDate:res.data.existingRecords.startDate,
-              
-
-//             });
-
-//             console.log(this.state.post);
-
-
-//         }
-//     });
-// }
-
-
-//   render() {
-//     return (
-//       <div>edit Employee</div>
-//     )
-//   }
-// }
-
-
 import React,{ useState , useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -112,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const EditEmployee = () => {
 
     const [fullName,setfullName] = useState('');
+    const [NIC,setNIC] = useState('');
     const [dateOfBirth,setdateOfBirth] = useState('');
     const [gender,setgender] = useState('');
     const [contactNumber,setcontactNumber] = useState('');
@@ -120,17 +14,21 @@ const EditEmployee = () => {
     const [jobTitle,setjobTitle] = useState('');
     const [department,setdepartment] = useState('');
     const [startDate,setstartDate] = useState('');
-   
+
     const { id } = useParams();
     const navigate = useNavigate();
 
-    useEffect(()=>{
 
+
+
+    useEffect(()=>{
+     
         const getOneRecord = async() => {
     
         await axios.get(`http://localhost:8000/view/${id}`)
         .then((res)=>{
             setfullName(res.data.employeerecord.fullName);
+            setNIC(res.data.employeerecord.NIC);
             setdateOfBirth(res.data.employeerecord.dateOfBirth);
             setgender(res.data.employeerecord.gender);
             setcontactNumber(res.data.employeerecord.contactNumber);  
@@ -160,12 +58,38 @@ const EditEmployee = () => {
 
       const updateData = async(e) =>{
             e.preventDefault();
+             // Add date validation
+    const today = new Date();
+
+    const selectedDateObj = new Date(dateOfBirth);
+
+    if (selectedDateObj > today) {
+      alert("You cannot select a future date."); // if user selected future date display alert message
+      return;
+    }
+
+    // Validate contact number
+    if (contactNumber.length !== 10 || isNaN(contactNumber)) {
+        alert("Contact number should have exactly 10 digits.");
+        return;
+    }
+
+    
+    // Validate startDate
+    const selectedStartDate = new Date(startDate);
+    const isSameDate = today.toDateString() === selectedStartDate.toDateString();
+    if (!isSameDate) {
+        alert("Start date should be today.");
+        return;
+    }
+
 
             const confirmed = window.confirm("Are you sure you want to Update this items..?");
             if(confirmed){
 
             let updateRecord = {
                 fullName:fullName,
+                NIC:NIC,
                 dateOfBirth:dateOfBirth,
                 gender:gender,
                 contactNumber:contactNumber,
@@ -218,6 +142,18 @@ const EditEmployee = () => {
 
   
               </div>
+
+              <div className="form-group" style={{marginBottom:'15px'}}>
+                  <label style={{marginBottom:'5px'}}>National Identity Card no</label>
+                  <input type="text"
+                  className="form-control"
+                  name="NIC"
+                  placeholder="Enter NIC NO"
+                  onChange={(e) => setNIC(e.target.value)}
+                  value={NIC}/>
+
+  
+              </div>
   
               <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>dateOfBirth</label>
@@ -232,16 +168,19 @@ const EditEmployee = () => {
               </div>
   
               <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>gender</label>
-                  <input type="text"
-                  className="form-control"
-                  name="gender"
-                  placeholder="Enter Gender"
-                  onChange={(e) => setgender(e.target.value)}
-                  value={gender}/>
-
-  
-              </div>
+                    <label style={{marginBottom:'5px'}}>Gender</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="gender" value="Male" checked={gender === 'Male'} onChange={(e) => setgender(e.target.value)} /> Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Female" checked={gender === 'Female'} onChange={(e) => setgender(e.target.value)} /> Female
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Other" checked={gender === 'Other'} onChange={(e) => setgender(e.target.value)} /> Other
+                        </label>
+                    </div>
+                </div>
   
               <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>contactNumber</label>
@@ -280,28 +219,42 @@ const EditEmployee = () => {
               </div>
 
               <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>jobTitle</label>
-                  <input type="text"
-                  className="form-control"
-                  name="jobTitle"
-                  placeholder="Enter jobTitle"
-                  onChange={(e) =>  setjobTitle(e.target.value)}
-                  value={jobTitle}/>
+    <label style={{marginBottom:'5px'}}>Job Title</label>
+    <select
+        className="form-control"
+        name="jobTitle"
+        onChange={(e) => setjobTitle(e.target.value)}
+        value={jobTitle}
+    >
+        <option value="">Select Job Title</option>
+        <option value="Manager">Manager</option>
+        <option value="Labor">Labor</option>
+        <option value="Agricultural Technician">Agricultural Technician</option>
+        <option value="Quality Inspector">Quality Inspector</option>
+        <option value="Accountant">Accountant</option>
 
-  
-              </div>
 
-              <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>department</label>
-                  <input type="text"
-                  className="form-control"
-                  name="department"
-                  placeholder="Enter department"
-                  onChange={(e) => setdepartment(e.target.value)}
-                  value={department}/>
 
-  
-              </div>
+    </select>
+</div>
+
+<div className="form-group" style={{marginBottom:'15px'}}>
+    <label style={{marginBottom:'5px'}}>Department</label>
+    <select
+        className="form-control"
+        name="department"
+        onChange={(e) => setdepartment(e.target.value)}
+        value={department}
+    >
+        <option value="">Select Department</option>
+        <option value="sales">Sales and Marketing </option>
+        <option value="Finance">Finance and Accounting</option>
+        <option value="HR">Human Resources</option>
+        <option value="plantation">Plantation </option>
+        <option value="Production ">Production </option>
+
+    </select>
+             </div>
 
               <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>startDate	</label>
