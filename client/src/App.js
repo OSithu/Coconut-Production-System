@@ -89,7 +89,7 @@ import EditTaskShedule from "./components/EditTaskShedule";
 import ViewPestRecords from "./components/ViewPestRecords";
 import CreatePestRecords from "./components/CreatePestRecords";
 
-
+import ProductDash from "./components/ProductDash";
 
 function App() {
   return (
@@ -191,8 +191,7 @@ function App() {
           <Route path="/viewPestRecords" Component={ViewPestRecords} />      
           <Route path="/createPestRecords" Component={CreatePestRecords} />
 
-          
-
+          <Route path="/productDash" Component={ProductDash}/>
 
         </Routes>
       </div>
