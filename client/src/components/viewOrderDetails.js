@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import OrderNav from "./OrderNav";
 import { BsSearch } from 'react-icons/bs';
 
-import { useReactToPrint } from "react-to-print";
 
 const ViewOrderDetails = () => {
   const componentPDF = useRef();
@@ -34,12 +32,68 @@ const ViewOrderDetails = () => {
     getAllItems();
   }, []);
 
-  //implementing PDF download function
-  const generatePDF = useReactToPrint({
-    content: ()=>componentPDF.current,
-    documentTitle:"UserData",
-    onAfterPrint:()=>alert("Data saved in PDF")
-  });
+  const generateReport = () => {
+    const table = document.querySelector(".table");
+    const content = table.outerHTML;
+    const newWindow = window.open();
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title> Order Details </title>
+          <style>
+            img {
+              height: 100px; 
+              margin: 5px; 
+            }
+            .imgContainer {
+              text-align: center;
+            }
+            h2 {
+              text-align: center;
+            }
+            
+            @media print {
+              /* Hide buttons */
+              button, a { display: none; }
+              .action-col { display: none; }
+              /* Apply table styles */
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="reportHeader" >
+            <div class="imgContainer">
+              <img src="/images/logo.png" alt="Description of image">
+            </div>
+            <br/>
+            <h2>Order Details</h2>
+            <hr />
+          </div>
+          ${content}
+        </body>
+      </html>
+    `);
+    newWindow.print();
+    newWindow.close();
+  };
+
+  //Remove Time in Identify Date Part
+function formatDate(orderDate) {
+  const date = new Date(orderDate);
+  return date.toISOString().split('T')[0]; 
+}
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -76,8 +130,41 @@ const ViewOrderDetails = () => {
 
   return (
     <div className="container">
-      <OrderNav />
-      <p>All Order Details</p>
+      <div className="header">
+        <div>
+         
+          <ul className="navbar">
+          <div className="nav-left">
+          <li>
+              <a class="active" href="/dashboard">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="/viewCus">Customer</a>
+            </li>
+            <li>
+              <a href="/viewOrder">Order</a>
+            </li>
+           
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="nav-right">
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            </div>
+
+          </ul>
+        </div>
+      </div>
+      <br></br>
+
       <div className="input-group mb-3">
         <input
           type="text"
@@ -91,7 +178,7 @@ const ViewOrderDetails = () => {
           </button>
       </div>
       <div className="d-grid d-md-flex justify-content-md-end mb-3">
-      <button className="btn btn-success" onClick={ generatePDF}>Report</button>  </div>
+      <button className="btn btn-success" onClick={ generateReport}>Report</button>  </div>
 
       <div ref={componentPDF} style={{width:"100%"}}>
 
@@ -99,7 +186,7 @@ const ViewOrderDetails = () => {
                     <h1> Jayakody Koppara Stores </h1>
                     <hr/>
                 </div>
-
+    <div className="container" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
       <table className="table">
         <thead>
           <tr>
@@ -107,6 +194,7 @@ const ViewOrderDetails = () => {
             <th scope="col">orderName</th>
             <th scope="col">quantity</th>
             <th scope="col">orderDate</th>
+            <th className= "action-col" scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -115,24 +203,22 @@ const ViewOrderDetails = () => {
               <th scope="row">OR{index + 1}</th>
               <td>{orderDetails.orderName}</td>
               <td>{orderDetails.quantity}</td>
-              <td>{orderDetails.orderDate}</td>
+              <td>{formatDate(orderDetails.orderDate)}</td>
+              
               <td>
-
-                <a
-                  href={`/OrderProfile/${orderDetails._id}`}
-                  className="btn btn-primary"
-                >
-                  View Order
-                </a>
-                &nbsp;
-
-                <a
-                  className="btn btn-danger"
-                  href="#"
-                  onClick={() => handleDelete(orderDetails._id)}
-                >
-                  <i className="far fa-trash-alt"></i>&nbsp;Delete
-                </a>
+                      <a
+                        href={`/OrderProfile/${orderDetails._id}`}
+                        className="btn btn-primary"
+                      >
+                        View order
+                      </a>
+                      &nbsp;
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(orderDetails._id)}
+                      >
+                        <i className="far fa-trash-alt"></i>&nbsp;Delete
+                      </button>
               </td>
             </tr>
           ))}
@@ -147,6 +233,7 @@ const ViewOrderDetails = () => {
 
 
 
+    </div>
     </div>
   );
 };

@@ -245,7 +245,6 @@ const filteredBudget = allDetails.filter(budget =>
           </div>
       <table className="budget-table">
 
-      <table className="table budget-table">
 
         <thead>
           <tr>
@@ -261,7 +260,7 @@ const filteredBudget = allDetails.filter(budget =>
             <tr key={budget._id}>
               <td>{budget.month}</td>
               <td>Rs.{String(budget.totalIncome)}</td> {/* Prepend "Rs" */}
-              <td>Rs.{String(budget.totalExpenses)}</td> {/* Prepend "Rs" */}
+              <td>Rs.{String(budget.totalExpences)}</td> {/* Prepend "Rs" */}
               <td>Rs.{String(budget.totalAAmount)}</td>
               <td>{budget.profitLoss}</td>
               <td>

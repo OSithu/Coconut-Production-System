@@ -46,14 +46,13 @@ const ViewProducts = () => {
         }
       }
     };
-    
 
     getAllItems();
   }, []);
 
   //implementing function for the pdf downloading
   const generateReport = () => {
-    const table = document.querySelector('.table');
+    const table = document.querySelector(".table");
     const content = table.outerHTML;
     const newWindow = window.open();
     newWindow.document.write(`
@@ -112,7 +111,7 @@ const ViewProducts = () => {
     `);
     newWindow.print();
     newWindow.close();
-  };
+  };
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -154,7 +153,28 @@ const ViewProducts = () => {
 
   return (
     <div>
-      <ProductNav />
+      <div className="header">
+        <div>
+          <ul className="navbar">
+            <div className="pDetails" style={{marginRight: "250px", marginLeft: "100px"}}>
+              <li>
+                <a class="active" href="/viewProduct">
+                  Product Details
+                </a>
+              </li>
+            </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="pDetails" style={{marginLeft: "250px", marginRight: "100px"}}>
+              <li>
+                <a href="/viewProductCnt">Product Records</a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <br></br>
       <div className="container">
         <div>
           <p
@@ -193,11 +213,12 @@ const ViewProducts = () => {
             </button>{" "}
           </div>
           <div ref={componentPDF} style={{ width: "100%" }}>
-          <div className="print-header" style={{ display: "none" }}>
-            <img src="/images/logo.png"  />
-            <h1> Jayakody Koppara Stores </h1>
-            <hr />
-          </div>
+            <div className="print-header" style={{ display: "none" }}>
+              <img src="/images/logo.png" />
+              <h1> Jayakody Koppara Stores </h1>
+              <hr />
+                        
+            </div>
             {showWarning && (
               <div className="alert alert-warning" role="alert">
                 {warningProductId && `${warningProductId} is low on stock`}
@@ -244,7 +265,11 @@ const ViewProducts = () => {
                   <th scope="col" style={{ borderRight: "1px solid white" }}>
                     Additional notes
                   </th>
-                  <th className="action-col" scope="col" style={{ borderRight: "1px solid white" }}>
+                  <th
+                    className="action-col"
+                    scope="col"
+                    style={{ borderRight: "1px solid white" }}
+                  >
                     Actions
                   </th>
                 </tr>
@@ -294,7 +319,7 @@ const ViewProducts = () => {
                       {products.expirationDate}
                     </td>
                     <td style={{ borderRight: "1px solid white" }}>
-                      {products.reOrderLevel}
+                      {products.reOrderLevel} {products.quantityUnit}
                     </td>
                     <td style={{ borderRight: "1px solid white" }}>
                       {products.quantity < products.reOrderLevel && (
