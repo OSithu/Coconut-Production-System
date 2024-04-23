@@ -13,7 +13,7 @@ const productCntSchema = new mongoose.Schema({
 
   quantityUnit: {
     type: String,
-    required: true,
+    required: false,
   },
 
   productDate: {

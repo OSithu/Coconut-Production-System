@@ -65,7 +65,7 @@ const EditProducts = () => {
           setProductId(res.data.product.productId);
           setProductName(res.data.product.productName);
           setProductQty(res.data.product.quantity);
-          setProductQtyUnit(res.data.product.quantityUnit)
+          setProductQtyUnit(res.data.product.quantityUnit);
           setProductCategory(res.data.product.category);
           setProductMD(formatDate(res.data.product.manufacturedDate));
           setProductED(formatDate(res.data.product.expirationDate));
@@ -106,13 +106,13 @@ const EditProducts = () => {
     //   formIsValid = false;
     // }
 
-    if (!quantity) {
-      errors.quantity = "Quantity is required";
-      formIsValid = false;
-    } else if (isNaN(quantity)) {
-      errors.quantity = "Quantity must be a number";
-      formIsValid = false;
-    }
+    // if (!quantity) {
+    //   errors.quantity = "Quantity is required";
+    //   formIsValid = false;
+    // } else if (isNaN(quantity)) {
+    //   errors.quantity = "Quantity must be a number";
+    //   formIsValid = false;
+    // }
 
     if (!category.trim()) {
       errors.category = "Category is required";
@@ -171,7 +171,10 @@ const EditProducts = () => {
         updatedProductData.append("expirationDate", expirationDate);
         updatedProductData.append("reOrderLevel", reOrderLevel);
         updatedProductData.append("productImage", productImage);
-        updatedProductData.append("price", JSON.stringify({ value: priceValue, unit: priceUnit }));
+        updatedProductData.append(
+          "price",
+          JSON.stringify({ value: priceValue, unit: priceUnit })
+        );
 
         await axios
           .put(
@@ -255,9 +258,9 @@ const EditProducts = () => {
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label className="col-sm-2 col-form-label"> Available Quantity </label>
+          <label className="col-sm-2 col-form-label"> Product Unit </label>
           <div className="col-sm-8">
-            <input
+            {/* <input
               type="text"
               className={`form-control ${
                 formErrors.quantity && "is-invalid"
@@ -269,7 +272,7 @@ const EditProducts = () => {
             />
             {formErrors.quantity && (
             <div className="invalid-feedback">{formErrors.quantity}</div>
-          )}
+          )} */}
 
             <select
               className="form-select"
@@ -278,6 +281,9 @@ const EditProducts = () => {
               onChange={(e) => setProductQtyUnit(e.target.value)}
             >
               <option value=""> Select Unit </option>
+              <option value="coconuts"> coconuts </option>
+              <option value="husks"> husks </option>
+              <option value="kg"> kg </option>
               <option value="packets"> packets </option>
               <option value="bottles"> bottles </option>
               <option value="g"> g </option>
@@ -289,7 +295,7 @@ const EditProducts = () => {
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label className="col-sm-2 col-form-label"> Unit Price </label>
           <div className="col-sm-8">
-          <select
+            <select
               className="form-select"
               name="unit"
               value={priceUnit}
