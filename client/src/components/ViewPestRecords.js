@@ -38,6 +38,12 @@ const ViewPestRecords = () => {
     getAllPestRecords();
   }, []);
 
+  //Remove Time in Identify Date Part
+function formatDate(pestDate) {
+  const date = new Date(pestDate);
+  return date.toISOString().split('T')[0]; 
+}
+
 
 //Implement PDF Download Function
 
@@ -167,7 +173,7 @@ const generatePDF = useReactToPrint({
                 <tr>
                   <td scope="row">{index + 1}</td>
                   <td>{pestrecords.treeID}</td>
-                  <td>{pestrecords.pestDate}</td>
+                  <td>{formatDate(pestrecords.pestDate)}</td>
                   <td>{pestrecords.pestName}</td>
                   <td>{pestrecords.pestType}</td>
                   <td>{pestrecords.quantity}</td>

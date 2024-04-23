@@ -33,6 +33,13 @@ const ViewSpread = () => {
     getAllRecords();
   }, []);
 
+  
+//Remove Time in Identify Date Part
+function formatDate(identifyDate) {
+  const date = new Date(identifyDate);
+  return date.toISOString().split('T')[0]; 
+}
+
   //Implement PDF Download Function
 
   const generatePDF = useReactToPrint({
@@ -73,7 +80,7 @@ const ViewSpread = () => {
                 <tr key={index}>
                   <td scope="row">{index + 1}</td>
                   <td>{records.treeID}</td>
-                  <td>{records.identifyDate}</td>
+                  <td>{formatDate(records.identifyDate)}</td>
                   <td>{records.disease}</td>
                   <td className={`spread-level ${records.spreadLevel}`}>
                     {records.spreadLevel}
