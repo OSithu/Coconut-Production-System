@@ -123,6 +123,29 @@ const ViewQualityRecords = () => {
   records.recordId.toLowerCase().includes(searchQualityRecords.toLowerCase()));
 
   return (
+    <div>
+      <div className="header">
+        <div>
+          <ul className="navbar">
+          <div className="navi-left">
+          <li>
+              <a class="active" href="#qhome">
+                Home
+              </a>
+            </li>
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="navi-right">
+            <li>
+              <a href="#qrecord">Quality Records</a>
+            </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <br></br> 
     <div className="container">
       <div>
         <h1>Quality Control Records</h1>
@@ -208,10 +231,10 @@ const ViewQualityRecords = () => {
           </div>
 
         </div>
-     // </div>
+      </div>
+</div>
 
-
-    //</div>
+    </div>
   )
 };
 export default ViewQualityRecords;
