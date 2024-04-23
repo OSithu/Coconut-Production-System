@@ -200,6 +200,7 @@ const EditFinanceDetails = () => {
     const [totalIncome, setTotalIncome] = useState('');
     const [totalExpences, setTotalExpences] = useState('');
     const [profitLoss, setProfitLoss] = useState('');
+    const [totalAAmount,setTotalAAmount]=useState('');
     const { id } = useParams();
 
 
@@ -226,6 +227,7 @@ const EditFinanceDetails = () => {
                 setMonth(formatDate(res.data.budgetrecord.month));
                 setTotalIncome(res.data.budgetrecord.totalIncome);
                 setTotalExpences(res.data.budgetrecord.totalExpences);
+                setTotalAAmount(res.data.totalAAmount);
                 setProfitLoss(res.data.budgetrecord.profitLoss);
                 console.log(res.data.message);
             })
@@ -253,6 +255,7 @@ const EditFinanceDetails = () => {
                 month: month,
                 totalIncome: totalIncome,
                 totalExpences: totalExpences,
+                totalAAmount:totalAAmount,
                 profitLoss: profitLoss,
             }
             await axios.put(`http://localhost:8000/financerecords/update/${id}`, updatedFinance)
@@ -314,6 +317,18 @@ return (
                     placeholder="Expences"
                     value={totalExpences}
                     onChange={(e) => setTotalExpences(e.target.value)}
+                />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+                <label style={{ marginBottom: '5px' }}>Amount</label>
+                <input
+                    type='number'
+                    className="form-control"
+                    name="amount"
+                    placeholder="Expences"
+                    value={totalAAmount}
+                    onChange={(e) => setTotalAAmount(e.target.value)}
                 />
             </div>
 

@@ -152,7 +152,7 @@ import "../stylesheets/printFinance.css";
 const ViewFianceDetails = () => {
   const componentPDF = useRef();
   const [allDetails, setAllDetails] = useState([]);
-  const [searchFinance, setSearchFinance] = useState('');
+  const [searchFinance, setSearchFinance] = useState('');//search
 
   useEffect(() => {
     const getDetails = async () => {
