@@ -65,23 +65,6 @@ router.get("/blocks", async (req, res) => {
     }
   });
 
-  //delete
-  // router.delete("/blocks/delete/:id", async (req, res) => {
-  //   try {
-  //     const blockDelete = await Blocks.findByIdAndDelete(req.params.id).exec();
-  
-  //     return res.json({
-  //       message: "Delete Successfully",
-  //       blockDelete,
-  //     });
-  //   } catch (err) {
-  //     return res.status(400).json({
-  //       message: "Unsuccessfull",
-  //       error: err.message,
-  //     });
-  //   }
-  // });
-
   router.delete("/blocks/delete/:id", async (req, res) => {
     try {
         // Find the block to delete

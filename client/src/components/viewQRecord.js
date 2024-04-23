@@ -41,7 +41,7 @@ const ViewQRecord = () => {
     });
 
     return (
-        
+
         <div className="col-md-8 mt-4 mx-auto">
             <h1 className="h3 mb-3 font-weight-normal">Record Details</h1>
 

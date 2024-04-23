@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 
 const UpdateHvstSchedule = () => {
 
-  const [date, setDate] = useState('');
+    const [date, setDate] = useState('');
     const [blockName, setBlockName] = useState('');
     const [inCharge, setInCharge] = useState('');
     const [staff01, setStaff01] = useState('');
@@ -32,118 +33,121 @@ const UpdateHvstSchedule = () => {
     };
 
     useEffect(() => {
-      const getRecord = async () => {
-          try {
-              const res = await axios.get(`http://localhost:8000/hScedule/${id}`);
-              const { schedule } = res.data;
-              setDate(formatDate(schedule.date));
-              setBlockName(schedule.blockName);
-              setInCharge(schedule.inCharge);
-              setStaff01(schedule.staff01);
-              setStaff02(schedule.staff02);
-              setStaff03(schedule.staff03);
-              
-          } catch (err) {
-              if (err.response) {
-                  console.log(err.response.data.error);
-              } else {
-                  console.log("Error occurred while getting axios get request");
-              }
-          }
-      };
+        const getRecord = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8000/hScedule/${id}`);
+                const { schedule } = res.data;
+                setDate(formatDate(schedule.date));
+                setBlockName(schedule.blockName);
+                setInCharge(schedule.inCharge);
+                setStaff01(schedule.staff01);
+                setStaff02(schedule.staff02);
+                setStaff03(schedule.staff03);
 
-      const getAllBlocks = async () => {
-        try {
-            const res = await axios.get(`http://localhost:8000/blocks`);
-            const formattedBlocks = res.data.existingBlocks.map(block => ({
-                ...block,
-                area: `${block.area.value} ${block.area.unit}`
-            }));
-            setAllBlocks(formattedBlocks);
-            console.log('Status : ' + res.data.success);
-        } catch (err) {
-            if (err.response) {
-                console.log(err.response.data.error);
+            } catch (err) {
+                if (err.response) {
+                    console.log(err.response.data.error);
+                } else {
+                    console.log("Error occurred while getting axios get request");
+                }
+            }
+        };
+
+        const getAllBlocks = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8000/blocks`);
+                const formattedBlocks = res.data.existingBlocks.map(block => ({
+                    ...block,
+                    area: `${block.area.value} ${block.area.unit}`
+                }));
+                setAllBlocks(formattedBlocks);
+                console.log('Status : ' + res.data.success);
+            } catch (err) {
+                if (err.response) {
+                    console.log(err.response.data.error);
+                }
             }
         }
-    }
 
-    const getEstStaff = async () => {
-        try {
-            const res = await axios.get(`http://localhost:8000/estStaff`);
-            setEstStaff(res.data.existingStaff);
-            console.log('Status : ' + res.data.success);
-        } catch (err) {
-            if (err.response) {
-                console.log(err.response.data.error)
+        const getEstStaff = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8000/estStaff`);
+                setEstStaff(res.data.existingStaff);
+                console.log('Status : ' + res.data.success);
+            } catch (err) {
+                if (err.response) {
+                    console.log(err.response.data.error)
+                }
             }
+        };
+
+        getAllBlocks();
+        getEstStaff();
+        getRecord();
+    }, [id]);
+
+    const updateDetails = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (validateForm()) {
+                let updatedRecord = {
+                    date,
+                    blockName,
+                    inCharge,
+                    staff01,
+                    staff02,
+                    staff03
+                };
+
+                const res = await axios.patch(`http://localhost:8000/hScedule/update/${id}`, updatedRecord);
+                alert(res.data.success);
+                console.log(res.data.success);
+                navigate(`/viewHvstSchedules`);
+            }
+        } catch (err) {
+            console.log('Update function failed:', err);
         }
     };
 
-    getAllBlocks();
-    getEstStaff();
+    // Function to validate the form
+    const validateForm = () => {
+        let formValid = true;
+        let errorsData = { ...errors };
 
-      getRecord();
-  }, [id]);
-
-  const updateDetails = async (e) => {
-    e.preventDefault();
-
-    try {
-        if (validateForm()) {
-            let updatedRecord = {
-                date,
-                blockName,
-                inCharge,
-                staff01,
-                staff02,
-                staff03
-            };
-
-            const res = await axios.patch(`http://localhost:8000/hScedule/update/${id}`, updatedRecord);
-            alert(res.data.success);
-            console.log(res.data.success);
-            navigate(`/viewHvstSchedules`);
+        if (!blockName.trim()) {
+            formValid = false;
+            errorsData.blockName = "Required";
         }
-    } catch (err) {
-        console.log('Update function failed:', err);
-    }
-};
+        if (!inCharge.trim()) {
+            formValid = false;
+            errorsData.inCharge = "Required";
+        }
+        if (!date.trim()) {
+            formValid = false;
+            errorsData.date = "Date is required";
+        } else if (new Date(date) < new Date()) {
+            formValid = false;
+            errorsData.date = "Date must be a future date";
+        }
 
-// Function to validate the form
-const validateForm = () => {
-    let formValid = true;
-    let errorsData = { ...errors };
+        setErrors(errorsData);
+        return formValid;
+    };
 
-    if (!blockName.trim()) {
-        formValid = false;
-        errorsData.blockName = "Required";
-    }
-    if (!inCharge.trim()) {
-        formValid = false;
-        errorsData.inCharge = "Required";
-    }
-    if (!date.trim()) {
-        formValid = false;
-        errorsData.date = "Date is required";
-    } else if (new Date(date) < new Date()) {
-        formValid = false;
-        errorsData.date = "Date must be a future date";
-    }
-
-    setErrors(errorsData);
-    return formValid;
-};
-
-  return (
-    <div>
-            <PlantationNav />
-            <div className="container text-center">
-                <h2> Update Schedule </h2>
-                <form className="needs-validation" noValidate onSubmit={updateDetails}>
+    return (
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
+            &nbsp;
+            <div className='plantBody'>
+                <h1 className='plantTopic'> Update Schedule </h1>
+                &nbsp;
+                <form className="needs-validation" noValidate onSubmit={updateDetails} id='plantForm2'>
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Date </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <input type="date"
                                 className={`form-control ${errors.date ? 'is-invalid' : ''}`}
                                 name="date"
@@ -155,7 +159,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Block Name </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
                                 name="blockName"
@@ -172,7 +176,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Person In Charge </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control ${errors.inCharge ? 'is-invalid' : ''}`}
                                 name="inCharge"
@@ -189,7 +193,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Staff Member 01 </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control`}
                                 name="staff01"
@@ -205,7 +209,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Staff Member 02 </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control`}
                                 name="staff02"
@@ -221,7 +225,7 @@ const validateForm = () => {
 
                     <div className="row mb-3">
                         <label className="col-sm-2 col-form-label"> Staff Member 03 </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10" id={'plantFormFeild'}>
                             <select
                                 className={`form-control`}
                                 name="staff03"
@@ -239,7 +243,7 @@ const validateForm = () => {
                 </form>
             </div>
         </div>
-  )
+    )
 }
 
 export default UpdateHvstSchedule

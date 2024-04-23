@@ -60,91 +60,94 @@ const EstateDetails = () => {
 
 
   return (
-    <div className='plantBody'>
-      <PlantationNav />
+    <div>
+      <div className='plantHeader'>
+        <PlantationNav />
+      </div>
       &nbsp;
-      <div className="container text-center">
-        <h1> Estate Details </h1>
-        &nbsp;&nbsp;
-        <div className="row align-items-start">
-          <div className="col">
-            <div className='plantCard'>
-              <div className="plantCard-body">
-                <h2 className="card-title">5 acres</h2>
-                <h3 className="card-subtitle mb-2 text-body-secondary">Area</h3>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <Link to={'/allTrees'} style={{ textDecoration: 'none' }}>
+      <div className='plantBody'>
+        <div className="container text-center">
+          <h1 className='plantTopic'> Estate Details </h1>
+          &nbsp;&nbsp;
+          <div className="row align-items-start">
+            <div className="col">
               <div className='plantCard'>
                 <div className="plantCard-body">
-                  <h2 className="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h2>
-                  <h3 className="card-subtitle mb-2 text-body-secondary">Trees</h3>
+                  <h2 className="card-title">5 acres</h2>
+                  <h3 className="card-subtitle mb-2 text-body-secondary">Area</h3>
                 </div>
               </div>
-            </Link>
-          </div>
-          <div className="col">
-            <div className='plantCard'>
-              <div className="plantCard-body">
-                <h2 className="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h2>
-                <h3 className="card-subtitle mb-2 text-body-secondary">Blocks</h3>
+            </div>
+            <div className="col">
+              <Link to={'/allTrees'} style={{ textDecoration: 'none' }}>
+                <div className='plantCard'>
+                  <div className="plantCard-body">
+                    <h2 className="card-title">{treeCount !== null ? treeCount : 'Loading...'}</h2>
+                    <h3 className="card-subtitle mb-2 text-body-secondary">Trees</h3>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col">
+              <div className='plantCard'>
+                <div className="plantCard-body">
+                  <h2 className="card-title">{blockCount !== null ? blockCount : 'Loading...'}</h2>
+                  <h3 className="card-subtitle mb-2 text-body-secondary">Blocks</h3>
+                </div>
               </div>
             </div>
           </div>
+
         </div>
 
-      </div>
+        &nbsp;
+        &nbsp;
 
-      &nbsp;
-      &nbsp;
-
-      <div className="container text-center">
-        <div className="row align-items-start">
-          <div className="col" id="plantDiv">
-            &nbsp;
-            <h1> Estate Layout </h1>
-            <img src="/images/layout.png" alt="estateLayout" className='layoutImg' />
-          </div>
-          <div className="col" id="plantDiv">
-            &nbsp;
-            <h1> Block Details </h1>
-            &nbsp;
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col"> Block Name </th>
-                  <th scope="col"> Area </th>
-                  <th scope="col">  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {allBlocks.map(blocks => (
+        <div className="container text-center">
+          <div className="row align-items-start">
+            <div className="col" id="plantDiv">
+              &nbsp;
+              <h1 className='plantTopic'> Estate Layout </h1>
+              <img src="/images/layout.png" alt="estateLayout" className='layoutImg' />
+            </div>
+            <div className="col" id="plantDiv">
+              &nbsp;
+              <h1 className='plantTopic'> Block Details </h1>
+              &nbsp;
+              <table className="table">
+                <thead>
                   <tr>
-                    <td> {blocks.blockName} </td>
-                    <td> {blocks.area}</td>
-                    <td>
-                      <Link to={`/viewBlock/${blocks._id}`}>
-                        <button type="button" className="btn btn-success">
-                          <i className="fa-regular fa-eye"></i>&nbsp;View
-                        </button>
-                      </Link>
-                    </td>
+                    <th scope="col"> Block Name </th>
+                    <th scope="col"> Area </th>
+                    <th scope="col">  </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {allBlocks.map(blocks => (
+                    <tr>
+                      <td> {blocks.blockName} </td>
+                      <td> {blocks.area}</td>
+                      <td>
+                        <Link to={`/viewBlock/${blocks._id}`}>
+                          <button type="button" className="btn btn-success">
+                            <i className="fa-regular fa-eye"></i>&nbsp;View
+                          </button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
 
-            <button type="button" class="btn btn-success">
-              <a href="/addBlock" style={{ textDecoration: "none", color: 'white' }}>
-                <i className="fa-solid fa-plus"></i>&nbsp;
-                Add New Record
-              </a>
-            </button>
-            &nbsp;
+              <button type="button" class="btn btn-success">
+                <a href="/addBlock" style={{ textDecoration: "none", color: 'white' }}>
+                  <i className="fa-solid fa-plus"></i>&nbsp;
+                  Add New Record
+                </a>
+              </button>
+              &nbsp;
+            </div>
           </div>
-
         </div>
 
       </div>

@@ -7,11 +7,13 @@ const EditProducts = () => {
   const [productName, setProductName] = useState("");
   const [productImage, setProductImage] = useState(null);
   const [quantity, setProductQty] = useState("");
+  const [quantityUnit, setProductQtyUnit] = useState("");
   const [category, setProductCategory] = useState("");
   const [manufacturedDate, setProductMD] = useState("");
   const [expirationDate, setProductED] = useState("");
   const [reOrderLevel, setProductROL] = useState("");
-  const [price, SetProductPrice] = useState("");
+  const [priceValue, setProductPriceValue] = useState("");
+  const [priceUnit, setProductPriceUnit] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
   const { id } = useParams();
@@ -63,11 +65,13 @@ const EditProducts = () => {
           setProductId(res.data.product.productId);
           setProductName(res.data.product.productName);
           setProductQty(res.data.product.quantity);
+          setProductQtyUnit(res.data.product.quantityUnit)
           setProductCategory(res.data.product.category);
           setProductMD(formatDate(res.data.product.manufacturedDate));
           setProductED(formatDate(res.data.product.expirationDate));
           setProductROL(res.data.product.reOrderLevel);
-          SetProductPrice(res.data.product.price);
+          setProductPriceValue(res.data.product.price.value);
+          setProductPriceUnit(res.data.product.price.unit);
           getProductImage(id);
           console.log(res.data.message);
         })
@@ -133,13 +137,13 @@ const EditProducts = () => {
       formIsValid = false;
     }
 
-    if (!price.trim()) {
-      errors.price = "Price is required";
-      formIsValid = false;
-    } else if (isNaN(price)) {
-      errors.reOrderLevel = "Price must be a number";
-      formIsValid = false;
-    }
+    // if (!price.trim()) {
+    //   errors.price = "Price is required";
+    //   formIsValid = false;
+    // } else if (isNaN(price)) {
+    //   errors.reOrderLevel = "Price must be a number";
+    //   formIsValid = false;
+    // }
 
     setFormErrors(errors);
     return formIsValid;
@@ -161,12 +165,13 @@ const EditProducts = () => {
         updatedProductData.append("productId", productId);
         updatedProductData.append("productName", productName);
         updatedProductData.append("quantity", quantity);
+        updatedProductData.append("quantityUnit", quantityUnit);
         updatedProductData.append("category", category);
         updatedProductData.append("manufacturedDate", manufacturedDate);
         updatedProductData.append("expirationDate", expirationDate);
         updatedProductData.append("reOrderLevel", reOrderLevel);
         updatedProductData.append("productImage", productImage);
-        updatedProductData.append("price", price);
+        updatedProductData.append("price", JSON.stringify({ value: priceValue, unit: priceUnit }));
 
         await axios
           .put(
@@ -200,7 +205,7 @@ const EditProducts = () => {
 
   return (
     <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Add new Product</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Update Product details</h1>
       <form className="needs-validation" noValidate onSubmit={updateData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Product ID</label>
@@ -250,37 +255,61 @@ const EditProducts = () => {
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Available Quantity</label>
-          <input
-            type="text"
-            className={`form-control ${formErrors.quantity && "is-invalid"}`}
-            name="quantity"
-            placeholder="Enter added quantity"
-            value={quantity}
-            onChange={(e) => setProductQty(e.target.value)}
-            required
-          />
-          {formErrors.quantity && (
+          <label className="col-sm-2 col-form-label"> Available Quantity </label>
+          <div className="col-sm-8">
+            <input
+              type="text"
+              className={`form-control ${
+                formErrors.quantity && "is-invalid"
+              }`}
+              name="quantity"
+              placeholder="Enter Quantity"
+              value={quantity}
+              onChange={(e) => setProductQty(e.target.value)}
+            />
+            {formErrors.quantity && (
             <div className="invalid-feedback">{formErrors.quantity}</div>
           )}
+
+            <select
+              className="form-select"
+              name="quantityUnit"
+              value={quantityUnit}
+              onChange={(e) => setProductQtyUnit(e.target.value)}
+            >
+              <option value=""> Select Unit </option>
+              <option value="packets"> packets </option>
+              <option value="bottles"> bottles </option>
+              <option value="g"> g </option>
+              <option value="litre"> litre </option>
+            </select>
+          </div>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Unit Price</label>
-          <input
-            type="text"
-            className={`form-control ${
-              formErrors.price && "is-invalid"
-            }`}
-            name="price"
-            placeholder="Enter unit price"
-            value={price}
-            onChange={(e) => SetProductPrice(e.target.value)}
-            required
-          />
-          {formErrors.price && (
-            <div className="invalid-feedback">{formErrors.price}</div>
-          )}
+          <label className="col-sm-2 col-form-label"> Unit Price </label>
+          <div className="col-sm-8">
+          <select
+              className="form-select"
+              name="unit"
+              value={priceUnit}
+              onChange={(e) => setProductPriceUnit(e.target.value)}
+            >
+              <option value=""> Select Unit </option>
+              <option value="Rs."> Rs. </option>
+              <option value="-"> - </option>
+            </select>
+
+            <input
+              type="text"
+              className={`form-control `}
+              name="price"
+              placeholder="Enter Unit Price"
+              value={priceValue}
+              onChange={(e) => setProductPriceValue(e.target.value)}
+              disabled={priceUnit === "-"}
+            />
+          </div>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>

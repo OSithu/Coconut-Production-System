@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import PlantationNav from './PlantationNav';
 import { useNavigate } from 'react-router-dom';
+import '../stylesheets/plantation.css';
 
 const AddBlock = () => {
 
@@ -66,58 +67,64 @@ const AddBlock = () => {
 
 
     return (
-        <div className="col-md-8 mt-4 mx auto">
-            
-            <PlantationNav />
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
             &nbsp;
+            <div className='plantBody'>
 
-            <h1 className="h3 mb-3 font-weight-normal"> Add New Record </h1>
+                <h1 className='plantTopic'> Add New Record </h1>
 
-            <form className="needs-validation" noValidate onSubmit={saveDetails}>
+                &nbsp;
 
-                <div class="row mb-3">
-                    <label className="col-sm-2 col-form-label"> Block Name </label>
-                    <div className="col-sm-10">
-                        <input type="text"
-                            class={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
-                            name="blockName"
-                            placeholder="Enter Block Name"
-                            value={blockName}
-                            onChange={(e) => setBlockName(e.target.value)} />
-                        {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
+                <form className="needs-validation" noValidate onSubmit={saveDetails} id='plantForm2'>
+
+                    <div class="row mb-3">
+                        <label className="col-sm-2 col-form-label"> Block Name </label>
+                        <div className="col-sm-10" id={'plantFormFeild'}>
+                            <input type="text"
+                                class={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
+                                name="blockName"
+                                placeholder="Enter Block Name"
+                                value={blockName}
+                                onChange={(e) => setBlockName(e.target.value)} />
+                            {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
+                        </div>
                     </div>
-                </div>
 
-                <div class="row mb-3">
-                    <label className="col-sm-2 col-form-label"> Area </label>
-                    <div className="col-sm-8">
-                        <input
-                            type="text"
-                            className={`form-control ${errors.area ? 'is-invalid' : ''}`}
-                            name="area"
-                            placeholder="Enter Area"
-                            value={areaValue}
-                            onChange={(e) => setAreaValue(e.target.value)}
-                        />
-                        {errors.area && <div className="invalid-feedback">{errors.area}</div>}
+                    <div class="row mb-3">
+                        <label className="col-sm-2 col-form-label"> Area </label>
+                        <div className="col-sm-10" id={'plantFormFeild'}>
+                            <div className="input-group" >
+                                <input
+                                    type="text"
+                                    className={`form-control ${errors.area ? 'is-invalid' : ''}`}
+                                    name="area"
+                                    placeholder="Enter Area"
+                                    value={areaValue}
+                                    onChange={(e) => setAreaValue(e.target.value)}
+                                />
+                                {errors.area && <div className="invalid-feedback">{errors.area}</div>}
 
-                        <select
-                            className="form-select"
-                            name="unit"
-                            value={areaUnit}
-                            onChange={(e) => setAreaUnit(e.target.value)}
-                        >
-                            <option value=""> Select Unit </option>
-                            <option value="sqm"> sqm </option>
-                            <option value="sqft"> sqft </option>
-                            <option value="hectare"> hectare </option>
-                            <option value="acre"> acre </option>
-                        </select>
-
+                                <select
+                                    className="form-select"
+                                    name="unit"
+                                    value={areaUnit}
+                                    onChange={(e) => setAreaUnit(e.target.value)}
+                                >
+                                    <option value=""> Select Unit </option>
+                                    <option value="sqm"> sqm </option>
+                                    <option value="sqft"> sqft </option>
+                                    <option value="hectare"> hectare </option>
+                                    <option value="acre"> acre </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
-            </form>
+                    <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>Submit</button>
+                </form>
+            </div>
         </div>
     )
 }

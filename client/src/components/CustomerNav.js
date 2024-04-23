@@ -9,16 +9,10 @@ export default class CustomerNav extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="nav nav-tabs">
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/estateDetails">Customer Details</NavLink>
+                                <NavLink className="nav-link" activeClassName="active" to="/viewCus">Customer Details</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/viewHarvest">Harvest Details</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/viewHvstSchedules">Harvesting Schedules</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/estStaff">Estate Staff</NavLink>
+                                <NavLink className="nav-link" activeClassName="active" to="/viewOrder">Order Details</NavLink>
                             </li>
                         </ul>
                     </div>
