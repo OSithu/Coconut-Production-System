@@ -107,8 +107,8 @@ const ViewProductCnt = () => {
         <table className="table" style={{backgroundColor: "rgba(217, 255, 242, 0.6)", borderRadius:"10px", marginTop: "20px"}}>
           <thead>
             <tr>
-              <th scope="col" style={{ borderRight: "1px solid white" }}>productId</th>
-              <th scope="col" style={{ borderRight: "1px solid white" }}>quantity(kg or litre)</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Product ID</th>
+              <th scope="col" style={{ borderRight: "1px solid white" }}>Quantity</th>
               <th scope="col" style={{ borderRight: "1px solid white" }}>Date</th>
               <th scope="col" style={{ borderRight: "1px solid white" }}>Description</th>
               <th scope="col" style={{ borderRight: "1px solid white" }}>Actions</th>
@@ -129,7 +129,7 @@ const ViewProductCnt = () => {
                   </Link>
                 </td>
                 {/* <td>{productCnt.productId}</td> */}
-                <td style={{ borderRight: "1px solid white" }}>{productCnt.quantity}</td>
+                <td style={{ borderRight: "1px solid white" }}>{productCnt.quantity} {productCnt.quantityUnit}</td>
                 <td style={{ borderRight: "1px solid white" }}>{productCnt.productDate}</td>
                 <td style={{ borderRight: "1px solid white" }}>{productCnt.description}</td>
                 <td style={{ borderRight: "1px solid white" }}>
