@@ -14,6 +14,10 @@ const BudgetpostSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    totalAAmount:{
+        type:Number,
+        required:true
+    },
     profitLoss:{
         type:String,
         required:true
