@@ -4,7 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const EditProductCnt = () => {
   const [productId, setProductId] = useState("");
+  const [productIds, setProductIds] = useState([]);
   const [quantity, setProductQty] = useState("");
+  const [quantityUnit, setProductQtyUnit] = useState("");
   const [productDate, setProductDate] = useState("");
   const [description, setProductDesc] = useState("");
 
@@ -29,6 +31,7 @@ const EditProductCnt = () => {
           console.log("API Response Date:", res.data.productCnt.productDate);
           setProductId(res.data.productCnt.productId);
           setProductQty(res.data.productCnt.quantity);
+          setProductQtyUnit(res.data.productCnt.quantityUnit)
           setProductDate(formatDate(res.data.productCnt.productDate));
           setProductDesc(res.data.productCnt.description);
           console.log(res.data.message);
@@ -41,49 +44,21 @@ const EditProductCnt = () => {
           }
         });
     };
+    const getProductIds = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8000/productsDet`);
+        setProductIds(res.data.existingProducts);
+        console.log("Status : " + res.data.success);
+      } catch (err) {
+        if (err.response) {
+          console.log(err.response.data.error);
+        }
+      }
+    };
 
     getOneProductRecord();
+    getProductIds();
   }, [id]);
-
-  // const updateData = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const confirmed = window.confirm(
-  //       "Are you sure you want to update this product?"
-  //     );
-  //     if (confirmed) {
-  //       let updatedProductData = {
-  //         productId: productId,
-  //         quantity: quantity,
-  //         productDate: productDate,
-  //         description: description,
-  //       };
-
-  //       await axios
-  //         .put(
-  //           `http://localhost:8000/productCnt/update/${id}`,
-  //           updatedProductData
-  //         )
-  //         .then((res) => {
-  //           alert(res.data.success);
-  //           console.log(res.data.success);
-  //           navigate("/viewProductCnt");
-  //         })
-  //         .catch((err) => {
-  //           if (err.response) {
-  //             console.log(err.response.data.success);
-  //           } else {
-  //             console.log("Error occured while processing your put request");
-  //           }
-  //         });
-  //     } else {
-  //       alert("Update cancelled!");
-  //     }
-  //   } catch (err) {
-  //     console.log("Update failed!");
-  //   }
-  // };
 
   const updateData = async (e) => {
     e.preventDefault();
@@ -96,6 +71,7 @@ const EditProductCnt = () => {
         let updatedProductData = {
           productId: productId,
           quantity: quantity,
+          quantityUnit: quantityUnit,
           productDate: productDate,
           description: description,
         };
@@ -148,7 +124,7 @@ const EditProductCnt = () => {
         Update Product Count Record
       </h1>
       <form className="needs-validation" noValidate onSubmit={updateData}>
-        <div className="form-group" style={{ marginBottom: "15px" }}>
+        {/* <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Product ID</label>
           <input
             type="text"
@@ -159,19 +135,49 @@ const EditProductCnt = () => {
             onChange={(e) => setProductId(e.target.value)}
             required
           />
+        </div> */}
+        <div className="form-group" style={{ marginBottom: "15px" }}>
+          <label style={{ marginBottom: "5px" }}>Product ID</label>
+          <select
+            className={`form-control`}
+            name="productId"
+            value={productId}
+            onChange={(e) => setProductId(e.target.value)}
+          >
+            <option value="">Select Product ID</option>
+            {productIds.map((productId, index) => (
+              <option key={index} value={productId.productId}>
+                {productId.productId}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Quantity</label>
-          <input
-            type="text"
-            className={`form-control`}
-            name="quantity"
-            placeholder="Enter added quantity"
-            value={quantity}
-            onChange={(e) => setProductQty(e.target.value)}
-            required
-          />
+          <label className="col-sm-2 col-form-label"> Available Quantity </label>
+          <div className="col-sm-8">
+            <input
+              type="text"
+              className={`form-control`}
+              name="quantity"
+              placeholder="Enter Quantity"
+              value={quantity}
+              onChange={(e) => setProductQty(e.target.value)}
+            />
+
+            <select
+              className="form-select"
+              name="quantityUnit"
+              value={quantityUnit}
+              onChange={(e) => setProductQtyUnit(e.target.value)}
+            >
+              <option value=""> Select Unit </option>
+              <option value="packets"> packets </option>
+              <option value="bottles"> bottles </option>
+              <option value="g"> g </option>
+              <option value="litre"> litre </option>
+            </select>
+          </div>
         </div>
 
         <div className="form-group" style={{ marginBottom: "15px" }}>

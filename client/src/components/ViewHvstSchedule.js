@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import PlantationNav from './PlantationNav';
+import '../stylesheets/plantation.css';
 import { useReactToPrint } from 'react-to-print';
 
 const ViewHvstSchedule = () => {
@@ -44,7 +45,7 @@ const ViewHvstSchedule = () => {
                 setStaff03(schedule.staff03);
                 setAssignedDate(formatDate(schedule.assignedDate));
                 setCurrentDate(formatDate(new Date()));
-                
+
 
             } catch (err) {
                 if (err.response) {
@@ -64,53 +65,59 @@ const ViewHvstSchedule = () => {
     })
 
     return (
-        <div className='plantBody'>
-            <PlantationNav />
+        <div>
+            <div className='plantHeader'>
+                <PlantationNav />
+            </div>
             &nbsp;
+            <div className='plantBody'>
 
-            <div ref={componentPDF}>
+                <button type="button" className="btn btn-success" onClick={generateReport} id='plantButton'>
+                    <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
+                </button>
 
-            <div className="print-header" style={{ display: "none" }}>
-                    <h1> Jayakody Koppara Stores </h1>
-                    <hr/>
-                </div>
-<div className='plantReport'>
-                <h1 className='plantTopic'> Harvesting Schedule </h1>
-                &nbsp;
-                <div class="row">
-                    <div class="col-5"> Scheduled Date : </div>
-                    {date}
-                </div>
-                <div class="row">
-                    <div class="col-5"> Block : </div>
-                    {blockName}
-                </div>
-                <div class="row">
-                    <div class="col-5"> Staff In Charge : </div>
-                    {inCharge}
-                </div>
-                <div class="row">
-                    <div class="col-5"> Assigned Staff : </div>
-                    {staff01}
-                </div>
-                <div class="row">
-                    <div class="col-5">  </div>
-                    {staff02}
-                </div>
-                <div class="row">
-                    <div class="col-5">  </div>
-                    {staff03}
-                </div>
-                <p style={{ textAlign: 'right' }}> Assigned on {assignedDate} </p>
-                </div>
-                <div className="print-footer" style={{ display: "none" }}>
-                    <hr/>
-                    <p>Report Generated on {currentDate} </p>
+                <div ref={componentPDF}>
+
+                    <div className="print-header" style={{ display: "none" }}>
+                        <h1> Jayakody Koppara Stores </h1>
+                        <hr />
+                    </div>
+                    <div className='plantReport'>
+                        <h1 className='plantTopic'> Harvesting Schedule </h1>
+                        &nbsp;
+                        <div class="row">
+                            <div class="col-5"> Scheduled Date : </div>
+                            {date}
+                        </div>
+                        <div class="row">
+                            <div class="col-5"> Block : </div>
+                            {blockName}
+                        </div>
+                        <div class="row">
+                            <div class="col-5"> Staff In Charge : </div>
+                            {inCharge}
+                        </div>
+                        <div class="row">
+                            <div class="col-5"> Assigned Staff : </div>
+                            {staff01}
+                        </div>
+                        <div class="row">
+                            <div class="col-5">  </div>
+                            {staff02}
+                        </div>
+                        <div class="row">
+                            <div class="col-5">  </div>
+                            {staff03}
+                        </div>
+                        <p style={{ textAlign: 'right' }}> Assigned on {assignedDate} </p>
+                    </div>
+                    <div className="print-footer" style={{ display: "none" }}>
+                        <hr />
+                        <p>Report Generated on {currentDate} </p>
+                    </div>
                 </div>
             </div>
-            <button onClick={generateReport}> Generate Report </button>
         </div>
-
     )
 }
 

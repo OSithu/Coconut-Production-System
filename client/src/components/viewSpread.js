@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState , useRef } from "react";
+import "./../stylesheets/disease.css"
 
-
-// import { useReactToPrint } from "react-to-print";
 //npm install react-to-print
 import { useReactToPrint } from "react-to-print";
+import { BsSearch } from 'react-icons/bs';
 
 
 const ViewSpread = () => {
@@ -12,6 +12,8 @@ const ViewSpread = () => {
   const conponentPDF= useRef();
   
   const [allRecords, setAllRecord] = useState([]);
+  const [searchRecord, setSearchRecord] = useState('');
+
 
   useEffect(() => {
     const getAllRecords = async () => {
@@ -77,30 +79,64 @@ const generatePDF = useReactToPrint({
     }
   };
 
+      // Filter allRecords based on searchFertilization
+      const filteredRecord = allRecords.filter(records =>
+        records.treeID.toLowerCase().includes(searchRecord.toLowerCase())
+      );
+
   return (
     <div>
-      <div>
-        <ul className="navbar">
+            <div className="header">
+        <div>
+         
+          <ul className="navbar">
+          <div className="nav-left">
           <li>
-            <a class="active" href="#home">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#news">Spread Records</a>
-          </li>
-          <li>
-            <a href="#contact">Pest Records</a>
-          </li>
-          <li>
-            <a href="#about">Pest Finder</a>
-          </li>
-          <li>
-            <a href="#about">Diseases</a>
-          </li>
-        </ul>
+              <a class="active" href="#home">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#news">Spread Records</a>
+            </li>
+            <li>
+              <a href="#contact">Pest Records</a>
+            </li>
+           
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="nav-right">
+            <li>
+              <a href="#news">Diseases</a>
+            </li>
+            <li>
+              <a href="#contact">Pest Finder</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            </div>
+
+          </ul>
+        </div>
       </div>
-      <h1>All Records</h1>
+      <br></br>
+      <h1 className='plantTopic'>Spread Records</h1>
+      {/* search */}
+     <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by Tree No"
+          value={searchRecord}
+          onChange={(e) => setSearchRecord(e.target.value)}
+        />
+        <button className="btn btn-outline-secondary" type="button">
+          <BsSearch />
+        </button>
+      </div>
       <div className="container">
         <button className="btn btn-success">
           <a
@@ -113,7 +149,7 @@ const generatePDF = useReactToPrint({
 
         <div style={{ marginTop: "20px" }}>
           <div ref={conponentPDF} style={{width:"100%"}}>
-          <table className="table">
+          <table className="table" id='plantTable'>
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -127,7 +163,7 @@ const generatePDF = useReactToPrint({
             </thead>
 
             <tbody>
-              {allRecords.map((records, index) => (
+            { filteredRecord.map((records, index) => (
                 <tr>
                   <td scope="row">{index + 1}</td>
                   <td>{records.treeID}</td>
@@ -160,7 +196,14 @@ const generatePDF = useReactToPrint({
           </div>
 
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
-          <button className="btn btn-success" onClick={generatePDF}>PDF</button>  </div> 
+          <button className="btn btn-success">
+          <a
+            href="/spreadReport"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Generate PDF
+          </a>
+        </button>  </div> 
 
           </div>
 

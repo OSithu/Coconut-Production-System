@@ -7,15 +7,15 @@ const router = express.Router();
 // Save product count
 router.post("/productCnt/save", async (req, res) => {
   try {
-    // Check if the product exists in the Products collection
-    const existingProduct = await Products.findOne({
-      productId: req.body.productId,
-    });
+    // // Check if the product exists in the Products collection
+    // const existingProduct = await Products.findOne({
+    //   productId: req.body.productId,
+    // });
 
-    if (!existingProduct) {
-      // If the product does not exist, return an error
-      return res.status(400).json({ error: "Product ID does not exist." });
-    }
+    // if (!existingProduct) {
+    //   // If the product does not exist, return an error
+    //   return res.status(400).json({ error: "Product ID does not exist." });
+    // }
 
     // If the product exists, save the new product count
     const newProductCnt = new ProductCnt(req.body);
@@ -104,4 +104,20 @@ router.delete("/productCnt/delete/:id", async (req, res) => {
   }
 });
 
+//get product ID from product table
+
+router.get("/productsDet", async (req, res) => {
+  try {
+    const product = await Products.find().exec();
+
+    return res.status(200).json({
+      success: true,
+      existingProducts: product
+    });
+  }catch (err){
+    return res.status(400).json({
+      error:err.message
+    });
+  }
+})
 module.exports = router;

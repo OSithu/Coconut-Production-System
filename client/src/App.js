@@ -80,6 +80,7 @@ import CustomerProfile from "./components/CustomerProfile";
 import OrderProfile from "./components/OrderProfile";
 
 import Profile from "./components/Profile";
+import GenerateSpreadReport from "./components/GenerateSpreadReport";
 
 function App() {
   return (
@@ -172,6 +173,7 @@ function App() {
           <Route path="/OrderProfile/:id" Component={OrderProfile} />
 
           <Route path="/Profile/:username" Component={Profile} />
+          <Route path="/spreadReport" Component={GenerateSpreadReport} />
 
         </Routes>
       </div>

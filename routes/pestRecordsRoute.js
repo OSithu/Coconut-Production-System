@@ -1,14 +1,14 @@
 const express = require("express");
-const Trees = require('../models/treeModel');
+const Trees = require("../models/treeModel");
 
-// Import our Disease Spread model
-const Spread_Records = require("../models/diseasespread");
+// Import our Pest Records Model
+const Pest_Add_Records = require("../models/pestRecordsModel");
 
 const router = express.Router();
 
-//Create Spread Record
+//Create Pest Add Record
 
-router.post("/diseasespread/create", async (req, res) => {
+router.post("/pestrecord/create", async (req, res) => {
   try {
     // Check if treeID already exists in the database
     const existingTree = await Trees.findOne({ treeID: req.body.treeID });
@@ -16,15 +16,15 @@ router.post("/diseasespread/create", async (req, res) => {
       return res.status(400).json({ error: "Tree ID is Invalid" });
     }
     // Create a new Records instance
-    let newSpread = new Spread_Records(req.body);
+    let newPestRecord = new Pest_Add_Records(req.body);
 
     // Save the new Records
-    await newSpread.save();
+    await newPestRecord.save();
 
     // Return success response
     return res.status(200).json({
-      success: "Spread Record saved Successfully",
-      message: "Spread Record Added Successfully",
+      success: "Pest Record saved Successfully",
+      message: "Pest Record Added Successfully",
     });
   } catch (err) {
     // Return error response
@@ -34,13 +34,13 @@ router.post("/diseasespread/create", async (req, res) => {
   }
 });
 
-//View Spread Records
-router.get("/records", async (req, res) => {
+//View Pest Add Records
+router.get("/pestaddrecords", async (req, res) => {
   try {
-    const records = await Spread_Records.find().exec();
+    const pestaddrecords = await Pest_Add_Records.find().exec();
     return res.status(200).json({
       success: true,
-      existingRecords: records,
+      existingPestAddRecords: pestaddrecords,
     });
   } catch (err) {
     return res.status(400).json({
@@ -49,15 +49,15 @@ router.get("/records", async (req, res) => {
   }
 });
 
-//Update Records
-router.put("/diseasespread/update/:id", async (req, res) => {
+//Update Pest Add Records
+router.put("/pestrecord/update/:id", async (req, res) => {
   try {
-    await Spread_Records.findByIdAndUpdate(req.params.id, {
+    await Pest_Add_Records.findByIdAndUpdate(req.params.id, {
       $set: req.body,
     }).exec();
     return res.status(200).json({
-      success: "Record updated Successfully",
-      message: "Record updated Successfully",
+      success: "Pest Add Record updated Successfully",
+      message: "Pest Add Record updated Successfully",
     });
   } catch (err) {
     return res.status(400).json({
@@ -66,32 +66,32 @@ router.put("/diseasespread/update/:id", async (req, res) => {
   }
 });
 
-//Get Specific Spread Record
-router.get("/record/:id", async (req, res) => {
+//Get Specific Pest Add Record
+router.get("/pestrecord/:id", async (req, res) => {
   try {
-    let recordID = req.params.id;
-    let record = await Spread_Records.findById(recordID);
-    if (!record) {
+    let pest_recordID = req.params.id;
+    let pest_record = await Pest_Add_Records.findById(pest_recordID);
+    if (!pest_record) {
       return res
         .status(404)
         .json({ success: false, message: "Record not found" });
     }
-    return res.status(200).json({ success: true, record });
+    return res.status(200).json({ success: true, pest_record });
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
   }
 });
 
-//Delete Spread Records
+//Delete Pest Add Records
 
-router.delete("/diseasespread/delete/:id", async (req, res) => {
+router.delete("/pestrecord/delete/:id", async (req, res) => {
   try {
-    const deletedRecords = await Spread_Records.findByIdAndDelete(
+    const deletedPestRecords = await Pest_Add_Records.findByIdAndDelete(
       req.params.id
     ).exec();
     return res.status(200).json({
       message: "Records deleted Successfully",
-      deletedRecords: deletedRecords,
+      deletedPestRecords: deletedPestRecords,
     });
   } catch (err) {
     return res.status(400).json({
