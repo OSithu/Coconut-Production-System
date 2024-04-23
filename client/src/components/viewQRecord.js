@@ -22,9 +22,9 @@ const ViewQRecord = () => {
         const year = date.getFullYear();
         let month = (1 + date.getMonth()).toString().padStart(2, "0");
         let day = date.getDate().toString().padStart(2, "0");
-      
-        return `${year}-${month}-${day}`; 
-      };
+
+        return `${year}-${month}-${day}`;
+    };
 
     useEffect(() => {
         const getOneRecord = async () => {
@@ -107,99 +107,104 @@ const ViewQRecord = () => {
         `);
         newWindow.print();
         newWindow.close();
-      };
-    
+    };
+
 
     return (
         <div>
 
-        <div className="col-md-8 mt-4 mx-auto quality-records-container">
-            <h1 className="h3 mb-3 font-weight-normal">Record Details</h1>
+            <div className="col-md-8 mt-4 mx-auto quality-records-container">
+                <h1 className="h3 mb-3 font-weight-normal">Record Details</h1>
 
-            <div style={{ marginTop: "20px" }}>
-                <div ref={componentPDF} style={{ width: "100%" }}>
+                <div style={{ marginTop: "20px" }}>
+                    <div ref={componentPDF} style={{ width: "100%" }}>
 
-                <div className="print-header" style={{ display: "none" }}>
-            <img src="/images/logo.png" className='imageReport2' />
-            <h1> Jayakody Koppara Stores </h1>
-            <hr />
-          </div>
-<div className="reportForm2">
-<form className="needs-validation" noValidate>
+                        <div className="print-header" style={{ display: "none" }}>
+                            <img src="/images/logo.png" className='imageReport2' />
+                            <h1> Jayakody Koppara Stores </h1>
+                            <hr />
+                        </div>
+                        <div className="reportForm2">
+                            <form className="needs-validation" noValidate>
 
-<div className="form-group" style={{ marginBottom: '15px' }}>
-    <label style={{ marginBottom: '5px' }}>Record ID</label>
-    <input
-        type="text"
-        className="form-control"
-        name="recordId"
-        // placeholder="Enter RecordID "
-        onChange={(e) => setRecordId(e.target.value)}
-        value={recordId}
-        disabled
-    />
-</div>
+                                <div className="form-group" style={{ marginBottom: '15px' }}>
+                                    <label style={{ marginBottom: '5px' }}>Record ID</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="recordId"
+                                        // placeholder="Enter RecordID "
+                                        onChange={(e) => setRecordId(e.target.value)}
+                                        value={recordId}
+                                        disabled
+                                    />
+                                </div>
 
-<div className="form-group" style={{ marginBottom: '15px' }}>
-    <label style={{ marginBottom: '5px' }}>Product Type</label>
-    <input type="text"
-        className="form-control"
-        name="productType"
-        //placeholder="Enter Product Type"
-        onChange={(e) => setProductType(e.target.value)}
-        value={productType}
-        disabled
-    />
-</div>
+                                <div className="form-group" style={{ marginBottom: '15px' }}>
+                                    <label style={{ marginBottom: '5px' }}>Product Type</label>
+                                    <input type="text"
+                                        className="form-control"
+                                        name="productType"
+                                        //placeholder="Enter Product Type"
+                                        onChange={(e) => setProductType(e.target.value)}
+                                        value={productType}
+                                        disabled
+                                    />
+                                </div>
 
-<div className="form-group" style={{ marginBottom: '15px' }}>
-    <label style={{ marginBottom: '5px' }}>Quality Checked Date</label>
-    <input
-        type="date"
-        className="form-control"
-        name="qualityCheckedDate"
-        //placeholder="Enter Quality Checked Date"
-        onChange={(e) => setQualityCheckedDate(e.target.value)}
-        value={qualityCheckedDate}
-        disabled
-    />
-</div>
+                                <div className="form-group" style={{ marginBottom: '15px' }}>
+                                    <label style={{ marginBottom: '5px' }}>Quality Checked Date</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        name="qualityCheckedDate"
+                                        //placeholder="Enter Quality Checked Date"
+                                        onChange={(e) => setQualityCheckedDate(e.target.value)}
+                                        value={qualityCheckedDate}
+                                        disabled
+                                    />
+                                </div>
 
-<div className="form-group" style={{ marginBottom: '15px' }}>
-    <label style={{ marginBottom: '5px' }}>Special Notes</label>
-    <input type="text"
-        className="form-control"
-        name="specialNotes"
-        //placeholder="Enter Special Notes"
-        onChange={(e) => setSpecialNotes(e.target.value)}
-        value={specialNotes}
-        disabled
-    />
-</div>
+                                <div className="form-group" style={{ marginBottom: '15px' }}>
+                                    <label style={{ marginBottom: '5px' }}>Special Notes</label>
+                                    <input type="text"
+                                        className="form-control"
+                                        name="specialNotes"
+                                        //placeholder="Enter Special Notes"
+                                        onChange={(e) => setSpecialNotes(e.target.value)}
+                                        value={specialNotes}
+                                        disabled
+                                    />
+                                </div>
 
-<div className="form-group" style={{ marginBottom: '15px' }}>
-    <label style={{ marginBottom: '5px' }}>Test Result</label>
-    <input type="text"
-        className="form-control"
-        name="testResult"
-        //placeholder="Enter Test Result"
-        onChange={(e) => setTestResult(e.target.value)}
-        value={testResult}
-        disabled
-    />
-</div>
-</form>
-</div>
-                   
+                                <div className="form-group" style={{ marginBottom: '15px' }}>
+                                    <label style={{ marginBottom: '5px' }}>Test Result</label>
+                                    <input type="text"
+                                        className="form-control"
+                                        name="testResult"
+                                        //placeholder="Enter Test Result"
+                                        onChange={(e) => setTestResult(e.target.value)}
+                                        value={testResult}
+                                        disabled
+                                    />
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
                 </div>
-               
+
+
             </div>
-            
+            {/* <div className="d-grid d-md-flex justify-content-md-end mb-3">
+                    <button className="btn btn-success border border-secondary" onClick={generatePDF}>Generate Report</button>
+                </div> */}
 
-        </div>
-        <div className="d-grid d-md-flex justify-content-md-end mb-3">
-                    <button className="btn btn-light border border-secondary" onClick={generatePDF}>Generate Report</button>
-                </div>
+            <div className="d-flex justify-content-center mt-3">
+                <button className="btn btn-success border border-secondary" onClick={generatePDF}>Generate Report</button>
+            </div>
+
         </div>
     );
 };
