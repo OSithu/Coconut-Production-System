@@ -257,8 +257,8 @@ const filteredBudget = allDetails.filter(budget =>
           </tr>
         </thead>
         <tbody>
-          {allDetails.map(budget => (
-            <tr key={budget._id}>
+        {filteredBudget.map((budget,index)=> (
+              <tr key={index}>
               <td>{budget.month}</td>
               <td>Rs.{String(budget.totalIncome)}</td> {/* Prepend "Rs" */}
               <td>Rs.{String(budget.totalExpences)}</td> {/* Prepend "Rs" */}
