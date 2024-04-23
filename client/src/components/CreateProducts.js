@@ -34,13 +34,13 @@ const CreateProducts = () => {
       formIsValid = false;
     }
 
-    if (!quantity.trim()) {
-      errors.quantity = "Quantity is required";
-      formIsValid = false;
-    } else if (isNaN(quantity)) {
-      errors.quantity = "Quantity must be a number";
-      formIsValid = false;
-    }
+    // if (!quantity.trim()) {
+    //   errors.quantity = "Quantity is required";
+    //   formIsValid = false;
+    // } else if (isNaN(quantity)) {
+    //   errors.quantity = "Quantity must be a number";
+    //   formIsValid = false;
+    // }
 
     if (!category.trim()) {
       errors.category = "Category is required";
@@ -234,10 +234,10 @@ const CreateProducts = () => {
           <div className="form-group" style={{ marginBottom: "15px" }}>
             <label className="col-sm-2 col-form-label">
               {" "}
-              Available Quantity{" "}
+              Product Unit{" "}
             </label>
             <div className="col-sm-8">
-              <input
+              {/* <input
                 type="text"
                 className={`form-control ${
                   formErrors.quantity && "is-invalid"
@@ -249,7 +249,7 @@ const CreateProducts = () => {
               />
               {formErrors.quantity && (
                 <div className="invalid-feedback">{formErrors.quantity}</div>
-              )}
+              )} */}
 
               <select
                 className="form-select"
@@ -258,6 +258,9 @@ const CreateProducts = () => {
                 onChange={(e) => setProductQtyUnit(e.target.value)}
               >
                 <option value=""> Select Unit </option>
+                <option value="coconuts"> coconuts </option>
+                <option value="husks"> husks </option>
+                <option value="kg"> kg </option>
                 <option value="packets"> packets </option>
                 <option value="bottles"> bottles </option>
                 <option value="g"> g </option>

@@ -38,6 +38,12 @@ const ViewPestRecords = () => {
     getAllPestRecords();
   }, []);
 
+  //Remove Time in Identify Date Part
+function formatDate(pestDate) {
+  const date = new Date(pestDate);
+  return date.toISOString().split('T')[0]; 
+}
+
 
 //Implement PDF Download Function
 
@@ -83,6 +89,11 @@ const generatePDF = useReactToPrint({
       const filteredPestRecord = allPestRecords.filter(pestrecords =>
         pestrecords.treeID.toLowerCase().includes(searchPestRecord.toLowerCase())
       );
+
+        // Add a unit to quantity 
+  const getUnit = (pestType) => {
+    return pestType === 'Liquid Formulations' ? 'ml' : 'g';
+  };
 
   return (
     <div>
@@ -167,11 +178,11 @@ const generatePDF = useReactToPrint({
                 <tr>
                   <td scope="row">{index + 1}</td>
                   <td>{pestrecords.treeID}</td>
-                  <td>{pestrecords.pestDate}</td>
+                  <td>{formatDate(pestrecords.pestDate)}</td>
                   <td>{pestrecords.pestName}</td>
                   <td>{pestrecords.pestType}</td>
-                  <td>{pestrecords.quantity}</td>
-                  <td>
+                  <td>{pestrecords.quantity + " " + getUnit(pestrecords.pestType)}</td>                 
+                   <td>
                     <a
                       className="btn btn-warning"
                       href={`/editDisease/${pestrecords._id}`}

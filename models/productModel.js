@@ -15,11 +15,11 @@ const productSchema = new mongoose.Schema({
   },
   quantity: {
     type: Number,
-    required: true,
+    required: false,
   },
   quantityUnit: {
     type: String,
-    required: true,
+    required: false,
   },
   category: {
     type: String,

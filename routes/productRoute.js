@@ -142,7 +142,7 @@ router.get("/products/:id", async (req, res) => {
   }
 });
 
-//get products with 'Products' as category
+//get products according to category
 router.get("/productCat", async (req, res) => {
   try {
     const productCat = await Products.find({ $or: [{ category: "Products" }, { category: "By-products" }] });
@@ -333,24 +333,21 @@ router.put("/products/editQuantity/:productId", async (req, res) => {
 //   }
 // });
 
-// Get total document count
-router.get("/products/count", async (req, res) => {
-  try {
-    const totalCount = await Products.countDocuments().exec();
+// // Get total document count
+// router.get("/products/count", async (req, res) => {
+//   try {
+//     const totalCount = await Products.countDocuments().exec();
 
-    return res.json({
-      success: true,
-      totalCount: totalCount,
-    });
-  } catch (err) {
-    return res.status(400).json({
-      success: false,
-      error: err.message,
-    });
-  }
-});
-
-
-
+//     return res.json({
+//       success: true,
+//       totalCount: totalCount,
+//     });
+//   } catch (err) {
+//     return res.status(400).json({
+//       success: false,
+//       error: err.message,
+//     });
+//   }
+// });
 
 module.exports = router;

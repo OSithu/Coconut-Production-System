@@ -165,7 +165,7 @@ const EditProductCnt = () => {
               onChange={(e) => setProductQty(e.target.value)}
             />
 
-            <select
+            {/* <select
               className="form-select"
               name="quantityUnit"
               value={quantityUnit}
@@ -176,7 +176,7 @@ const EditProductCnt = () => {
               <option value="bottles"> bottles </option>
               <option value="g"> g </option>
               <option value="litre"> litre </option>
-            </select>
+            </select> */}
           </div>
         </div>
 
