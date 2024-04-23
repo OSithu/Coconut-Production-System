@@ -193,25 +193,38 @@ const filteredFinance = allDetails.filter(finance =>
   // });
 
   const generatePDF = () => {
-    const table = document.querySelector('.table');
+    const table = document.querySelector('.finance-table');
     const content = table.outerHTML;
     const newWindow = window.open();
     newWindow.document.write(`
-      <html>
-        <head>
-          <title>Budget Details</title>
-          <style>
-            /* Add your print styles here */
-            @media print {
-              /* Hide buttons */
-              button { display: none; }
-            }
-          </style>
-        </head>
-        <body>
-          ${content}
-        </body>
-      </html>
+    <html>
+    <head>
+      <title>Budget Details</title>
+      <style>
+        /* Add your print styles here */
+        @media print {
+          /* Hide buttons */
+          button { display: none; }
+          /* Apply table styles */
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      ${content}
+    </body>
+  </html>
     `);
     newWindow.print();
     newWindow.close();
@@ -222,7 +235,7 @@ const filteredFinance = allDetails.filter(finance =>
   return (
     <div className="view-finance-details">
       <FinanceNv />
-      <p>All Financial Transactions</p>
+      <p className="finance-title">All Financial Transactions</p>
       <div className="input-group mb-3">
         <input
           type="text"
@@ -235,8 +248,13 @@ const filteredFinance = allDetails.filter(finance =>
             <BsSearch/>
           </button>
       </div>
+      <button className="btn btn-success"><a href="/createFinanceDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button>
       <div ref={componentPDF}>
-        <table className="table">
+      <div className="print-header" style={{ display: "none" }}>
+              <h1> Jayakody Koppara Stores </h1>
+              <hr />
+            </div>
+        <table className="finance-table">
           <thead>
             <tr>
               <th>Date</th>
@@ -263,6 +281,7 @@ const filteredFinance = allDetails.filter(finance =>
                       <i className="fas fa-edit"></i>&nbsp; Edit
                     </button>
                   </Link>
+                  &nbsp;
                   <button type="button" className="btn btn-danger" onClick={() => handleDelete(finance._id)}>
                     <i className="far fa-trash-alt"></i>&nbsp;Delete
                   </button>
@@ -272,11 +291,11 @@ const filteredFinance = allDetails.filter(finance =>
           </tbody>
         </table>
       </div>
-      <div className="print-footer">
+      {/* <div className="print-footer">
         <hr />
         <p>Report Generated on {currentDate}</p>
-      </div>
-      <button className="btn btn-success"><a href="/createFinanceDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button>
+      </div> */}
+      {/* <button className="btn btn-success"><a href="/createFinanceDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button> */}
       <button className="btn btn-success" onClick={generatePDF}>PDF</button>
     </div>
   );
