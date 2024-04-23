@@ -166,8 +166,7 @@ const CreateSpread = () => {
                     value={pestType}
                   >
                     <option value="">Select a Spread Level</option>
-                    <option value="Liquid Formulations">Liquid Formulations</option>
-                    <option value="Gaseous Formulations"> Gaseous Formulations </option>
+                    <option value="Liquid Formulations">Liquid Formulations</option>            
                     <option value="Solid Formulations"> Solid Formulations </option>
 
 

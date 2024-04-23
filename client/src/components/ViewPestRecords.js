@@ -90,6 +90,11 @@ const generatePDF = useReactToPrint({
         pestrecords.treeID.toLowerCase().includes(searchPestRecord.toLowerCase())
       );
 
+        // Add a unit to quantity 
+  const getUnit = (pestType) => {
+    return pestType === 'Liquid Formulations' ? 'ml' : 'g';
+  };
+
   return (
     <div>
             <div className="header">
@@ -176,8 +181,8 @@ const generatePDF = useReactToPrint({
                   <td>{formatDate(pestrecords.pestDate)}</td>
                   <td>{pestrecords.pestName}</td>
                   <td>{pestrecords.pestType}</td>
-                  <td>{pestrecords.quantity}</td>
-                  <td>
+                  <td>{pestrecords.quantity + " " + getUnit(pestrecords.pestType)}</td>                 
+                   <td>
                     <a
                       className="btn btn-warning"
                       href={`/editDisease/${pestrecords._id}`}
