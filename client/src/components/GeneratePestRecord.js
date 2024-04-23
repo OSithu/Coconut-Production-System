@@ -1,21 +1,25 @@
 import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
-import "./../stylesheets/disease.css";
+import React, { useEffect, useState , useRef } from "react";
+import "./../stylesheets/disease.css"
 
 //npm install react-to-print
 import { useReactToPrint } from "react-to-print";
 
-const ViewSpread = () => {
-  const conponentPDF = useRef();
 
-  const [allRecords, setAllRecord] = useState([]);
+
+const ViewPestRecords = () => {
+
+  const conponentPDF= useRef();
+  
+  const [allPestRecords, setAllPestRecord] = useState([]);
+
 
   useEffect(() => {
-    const getAllRecords = async () => {
+    const getAllPestRecords = async () => {
       await axios
-        .get(`http://localhost:8000/records`)
+        .get(`http://localhost:8000/pestrecords`)
         .then((res) => {
-          setAllRecord(res.data.existingRecords);
+          setAllPestRecord(res.data.existingPestAddRecords);
           console.log("Status: " + res.data.success);
         })
         .catch((err) => {
@@ -30,16 +34,20 @@ const ViewSpread = () => {
         });
     };
 
-    getAllRecords();
+    getAllPestRecords();
   }, []);
 
-  //Implement PDF Download Function
 
-  const generatePDF = useReactToPrint({
-    content: () => conponentPDF.current,
-    documentTitle: "Spread Records",
-    onAfterPrint: () => alert("Data Saved In PDF"),
-  });
+//Implement PDF Download Function
+
+const generatePDF = useReactToPrint({
+
+    content: ()=>conponentPDF.current,
+    documentTitle:"Pest Records",
+    onAfterPrint:()=>alert("Data Saved In PDF")
+
+});
+
 
   return (
     <div>
@@ -51,40 +59,38 @@ const ViewSpread = () => {
               <br></br>
               <h1 className="plantTopic">Jayakody Koppara Stores</h1>
               <br></br>
-              <h2 className="plantTopic">Disease Spread Records</h2>
+              <h2 className="plantTopic">Pest Add Records</h2>
             </div>
   <div className="card-body">
     <div className="container" >
-      <div style={{ marginTop: "20px" }}>
-        <div>
-          <table className="table" id="plantTable">
+    <div style={{ marginTop: "20px" }}>
+        
+          <table className="table" id='plantTable'>
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Tree ID</th>
-                <th scope="col">Identify Date</th>
-                <th scope="col">Disease</th>
-                <th scope="col">Spread Level</th>
-                <th scope="col">Special Notes</th>
+                <th scope="col">Pest Add Date</th>
+                <th scope="col">Pest Name</th>
+                <th scope="col">Pest Type</th>
+                <th scope="col">Quantity</th>
               </tr>
             </thead>
+
             <tbody>
-              {allRecords.map((records, index) => (
-                <tr key={index}>
+            { allPestRecords.map((pestrecords, index) => (
+                <tr>
                   <td scope="row">{index + 1}</td>
-                  <td>{records.treeID}</td>
-                  <td>{records.identifyDate}</td>
-                  <td>{records.disease}</td>
-                  <td className={`spread-level ${records.spreadLevel}`}>
-                    {records.spreadLevel}
-                  </td>
-                  <td>{records.specialNote}</td>
+                  <td>{pestrecords.treeID}</td>
+                  <td>{pestrecords.pestDate}</td>
+                  <td>{pestrecords.pestName}</td>
+                  <td>{pestrecords.pestType}</td>
+                  <td>{pestrecords.quantity}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-      </div>
+          </div>
     </div>
   </div>
 </div>
@@ -92,11 +98,11 @@ const ViewSpread = () => {
 <br></br>
       <div className="d-flex justify-content-center mb-3">
         <button className="btn btn-success" onClick={generatePDF}>
-        <i class="fa-regular fa-download"> </i> Download
+        Download
         </button>
       </div>
     </div>
   );
 };
 
-export default ViewSpread;
+export default ViewPestRecords;
