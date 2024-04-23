@@ -238,9 +238,11 @@ const CreateQualityRecords = () => {
         </div>
 
 
-        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
-          <i className="fas fa check-square"></i>&nbsp;Save Record
-        </button>
+        <div className="d-flex justify-content-center mt-3">
+            <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
+                <i className="fas fa-check-square"></i>&nbsp;Save Record
+            </button>
+        </div>
       </form>
     </div>
   )
