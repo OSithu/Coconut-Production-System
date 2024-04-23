@@ -11,7 +11,7 @@ const ViewTaskShedule = () => {
 
     
   const [allTaskShedule, setAllTaskShedule] = useState([]);
-  // const [searchTaskShedule, setSearchTaskShedule] = useState('');
+  const [searchTaskShedule, setSearchTaskShedule] = useState('');
 
   useEffect(() => {
     const getAllTask = async () => {
@@ -77,16 +77,53 @@ const ViewTaskShedule = () => {
     }
   };
 
-  {/*//Employee based on searchemployee
+  //Employee based on searchemployee
    const filteredTask = allTaskShedule.filter((records) =>
     records.Department.toLowerCase().includes(searchTaskShedule.toLowerCase())
-  );*/}
+  );
 
  return(
  <div>
-    <p>All Task Shedules</p>
+          <div className="header">
+        <div>
+         
+          <ul className="navbar">
+          <div className="nav-left">
+          <li>
+              <a class="active" href="#home">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="/viewEmployee">Employee Details</a>
+            </li>
+            <li>
+              <a href="/ViewTaskShedule">Work Schedule</a>
+            </li>
+           
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="nav-right">
+            <li>
+              <a href="#news">Benifits Packages</a>
+            </li>
+            <li>
+              <a href="#contact">Salary Calculator</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            </div>
 
-{/*
+          </ul>
+        </div>
+      </div>
+      <br></br>
+      <h1 className='plantTopic'>Tasks Details</h1>
+
+
     <div className="input-group mb-3">
         <input
           type="text"
@@ -98,11 +135,17 @@ const ViewTaskShedule = () => {
         <button className="btn btn-outline-secondary" type="button">
           <BsSearch />
         </button>
- </div>  */}
+ </div> 
 
+      <button className="btn btn-success">
+        <a href="/CtreateTaskShedule" style={{ textDecoration: "none", color: "white" }}>
+          Add NewTask Shedule
+        </a>
+      </button>
 
-      {allTaskShedule.map((records, index) => (
+     
       <div ref={ComponentPDF} style={{ width: "100%" }}>
+        <br></br>
         <table className="table" id="plantTable">
           <thead>
             <tr>
@@ -112,9 +155,11 @@ const ViewTaskShedule = () => {
               <th scope="col">startDate</th>
               <th scope="col">EndDate</th>
               <th scope="col">PriorityLevel</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
+          {filteredTask.map((records, index) => (
               <tr>
                 <th scope="row">{index + 1}</th>
                 <td>{records.Department}</td>
@@ -140,17 +185,13 @@ const ViewTaskShedule = () => {
                   </a>
                 </td>
               </tr>
+                ))}
+
+
           </tbody>
         </table>
       </div>
-      
-    ))}
 
-      <button className="btn btn-success">
-        <a href="/addTask" style={{ textDecoration: "none", color: "white" }}>
-          Add NewTask Shedule
-        </a>
-      </button>
 
       <div className="d-grid d-md-flex justify-content-md-end mb-3">
         <button className="btn btn-success" onClick={generatePDF}>

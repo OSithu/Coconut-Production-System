@@ -92,7 +92,7 @@ const ViewSpread = () => {
 <br></br>
       <div className="d-flex justify-content-center mb-3">
         <button className="btn btn-success" onClick={generatePDF}>
-        <i class="fa-regular fa-download"> </i> Download
+        <i class="fa fa-download"> </i> &nbsp; Download
         </button>
       </div>
     </div>
