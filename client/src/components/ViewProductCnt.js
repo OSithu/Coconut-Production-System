@@ -36,7 +36,7 @@ const ViewProductCnt = () => {
     content: () => componentPDF.current,
     documentTitile: "ProductDetails",
     onAfterPrint: () => alert("Data saved in PDF"),
-  });  
+  });
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -69,18 +69,39 @@ const ViewProductCnt = () => {
     }
   };
 
-  const filteredProductCnt = allProductRecords.filter(
-    (productCnt) =>
+  const filteredProductCnt = allProductRecords.filter((productCnt) =>
     productCnt.productId.toLowerCase().includes(searchProductCnt.toLowerCase())
   );
 
   return (
-    <div className="container">
-      <ProductNav />
-      <div>
-        <p>Product Records</p>
-        
-        <div className="input-group mb-3">
+    <div>
+      <div className="header">
+        <div>
+          <ul className="navbar">
+            <div className="pDetails" style={{marginRight: "250px", marginLeft: "100px"}}>
+              <li>
+                <a class="active" href="/viewProduct">
+                  Product Details
+                </a>
+              </li>
+            </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="pDetails" style={{marginLeft: "250px", marginRight: "100px"}}>
+              <li>
+                <a href="/viewProductCnt">Product Records</a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <br></br>
+      <div className="container">
+        <div>
+          <p>Product Records</p>
+
+          <div className="input-group mb-3">
             <input
               type="text"
               className="form-control"
@@ -93,70 +114,94 @@ const ViewProductCnt = () => {
             </button>
           </div>
 
-        <div style={{ textAlign: "right" }}>
-        <button className="btn btn-success">
-          <a
-            href="/addProductCnt"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Add New Product Record
-          </a>
-        </button>
-        </div>
-        <div ref={componentPDF} style={{ width: "100%" }}>
-        <table className="table" style={{backgroundColor: "rgba(217, 255, 242, 0.6)", borderRadius:"10px", marginTop: "20px"}}>
-          <thead>
-            <tr>
-              <th scope="col" style={{ borderRight: "1px solid white" }}>Product ID</th>
-              <th scope="col" style={{ borderRight: "1px solid white" }}>Quantity</th>
-              <th scope="col" style={{ borderRight: "1px solid white" }}>Date</th>
-              <th scope="col" style={{ borderRight: "1px solid white" }}>Description</th>
-              <th scope="col" style={{ borderRight: "1px solid white" }}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredProductCnt.map((productCnt, index) => (
-              <tr key={productCnt._id}>
-                <td style={{ borderRight: "1px solid white" }}> 
-                  {/* <a href={`/productCnt/${productCnt._id}`} style ={{textDecoration: 'none'}}>
+          <div style={{ textAlign: "right" }}>
+            <button className="btn btn-success">
+              <a
+                href="/addProductCnt"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Add New Product Record
+              </a>
+            </button>
+          </div>
+          <div ref={componentPDF} style={{ width: "100%" }}>
+            <table
+              className="table"
+              style={{
+                backgroundColor: "rgba(217, 255, 242, 0.6)",
+                borderRadius: "10px",
+                marginTop: "20px",
+              }}
+            >
+              <thead>
+                <tr>
+                  <th scope="col" style={{ borderRight: "1px solid white" }}>
+                    Product ID
+                  </th>
+                  <th scope="col" style={{ borderRight: "1px solid white" }}>
+                    Quantity
+                  </th>
+                  <th scope="col" style={{ borderRight: "1px solid white" }}>
+                    Date
+                  </th>
+                  <th scope="col" style={{ borderRight: "1px solid white" }}>
+                    Description
+                  </th>
+                  <th scope="col" style={{ borderRight: "1px solid white" }}>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredProductCnt.map((productCnt, index) => (
+                  <tr key={productCnt._id}>
+                    <td style={{ borderRight: "1px solid white" }}>
+                      {/* <a href={`/productCnt/${productCnt._id}`} style ={{textDecoration: 'none'}}>
                     {productCnt.productId}
                   </a> */}
-                  <Link
-                    to={`/productCnt/${productCnt._id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    {productCnt.productId}
-                  </Link>
-                </td>
-                {/* <td>{productCnt.productId}</td> */}
-                <td style={{ borderRight: "1px solid white" }}>{productCnt.quantity} {productCnt.quantityUnit}</td>
-                <td style={{ borderRight: "1px solid white" }}>{productCnt.productDate}</td>
-                <td style={{ borderRight: "1px solid white" }}>{productCnt.description}</td>
-                <td style={{ borderRight: "1px solid white" }}>
-                  <a
-                    className="btn btn-warning"
-                    href={`/editProductCnt/${productCnt._id}`}
-                  >
-                    <i className="fas fa-edit"></i>&nbsp;Edit
-                  </a>
-                  &nbsp;
-                  <a
-                    className="btn btn-danger"
-                    href="#"
-                    onClick={() => handleDelete(productCnt._id)}
-                  >
-                    <i className="far fa-trash-alt"></i>&nbsp;Delete
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
-        <div className="d-grid d-md-flex justify-content-md-end mb-3">
-          <button className="btn btn-success" onClick={generatePDF}>
-            Generate PDF
-          </button>{" "}
+                      <Link
+                        to={`/productCnt/${productCnt._id}`}
+                        style={{ textDecoration: "none", color:"black" }}
+                      >
+                        {productCnt.productId}
+                      </Link>
+                    </td>
+                    {/* <td>{productCnt.productId}</td> */}
+                    <td style={{ borderRight: "1px solid white" }}>
+                      {productCnt.quantity} {productCnt.quantityUnit}
+                    </td>
+                    <td style={{ borderRight: "1px solid white" }}>
+                      {productCnt.productDate}
+                    </td>
+                    <td style={{ borderRight: "1px solid white" }}>
+                      {productCnt.description}
+                    </td>
+                    <td style={{ borderRight: "1px solid white" }}>
+                      <a
+                        className="btn btn-warning"
+                        href={`/editProductCnt/${productCnt._id}`}
+                      >
+                        <i className="fas fa-edit"></i>&nbsp;Edit
+                      </a>
+                      &nbsp;
+                      <a
+                        className="btn btn-danger"
+                        href="#"
+                        onClick={() => handleDelete(productCnt._id)}
+                      >
+                        <i className="far fa-trash-alt"></i>&nbsp;Delete
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="d-grid d-md-flex justify-content-md-end mb-3">
+            <button className="btn btn-success" onClick={generatePDF}>
+              Generate PDF
+            </button>{" "}
+          </div>
         </div>
       </div>
     </div>

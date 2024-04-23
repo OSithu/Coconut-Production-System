@@ -11,7 +11,6 @@ const EditFinanceDetails = () => {
     const [Income,setIncome] = useState('');
     const [Expences,setExpences] = useState('');
     const [totalAmount,setTotalAmount] = useState('');
-
     const { id } = useParams();
 
      // Function to format date to yyyy-mm-dd format

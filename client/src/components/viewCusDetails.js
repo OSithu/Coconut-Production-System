@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { BsSearch } from "react-icons/bs";
+import CustomerNav from "./CustomerNav";
+import { BsSearch } from 'react-icons/bs';
+import '../stylesheets/customer.css';
 
 
 const ViewCusDetails = () => {

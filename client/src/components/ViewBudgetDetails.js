@@ -109,6 +109,8 @@ import { Link } from 'react-router-dom';
 import FinanceNv from './FinanceNv';
 import { BsSearch } from 'react-icons/bs';
 
+import "../stylesheets/viewBudgetDetails.css";
+
 const ViewBudgetDetails = () => {
   const [allDetails, setAllDetails] = useState([]);
   const [searchBudget, setSearchBudget] = useState('');
@@ -138,6 +140,7 @@ const ViewBudgetDetails = () => {
       console.error('Error deleting budget record:', err);
     }
   }
+  
 
    //filter allCustomers based on searchCustomer
 const filteredBudget = allDetails.filter(budget =>
@@ -149,35 +152,81 @@ const filteredBudget = allDetails.filter(budget =>
     const content = table.outerHTML;
     const newWindow = window.open();
     newWindow.document.write(`
-      <html>
-        <head>
-          <title>Budget Details</title>
-          <style>
-            /* Add your print styles here */
-            @media print {
-              /* Hide buttons */
-              button { display: none; }
-            }
-          </style>
-        </head>
-        <body>
-          ${content}
-        </body>
-      </html>
+    <html>
+    <head>
+      <title>Budget Details</title>
+      <style>
+        /* Add your print styles here */
+        @media print {
+          /* Hide buttons */
+          button { display: none; }
+          /* Apply table styles */
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+
+          .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          .budget-table th, .budget-table td {
+
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        }
+        .imgContainer img {
+          max-width: 200px; 
+          max-height: 100px; 
+        }
+        .reportHeader {
+          text-align: center;
+        }
+        
+        .imgContainer {
+          margin: 0 auto; /* Center the image horizontally */
+          display: inline-block; /* Ensure the container does not take up full width */
+        }
+      </style>
+    </head>
+    <body><div class="reportHeader" >
+    <div class="imgContainer">
+      <img src="/images/logo.png">
+    </div>
+    <br/>
+    <h2>Monthly Budget Details</h2>
+    <hr />
+  </div>
+          .budget-table th {
+            background-color: #f2f2f2;
+          }
+        }
+      </style>
+    </head>
+      ${content}
+    </body>
+  </html>
     `);
     newWindow.print();
     newWindow.close();
   };
 
   return (
-    <div>
+    <div className="view-budget-details"> 
       <FinanceNv />
-      <p>Budget Details</p>
+      <p className="budget-title">Budget Details</p>
       <div className="input-group mb-3">
         <input
           type="text"
           className="form-control"
-          placeholder="Search by customer name"
+          placeholder="Search by month"
           value={searchBudget}
           onChange={(e) => setSearchBudget(e.target.value)}
           />
@@ -185,22 +234,34 @@ const filteredBudget = allDetails.filter(budget =>
             <BsSearch/>
           </button>
       </div>
-      <table className="table budget-table">
+      <button className="btn btn-success">
+        <Link to="/AddBudgetDetails" style={{ textDecoration: 'none', color: 'white' }}>Create New Post</Link>
+      </button>
+
+      <div className="print-header" style={{ display: "none" }}>
+            <img src="/images/logo.png" className='imageReport2' />
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
+      <table className="budget-table">
+
+
         <thead>
           <tr>
             <th>Month</th>
             <th>Total Income</th>
             <th>Total Expenses</th>
+            <th>Total Amount</th>
             <th>Profit/Loss</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {allDetails.map(budget => (
             <tr key={budget._id}>
               <td>{budget.month}</td>
-              <td>{budget.totalIncome}</td>
-              <td>{budget.totalExpenses}</td>
+              <td>Rs.{String(budget.totalIncome)}</td> {/* Prepend "Rs" */}
+              <td>Rs.{String(budget.totalExpences)}</td> {/* Prepend "Rs" */}
+              <td>Rs.{String(budget.totalAAmount)}</td>
               <td>{budget.profitLoss}</td>
               <td>
                 <Link to={`/editbudgetDetails/${budget._id}`}>
@@ -208,6 +269,7 @@ const filteredBudget = allDetails.filter(budget =>
                     <i className="fas fa-edit"></i>&nbsp; Edit
                   </button>
                 </Link>
+                &nbsp;
                 <button type="button" className="btn btn-danger" onClick={() => handleDelete(budget._id)}>
                   <i className="far fa-trash-alt"></i>&nbsp;Delete
                 </button>
@@ -216,9 +278,9 @@ const filteredBudget = allDetails.filter(budget =>
           ))}
         </tbody>
       </table>
-      <button className="btn btn-success">
+      {/* <button className="btn btn-success">
         <Link to="/AddBudgetDetails" style={{ textDecoration: 'none', color: 'white' }}>Create New Post</Link>
-      </button>
+      </button> */}
       <button className="btn btn-success" onClick={generateBudgetPDF}>Print PDF</button>
     </div>
   );

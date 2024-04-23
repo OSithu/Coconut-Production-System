@@ -22,10 +22,6 @@ const pestRecordSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  unit: {
-    type: String,
-    required: true,
-  },
 });
 
 //model export

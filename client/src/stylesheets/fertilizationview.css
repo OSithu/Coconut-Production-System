@@ -1,0 +1,124 @@
+/* 
+body {
+    font-family: Arial, sans-serif;
+  }
+
+  .form-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-left: 60px;
+    margin-right:60px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .invalid-feedback {
+    color: red;
+  }
+  
+ 
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .calculator {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
+    margin-bottom: 50px;
+    margin-right: 60px;
+  }
+  
+  .calculator label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .calculator select,
+  .calculator button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .calculator button {
+    background-color: #4caf50;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .calculator button:hover {
+    background-color: #45a049;
+  }
+  
+  .calculator .results {
+    margin-top: 30px;
+  }
+  
+  .calculator .amounts p {
+    margin-bottom: 20px;
+  }
+  
+  .calculator .amounts span {
+    font-weight: bold;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .calculator {
+      padding: 20px;
+    }
+  } */
+
+  
+  

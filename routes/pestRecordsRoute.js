@@ -1,5 +1,5 @@
 const express = require("express");
-const Trees = require("../models/treeModel");
+const Trees = require("../models/diseasespread");
 
 // Import our Pest Records Model
 const Pest_Add_Records = require("../models/pestRecordsModel");
@@ -13,7 +13,7 @@ router.post("/pestrecord/create", async (req, res) => {
     // Check if treeID already exists in the database
     const existingTree = await Trees.findOne({ treeID: req.body.treeID });
     if (!existingTree) {
-      return res.status(400).json({ error: "Tree ID is Invalid" });
+      return res.status(400).json({ error: "Invalid Tree ID or Non infected Tree"});
     }
     // Create a new Records instance
     let newPestRecord = new Pest_Add_Records(req.body);
@@ -35,7 +35,7 @@ router.post("/pestrecord/create", async (req, res) => {
 });
 
 //View Pest Add Records
-router.get("/pestaddrecords", async (req, res) => {
+router.get("/pestrecords", async (req, res) => {
   try {
     const pestaddrecords = await Pest_Add_Records.find().exec();
     return res.status(200).json({

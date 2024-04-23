@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+import "../stylesheets/qualityRecords.css";
 
 const CreateQualityRecords = () => {
 
@@ -9,6 +11,23 @@ const CreateQualityRecords = () => {
   const [specialNotes, setSpecialNotes] = useState('');
   const [testResult, setTestResult] = useState('');
   const [errors, setErrors] = useState({});
+  const [qProduct,setQProduct] = useState([]);
+ 
+    useEffect(() => {
+      const getqProduct = async () => {
+        try{
+          const res = await axios.get(`http://localhost:8000/qProduct}`);
+          setQProduct(res.data.existingqProduct) ;
+          console.log('Status :' +res.data.success);
+        } catch(err) {
+            if (err.response) {
+              console.log(err.response.data.error)
+            }
+          }
+        };
+      
+      getqProduct();
+    }, []);
 
   const validateForm = () => {
     const errors = {};
@@ -90,7 +109,7 @@ const CreateQualityRecords = () => {
   }
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
+    <div className="col-md-8 mt-4 mx-auto quality-records-container">
       <h1 className="h3 mb-3 font-weight-normal">Add New Record</h1>
       <form className="needs-validation" noValidate onSubmit={sendData}>
 
@@ -219,9 +238,11 @@ const CreateQualityRecords = () => {
         </div>
 
 
-        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
-          <i className="fas fa check-square"></i>&nbsp;Save Record
-        </button>
+        <div className="d-flex justify-content-center mt-3">
+            <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
+                <i className="fas fa-check-square"></i>&nbsp;Save Record
+            </button>
+        </div>
       </form>
     </div>
   )

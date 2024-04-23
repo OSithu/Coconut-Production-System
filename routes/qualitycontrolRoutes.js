@@ -1,6 +1,8 @@
 const express = require("express");
 const qualityControl = require("../models/qcmposts");
 
+// const Products = require("../models/productModel");
+
 const router = express.Router();
 
 //save records
@@ -89,5 +91,35 @@ router.delete("/qualityrecords/delete/:id", async (req, res) => {
       });
   }
 });
+
+// router.get("/qProduct", async (req, res) => {
+//   try {
+//     const productCat = await Products.find({ $or: [{ category: "Products" }, { category: "By-products" }] });
+//     const convertedProductCat = productCat.map((productCat) => {
+
+//       return {
+//         ...productCat._doc,
+//         productImage: productCat.productImage
+//           ? {
+//               contentType: productCat.productImage.contentType,
+//               data:
+//               productCat.productImage && productCat.productImage.data
+//                   ? productCat.productImage.data.toString("base64")
+//                   : "",
+//             }
+//           : null,
+//       };
+//     });
+
+//     return res.status(200).json({
+//       success: true,
+//       existingProductCat: convertedProductCat,
+//     });
+//   } catch (err) {
+//     return res.status(400).json({
+//       error: err.message,
+//     });
+//   }
+// });
 
 module.exports = router;

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
+import "../stylesheets/qualityRecords.css";
+
 const EditQualityRecords = () => {
   const [recordId, setRecordId] = useState("");
   const [productType, setProductType] = useState("");
@@ -116,7 +118,8 @@ const EditQualityRecords = () => {
   }
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
+    <div className="col-md-8 mt-4 mx-auto quality-records-container">
+
       <h1 className="h3 mb-3 font-weight-normal">Update Record</h1>
       <form className="needs-validation" noValidate onSubmit={UpdateRecord}>
 
@@ -264,9 +267,15 @@ const EditQualityRecords = () => {
           )}
         </div>
 
-        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
+        {/* <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
           <i className="fas fa check-square"></i>&nbsp;Submit Record
+        </button> */}
+
+<div className="d-flex justify-content-center">
+        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
+          <i className="fas fa-check-square"></i>&nbsp;Submit Record
         </button>
+      </div>
 
       </form>
     </div>

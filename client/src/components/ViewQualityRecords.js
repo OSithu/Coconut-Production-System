@@ -5,7 +5,7 @@ import { BsSearch} from 'react-icons/bs';
 
 const ViewQualityRecords = () => {
 
- // const componentPDF = useRef();
+   const componentPDF = useRef();
   // const [searchQualityRecords, setSearchQualityRecords] = useState([]);
   const [searchQualityRecords, setSearchQualityRecords] = useState("");
 
@@ -39,6 +39,60 @@ const ViewQualityRecords = () => {
   //   documentTitle: "",
   //   onAfterPrint: () => alert("Data saved in PDF")
   // });
+  const generatePDF = () => {
+    const table = document.querySelector('.reportForm1');
+    const content = table.outerHTML;
+    const newWindow = window.open();
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title> Quality Control Records </title>
+          <style>
+            img {
+              height: 100px; 
+              margin: 5px; 
+            }
+            .imgContainer {
+              text-align: center;
+            }
+            h2 {
+              text-align: center;
+            }
+            
+            @media print {
+              /* Hide buttons */
+              button,a { display: none; }
+              /* Apply table styles */
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            }
+          </style>
+        </head>
+        <body>
+        <div className="print-header" style={{ display: "none" }}>
+        <img src="/images/logo.png" className='imageReport2' />
+        <h1> Jayakody Koppara Stores </h1>
+        <hr />
+          </div>
+          </div>
+          ${content}
+        </body>
+      </html>
+    `);
+    newWindow.print();
+    newWindow.close();
+  };
+
 
   const handleDelete = async (id) => {
 
@@ -69,6 +123,29 @@ const ViewQualityRecords = () => {
   records.recordId.toLowerCase().includes(searchQualityRecords.toLowerCase()));
 
   return (
+    <div>
+      <div className="header">
+        <div>
+          <ul className="navbar">
+          <div className="navi-left">
+          <li>
+              <a class="active" href="#qhome">
+                Home
+              </a>
+            </li>
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="navi-right">
+            <li>
+              <a href="#qrecord">Quality Records</a>
+            </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <br></br> 
     <div className="container">
       <div>
         <h1>Quality Control Records</h1>
@@ -91,10 +168,17 @@ const ViewQualityRecords = () => {
           <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
         </button>
 
-        {/* <div style={{ marginTop: "20px" }}>
-          <div ref={componentPDF} style={{ width: "100%" }}> */}
+        <div style={{ marginTop: "20px" }}>
+          <div ref={componentPDF} style={{ width: "100%" }}>
 
-            <table className="table">
+          <div className="print-header" style={{ display: "none" }}>
+            <img src="/images/logo.png" className='imageReport2' />
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
+
+          <div className="reportForm1">
+          <table className="table quality-records-table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -123,7 +207,6 @@ const ViewQualityRecords = () => {
                           <i className="fas fa-eye"></i>&nbsp;View Record
                         </a>
                       </div>
-
                       <div>
                         <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
                           <i className="fas fa-edit"></i>&nbsp;Update
@@ -138,16 +221,20 @@ const ViewQualityRecords = () => {
                 ))}
               </tbody>
             </table>
+
           </div>
-          {/* <div className="d-grid d-md-flex justify-content-md-end mb-3">
+
+            
+          </div>
+          <div className="d-grid d-md-flex justify-content-md-end mb-3">
             <button className="btn btn-light border border-secondary" onClick={generatePDF}>Generate Report</button>
-          </div> */}
+          </div>
 
         </div>
-     // </div>
+      </div>
+</div>
 
-
-    //</div>
+    </div>
   )
 };
 export default ViewQualityRecords;
