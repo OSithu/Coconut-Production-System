@@ -7,20 +7,20 @@ import { useReactToPrint } from "react-to-print";
 import { BsSearch } from 'react-icons/bs';
 
 
-const ViewSpread = () => {
+const ViewPestRecords = () => {
 
   const conponentPDF= useRef();
   
-  const [allRecords, setAllRecord] = useState([]);
-  const [searchRecord, setSearchRecord] = useState('');
+  const [allPestRecords, setAllPestRecord] = useState([]);
+  const [searchPestRecord, setSearchPestRecord] = useState('');
 
 
   useEffect(() => {
-    const getAllRecords = async () => {
+    const getAllPestRecords = async () => {
       await axios
-        .get(`http://localhost:8000/records`)
+        .get(`http://localhost:8000/pestrecords`)
         .then((res) => {
-          setAllRecord(res.data.existingRecords);
+          setAllPestRecord(res.data.existingPestAddRecords);
           console.log("Status: " + res.data.success);
         })
         .catch((err) => {
@@ -35,14 +35,14 @@ const ViewSpread = () => {
         });
     };
 
-    getAllRecords();
+    getAllPestRecords();
   }, []);
 
-//Remove Time in Identify Date Part
-  function formatDate(identifyDate) {
-    const date = new Date(identifyDate);
-    return date.toISOString().split('T')[0]; 
-  }
+  //Remove Time in Identify Date Part
+function formatDate(pestDate) {
+  const date = new Date(pestDate);
+  return date.toISOString().split('T')[0]; 
+}
 
 
 //Implement PDF Download Function
@@ -50,7 +50,7 @@ const ViewSpread = () => {
 const generatePDF = useReactToPrint({
 
     content: ()=>conponentPDF.current,
-    documentTitle:"UserData",
+    documentTitle:"Pest Records",
     onAfterPrint:()=>alert("Data Saved In PDF")
 
 });
@@ -65,7 +65,7 @@ const generatePDF = useReactToPrint({
     );
     if (confirmed) {
       await axios
-        .delete(`http://localhost:8000/diseasespread/delete/${id}`)
+        .delete(`http://localhost:8000/pestrecord/delete/${id}`)
         .then((res) => {
           alert(res.data.message);
           console.log(res.data.message);
@@ -85,11 +85,15 @@ const generatePDF = useReactToPrint({
     }
   };
 
-      // Filter allRecords based on searchFertilization
-      const filteredRecord = allRecords.filter(records =>
-        records.treeID.toLowerCase().includes(searchRecord.toLowerCase())
+      // Filter allPestRecords based on searchFertilization
+      const filteredPestRecord = allPestRecords.filter(pestrecords =>
+        pestrecords.treeID.toLowerCase().includes(searchPestRecord.toLowerCase())
       );
 
+        // Add a unit to quantity 
+  const getUnit = (pestType) => {
+    return pestType === 'Liquid Formulations' ? 'ml' : 'g';
+  };
 
   return (
     <div>
@@ -130,15 +134,15 @@ const generatePDF = useReactToPrint({
         </div>
       </div>
       <br></br>
-      <h1 className='plantTopic'>Spread Records</h1>
+      <h1 className='plantTopic'>Pest Add Records</h1>
       {/* search */}
      <div className="input-group mb-3">
         <input
           type="text"
           className="form-control"
           placeholder="Search by Tree No"
-          value={searchRecord}
-          onChange={(e) => setSearchRecord(e.target.value)}
+          value={searchPestRecord}
+          onChange={(e) => setSearchPestRecord(e.target.value)}
         />
         <button className="btn btn-outline-secondary" type="button">
           <BsSearch />
@@ -147,7 +151,7 @@ const generatePDF = useReactToPrint({
       <div className="container">
         <button className="btn btn-success">
           <a
-            href="/createDisease"
+            href="/createPestRecords"
             style={{ textDecoration: "none", color: "white" }}
           >
             Add New Records
@@ -155,35 +159,33 @@ const generatePDF = useReactToPrint({
         </button>
 
         <div style={{ marginTop: "20px" }}>
-          
+          <div ref={conponentPDF} style={{width:"100%"}}>
           <table className="table" id='plantTable'>
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Tree ID</th>
-                <th scope="col">Identify Date</th>
-                <th scope="col">Disease</th>
-                <th scope="col">Spread Level</th>
-                <th scope="col">Special Notes</th>
+                <th scope="col">Pest Add Date</th>
+                <th scope="col">Pest Name</th>
+                <th scope="col">Pest Type</th>
+                <th scope="col">Quantity</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
 
             <tbody>
-            { filteredRecord.map((records, index) => (
+            { filteredPestRecord.map((pestrecords, index) => (
                 <tr>
                   <td scope="row">{index + 1}</td>
-                  <td>{records.treeID}</td>
-                  <td>{formatDate(records.identifyDate)}</td>
-                  <td>{records.disease}</td>
-                  <td className={`spread-level ${records.spreadLevel}`}>
-                    {records.spreadLevel}
-                  </td>
-                  <td>{records.specialNote}</td>
-                  <td>
+                  <td>{pestrecords.treeID}</td>
+                  <td>{formatDate(pestrecords.pestDate)}</td>
+                  <td>{pestrecords.pestName}</td>
+                  <td>{pestrecords.pestType}</td>
+                  <td>{pestrecords.quantity + " " + getUnit(pestrecords.pestType)}</td>                 
+                   <td>
                     <a
                       className="btn btn-warning"
-                      href={`/editDisease/${records._id}`}
+                      href={`/editDisease/${pestrecords._id}`}
                     >
                       <i className="fas fa-edit"></i>&nbsp;Edit
                     </a>
@@ -191,7 +193,7 @@ const generatePDF = useReactToPrint({
                     <a
                       className="btn btn-danger"
                       href="#"
-                      onClick={() => handleDelete(records._id)}
+                      onClick={() => handleDelete(pestrecords._id)}
                     >
                       <i className="fas fa-trash-alt"></i>&nbsp;Delete
                     </a>
@@ -200,15 +202,15 @@ const generatePDF = useReactToPrint({
               ))}
             </tbody>
           </table>
-        
+          </div>
 
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
           <button className="btn btn-success">
           <a
-            href="/spreadReport"
+            href="/pestReport"
             style={{ textDecoration: "none", color: "white" }}
           >
-            <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
+            <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate PDF
           </a>
         </button>  </div> 
 
@@ -221,4 +223,4 @@ const generatePDF = useReactToPrint({
   );
 };
 
-export default ViewSpread;
+export default ViewPestRecords;

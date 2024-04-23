@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 const CreateSpread = () => {
   const [treeID, settreeID] = useState("");
-  const [identifyDate, setidentifyDate] = useState("");
-  const [disease, setdisease] = useState("");
-  const [spreadLevel, setspreadLevel] = useState("");
-  const [specialNote, setspecialNote] = useState("");
+  const [pestDate, setpestDate] = useState("");
+  const [pestName, setpestName] = useState("");
+  const [pestType, setpestType] = useState("");
+  const [quantity, setquantity] = useState("");
+
 
   const [errors, setErrors] = useState({});
 
@@ -29,25 +30,27 @@ const CreateSpread = () => {
           formValid = false;
           errorsData.treeID = "Tree ID is required";
       }
-      if (!identifyDate.trim()) {
+      if (!pestDate.trim()) {
           formValid = false;
-          errorsData.identifyDate = "Identify Tree is required";
+          errorsData.pestDate = "Pest Date is required";
       }
-      if (!disease.trim()) {
+      if (!pestName.trim()) {
           formValid = false;
-          errorsData.disease = "Disease is required";
+          errorsData.pestName = "Pest Name is required";
       }
 
-      if (!spreadLevel.trim()) {
+      if (!pestType.trim()) {
         formValid = false;
-        errorsData.spreadLevel = "Spread Level is required";
+        errorsData.pestType = "Planted Date is required";
     }
 
-    if (!specialNote.trim()) {
-      formValid = false;
-      errorsData.
-      specialNote = "Special Note is required";
-  }
+  if (!quantity.trim()) {
+    formValid = false;
+    errorsData.
+    quantity = "Quantity is required";
+}
+
+
 
         // If form is not valid, set errors and return
         if (!formValid) {
@@ -59,7 +62,7 @@ const CreateSpread = () => {
     // Add date validation
     const today = new Date();
 
-    const selectedDateObj = new Date(identifyDate);
+    const selectedDateObj = new Date(pestDate);
 
     if (selectedDateObj > today) {
       alert("You cannot select a future date."); // if user selected future date display alert message
@@ -69,17 +72,17 @@ const CreateSpread = () => {
     try {
       let newRecord = {
         treeID: treeID,
-        identifyDate: identifyDate,
-        disease: disease,
-        spreadLevel: spreadLevel,
-        specialNote: specialNote,
+        pestDate: pestDate,
+        pestName: pestName,
+        pestType: pestType,
+        quantity: quantity,
       };
 
       await axios
-        .post(`http://localhost:8000/diseasespread/create`, newRecord)
+        .post(`http://localhost:8000/pestrecord/create`, newRecord)
         .then((res) => {
           alert(res.data.message);
-          navigate("/viewDisease");
+          navigate("/viewPestRecords");
           console.log("Status " + res.data.success);
           console.log(res.data.message);
         })
@@ -97,10 +100,10 @@ const CreateSpread = () => {
 
       //set state back to first state
       settreeID("");
-      setidentifyDate("");
-      setdisease("");
-      setspreadLevel("");
-      setspecialNote("");
+      setpestDate("");
+      setpestName("");
+      setpestType("");
+      setquantity("");
     } catch (err) {
       console.log("SentData Dunction Failed ERROR: " + err.error);
     }
@@ -128,74 +131,60 @@ const CreateSpread = () => {
                 </div>
 
                 <div className="form-group" style={{ marginBottom: "15px" }}>
-                  <label style={{ marginBottom: "5px" }}>Identify Date</label>
+                  <label style={{ marginBottom: "5px" }}>Pest Date</label>
                   <input
                     type="date"
-                    className={`form-control ${errors.identifyDate ? 'is-invalid' : ''}`}
-                    name="identifyDate"
-                    placeholder="Enter Identify Date"
-                    onChange={(e) => setidentifyDate(e.target.value)}
-                    value={identifyDate}
+                    className={`form-control ${errors.pestDate ? 'is-invalid' : ''}`}
+                    name="pestDate"
+                    placeholder="Enter Pest Date"
+                    onChange={(e) => setpestDate(e.target.value)}
+                    value={pestDate}
                   />
-                    {errors.identifyDate && <div className="invalid-feedback">{errors.identifyDate}</div>}
+                    {errors.pestDate && <div className="invalid-feedback">{errors.pestDate}</div>}
                 </div>
 
                 <div className="form-group" style={{ marginBottom: "15px" }}>
-                  <label style={{ marginBottom: "5px" }}>Disease</label>
+                  <label style={{ marginBottom: "5px" }}>Pest Name</label>
                   <input
                     type="text"
-                    className={`form-control ${errors.disease ? 'is-invalid' : ''}`}
-                    name="disease"
-                    placeholder="Enter Disease"
-                    onChange={(e) => setdisease(e.target.value)}
-                    value={disease}
+                    className={`form-control ${errors.pestName ? 'is-invalid' : ''}`}
+                    name="pestName"
+                    placeholder="Enter Pest Name"
+                    onChange={(e) => setpestName(e.target.value)}
+                    value={pestName}
                   />
-                 {errors.disease && <div className="invalid-feedback">{errors.disease}</div>}
+                 {errors.pestName && <div className="invalid-feedback">{errors.pestName}</div>}
 
                 </div>
 
                 <div className="form-group" style={{ marginBottom: "15px" }}>
-                  <label style={{ marginBottom: "5px" }}>Spread Level</label>
+                  <label style={{ marginBottom: "5px" }}>Pest Type</label>
                   <select
-                     className={`form-control ${errors.spreadLevel ? 'is-invalid' : ''}`}
-                    name="spreadLevel"
-                    onChange={(e) => setspreadLevel(e.target.value)}
-                    value={spreadLevel}
+                     className={`form-control ${errors.pestType ? 'is-invalid' : ''}`}
+                    name="pestType"
+                    onChange={(e) => setpestType(e.target.value)}
+                    value={pestType}
                   >
                     <option value="">Select a Spread Level</option>
-                    <option
-                      value="High"
-                      style={{ fontWeight: "bold", backgroundColor: "red" }}
-                    >
-                      High
-                    </option>
-                    <option
-                      value="Medium"
-                      style={{ fontWeight: "bold", backgroundColor: "yellow" }}
-                    >
-                      Medium
-                    </option>
-                    <option
-                      value="Low"
-                      style={{ fontWeight: "bold", backgroundColor: "green" }}
-                    >
-                      Low
-                    </option>
+                    <option value="Liquid Formulations">Liquid Formulations</option>            
+                    <option value="Solid Formulations"> Solid Formulations </option>
+
+
                   </select>
-                  {errors.spreadLevel && <div className="invalid-feedback">{errors.spreadLevel}</div>}
+                  {errors.pestType && <div className="invalid-feedback">{errors.pestType}</div>}
                 </div>
 
                 <div className="form-group" style={{ marginBottom: "15px" }}>
-                  <label style={{ marginBottom: "5px" }}>Special Note</label>
+                  <label style={{ marginBottom: "5px" }}>Quantity</label>
                   <input
-                    type="text"
-                    className={`form-control ${errors.specialNote ? 'is-invalid' : ''}`}
-                    name="specialNote"
-                    placeholder="Enter Special Note"
-                    onChange={(e) => setspecialNote(e.target.value)}
-                    value={specialNote}
+                    type="number"
+                    className={`form-control ${errors.quantity ? 'is-invalid' : ''}`}
+                    name="quantity"
+                    placeholder="Enter Quantity"
+                    onChange={(e) => setquantity(e.target.value)}
+                    value={quantity}
                   />
-                {errors.specialNote && <div className="invalid-feedback">{errors.specialNote}</div>}
+                {errors.quantity && <div className="invalid-feedback">{errors.quantity}</div>}
 
                 </div>
 
