@@ -35,7 +35,7 @@ router.post("/pestrecord/create", async (req, res) => {
 });
 
 //View Pest Add Records
-router.get("/pestaddrecords", async (req, res) => {
+router.get("/pestrecords", async (req, res) => {
   try {
     const pestaddrecords = await Pest_Add_Records.find().exec();
     return res.status(200).json({

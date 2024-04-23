@@ -86,6 +86,10 @@ import ViewTaskShedule from "./components/ViewTaskShedule";
 import CreateShedule from "./components/CreateShedule";
 import EditTaskShedule from "./components/EditTaskShedule";
 
+import ViewPestRecords from "./components/ViewPestRecords";
+import CreatePestRecords from "./components/CreatePestRecords";
+
+
 
 function App() {
   return (
@@ -183,6 +187,11 @@ function App() {
           <Route path="/ViewTaskShedule" Component={ViewTaskShedule}  />
           <Route path="/CtreateTaskShedule" Component={CreateShedule}  />
           <Route path="/EditTaskShedule" Component={EditTaskShedule}  />
+
+          <Route path="/viewPestRecords" Component={ViewPestRecords} />      
+          <Route path="/createPestRecords" Component={CreatePestRecords} />
+
+          
 
 
         </Routes>
