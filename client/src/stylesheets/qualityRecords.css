@@ -44,4 +44,21 @@
   .quality-records-container button[type="submit"] i {
     margin-right: 5px;
   }
+
+  .quality-records-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .quality-records-table th,
+  .quality-records-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .quality-records-table th {
+    background-color: #f2f2f2;
+  }
+  
   

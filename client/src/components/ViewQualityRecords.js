@@ -94,7 +94,7 @@ const ViewQualityRecords = () => {
         {/* <div style={{ marginTop: "20px" }}>
           <div ref={componentPDF} style={{ width: "100%" }}> */}
 
-            <table className="table">
+            <table className="table quality-records-table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
