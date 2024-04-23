@@ -219,9 +219,29 @@ const filteredFinance = allDetails.filter(finance =>
             background-color: #f2f2f2;
           }
         }
+        .imgContainer img {
+          max-width: 200px; 
+          max-height: 100px; 
+        }
+        .reportHeader {
+          text-align: center;
+        }
+        
+        .imgContainer {
+          margin: 0 auto; /* Center the image horizontally */
+          display: inline-block; /* Ensure the container does not take up full width */
+        }
       </style>
     </head>
-    <body>
+    <body><div class="reportHeader" >
+    <div class="imgContainer">
+      <img src="/images/logo.png">
+    </div>
+    <br/>
+    <h2>Finance Details</h2>
+    <hr />
+  </div>
+
       ${content}
     </body>
   </html>
@@ -251,9 +271,10 @@ const filteredFinance = allDetails.filter(finance =>
       <button className="btn btn-success"><a href="/createFinanceDetails" style={{textDecoration:'none', color:'white'}}>Create New Post</a></button>
       <div ref={componentPDF}>
       <div className="print-header" style={{ display: "none" }}>
-              <h1> Jayakody Koppara Stores </h1>
-              <hr />
-            </div>
+            <img src="/images/logo.png" className='imageReport2' />
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
         <table className="finance-table">
           <thead>
             <tr>
