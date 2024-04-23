@@ -46,6 +46,7 @@ const CreateOrderDetails = () => {
   return (
     <div className="col-md-8 mt-4 mx-auto">
       <h1 className="h3 mb-3 font-weight-normal">Add new order detail</h1>
+      <div className="container" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
       <form className="needs-validation" noValidate onSubmit={sendData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Order name</label>
@@ -101,6 +102,7 @@ const CreateOrderDetails = () => {
           &nbsp;Save
         </button>
       </form>
+      </div>
     </div>
   );
 };
