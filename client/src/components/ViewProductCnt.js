@@ -140,7 +140,7 @@ const ViewProductCnt = () => {
                   </a> */}
                       <Link
                         to={`/productCnt/${productCnt._id}`}
-                        style={{ textDecoration: "none" }}
+                        style={{ textDecoration: "none", color:"black" }}
                       >
                         {productCnt.productId}
                       </Link>

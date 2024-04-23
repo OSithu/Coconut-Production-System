@@ -161,11 +161,19 @@ const filteredBudget = allDetails.filter(budget =>
           /* Hide buttons */
           button { display: none; }
           /* Apply table styles */
+
           table {
             width: 100%;
             border-collapse: collapse;
           }
           th, td {
+
+          .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          .budget-table th, .budget-table td {
+
             border: 1px solid #000;
             padding: 8px;
             text-align: left;
@@ -196,7 +204,12 @@ const filteredBudget = allDetails.filter(budget =>
     <h2>Monthly Budget Details</h2>
     <hr />
   </div>
-
+          .budget-table th {
+            background-color: #f2f2f2;
+          }
+        }
+      </style>
+    </head>
       ${content}
     </body>
   </html>
@@ -224,12 +237,16 @@ const filteredBudget = allDetails.filter(budget =>
       <button className="btn btn-success">
         <Link to="/AddBudgetDetails" style={{ textDecoration: 'none', color: 'white' }}>Create New Post</Link>
       </button>
+
       <div className="print-header" style={{ display: "none" }}>
             <img src="/images/logo.png" className='imageReport2' />
             <h1> Jayakody Koppara Stores </h1>
             <hr />
           </div>
       <table className="budget-table">
+
+      <table className="table budget-table">
+
         <thead>
           <tr>
             <th>Month</th>

@@ -79,6 +79,7 @@ const ViewHvstSchedule = () => {
                 <div ref={componentPDF}>
 
                     <div className="print-header" style={{ display: "none" }}>
+                        <img src="/images/logo.png" className='imageReport2'/>
                         <h1> Jayakody Koppara Stores </h1>
                         <hr />
                     </div>

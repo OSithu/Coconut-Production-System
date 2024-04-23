@@ -69,7 +69,7 @@ const ViewTrees = () => {
         &nbsp;
 
         <div className='plantSearch'>
-          <div className='input-group'>
+          <div>
             <input type="text"
               className='form-control'
               placeholder='search'
