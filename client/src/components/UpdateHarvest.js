@@ -8,6 +8,7 @@ const UpdateHarvest = () => {
     const [date, setDate] = useState('');
     const [blockName, setBlockName] = useState('');
     const [harvest, setHarvest] = useState('');
+    const [allBlocks, setAllBlocks] = useState([]);
 
     // State variables for form errors
     const [errors, setErrors] = useState({
@@ -49,6 +50,23 @@ const UpdateHarvest = () => {
             }
         };
 
+        const getAllBlocks = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8000/blocks`);
+                const formattedBlocks = res.data.existingBlocks.map(block => ({
+                    ...block,
+                    area: `${block.area.value} ${block.area.unit}` // to combine area value and unit
+                }));
+                setAllBlocks(formattedBlocks);
+                console.log('Status : ' + res.data.success);
+            } catch (err) {
+                if (err.response) {
+                    console.log(err.response.data.error);
+                }
+            }
+        };
+
+        getAllBlocks();
         getRecord();
     }, [id]);
 
@@ -123,14 +141,16 @@ const UpdateHarvest = () => {
                     <div class="row mb-3">
                         <label className="col-sm-2 col-form-label"> Block Name </label>
                         <div className="col-sm-10" id={'plantFormFeild'}>
-                            <input
-                                type="text"
+                        <select
                                 className={`form-control ${errors.blockName ? 'is-invalid' : ''}`}
                                 name="blockName"
-                                placeholder="Enter Block Name"
                                 value={blockName}
-                                onChange={(e) => setBlockName(e.target.value)}
-                            />
+                                onChange={(e) => setBlockName(e.target.value)}>
+                                <option value="">Select Type</option>
+                                {allBlocks.map(blocks => (
+                                    <option value={blocks.blockName}>{blocks.blockName}</option>
+                                ))}
+                            </select>
                             {errors.blockName && <div className="invalid-feedback">{errors.blockName}</div>}
                         </div>
                     </div>

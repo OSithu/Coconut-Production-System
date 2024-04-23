@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
 import Calculator from './Calculator';
+import '../stylesheets/fertilizationview.css';
 
 const CreateFertilizationDetails = () => {
     const [TreeNo, setTreeNo] = useState('');
@@ -68,6 +69,7 @@ const CreateFertilizationDetails = () => {
     return (
         <div className="row">
         <div className="col-md-8 mt-4 mx-auto">
+        <div className="form-container">
     <h1 className="h3 mb-3 font-weight-normal">Add new Fertilization detail</h1>
     <form className="needs-validation" noValidate onSubmit={formik.handleSubmit}>
         <div className="form-group">
@@ -189,6 +191,7 @@ const CreateFertilizationDetails = () => {
             &nbsp;Save
         </button>
     </form>
+    </div>
 </div>
 <div className="col-md-4 mt-4 mx-auto">
                 {/* Calculator component */}

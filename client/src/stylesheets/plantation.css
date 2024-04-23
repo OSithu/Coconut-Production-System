@@ -91,6 +91,14 @@ body {
     width: 450px;
 }
 
+.plantInput-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+
 .plantReport {
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.7);
@@ -127,6 +135,11 @@ body {
     margin: 10px;
 }
 
+.imageReport2 {
+    height: 100px;
+    margin: 5px;
+}
+
 @media print {
 
     .print-header,
@@ -145,5 +158,33 @@ body {
 
     .print-footer {
         bottom: 20px;
+    }
+
+    .plantPrint-header,
+    .plantPrint-footer
+    {
+        display: block !important;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+    }
+
+    .plantPrint-header {
+        top: 20px;
+        bottom: 20px;
+    }
+
+    .plantPrint-footer {
+        bottom: 20px;
+    }
+
+    .plantReport {
+        top: 200px;
+        bottom: 20px;
+        display: block !important;
+        position: fixed;
+        width: 90%;
+        text-align: left;
+        margin: 50px;
     }
 }

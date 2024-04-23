@@ -1,27 +1,55 @@
 import React from 'react';
 import "./fertilizationMain.css";
+import Calculator from './Calculator';
 
 function fertilizationMain() {
   return (
-    <main>
-      <div className="fcontainer">
-        <h2 className="fh2">Fertilization Management</h2>
-
-        <section className="fcard">
-          
-          <h3>Manage Fertilization Plans</h3>
-          <p>Create, view, edit, and delete fertilization plans for estate's coconut trees.</p>
-          <a href="/viewFertilization" className="fbutton">Manage Plans</a>
-        </section>
-
-        <section className="fcard">
-        
-          <h3>Fertilization Calculator</h3>
-          <p>Calculate the optimal fertilizer dosage based on .</p>
-          <a href="/Calculator" className="fbutton">Open Calculator</a>
-        </section>
+    <div>
+      <div className="dashboard">
+          <div className="summary-container">
+              <div className="summary">
+                  <h2>Sum Amount of Urea</h2>
+                  <p className="summary-value" id="ureaAmount">0</p>
+              </div>
+          </div>
+          <div className="summary-container">
+              <div className="summary">
+                  <h2>Sum Amount of Eppawalarockposphate</h2>
+                  <p className="summary-value" id="eppawalaAmount">0</p>
+              </div>
+          </div>
+          <div className="summary-container">
+              <div className="summary">
+                  <h2>Sum Amount of Dolamite</h2>
+                  <p className="summary-value" id="dolamiteAmount">0</p>
+              </div>
+          </div>
+          <div className="summary-container">
+              <div className="summary">
+                  <h2>Sum Amount of Muriate Of Potasium</h2>
+                  <p className="summary-value" id="muriateAmount">0</p>
+              </div>
+          </div>
       </div>
-    </main>
+
+      <div className="graph-container">
+          <div className="graph">
+              <h2>Graph</h2>
+              {/* Graph content goes here */}
+          </div>
+      </div>
+      <div className="dashboard">
+      <div className="calcu">
+                {/* Calculator component */}
+                <Calculator />
+            </div>
+          <div className="todo-container">
+              <div className="todo">
+                  <h2>Sum Amount of Urea</h2>
+              </div>
+          </div>
+          </div>
+    </div>
   );
 }
 

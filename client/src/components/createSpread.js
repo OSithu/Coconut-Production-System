@@ -31,22 +31,22 @@ const CreateSpread = () => {
       }
       if (!identifyDate.trim()) {
           formValid = false;
-          errorsData.identifyDate = "Type of Tree is required";
+          errorsData.identifyDate = "Identify Tree is required";
       }
       if (!disease.trim()) {
           formValid = false;
-          errorsData.disease = "Planted Date is required";
+          errorsData.disease = "Disease is required";
       }
 
       if (!spreadLevel.trim()) {
         formValid = false;
-        errorsData.spreadLevel = "Planted Date is required";
+        errorsData.spreadLevel = "Spread Level is required";
     }
 
     if (!specialNote.trim()) {
       formValid = false;
       errorsData.
-      specialNote = "Planted Date is required";
+      specialNote = "Special Note is required";
   }
 
         // If form is not valid, set errors and return

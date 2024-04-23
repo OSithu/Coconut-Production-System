@@ -227,7 +227,7 @@ const ViewBlock = () => {
                                 <div class="row mb-3">
                                     <label className="col-sm-2 col-form-label"> Area </label>
                                     <div className="col-sm-10" id={'plantFormFeild'}>
-                                        <div className="input-group" >
+                                        <div>
                                             <input type="text"
                                                 className={`form-control ${errors.area && 'is-invalid'}`}
                                                 name="area"

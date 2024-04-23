@@ -38,6 +38,12 @@ const ViewPestRecords = () => {
     getAllPestRecords();
   }, []);
 
+  //Remove Time in Identify Date Part
+function formatDate(pestDate) {
+  const date = new Date(pestDate);
+  return date.toISOString().split('T')[0]; 
+}
+
 
 //Implement PDF Download Function
 
@@ -84,6 +90,11 @@ const generatePDF = useReactToPrint({
         pestrecords.treeID.toLowerCase().includes(searchPestRecord.toLowerCase())
       );
 
+        // Add a unit to quantity 
+  const getUnit = (pestType) => {
+    return pestType === 'Liquid Formulations' ? 'ml' : 'g';
+  };
+
   return (
     <div>
             <div className="header">
@@ -97,10 +108,10 @@ const generatePDF = useReactToPrint({
               </a>
             </li>
             <li>
-              <a href="#news">Spread Records</a>
+              <a href="/viewDisease">Spread Records</a>
             </li>
             <li>
-              <a href="#contact">Pest Records</a>
+              <a href="/viewPestRecords">Pest Records</a>
             </li>
            
           </div>
@@ -167,11 +178,11 @@ const generatePDF = useReactToPrint({
                 <tr>
                   <td scope="row">{index + 1}</td>
                   <td>{pestrecords.treeID}</td>
-                  <td>{pestrecords.pestDate}</td>
+                  <td>{formatDate(pestrecords.pestDate)}</td>
                   <td>{pestrecords.pestName}</td>
                   <td>{pestrecords.pestType}</td>
-                  <td>{pestrecords.quantity}</td>
-                  <td>
+                  <td>{pestrecords.quantity + " " + getUnit(pestrecords.pestType)}</td>                 
+                   <td>
                     <a
                       className="btn btn-warning"
                       href={`/editDisease/${pestrecords._id}`}
@@ -196,10 +207,10 @@ const generatePDF = useReactToPrint({
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
           <button className="btn btn-success">
           <a
-            href="/spreadReport"
+            href="/pestReport"
             style={{ textDecoration: "none", color: "white" }}
           >
-            Generate PDF
+            <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate PDF
           </a>
         </button>  </div> 
 

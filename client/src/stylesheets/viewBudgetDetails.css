@@ -1,68 +1,68 @@
-/* ViewFinanceDetails.css */
+/* ViewBudgetDetails.css */
 
-.view-finance-details {
+.view-budget-details {
     margin: 20px;
   }
   
-  .finance-table {
+  .budget-table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .finance-table-header,
-  .finance-details-table-cell {
+  .budget-table-header,
+  .budget-details-table-cell {
     padding: 8px;
     border: 1px solid #ddd;
   }
   
-  .finance-table-header {
+  .budget-table-header {
     background-color: #f2f2f2;
     text-align: left;
   }
   
-  .finance-table__btn-group {
+  .budget-table__btn-group {
     margin-bottom: 10px;
   }
   
-  .finance-table__btn {
+  .budget-table__btn {
     margin-right: 10px;
   }
   
-  .finance-table__btn--success {
+  .budget-table__btn--success {
     background-color: #28a745;
     border-color: #28a745;
   }
   
-  .finance-table__btn--success:hover {
+  .budget-table__btn--success:hover {
     background-color: #218838;
     border-color: #1e7e34;
   }
   
-  .finance-table-details__btn--danger {
+  .budget-table-details__btn--danger {
     background-color: #dc3545;
     border-color: #dc3545;
   }
   
-  .finance-table__btn--danger:hover {
+  .budget-table__btn--danger:hover {
     background-color: #c82333;
     border-color: #bd2130;
   }
   
-  .finance-table__btn--warning {
+  .budget-table__btn--warning {
     background-color: #ffc107;
     border-color: #ffc107;
   }
   
-  .table-details__btn--warning:hover {
+  .budget-table-details__btn--warning:hover {
     background-color: #e0a800;
     border-color: #d39e00;
   }
 
-  .finance-table {
+  .budget-table {
     background-color: #fff; 
   }
 
-  .finance-title{
+  .budget-title{
     font-weight: bold;
     text-align: center;
     font-size:30px;

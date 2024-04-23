@@ -267,9 +267,15 @@ const EditQualityRecords = () => {
           )}
         </div>
 
-        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
+        {/* <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
           <i className="fas fa check-square"></i>&nbsp;Submit Record
+        </button> */}
+
+<div className="d-flex justify-content-center">
+        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
+          <i className="fas fa-check-square"></i>&nbsp;Submit Record
         </button>
+      </div>
 
       </form>
     </div>

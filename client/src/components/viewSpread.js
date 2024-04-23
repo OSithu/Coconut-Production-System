@@ -38,6 +38,12 @@ const ViewSpread = () => {
     getAllRecords();
   }, []);
 
+//Remove Time in Identify Date Part
+  function formatDate(identifyDate) {
+    const date = new Date(identifyDate);
+    return date.toISOString().split('T')[0]; 
+  }
+
 
 //Implement PDF Download Function
 
@@ -84,6 +90,7 @@ const generatePDF = useReactToPrint({
         records.treeID.toLowerCase().includes(searchRecord.toLowerCase())
       );
 
+
   return (
     <div>
             <div className="header">
@@ -97,10 +104,10 @@ const generatePDF = useReactToPrint({
               </a>
             </li>
             <li>
-              <a href="#news">Spread Records</a>
+              <a href="/viewDisease">Spread Records</a>
             </li>
             <li>
-              <a href="#contact">Pest Records</a>
+              <a href="/viewPestRecords">Pest Records</a>
             </li>
            
           </div>
@@ -148,7 +155,7 @@ const generatePDF = useReactToPrint({
         </button>
 
         <div style={{ marginTop: "20px" }}>
-          <div ref={conponentPDF} style={{width:"100%"}}>
+          
           <table className="table" id='plantTable'>
             <thead>
               <tr>
@@ -167,7 +174,7 @@ const generatePDF = useReactToPrint({
                 <tr>
                   <td scope="row">{index + 1}</td>
                   <td>{records.treeID}</td>
-                  <td>{records.identifyDate}</td>
+                  <td>{formatDate(records.identifyDate)}</td>
                   <td>{records.disease}</td>
                   <td className={`spread-level ${records.spreadLevel}`}>
                     {records.spreadLevel}
@@ -193,7 +200,7 @@ const generatePDF = useReactToPrint({
               ))}
             </tbody>
           </table>
-          </div>
+        
 
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
           <button className="btn btn-success">
@@ -201,7 +208,7 @@ const generatePDF = useReactToPrint({
             href="/spreadReport"
             style={{ textDecoration: "none", color: "white" }}
           >
-            Generate PDF
+            <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
           </a>
         </button>  </div> 
 
