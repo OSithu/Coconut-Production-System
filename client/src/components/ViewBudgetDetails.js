@@ -138,6 +138,7 @@ const ViewBudgetDetails = () => {
       console.error('Error deleting budget record:', err);
     }
   }
+  
 
    //filter allCustomers based on searchCustomer
 const filteredBudget = allDetails.filter(budget =>
@@ -149,21 +150,34 @@ const filteredBudget = allDetails.filter(budget =>
     const content = table.outerHTML;
     const newWindow = window.open();
     newWindow.document.write(`
-      <html>
-        <head>
-          <title>Budget Details</title>
-          <style>
-            /* Add your print styles here */
-            @media print {
-              /* Hide buttons */
-              button { display: none; }
-            }
-          </style>
-        </head>
-        <body>
-          ${content}
-        </body>
-      </html>
+    <html>
+    <head>
+      <title>Budget Details</title>
+      <style>
+        /* Add your print styles here */
+        @media print {
+          /* Hide buttons */
+          button { display: none; }
+          /* Apply table styles */
+          .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          .budget-table th, .budget-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+          }
+          .budget-table th {
+            background-color: #f2f2f2;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      ${content}
+    </body>
+  </html>
     `);
     newWindow.print();
     newWindow.close();
@@ -185,6 +199,9 @@ const filteredBudget = allDetails.filter(budget =>
             <BsSearch/>
           </button>
       </div>
+      <button className="btn btn-success">
+        <Link to="/AddBudgetDetails" style={{ textDecoration: 'none', color: 'white' }}>Create New Post</Link>
+      </button>
       <table className="table budget-table">
         <thead>
           <tr>
@@ -207,6 +224,7 @@ const filteredBudget = allDetails.filter(budget =>
                     <i className="fas fa-edit"></i>&nbsp; Edit
                   </button>
                 </Link>
+                &nbsp;
                 <button type="button" className="btn btn-danger" onClick={() => handleDelete(budget._id)}>
                   <i className="far fa-trash-alt"></i>&nbsp;Delete
                 </button>
@@ -215,9 +233,9 @@ const filteredBudget = allDetails.filter(budget =>
           ))}
         </tbody>
       </table>
-      <button className="btn btn-success">
+      {/* <button className="btn btn-success">
         <Link to="/AddBudgetDetails" style={{ textDecoration: 'none', color: 'white' }}>Create New Post</Link>
-      </button>
+      </button> */}
       <button className="btn btn-success" onClick={generateBudgetPDF}>Print PDF</button>
     </div>
   );
