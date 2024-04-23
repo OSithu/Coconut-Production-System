@@ -97,10 +97,10 @@ const generatePDF = useReactToPrint({
               </a>
             </li>
             <li>
-              <a href="#news">Spread Records</a>
+              <a href="/viewDisease">Spread Records</a>
             </li>
             <li>
-              <a href="#contact">Pest Records</a>
+              <a href="/viewPestRecords">Pest Records</a>
             </li>
            
           </div>
@@ -196,10 +196,10 @@ const generatePDF = useReactToPrint({
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
           <button className="btn btn-success">
           <a
-            href="/spreadReport"
+            href="/pestReport"
             style={{ textDecoration: "none", color: "white" }}
           >
-            Generate PDF
+            <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate PDF
           </a>
         </button>  </div> 
 
