@@ -150,10 +150,23 @@ const AddTransaction = () => {
     const [Income, setIncome] = useState('');
     const [Expences, setExpences] = useState('');
     const [totalAmount, setTotalAmount] = useState('');
+    const [errors, setErrors] = useState({});
 
     // Implementing send data function
     const sendData = async (e) => {
         e.preventDefault();
+
+        const currentDate = new Date();
+        const selectedDate = new Date(date);   
+        
+        if (selectedDate >= currentDate) {
+            setErrors({ date: 'Please select a date in the past.' });
+            return;
+        }
+
+        // Clear errors if validation passes
+        setErrors({});
+
 
         try {
             let newTransaction = {
@@ -196,56 +209,59 @@ const AddTransaction = () => {
             <h1 className="h3 mb-3 font-weight-normal">Add New Transaction</h1>
             <div className="financepage-background">
                 <div className="col-md-8 mt-4 mx-auto">
-            <form className="finance-form needs-validation" noValidate>
-                <div className="form-group" style={{ marginBottom: '15px' }}>
-                    <label style={{ marginBottom: '5px' }}>Date</label>
-                    <input
-                        type='date'
-                        className="form-control"
-                        name="date"
-                        placeholder="Date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                </div>
+                    <form className="finance-form needs-validation" noValidate>
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Date</label>
+                            <input
+                                type='date'
+                                className="form-control"
+                                name="date"
+                                placeholder="Date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                max={ new Date().toISOString().split('T')[0]} //disable future dates
+                                    required
+                            />
+                            {errors.date && <div className="Invalid-feedback">{errors.date}</div>}
+                        </div>
 
-                <div className="form-group" style={{ marginBottom: '15px' }}>
-                    <label style={{ marginBottom: '5px' }}>Type</label>
-                    <input
-                        type='text'
-                        className="form-control"
-                        name="type"
-                        placeholder="Enter type"
-                        value={type}
-                        onChange={(e) => setType(e.target.value)}
-                    />
-                </div>
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Type</label>
+                            <input
+                                type='text'
+                                className="form-control"
+                                name="type"
+                                placeholder="Enter type"
+                                value={type}
+                                onChange={(e) => setType(e.target.value)}
+                            />
+                        </div>
 
-                <div className="form-group" style={{ marginBottom: '15px' }}>
-                    <label style={{ marginBottom: '5px' }}>Description</label>
-                    <input
-                        type='text'
-                        className="form-control"
-                        name="Description"
-                        placeholder="Description"
-                        value={Description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Description</label>
+                            <input
+                                type='text'
+                                className="form-control"
+                                name="Description"
+                                placeholder="Description"
+                                value={Description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </div>
 
-                <div className="form-group" style={{ marginBottom: '15px' }}>
-                    <label style={{ marginBottom: '5px' }}>Income</label>
-                    <input
-                        type='number'
-                        className="form-control"
-                        name="Income"
-                        placeholder="Enter income"
-                        value={Income}
-                        onChange={(e) => setIncome(e.target.value)}
-                    />
-                </div>
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Income</label>
+                            <input
+                                type='number'
+                                className="form-control"
+                                name="Income"
+                                placeholder="Enter income"
+                                value={Income}
+                                onChange={(e) => setIncome(e.target.value)}
+                            />
+                        </div>
 
-                <div className="form-group" style={{ marginBottom: '15px' }}>
+                        {/* <div className="form-group" style={{ marginBottom: '15px' }}>
                     <label style={{ marginBottom: '5px' }}>Expenses</label>
                     <input
                         type='number'
@@ -255,28 +271,55 @@ const AddTransaction = () => {
                         value={Expences}
                         onChange={(e) => setExpences(e.target.value)}
                     />
-                </div>
+                </div> */}
 
-                <div className="form-group" style={{ marginBottom: '15px' }}>
-                    <label style={{ marginBottom: '5px' }}>Total Amount</label>
-                    <input
-                        type='number'
-                        className="form-control"
-                        name="totalAmount"
-                        placeholder="Enter TotalAmount"
-                        value={totalAmount}
-                        onChange={(e) => setTotalAmount(e.target.value)}
-                    />
-                </div>
+                        {/* <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Expenses</label>
+                            <input
+                                type='number'
+                                className="form-control"
+                                name="Expenses"
+                                placeholder="Enter Expenses"
+                                value={Expences} 
+                                onChange={(e) => setExpences(e.target.value)} 
+                            />
+                        </div> */}
 
-                <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={sendData}>
-                    <i className="far fa-check-square"></i>
-                    &nbsp; Save
-                </button>
-            </form>
-        </div>
-        </div>
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Expences</label>
+                            <input
+                                type='number'
+                                className="form-control"
+                                name="Expences"
+                                placeholder="Enter expences"
+                                value={Expences}
+                                onChange={(e) => setExpences(e.target.value)}
+                            />
+                        </div>
+
+
+
+
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Total Amount</label>
+                            <input
+                                type='number'
+                                className="form-control"
+                                name="totalAmount"
+                                placeholder="Enter TotalAmount"
+                                value={totalAmount}
+                                onChange={(e) => setTotalAmount(e.target.value)}
+                            />
+                        </div>
+
+                        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={sendData}>
+                            <i className="far fa-check-square"></i>
+                            &nbsp; Save
+                        </button>
+                    </form>
+                </div>
             </div>
+        </div>
     );
 };
 

@@ -254,9 +254,9 @@ const filteredFinance = allDetails.filter(finance =>
                 <td>{finance.date}</td>
                 <td>{finance.type}</td>
                 <td>{finance.Description}</td>
-                <td>{finance.Income}</td>
-                <td>{finance.Expenses}</td>
-                <td>{finance.totalAmount}</td>
+                <td>Rs.{String(finance.Income)}</td>
+                <td>Rs.{String(finance.Expenses)}</td>
+                <td>Rs.{String(finance.totalAmount)}</td>
                 <td>
                   <Link to={`/editFinanceDetails/${finance._id}`}>
                     <button type="button" className="btn btn-warning">
