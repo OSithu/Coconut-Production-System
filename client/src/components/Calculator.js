@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "./Calculator.css";
+//import "./Calculator.css";
+import '../stylesheets/fertilizationview.css';
+import './fertilizationMain.css';
 
 function Calculator() {
   const [zone, setZone] = useState("dry");
