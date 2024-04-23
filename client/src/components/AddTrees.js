@@ -144,6 +144,9 @@ const AddTrees = () => {
                                         className={`form-control ${errors.plantedDate ? 'is-invalid' : ''}`}
                                         name="plantedDate"
                                         value={plantedDate}
+                                        max={
+                                            new Date().toISOString().split('T')[0]
+                                          }
                                         onChange={(e) => setPlantedDate(e.target.value)} />
                                     {errors.plantedDate && <div className="invalid-feedback">{errors.plantedDate}</div>}
                                 </div>
