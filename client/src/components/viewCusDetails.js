@@ -1,10 +1,16 @@
+// import React, { useState, useEffect, useRef } from "react";
+// import axios from "axios";
+// import { BsSearch } from "react-icons/bs";
+// import CustomerNav from "./CustomerNav";
+// import { BsSearch } from 'react-icons/bs';
+// import '../stylesheets/customer.css';
+
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { BsSearch } from "react-icons/bs";
-import CustomerNav from "./CustomerNav";
-import { BsSearch } from 'react-icons/bs';
+import { BsSearch } from "react-icons/bs"; // Keep this import
+// Remove or rename the duplicate import
+// import { BsSearch } from 'react-icons/bs';
 import '../stylesheets/customer.css';
-
 
 const ViewCusDetails = () => {
   const componentPDF = useRef();
