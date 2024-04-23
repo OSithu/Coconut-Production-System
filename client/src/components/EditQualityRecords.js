@@ -18,10 +18,10 @@ const EditQualityRecords = () => {
     const year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
     let day = date.getDate().toString().padStart(2, "0");
-  
-    return `${year}-${month}-${day}`; 
+
+    return `${year}-${month}-${day}`;
   };
-  
+
 
   useEffect(() => {
     const getOneRecord = async () => {
@@ -62,7 +62,7 @@ const EditQualityRecords = () => {
     } else {
       const today = new Date();
       const selectedDate = new Date(qualityCheckedDate);
-  
+
       if (selectedDate > today) {
         errors.qualityCheckedDate = "Quality checked date cannot be a future date";
       }
@@ -79,7 +79,7 @@ const EditQualityRecords = () => {
   const UpdateRecord = async (e) => {
     e.preventDefault();
 
-     if (!validateForm()) {
+    if (!validateForm()) {
       return;
     }
 
@@ -96,9 +96,9 @@ const EditQualityRecords = () => {
         await axios.put(`http://localhost:8000/qualityrecords/update/${id}`, updatedQualityRecord)
 
           .then((res) => {
-            alert(res.data.message);
+            alert(res.data.success);
             console.log(res.data.message);
-            navigate("/viewQualityRecords");
+            navigate("/viewQualityRecord");
           })
           .catch((err) => {
             if (err.response) {
@@ -126,22 +126,22 @@ const EditQualityRecords = () => {
             type="text"
             className={`form-control ${formErrors.recordId && 'is-invalid'}`}
             name="recordId"
-            placeholder="Enter RecordID "
+            //placeholder="Enter RecordID "
             onChange={(e) => setRecordId(e.target.value)}
             value={recordId}
             required
           />
-           {formErrors.recordId && (
+          {formErrors.recordId && (
             <div className="invalid-feedback">{formErrors.recordId}</div>
           )}
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
+        {/* <div className="form-group" style={{ marginBottom: '15px' }}>
           <label style={{ marginBottom: '5px' }}>Product Type</label>
           <input type="text"
             className={`form-control ${formErrors.productType && 'is-invalid'}`}
             name="productType"
-            placeholder="Enter Product Type"
+            //placeholder="Enter Product Type"
             onChange={(e) => setProductType(e.target.value)}
             value={productType}
             required
@@ -149,15 +149,52 @@ const EditQualityRecords = () => {
           {formErrors.productType && (
             <div className="invalid-feedback">{formErrors.productType}</div>
           )}
-        </div>
+        </div> */}
+
+        {/* <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Product Type</label>
+          <select
+            className={`form-control ${formErrors.productType && 'is-invalid'}`}
+            name="productType"
+            onChange={(e) => setProductType(e.target.value)}
+            value={productType}
+          > */}
+        {/* <option value="">Select Product Type</option> */}
+        {/* <option value="Coconut Oil">Coconut Oil</option>
+            <option value="Coconut Water">Coconut Water</option>
+            <option value="Desiccated Coconut">Desiccated Coconut</option>
+          </select>
+          {formErrors.productType && (
+            <div className="invalid-feedback">{formErrors.productType}</div>
+          )}
+        </div> */}
 
         <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Product Type</label>
+          <select
+            className={`form-control ${formErrors.productType && 'is-invalid'}`}
+            name="productType"
+            onChange={(e) => setProductType(e.target.value)}
+            value={productType}
+          >
+            {/* <option value="" disabled selected>Select Product Type</option> */}
+            <option value="Coconut Oil">Coconut Oil</option>
+            <option value="Coconut Water">Coconut Water</option>
+            <option value="Desiccated Coconut">Desiccated Coconut</option>
+          </select>
+          {formErrors.productType && (
+            <div className="invalid-feedback">{formErrors.productType}</div>
+          )}
+        </div>
+
+
+        {/* <div className="form-group" style={{ marginBottom: '15px' }}>
           <label style={{ marginBottom: '5px' }}>Quality Checked Date</label>
           <input
             type="date"
             className={`form-control ${formErrors.qualityCheckedDate && 'is-invalid'}`}
             name="qualityCheckedDate"
-            placeholder="Enter Quality Checked Date"
+            //placeholder="Enter Quality Checked Date"
             onChange={(e) => setQualityCheckedDate(e.target.value)}
             value={qualityCheckedDate}
             required
@@ -165,6 +202,22 @@ const EditQualityRecords = () => {
           {formErrors.qualityCheckedDate && (
             <div className="invalid-feedback">{formErrors.qualityCheckedDate}</div>
           )}
+        </div> */}
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Quality Checked Date</label>
+          <input type="Date"
+            className={`form-control ${formErrors.qualityCheckedDate && 'is-invalid'}`}
+            name="qualityCheckedDate"
+            placeholder="Enter Quality Checked Date"
+            onChange={(e) => setQualityCheckedDate(e.target.value)}
+            value={qualityCheckedDate}
+            required
+            max={
+              new Date().toISOString().split('T')[0]
+            }
+          />
+
         </div>
 
         <div className="form-group" style={{ marginBottom: '15px' }}>
@@ -172,19 +225,19 @@ const EditQualityRecords = () => {
           <input type="text"
             className="form-control"
             name="specialNotes"
-            placeholder="Enter Special Notes"
+            //placeholder="Enter Special Notes"
             onChange={(e) => setSpecialNotes(e.target.value)}
             value={specialNotes}
             required
           />
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
+        {/* <div className="form-group" style={{ marginBottom: '15px' }}>
           <label style={{ marginBottom: '5px' }}>Test Result</label>
           <input type="text"
             className={`form-control ${formErrors.testResult && 'is-invalid'}`}
             name="testResult"
-            placeholder="Enter Test Result"
+            //placeholder="Enter Test Result"
             onChange={(e) => setTestResult(e.target.value)}
             value={testResult}
             required
@@ -192,9 +245,26 @@ const EditQualityRecords = () => {
           {formErrors.testResult && (
             <div className="invalid-feedback">{formErrors.testResult}</div>
           )}
+        </div> */}
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Test Result</label>
+          <select
+            className={`form-control ${formErrors.productType && 'is-invalid'}`}
+            name="testResult"
+            onChange={(e) => setTestResult(e.target.value)}
+            value={testResult}
+          >
+            {/* <option value="">Select Product Type</option> */}
+            <option value="Passed">Passed</option>
+            <option value="Coconut Water">Failed</option>
+          </select>
+          {formErrors.testResult && (
+            <div className="invalid-feedback">{formErrors.testResult}</div>
+          )}
         </div>
 
-        <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
+        <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }}>
           <i className="fas fa check-square"></i>&nbsp;Submit Record
         </button>
 
