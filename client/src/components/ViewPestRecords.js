@@ -134,7 +134,7 @@ const generatePDF = useReactToPrint({
         </div>
       </div>
       <br></br>
-      <h1 className='plantTopic'>Pest Add Records</h1>
+      <h1 className='plantTopic'>Pest Records</h1>
       {/* search */}
      <div className="input-group mb-3">
         <input

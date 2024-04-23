@@ -41,7 +41,7 @@ router.post('/budgetRecords/save', async (req, res) => {
   router.get("/budgetRecords/:id", async (req, res) => {
     try {
         let budgetrecordID = req.params.id;
-        let budgetrecord = await budgetRecord.findById(budgetrecordID);
+        let budgetrecord = await budget.findById(budgetrecordID);
         if (!budgetrecord) {
             return res.status(404).json({ success: false, message: "Record not found" });
         }

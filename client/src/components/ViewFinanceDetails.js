@@ -294,7 +294,7 @@ const filteredFinance = allDetails.filter(finance =>
                 <td>{finance.type}</td>
                 <td>{finance.Description}</td>
                 <td>Rs.{String(finance.Income)}</td>
-                <td>Rs.{String(finance.Expenses)}</td>
+                <td>Rs.{String(finance.Expences)}</td>
                 <td>Rs.{String(finance.totalAmount)}</td>
                 <td>
                   <Link to={`/editFinanceDetails/${finance._id}`}>

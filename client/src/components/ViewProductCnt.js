@@ -75,7 +75,28 @@ const ViewProductCnt = () => {
 
   return (
     <div>
-      <ProductNav />
+      <div className="header">
+        <div>
+          <ul className="navbar">
+            <div className="pDetails" style={{marginRight: "250px", marginLeft: "100px"}}>
+              <li>
+                <a class="active" href="/viewProduct">
+                  Product Details
+                </a>
+              </li>
+            </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="pDetails" style={{marginLeft: "250px", marginRight: "100px"}}>
+              <li>
+                <a href="/viewProductCnt">Product Records</a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <br></br>
       <div className="container">
         <div>
           <p>Product Records</p>
