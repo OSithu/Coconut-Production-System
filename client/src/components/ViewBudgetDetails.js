@@ -243,8 +243,9 @@ const filteredBudget = allDetails.filter(budget =>
             <h1> Jayakody Koppara Stores </h1>
             <hr />
           </div>
-      <table className="budget-table">
+    
 
+      <table className="table budget-table">
 
         <thead>
           <tr>
