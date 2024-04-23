@@ -56,7 +56,9 @@ const Profile = () => {
   return (
     <div className="container d-flex justify-content-center align-items-center">
       <div className="card text-center" style={{ width: "40rem", marginTop: "100px" }}>
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ marginTop: "20px", padding:"20px" }}>
+          <img src="/images/profile.png" className='profileImg'/>
+          <br/><br/>
           <h4 style={{ textAlign: "center" }}>{cusName}</h4>
           <dl className="row">
             <dd>

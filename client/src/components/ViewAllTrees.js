@@ -48,11 +48,70 @@ const ViewAllTrees = () => {
     trees.treeID.toLowerCase().includes(searchTrees.toLowerCase())
   )
 
-  const generateReport = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitle: "title"
-    //onAfterPrint: ()=> alert("report saved")
-  })
+  // const generateReport = useReactToPrint({
+  //   content: () => componentPDF.current,
+  //   documentTitle: "title"
+  //   //onAfterPrint: ()=> alert("report saved")
+  // })
+
+  const generateReport = () => {
+    const table = document.querySelector('.table');
+    const content = table.outerHTML;
+    const newWindow = window.open();
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title> Harvest Details </title>
+          <style>
+            img {
+              height: 100px; 
+              margin: 5px; 
+            }
+            .imgContainer {
+              text-align: center;
+            }
+            h2 {
+              text-align: center;
+            }
+            
+            @media print {
+              /* Hide buttons */
+              button { display: none; }
+              .actionCol { display: none; }
+              /* Apply table styles */
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="reportHeader" >
+            <div class="imgContainer">
+              <img src="/images/logo.png">
+              <h1> Jayakody Koppara Stores </h1>
+          <hr />
+            </div>
+            <br/>
+            <h2>Harvest Details</h2>
+            <hr />
+          </div>
+          ${content}
+        </body>
+      </html>
+    `);
+    newWindow.print();
+    newWindow.close();
+  };
 
   return (
     <div >
@@ -73,9 +132,8 @@ const ViewAllTrees = () => {
       </div>
       <div ref={componentPDF} >
 
-        <div className="print-header" style={{ display: "none" }}>
-          <h1> Jayakody Koppara Stores </h1>
-          <hr />
+        <div className="plantPrint-header" style={{ display: "none" }}>
+          <img src="/images/logo.png" className='imageReport2' />
         </div>
         <div className='plantReport1'>
           <h1 className='plantTopic'> Tree Details </h1>
@@ -110,7 +168,7 @@ const ViewAllTrees = () => {
             </tbody>
           </table>
         </div>
-        <div className="print-footer" style={{ display: "none" }}>
+        <div className="plantPrint-header" style={{ display: "none" }}>
           <hr />
           <p>Report Generated on {currentDate} </p>
         </div>

@@ -271,6 +271,9 @@ const ViewBlock = () => {
                                             class={`form-control ${errors.lastHarvested && 'is-invalid'}`}
                                             name="lastHarvested"
                                             value={lastHarvested}
+                                            max={
+                                                new Date().toISOString().split('T')[0]
+                                              }
                                             onChange={(e) => setLastHarvested(e.target.value)}
                                             disabled={!isEditable} />
                                         {errors.lastHarvested && <div className="invalid-feedback">{errors.lastHarvested}</div>}
@@ -284,6 +287,9 @@ const ViewBlock = () => {
                                             class={`form-control ${errors.nextHarvesting && 'is-invalid'}`}
                                             name="nextHarvesting"
                                             value={nextHarvesting}
+                                            min={
+                                                new Date().toISOString().split('T')[0]
+                                              }
                                             onChange={(e) => setNextHarvesting(e.target.value)}
                                             disabled={!isEditable} />
                                         {errors.nextHarvesting && <div className="invalid-feedback">{errors.nextHarvesting}</div>}
@@ -297,6 +303,9 @@ const ViewBlock = () => {
                                             class={`form-control ${errors.lastFertilized && 'is-invalid'}`}
                                             name="lastFertilized"
                                             value={lastFertilized}
+                                            max={
+                                                new Date().toISOString().split('T')[0]
+                                              }
                                             onChange={(e) => setLastFertilized(e.target.value)}
                                             disabled={!isEditable} />
                                         {errors.lastFertilized && <div className="invalid-feedback">{errors.lastFertilized}</div>}
@@ -310,6 +319,9 @@ const ViewBlock = () => {
                                             class={`form-control ${errors.nextFertilization && 'is-invalid'}`}
                                             name="nextFertilization"
                                             value={nextFertilization}
+                                            min={
+                                                new Date().toISOString().split('T')[0]
+                                              }
                                             onChange={(e) => setNextFertilization(e.target.value)}
                                             disabled={!isEditable} />
                                         {errors.nextFertilization && <div className="invalid-feedback">{errors.nextFertilization}</div>}
