@@ -123,7 +123,6 @@ const ViewQualityRecords = () => {
                           <i className="fas fa-eye"></i>&nbsp;View Record
                         </a>
                       </div>
-
                       <div>
                         <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
                           <i className="fas fa-edit"></i>&nbsp;Update

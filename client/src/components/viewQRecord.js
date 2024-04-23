@@ -3,6 +3,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 
+
+import "../stylesheets/qualityRecords.css";
+
 const ViewQRecord = () => {
     const componentPDF = useRef();
 
@@ -54,8 +57,9 @@ const ViewQRecord = () => {
     });
 
     return (
+        <div>
 
-        <div className="col-md-8 mt-4 mx-auto">
+        <div className="col-md-8 mt-4 mx-auto quality-records-container">
             <h1 className="h3 mb-3 font-weight-normal">Record Details</h1>
 
             <div style={{ marginTop: "20px" }}>
@@ -126,11 +130,14 @@ const ViewQRecord = () => {
                         </div>
                     </form>
                 </div>
-                <div className="d-grid d-md-flex justify-content-md-end mb-3">
+               
+            </div>
+            
+
+        </div>
+        <div className="d-grid d-md-flex justify-content-md-end mb-3">
                     <button className="btn btn-light border border-secondary" onClick={generatePDF}>Generate Report</button>
                 </div>
-
-            </div>
         </div>
     );
 };
