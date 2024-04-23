@@ -46,16 +46,73 @@ const ViewProducts = () => {
         }
       }
     };
+    
 
     getAllItems();
   }, []);
 
   //implementing function for the pdf downloading
-  const generatePDF = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitile: "ProductDetails",
-    onAfterPrint: () => alert("Data saved in PDF"),
-  });
+  const generateReport = () => {
+    const table = document.querySelector('.table');
+    const content = table.outerHTML;
+    const newWindow = window.open();
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title> Product Details </title>
+          <style>
+            img {
+              height: 100px; 
+              margin: 5px; 
+            }
+            .imgContainer {
+              text-align: center;
+            }
+            h2 {
+              text-align: center;
+            }
+            
+            @media print {
+              /* Hide buttons */
+              a { display: none; }
+              .action-col { display: none; }
+              /* Apply table styles */
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            }
+          </style>
+        </head>
+        <body>
+        <div className="print-header" >
+            <img src="/images/logo.png" className='imageReport2' />
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
+          <div class="reportHeader" >
+            <div class="imgContainer">
+              <img src="/image/logo.png" alt="Description of image">
+            </div>
+            <br/>
+            <h2>Product Details</h2>
+            <hr />
+          </div>
+          ${content}
+        </body>
+      </html>
+    `);
+    newWindow.print();
+    newWindow.close();
+  };
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -136,10 +193,11 @@ const ViewProducts = () => {
             </button>{" "}
           </div>
           <div ref={componentPDF} style={{ width: "100%" }}>
-            <div className="print-header" style={{ display: "none" }}>
-              <h1> Jayakody Koppara Stores </h1>
-              <hr />
-            </div>
+          <div className="print-header" style={{ display: "none" }}>
+            <img src="/images/logo.png"  />
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
             {showWarning && (
               <div className="alert alert-warning" role="alert">
                 {warningProductId && `${warningProductId} is low on stock`}
@@ -186,7 +244,7 @@ const ViewProducts = () => {
                   <th scope="col" style={{ borderRight: "1px solid white" }}>
                     Additional notes
                   </th>
-                  <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  <th className="action-col" scope="col" style={{ borderRight: "1px solid white" }}>
                     Actions
                   </th>
                 </tr>
@@ -243,7 +301,7 @@ const ViewProducts = () => {
                         <span style={{ color: "red" }}>Stock level is low</span>
                       )}
                     </td>
-                    <td>
+                    <td className="action-col">
                       <a
                         className="btn btn-warning"
                         href={`/editProduct/${products._id}`}
@@ -271,7 +329,7 @@ const ViewProducts = () => {
             </div>
           </div>
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
-            <button className="btn btn-success" onClick={generatePDF}>
+            <button className="btn btn-success" onClick={generateReport}>
               Generate PDF
             </button>{" "}
           </div>

@@ -105,7 +105,6 @@ router.delete("/productCnt/delete/:id", async (req, res) => {
 });
 
 //get product ID from product table
-
 router.get("/productsDet", async (req, res) => {
   try {
     const product = await Products.find().exec();
@@ -121,3 +120,4 @@ router.get("/productsDet", async (req, res) => {
   }
 })
 module.exports = router;
+

@@ -40,10 +40,10 @@ const CreateProductCnt = () => {
       isValid = false;
     }
 
-    if (!quantityUnit) {
-      errors.quantityUnit = "Please select a quantity unit.";
-      isValid = false;
-    }
+    // if (!quantityUnit) {
+    //   errors.quantityUnit = "Please select a quantity unit.";
+    //   isValid = false;
+    // }
 
     if (!productDate) {
       errors.productDate = "Please enter a date.";
@@ -183,7 +183,7 @@ const CreateProductCnt = () => {
               {errors.quantity && (
                 <div className="invalid-feedback">{errors.quantity}</div>
               )}
-              <select
+              {/* <select
                 className={`form-select ${errors.quantityUnit && "is-invalid"}`}
                 name="quantityUnit"
                 value={quantityUnit}
@@ -197,7 +197,7 @@ const CreateProductCnt = () => {
               </select>
               {errors.quantityUnit && (
                 <div className="invalid-feedback">{errors.quantityUnit}</div>
-              )}
+              )} */}
             </div>
           </div>
 
