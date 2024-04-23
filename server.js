@@ -27,6 +27,8 @@ const blockRoute = require("./routes/blockRoute");
 const harvestRoute = require("./routes/harvestRoute");
 const harvestScheduleRoute = require("./routes/harvestScheduleRoute");
 const budgetRoute = require("./routes/budgetRoute");
+const pestRecordRoute = require("./routes/pestRecordsRoute");
+const taskSheduleRoute = require("./routes/taskSheduleRoute");
 
 //app middleware
 app.use(bodyParser.json());
@@ -47,6 +49,8 @@ app.use(blockRoute);
 app.use(harvestRoute);
 app.use(harvestScheduleRoute);
 app.use(budgetRoute);
+app.use(pestRecordRoute);
+app.use(taskSheduleRoute);
 
 //declaring server running port
 const port = 8000;

@@ -100,7 +100,7 @@ const CreateCusDetails = () => {
 
   return (
     <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Add new customer detail</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Add new customer details</h1>
       <form className="needs-validation" noValidate onSubmit={sendData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Customer name</label>

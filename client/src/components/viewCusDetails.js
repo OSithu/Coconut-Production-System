@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import CustomerNav from "./CustomerNav";
 import { BsSearch } from 'react-icons/bs';
+import '../stylesheets/customer.css';
 
 import { useReactToPrint } from "react-to-print";
 

@@ -80,6 +80,16 @@ import CustomerProfile from "./components/CustomerProfile";
 import OrderProfile from "./components/OrderProfile";
 
 import Profile from "./components/Profile";
+import GenerateSpreadReport from "./components/GenerateSpreadReport";
+
+import ViewTaskShedule from "./components/ViewTaskShedule";
+import CreateShedule from "./components/CreateShedule";
+import EditTaskShedule from "./components/EditTaskShedule";
+
+import ViewPestRecords from "./components/ViewPestRecords";
+import CreatePestRecords from "./components/CreatePestRecords";
+
+import ProductDash from "./components/ProductDash";
 
 function App() {
   return (
@@ -172,6 +182,16 @@ function App() {
           <Route path="/OrderProfile/:id" Component={OrderProfile} />
 
           <Route path="/Profile/:username" Component={Profile} />
+          <Route path="/spreadReport" Component={GenerateSpreadReport} />
+
+          <Route path="/ViewTaskShedule" Component={ViewTaskShedule}  />
+          <Route path="/CtreateTaskShedule" Component={CreateShedule}  />
+          <Route path="/EditTaskShedule" Component={EditTaskShedule}  />
+
+          <Route path="/viewPestRecords" Component={ViewPestRecords} />      
+          <Route path="/createPestRecords" Component={CreatePestRecords} />
+
+          <Route path="/productDash" Component={ProductDash}/>
 
         </Routes>
       </div>
