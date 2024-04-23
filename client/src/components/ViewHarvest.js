@@ -7,7 +7,7 @@ import '../stylesheets/plantation.css';
 
 const ViewHarvest = () => {
   const [harvestDetails, setHarvestDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState('');
+  const [searchHarvest, setSearchTrees] = useState('');
   const componentPDF = useRef();
 
   const formatDate = (date) => {
@@ -23,8 +23,6 @@ const ViewHarvest = () => {
   };
 
   useEffect(() => {
-
-    setCurrentDate(formatDate(new Date()));
 
     const getAllHarvest = async () => {
       await axios(`http://localhost:8000/harvest`)
@@ -80,11 +78,10 @@ const ViewHarvest = () => {
     }
   }
 
-  // const generateReport = useReactToPrint({
-  //   content: () => componentPDF.current,
-  //   documentTitle: "title"
-  //   //onAfterPrint: ()=> alert("report saved")
-  // })
+  //search
+  const filterHarvest = harvestDetails.filter(harvest =>
+    harvest.date.includes(searchHarvest)
+  )
 
   const generateReport = () => {
     const table = document.querySelector('.table');
@@ -129,7 +126,7 @@ const ViewHarvest = () => {
         <body>
           <div class="reportHeader" >
             <div class="imgContainer">
-              <img src="/images/logo.png" alt="Description of image">
+              <img src="/images/logo.png">
             </div>
             <br/>
             <h2>Harvest Details</h2>
@@ -149,6 +146,16 @@ const ViewHarvest = () => {
       <div className='plantHeader'>
         <PlantationNav />
         &nbsp;
+        <div className='plantSearch'>
+          <div>
+            <input type="date"
+              className='form-control'
+              placeholder='search'
+              value={searchHarvest}
+              onChange={(e) => setSearchTrees(e.target.value)} />
+            <button class="btn btn-success" type="submit" >Search</button>
+          </div>
+        </div>
       </div>
       <div className='plantBody'>
         &nbsp;
@@ -181,7 +188,7 @@ const ViewHarvest = () => {
               </tr>
             </thead>
             <tbody>
-              {harvestDetails.map((harvest, index) => (
+              {filterHarvest.map((harvest, index) => (
                 <tr key={index}>
                   {index === 0 || harvest.date !== harvestDetails[index - 1].date ? (
                     <td rowSpan={harvestDetails.filter((h) => h.date === harvest.date).length}>{harvest.date}</td>
