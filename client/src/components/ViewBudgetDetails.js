@@ -245,7 +245,6 @@ const filteredBudget = allDetails.filter(budget =>
           </div>
       <table className="budget-table">
 
-      <table className="table budget-table">
 
         <thead>
           <tr>
