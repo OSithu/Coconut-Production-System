@@ -156,7 +156,10 @@ const ViewProducts = () => {
       <div className="header">
         <div>
           <ul className="navbar">
-            <div className="pDetails" style={{marginRight: "250px", marginLeft: "100px"}}>
+            <div
+              className="pDetails"
+              style={{ marginRight: "250px", marginLeft: "100px" }}
+            >
               <li>
                 <a class="active" href="/viewProduct">
                   Product Details
@@ -166,7 +169,10 @@ const ViewProducts = () => {
             <div className="logo">
               <img src="./images/logo.png" className="image"></img>
             </div>
-            <div className="pDetails" style={{marginLeft: "250px", marginRight: "100px"}}>
+            <div
+              className="pDetails"
+              style={{ marginLeft: "250px", marginRight: "100px" }}
+            >
               <li>
                 <a href="/viewProductCnt">Product Records</a>
               </li>
@@ -184,24 +190,25 @@ const ViewProducts = () => {
               fontSize: "24px",
             }}
           >
-            All Products
-            <div className="input-group mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search products..."
-                value={searchProducts}
-                onChange={(e) => setSearchProducts(e.target.value)}
-              />
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                style={{ backgroundColor: "#e6e6e6" }}
-              >
-                <BsSearch />
-              </button>
-            </div>
+            All Products{" "}
           </p>
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search products..."
+              value={searchProducts}
+              onChange={(e) => setSearchProducts(e.target.value)}
+            />
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              style={{ backgroundColor: "#e6e6e6" }}
+            >
+              <BsSearch />
+            </button>
+          </div>
+
           <div style={{ textAlign: "right", marginBottom: "10px" }}>
             <button className="btn btn-success">
               <a
@@ -212,18 +219,21 @@ const ViewProducts = () => {
               </a>
             </button>{" "}
           </div>
+          {showWarning && (
+            <div
+              className="alert alert-warning"
+              role="alert"
+              style={{ color: "red" }}
+            >
+              {warningProductId && `${warningProductId} is low on stock`}
+            </div>
+          )}
           <div ref={componentPDF} style={{ width: "100%" }}>
             <div className="print-header" style={{ display: "none" }}>
               <img src="/images/logo.png" />
               <h1> Jayakody Koppara Stores </h1>
               <hr />
-                        
             </div>
-            {showWarning && (
-              <div className="alert alert-warning" role="alert">
-                {warningProductId && `${warningProductId} is low on stock`}
-              </div>
-            )}
             <table
               className="table"
               style={{
@@ -330,7 +340,7 @@ const ViewProducts = () => {
                       <a
                         className="btn btn-warning"
                         href={`/editProduct/${products._id}`}
-                        style={{ width: "90px" }}
+                        style={{ width: "100px" }}
                       >
                         <i className="fas fa-edit"></i>&nbsp;Edit
                       </a>
@@ -338,7 +348,7 @@ const ViewProducts = () => {
                         className="btn btn-danger"
                         href="#"
                         onClick={() => handleDelete(products._id)}
-                        style={{ width: "90px" }}
+                        style={{ width: "100px" }}
                       >
                         <i className="far fa-trash-alt"></i>&nbsp;Delete
                       </a>

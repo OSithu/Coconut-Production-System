@@ -32,11 +32,68 @@ const ViewProductCnt = () => {
   }, []);
 
   //implementing function for the pdf downloading
-  const generatePDF = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitile: "ProductDetails",
-    onAfterPrint: () => alert("Data saved in PDF"),
-  });
+  const generateReport = () => {
+    const table = document.querySelector(".table");
+    const content = table.outerHTML;
+    const newWindow = window.open();
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title> Product Details </title>
+          <style>
+            img {
+              height: 100px; 
+              margin: 5px; 
+            }
+            .imgContainer {
+              text-align: center;
+            }
+            h2 {
+              text-align: center;
+            }
+            
+            @media print {
+              /* Hide buttons */
+              a { display: none; }
+              .action-col { display: none; }
+              .actionCol { display: none; }
+              /* Apply table styles */
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            }
+          </style>
+        </head>
+        <body>
+        <div className="print-header" >
+            <img src="/images/logo.png" className='imageReport2' />
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
+          <div class="reportHeader" >
+            <div class="imgContainer">
+              <img src="/image/logo.png" alt="Description of image">
+            </div>
+            <br/>
+            <h2>Product Details</h2>
+            <hr />
+          </div>
+          ${content}
+        </body>
+      </html>
+    `);
+    newWindow.print();
+    newWindow.close();
+  };
 
   //implementing handleDelete function
   const handleDelete = async (id) => {
@@ -81,7 +138,7 @@ const ViewProductCnt = () => {
             <div className="pDetails" style={{marginRight: "250px", marginLeft: "100px"}}>
               <li>
                 <a class="active" href="/viewProduct">
-                  Product Details
+                  Product Records
                 </a>
               </li>
             </div>
@@ -99,7 +156,15 @@ const ViewProductCnt = () => {
       <br></br>
       <div className="container">
         <div>
-          <p>Product Records</p>
+        <p
+            style={{
+              textAlign: "center",
+              fontFamily: "sans-serif",
+              fontSize: "24px",
+            }}
+          >
+            Product Records{" "}
+          </p>
 
           <div className="input-group mb-3">
             <input
@@ -147,7 +212,7 @@ const ViewProductCnt = () => {
                   <th scope="col" style={{ borderRight: "1px solid white" }}>
                     Description
                   </th>
-                  <th scope="col" style={{ borderRight: "1px solid white" }}>
+                  <th className="actionCol "scope="col" style={{ borderRight: "1px solid white" }}>
                     Actions
                   </th>
                 </tr>
@@ -198,7 +263,7 @@ const ViewProductCnt = () => {
             </table>
           </div>
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
-            <button className="btn btn-success" onClick={generatePDF}>
+            <button className="btn btn-success" onClick={generateReport}>
               Generate PDF
             </button>{" "}
           </div>
