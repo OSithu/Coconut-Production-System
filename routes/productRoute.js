@@ -145,7 +145,7 @@ router.get("/products/:id", async (req, res) => {
 //get products with 'Products' as category
 router.get("/productCat", async (req, res) => {
   try {
-    const productCat = await Products.find({ category: "Products"});
+    const productCat = await Products.find({ $or: [{ category: "Products" }, { category: "By-products" }] });
     const convertedProductCat = productCat.map((productCat) => {
 
       return {
@@ -319,6 +319,17 @@ router.put("/products/editQuantity/:productId", async (req, res) => {
     res
       .status(500)
       .json({ success: false, error: "Failed to update product quantity." });
+  }
+});
+
+// Route to count the number of products
+router.get('/products/count', async (req, res) => {
+  try {
+    const count = await Product.countDocuments();
+    res.json({ count });
+  } catch (error) {
+    console.error('Error counting products:', error);
+    res.status(500).json({ error: 'Error counting products' });
   }
 });
 

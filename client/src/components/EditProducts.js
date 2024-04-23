@@ -205,7 +205,7 @@ const EditProducts = () => {
 
   return (
     <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Add new Product</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Update Product details</h1>
       <form className="needs-validation" noValidate onSubmit={updateData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Product ID</label>

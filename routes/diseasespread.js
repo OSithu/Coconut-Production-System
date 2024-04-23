@@ -1,6 +1,7 @@
 const express = require("express");
+const Trees = require('../models/treeModel');
 
-// Import our user model
+// Import our Disease Spread model
 const Spread_Records = require("../models/diseasespread");
 
 const router = express.Router();
@@ -9,6 +10,11 @@ const router = express.Router();
 
 router.post("/diseasespread/create", async (req, res) => {
   try {
+    // Check if treeID already exists in the database
+    const existingTree = await Trees.findOne({ treeID: req.body.treeID });
+    if (!existingTree) {
+      return res.status(400).json({ error: "Tree ID is Invalid" });
+    }
     // Create a new Records instance
     let newSpread = new Spread_Records(req.body);
 
@@ -51,6 +57,7 @@ router.put("/diseasespread/update/:id", async (req, res) => {
     }).exec();
     return res.status(200).json({
       success: "Record updated Successfully",
+      message: "Record updated Successfully",
     });
   } catch (err) {
     return res.status(400).json({
@@ -59,7 +66,7 @@ router.put("/diseasespread/update/:id", async (req, res) => {
   }
 });
 
-//Get Specific Post
+//Get Specific Spread Record
 router.get("/record/:id", async (req, res) => {
   try {
     let recordID = req.params.id;
@@ -75,7 +82,7 @@ router.get("/record/:id", async (req, res) => {
   }
 });
 
-//Delete Records
+//Delete Spread Records
 
 router.delete("/diseasespread/delete/:id", async (req, res) => {
   try {

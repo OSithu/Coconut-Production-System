@@ -11,6 +11,11 @@ const productCntSchema = new mongoose.Schema({
     required: true,
   },
 
+  quantityUnit: {
+    type: String,
+    required: true,
+  },
+
   productDate: {
     type: Date,
     required: true,

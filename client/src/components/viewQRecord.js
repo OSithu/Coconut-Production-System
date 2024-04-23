@@ -8,9 +8,20 @@ const ViewQRecord = () => {
 
     const [recordId, setRecordId] = useState("");
     const [productType, setProductType] = useState("");
+    const [qualityCheckedDate, setQualityCheckedDate] = useState("")
     const [specialNotes, setSpecialNotes] = useState("");
+    const [testResult, setTestResult] = useState("");
 
     const { id } = useParams();
+
+    const formatDate = (isoDate) => {
+        const date = new Date(isoDate);
+        const year = date.getFullYear();
+        let month = (1 + date.getMonth()).toString().padStart(2, "0");
+        let day = date.getDate().toString().padStart(2, "0");
+      
+        return `${year}-${month}-${day}`; 
+      };
 
     useEffect(() => {
         const getOneRecord = async () => {
@@ -18,7 +29,9 @@ const ViewQRecord = () => {
                 .then((res) => {
                     setRecordId(res.data.records.recordId);
                     setProductType(res.data.records.productType);
+                    setQualityCheckedDate(formatDate(res.data.records.qualityCheckedDate));
                     setSpecialNotes(res.data.records.specialNotes);
+                    setTestResult(res.data.records.testResult);
 
                     console.log(res.data.message);
                 })
@@ -41,6 +54,7 @@ const ViewQRecord = () => {
     });
 
     return (
+
         <div className="col-md-8 mt-4 mx-auto">
             <h1 className="h3 mb-3 font-weight-normal">Record Details</h1>
 
@@ -55,7 +69,7 @@ const ViewQRecord = () => {
                                 type="text"
                                 className="form-control"
                                 name="recordId"
-                                placeholder="Enter RecordID "
+                                // placeholder="Enter RecordID "
                                 onChange={(e) => setRecordId(e.target.value)}
                                 value={recordId}
                                 disabled
@@ -67,9 +81,22 @@ const ViewQRecord = () => {
                             <input type="text"
                                 className="form-control"
                                 name="productType"
-                                placeholder="Enter Product Type"
+                                //placeholder="Enter Product Type"
                                 onChange={(e) => setProductType(e.target.value)}
                                 value={productType}
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Quality Checked Date</label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                name="qualityCheckedDate"
+                                //placeholder="Enter Quality Checked Date"
+                                onChange={(e) => setQualityCheckedDate(e.target.value)}
+                                value={qualityCheckedDate}
                                 disabled
                             />
                         </div>
@@ -79,9 +106,21 @@ const ViewQRecord = () => {
                             <input type="text"
                                 className="form-control"
                                 name="specialNotes"
-                                placeholder="Enter Special Notes"
+                                //placeholder="Enter Special Notes"
                                 onChange={(e) => setSpecialNotes(e.target.value)}
                                 value={specialNotes}
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: '15px' }}>
+                            <label style={{ marginBottom: '5px' }}>Test Result</label>
+                            <input type="text"
+                                className="form-control"
+                                name="testResult"
+                                //placeholder="Enter Test Result"
+                                onChange={(e) => setTestResult(e.target.value)}
+                                value={testResult}
                                 disabled
                             />
                         </div>

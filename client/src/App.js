@@ -79,6 +79,9 @@ import ViewHvstSchedule from "./components/ViewHvstSchedule";
 import CustomerProfile from "./components/CustomerProfile";
 import OrderProfile from "./components/OrderProfile";
 
+import Profile from "./components/Profile";
+import GenerateSpreadReport from "./components/GenerateSpreadReport";
+
 function App() {
   return (
     <Router>
@@ -156,7 +159,7 @@ function App() {
           <Route path="/AddBudgetDetails" Component={AddBudgetDetails} />
           <Route path="/editBudgetDetails/:id" Component={editBudgetDetails} />
 
-          <Route path="viewItems" Component={ViewItems} />
+          <Route path="/viewItems/:username" Component={ViewItems} />
           <Route path="/viewDetails/:id" Component={ViewDetails} />
 
           <Route path="/login" Component={LoginForm} />
@@ -168,6 +171,10 @@ function App() {
 
           <Route path="/CustomerProfile/:id" Component={CustomerProfile} />
           <Route path="/OrderProfile/:id" Component={OrderProfile} />
+
+          <Route path="/Profile/:username" Component={Profile} />
+          <Route path="/spreadReport" Component={GenerateSpreadReport} />
+
         </Routes>
       </div>
     </Router>

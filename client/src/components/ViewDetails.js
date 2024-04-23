@@ -58,7 +58,7 @@ const ViewDetails = () => {
 
   return (
     <div className="container d-flex justify-content-center align-items-center">
-      <div class="card text-center" style={{ width: "40rem", marginTop: "80px", marginBottom: "20px" }}>
+      <div className="card text-center" style={{ width: "40rem", marginTop: "80px", marginBottom: "20px" }}>
         <div style={{ marginTop: "20px" }}>
           {productImage ? (
             <img
