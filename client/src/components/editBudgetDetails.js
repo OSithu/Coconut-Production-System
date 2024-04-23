@@ -1,4 +1,4 @@
-// editFinanceDetails.js
+// editBudgetDetails.js
 import React, { useEffect, useState} from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -8,6 +8,7 @@ const EditFinanceDetails = () => {
     const [month, setMonth] = useState('');
     const [TotalIncome, setTotalIncome] = useState('');
     const [TotalExpences, setTotalExpences] = useState('');
+    const [totalAAmount,setTotalAAmount] = useState('');
     const [ProfitLoss, setProfitLoss] = useState('');
     const { id } = useParams();
 
@@ -30,11 +31,12 @@ const EditFinanceDetails = () => {
 
         const getOneDetail = async() =>{
 
-            await axios.get(`http://localhost:8000/financeRecords/${id}`)
+            await axios.get(`http://localhost:8000/budgetRecords/${id}`)
             .then((res) => {
                 setMonth(formatDate(res.data.budgetrecord.date));
                 setTotalIncome(res.data.budgetrecord.setTotalIncome);
                 setTotalExpences(res.data.budgetrecord.setTotalExpences);
+                setTotalAAmount(res.data.budgetrecord.setTotalAAmount);
                 setProfitLoss(res.data.budgetrecord.setProfitLoss);
                 console.log(res.data.message);
             })
@@ -62,9 +64,10 @@ const EditFinanceDetails = () => {
                 month: month,
                 TotalIncome: TotalIncome,
                 TotalExpences: TotalExpences,
+                totalAAmount:totalAAmount,
                 ProfitLoss: ProfitLoss,
             }
-            await axios.put(`http://localhost:8000/financerecords/update/${id}`, updatedFinance)
+            await axios.put(`http://localhost:8000/budgetRecords/update/${id}`, updatedFinance)
                 .then((res) => {
                     alert(res.data.success);
                     console.log(res.data.success);
@@ -125,6 +128,18 @@ return (
                     onChange={(e) => setTotalExpences(e.target.value)}
                 />
             </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+                    <label style={{ marginBottom: '5px' }}>Total Amount</label>
+                    <input
+                        type='number'
+                        className="form-control"
+                        name="amount"
+                        placeholder="Differance"
+                        value={totalAAmount}
+                        onChange={(e) => setTotalAAmount(e.target.value)}
+                    />
+                </div>
 
             <div className="form-group" style={{ marginBottom: '15px' }}>
                 <label style={{ marginBottom: '5px' }}>Profit / Loss</label>

@@ -109,6 +109,8 @@ import { Link } from 'react-router-dom';
 import FinanceNv from './FinanceNv';
 import { BsSearch } from 'react-icons/bs';
 
+import "../stylesheets/viewBudgetDetails.css";
+
 const ViewBudgetDetails = () => {
   const [allDetails, setAllDetails] = useState([]);
   const [searchBudget, setSearchBudget] = useState('');
@@ -159,22 +161,42 @@ const filteredBudget = allDetails.filter(budget =>
           /* Hide buttons */
           button { display: none; }
           /* Apply table styles */
-          .budget-table {
+          table {
             width: 100%;
             border-collapse: collapse;
           }
-          .budget-table th, .budget-table td {
+          th, td {
             border: 1px solid #000;
             padding: 8px;
             text-align: left;
           }
-          .budget-table th {
+          th {
             background-color: #f2f2f2;
           }
         }
+        .imgContainer img {
+          max-width: 200px; 
+          max-height: 100px; 
+        }
+        .reportHeader {
+          text-align: center;
+        }
+        
+        .imgContainer {
+          margin: 0 auto; /* Center the image horizontally */
+          display: inline-block; /* Ensure the container does not take up full width */
+        }
       </style>
     </head>
-    <body>
+    <body><div class="reportHeader" >
+    <div class="imgContainer">
+      <img src="/images/logo.png">
+    </div>
+    <br/>
+    <h2>Monthly Budget Details</h2>
+    <hr />
+  </div>
+
       ${content}
     </body>
   </html>
@@ -184,14 +206,14 @@ const filteredBudget = allDetails.filter(budget =>
   };
 
   return (
-    <div>
+    <div className="view-budget-details"> 
       <FinanceNv />
-      <p>Budget Details</p>
+      <p className="budget-title">Budget Details</p>
       <div className="input-group mb-3">
         <input
           type="text"
           className="form-control"
-          placeholder="Search by customer name"
+          placeholder="Search by month"
           value={searchBudget}
           onChange={(e) => setSearchBudget(e.target.value)}
           />
@@ -202,12 +224,18 @@ const filteredBudget = allDetails.filter(budget =>
       <button className="btn btn-success">
         <Link to="/AddBudgetDetails" style={{ textDecoration: 'none', color: 'white' }}>Create New Post</Link>
       </button>
-      <table className="table budget-table">
+      <div className="print-header" style={{ display: "none" }}>
+            <img src="/images/logo.png" className='imageReport2' />
+            <h1> Jayakody Koppara Stores </h1>
+            <hr />
+          </div>
+      <table className="budget-table">
         <thead>
           <tr>
             <th>Month</th>
             <th>Total Income</th>
             <th>Total Expenses</th>
+            <th>Total Amount</th>
             <th>Profit/Loss</th>
           </tr>
         </thead>
@@ -217,6 +245,7 @@ const filteredBudget = allDetails.filter(budget =>
               <td>{budget.month}</td>
               <td>Rs.{String(budget.totalIncome)}</td> {/* Prepend "Rs" */}
               <td>Rs.{String(budget.totalExpenses)}</td> {/* Prepend "Rs" */}
+              <td>Rs.{String(budget.totalAAmount)}</td>
               <td>{budget.profitLoss}</td>
               <td>
                 <Link to={`/editbudgetDetails/${budget._id}`}>
