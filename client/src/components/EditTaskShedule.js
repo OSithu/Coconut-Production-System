@@ -52,10 +52,9 @@ const EditTaskShedule =() => {
         if(confirmed){
 
         let updateRecord = {
-          Department:Department,
-            NIC:NIC,
+            Department:Department,
             Tasks:Tasks,
-            startDate:startDate,
+            StartDate:StartDate,
             EndDate:EndDate,
             PriorityLevel:PriorityLevel,
            
@@ -84,14 +83,14 @@ const EditTaskShedule =() => {
 
           <div>
       <h1>Create task Shedule</h1>
-      <form className="needs-validation" noValidate onSubmit={sendData}>
+      <form className="needs-validation" noValidate onSubmit={updateData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Department</label>
           <select
             className="form-control"
             name="department"
-            onChange={(e) => setdepartment(e.target.value)}
-            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            value={Department}
           >
             <option value="">Select Department</option>
             <option value="sales">Sales and Marketing </option>
@@ -109,8 +108,8 @@ const EditTaskShedule =() => {
         rows="4"
         cols="50"
         name="task"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
+        value={Tasks}
+        onChange={(e) => setTasks(e.target.value)}
         placeholder="Enter Task..."
       ></textarea>
     </div>
@@ -122,8 +121,8 @@ const EditTaskShedule =() => {
                   className="form-control"
                   name="startDate"
                   placeholder="Enter startDate"
-                  onChange={(e) => setstartDate(e.target.value)}
-                  value={startDate}/>
+                  onChange={(e) => setStartDate(e.target.value)}
+                  value={StartDate}/>
 
   
               </div>
