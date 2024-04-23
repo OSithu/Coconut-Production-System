@@ -1,0 +1,64 @@
+/* Style for form container */
+.quality-records-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Style for form labels */
+  .quality-records-container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Style for form input fields */
+  .quality-records-container input[type="text"],
+  .quality-records-container input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Style for error messages */
+  .quality-records-container .invalid-feedback {
+    color: #dc3545;
+    font-size: 80%;
+  }
+  
+  /* Style for submit button */
+  .quality-records-container button[type="submit"] {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* Style for submit button icon */
+  .quality-records-container button[type="submit"] i {
+    margin-right: 5px;
+  }
+
+  .quality-records-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .quality-records-table th,
+  .quality-records-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .quality-records-table th {
+    background-color: #f2f2f2;
+  }
+  
+  

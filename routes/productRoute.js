@@ -322,4 +322,15 @@ router.put("/products/editQuantity/:productId", async (req, res) => {
   }
 });
 
+// Route to count the number of products
+router.get('/products/count', async (req, res) => {
+  try {
+    const count = await Product.countDocuments();
+    res.json({ count });
+  } catch (error) {
+    console.error('Error counting products:', error);
+    res.status(500).json({ error: 'Error counting products' });
+  }
+});
+
 module.exports = router;
