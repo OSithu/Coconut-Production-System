@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import "../stylesheets/qualityRecords.css";
@@ -11,6 +11,23 @@ const CreateQualityRecords = () => {
   const [specialNotes, setSpecialNotes] = useState('');
   const [testResult, setTestResult] = useState('');
   const [errors, setErrors] = useState({});
+  const [qProduct,setQProduct] = useState([]);
+ 
+    useEffect(() => {
+      const getqProduct = async () => {
+        try{
+          const res = await axios.get(`http://localhost:8000/qProduct}`);
+          setQProduct(res.data.existingqProduct) ;
+          console.log('Status :' +res.data.success);
+        } catch(err) {
+            if (err.response) {
+              console.log(err.response.data.error)
+            }
+          }
+        };
+      
+      getqProduct();
+    }, []);
 
   const validateForm = () => {
     const errors = {};

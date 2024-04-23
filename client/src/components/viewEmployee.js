@@ -76,7 +76,45 @@ const ViewEmployee = () => {
   );
   return (
     <div>
-      <p>All Records</p>
+      
+      <div className="header">
+        <div>
+         
+          <ul className="navbar">
+          <div className="nav-left">
+          <li>
+              <a class="active" href="#home">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#news">Employee Details</a>
+            </li>
+            <li>
+              <a href="/ViewTaskShedule">Work Schedule</a>
+            </li>
+           
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="nav-right">
+            <li>
+              <a href="#news">Benifits Packages</a>
+            </li>
+            <li>
+              <a href="#contact">Salary Calculator</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            </div>
+
+          </ul>
+        </div>
+      </div>
+      <br></br>
+      <h1 className='plantTopic'>Employee Details</h1>
 
       <div className="input-group mb-3">
         <input
@@ -90,8 +128,19 @@ const ViewEmployee = () => {
           <BsSearch />
         </button>
       </div>
+      <div  >
+      <button className="btn btn-success">
+        <a href="/addEmp" style={{ textDecoration: "none", color: "white" }}>
+          Add New Records
+        </a>
+      </button>
+
+      <br></br>
 
       <div ref={ComponentPDF} style={{ width: "100%" }}>
+        
+      <br></br>
+
         <table class="table" id="plantTable">
           <thead>
             <tr>
@@ -145,27 +194,8 @@ const ViewEmployee = () => {
           </tbody>
         </table>
       </div>
+    </div>
 
-      <button className="btn btn-success">
-        <a href="/addEmp" style={{ textDecoration: "none", color: "white" }}>
-          Add New Records
-        </a>
-      </button>
-
-      
-      <button className="btn btn-success">
-        <a href="/CtreateTaskShedule" style={{ textDecoration: "none", color: "white" }}>
-          Add Task SHedule
-          </a>
-      </button>
-
-      <button className="btn btn-success">
-        <a href="/ViewTaskShedule" style={{ textDecoration: "none", color: "white" }}>
-          view Task SHedule
-          </a>
-      </button>
-
-      
 
       <div className="d-grid d-md-flex justify-content-md-end mb-3">
         <button className="btn btn-success" onClick={generatePDF}>
