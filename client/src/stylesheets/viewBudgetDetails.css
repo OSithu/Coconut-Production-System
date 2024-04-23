@@ -1,0 +1,70 @@
+/* ViewBudgetDetails.css */
+
+.view-budget-details {
+    margin: 20px;
+  }
+  
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .budget-table-header,
+  .budget-details-table-cell {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .budget-table-header {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .budget-table__btn-group {
+    margin-bottom: 10px;
+  }
+  
+  .budget-table__btn {
+    margin-right: 10px;
+  }
+  
+  .budget-table__btn--success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  
+  .budget-table__btn--success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  .budget-table-details__btn--danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .budget-table__btn--danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  
+  .budget-table__btn--warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+  }
+  
+  .budget-table-details__btn--warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+  }
+
+  .budget-table {
+    background-color: #fff; 
+  }
+
+  .budget-title{
+    font-weight: bold;
+    text-align: center;
+    font-size:30px;
+  }
+  
