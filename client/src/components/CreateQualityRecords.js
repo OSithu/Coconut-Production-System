@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import "../stylesheets/qualityRecords.css";
+
 const CreateQualityRecords = () => {
 
   const [recordId, setRecordId] = useState('');
@@ -90,7 +92,7 @@ const CreateQualityRecords = () => {
   }
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
+    <div className="col-md-8 mt-4 mx-auto quality-records-container">
       <h1 className="h3 mb-3 font-weight-normal">Add New Record</h1>
       <form className="needs-validation" noValidate onSubmit={sendData}>
 
