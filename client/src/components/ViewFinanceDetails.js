@@ -167,6 +167,12 @@ const ViewFianceDetails = () => {
     getDetails();
   }, []);
 
+  //Remove Time in Identify Date Part
+  function formatDate(identifyDate) {
+    const date = new Date(identifyDate);
+    return date.toISOString().split('T')[0]; 
+  }
+
   const handleDelete = async (id) => {
     try {
       const confirm = window.confirm('Are you sure you want to delete?');
@@ -192,6 +198,7 @@ const filteredFinance = allDetails.filter(finance =>
   //   onAfterPrint: () => alert("Data Saved in PDF")
   // });
 
+  //repoert generation
   const generatePDF = () => {
     const table = document.querySelector('.finance-table');
     const content = table.outerHTML;
@@ -290,7 +297,7 @@ const filteredFinance = allDetails.filter(finance =>
           <tbody>
             {filteredFinance.map((finance,index)=> (
               <tr key={index}>
-                <td>{finance.date}</td>
+                <td>{formatDate(finance.date)}</td>
                 <td>{finance.type}</td>
                 <td>{finance.Description}</td>
                 <td>Rs.{String(finance.Income)}</td>
