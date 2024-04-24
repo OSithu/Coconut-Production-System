@@ -185,7 +185,7 @@ const ViewFianceDetails = () => {
     }
   }
 
-  //filter allCustomers based on searchCustomer
+  //filter teansaction type based on searchtype
 const filteredFinance = allDetails.filter(finance =>
   finance.type.toLowerCase().includes(searchFinance.toLowerCase())
   );
