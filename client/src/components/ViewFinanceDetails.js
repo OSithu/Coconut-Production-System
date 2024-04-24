@@ -153,6 +153,7 @@ const ViewFianceDetails = () => {
   const componentPDF = useRef();
   const [allDetails, setAllDetails] = useState([]);
   const [searchFinance, setSearchFinance] = useState('');//search
+  
 
   useEffect(() => {
     const getDetails = async () => {
@@ -248,9 +249,12 @@ const filteredFinance = allDetails.filter(finance =>
     <h2>Finance Details</h2>
     <hr />
   </div>
-
       ${content}
     </body>
+    <div className="print-footer">
+        <hr />
+        <p>Report Generated on {currentDate}</p>
+      </div>
   </html>
     `);
     newWindow.print();
