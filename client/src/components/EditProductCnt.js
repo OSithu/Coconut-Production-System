@@ -31,7 +31,7 @@ const EditProductCnt = () => {
           console.log("API Response Date:", res.data.productCnt.productDate);
           setProductId(res.data.productCnt.productId);
           setProductQty(res.data.productCnt.quantity);
-          setProductQtyUnit(res.data.productCnt.quantityUnit)
+          setProductQtyUnit(res.data.productCnt.quantityUnit);
           setProductDate(formatDate(res.data.productCnt.productDate));
           setProductDesc(res.data.productCnt.description);
           console.log(res.data.message);
@@ -114,17 +114,33 @@ const EditProductCnt = () => {
     } catch (err) {
       console.log("Update failed!");
       alert("Failed to update product. Please try again.");
-      
     }
   };
 
   return (
     <div className="col-md-5 mt-5 mx-auto">
-      <h1 className="h3 mb-4 font-weight-normal">
-        Update Product Count Record
-      </h1>
-      <form className="needs-validation" noValidate onSubmit={updateData}>
-        {/* <div className="form-group" style={{ marginBottom: "15px" }}>
+      <div
+        className="card"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.7)",
+          borderRadius: "10px",
+          marginTop: "110px",
+          marginBottom: "20px",
+        }}
+      >
+        <h1
+          className="h3 mb-4 font-weight-normal"
+          style={{ textAlign: "center", marginTop: "10px" }}
+        >
+          Update Product Count Record
+        </h1>
+        <form
+          className="needs-validation"
+          style={{ marginLeft: "10px", marginRight: "10px" }}
+          noValidate
+          onSubmit={updateData}
+        >
+          {/* <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Product ID</label>
           <input
             type="text"
@@ -136,36 +152,39 @@ const EditProductCnt = () => {
             required
           />
         </div> */}
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Product ID</label>
-          <select
-            className={`form-control`}
-            name="productId"
-            value={productId}
-            onChange={(e) => setProductId(e.target.value)}
-          >
-            <option value="">Select Product ID</option>
-            {productIds.map((productId, index) => (
-              <option key={index} value={productId.productId}>
-                {productId.productId}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label className="col-sm-2 col-form-label"> Available Quantity </label>
-          <div className="col-sm-8">
-            <input
-              type="text"
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Product ID</label>
+            <select
               className={`form-control`}
-              name="quantity"
-              placeholder="Enter Quantity"
-              value={quantity}
-              onChange={(e) => setProductQty(e.target.value)}
-            />
+              name="productId"
+              value={productId}
+              onChange={(e) => setProductId(e.target.value)}
+            >
+              <option value="">Select Product ID</option>
+              {productIds.map((productId, index) => (
+                <option key={index} value={productId.productId}>
+                  {productId.productId}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            {/* <select
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label className="col-sm-2 col-form-label">
+              {" "}
+              Available Quantity{" "}
+            </label>
+            <div className="col-sm-8">
+              <input
+                type="text"
+                className={`form-control`}
+                name="quantity"
+                placeholder="Enter Quantity"
+                value={quantity}
+                onChange={(e) => setProductQty(e.target.value)}
+              />
+
+              {/* <select
               className="form-select"
               name="quantityUnit"
               value={quantityUnit}
@@ -177,64 +196,65 @@ const EditProductCnt = () => {
               <option value="g"> g </option>
               <option value="litre"> litre </option>
             </select> */}
+            </div>
           </div>
-        </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Date</label>
-          <input
-            type="date"
-            className={`form-control`}
-            name="productDate"
-            placeholder="Enter the date"
-            value={productDate}
-            onChange={(e) => setProductDate(e.target.value)}
-            required
-          />
-        </div>
-
-        <div
-          className="form-group"
-          style={{
-            marginBottom: "15px",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            <label style={{ marginRight: "10px" }}>
-              <input
-                type="radio"
-                name="description"
-                value="Incremented"
-                checked={description === "Incremented"}
-                onChange={(e) => setProductDesc(e.target.value)}
-              />
-              &nbsp;Increment
-            </label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <label>
-              <input
-                type="radio"
-                name="description"
-                value="Decremented"
-                checked={description === "Decremented"}
-                onChange={(e) => setProductDesc(e.target.value)}
-              />
-              &nbsp;Decrement
-            </label>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Date</label>
+            <input
+              type="date"
+              className={`form-control`}
+              name="productDate"
+              placeholder="Enter the date"
+              value={productDate}
+              onChange={(e) => setProductDate(e.target.value)}
+              required
+            />
           </div>
-        </div>
 
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ marginTop: "15px" }}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp;Update
-        </button>
-      </form>
+          <div
+            className="form-group"
+            style={{
+              marginBottom: "15px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div>
+              <label style={{ marginRight: "10px" }}>
+                <input
+                  type="radio"
+                  name="description"
+                  value="Incremented"
+                  checked={description === "Incremented"}
+                  onChange={(e) => setProductDesc(e.target.value)}
+                />
+                &nbsp;Increment
+              </label>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>
+                <input
+                  type="radio"
+                  name="description"
+                  value="Decremented"
+                  checked={description === "Decremented"}
+                  onChange={(e) => setProductDesc(e.target.value)}
+                />
+                &nbsp;Decrement
+              </label>
+            </div>
+          </div>
+
+          <button
+            className="btn btn-success"
+            type="submit"
+            style={{ marginTop: "15px" }}
+          >
+            <i className="far fa-check-square"></i>
+            &nbsp;Update
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
