@@ -15,6 +15,7 @@ const CreateProducts = () => {
   const [priceUnit, setProductPriceUnit] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
+  //validating form details
   const validateForm = () => {
     const errors = {};
     let formIsValid = true;
