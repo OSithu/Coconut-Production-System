@@ -34,6 +34,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { BsSearch } from 'react-icons/bs';
+import '../stylesheets/viewfertilization.css';
 
 import {useReactToPrint} from "react-to-print";
 
@@ -64,11 +65,62 @@ const ViewFertilizationDetails = () => {
   }, []);
 
   //implement pdf download function
-  const generatePDF=useReactToPrint({
-    content: ()=>conponentPDF.current,
-    documentTitle:"UserData",
-    onAfterPrint:()=>alert("Data Saved In PDF")
-  });
+  const generateReport = () => {
+    const table = document.querySelector(".table");
+    const content = table.outerHTML;
+    const newWindow = window.open();
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title> Fertilization Details </title>
+          <style>
+            img {
+              height: 100px; 
+              margin: 5px; 
+            }
+            .imgContainer {
+              text-align: center;
+            }
+            h2 {
+              text-align: center;
+            }
+            
+            @media print {
+              /* Hide buttons */
+              button, a { display: none; }
+              .action-col { display: none; }
+              /* Apply table styles */
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="reportHeader" >
+            <div class="imgContainer">
+              <img src="/images/logo.png" alt="Description of image">
+            </div>
+            <br/>
+            <h2>Fertilization Details</h2>
+            <hr />
+          </div>
+          ${content}
+        </body>
+      </html>
+    `);
+    newWindow.print();
+    newWindow.close();
+  };
 
   //implement the handleDelete function
   const handleDelete = async (id) => {
@@ -81,7 +133,7 @@ const ViewFertilizationDetails = () => {
           .then((res) => {
             alert(res.data.message);
             console.log(res.data.message);
-         //   setAllFertilization(allFertilization.filter(order => fertilization._id !== id));
+            setAllFertilization(allFertilization.filter(fertilization => fertilization._id !== id));
           })
           .catch((err) => {
             if (err.response) {
@@ -100,13 +152,45 @@ const ViewFertilizationDetails = () => {
   }
 
     // Filter allFertilization based on searchFertilization
-  const filteredFertilization = allFertilization.filter(fertilization =>
-    fertilization.TreeNo.toLowerCase().includes(searchFertilization.toLowerCase())
+  const filteredFertilization = allFertilization.filter((fertilization) =>
+    fertilization.TreeNo.toLowerCase().includes(searchFertilization.toLowerCase())||fertilization.TreeStage.toLowerCase().includes(searchFertilization.toLowerCase())||fertilization.FertilizationDate.toLowerCase().includes(searchFertilization.toLowerCase())
   );
 
   return (
-    <div className="container">
-      <p>All Fertilization Details</p>
+    <div>
+                  <div className="header">
+        <div>
+         
+          <ul className="navbar">
+          <div className="nav-left">
+          <li>
+              <a class="active" href="/fertilizationMain">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#">Fertilization Records</a>
+            </li>
+          </div>
+            <div className="logo">
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div className="nav-right">
+            <li>
+              <a href="#news">Fertilizers</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            </div>
+
+          </ul>
+        </div>
+      </div>
+      <br></br>
+      <h1 className='plantTopic'>Fertilization Records</h1>
+    <div className="f-container">
+      
       <div className="input-group mb-3">
         <input
           type="text"
@@ -141,7 +225,7 @@ const ViewFertilizationDetails = () => {
               <th scope="col" className="text-center">EppawalaRock<br></br>Phosphate(g)</th>
               <th scope="col" className="text-center">MuriateOf<br></br>Potasium(g)</th>
               <th scope="col" className="text-center">Dolamite(g)</th>
-              <th scope="col" className="text-center"></th>
+              <th className= "action-col" scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -155,17 +239,7 @@ const ViewFertilizationDetails = () => {
                 <td className="text-center">{fertilization.EppawalaRockPhosphateAmount}</td>
                 <td className="text-center">{fertilization.MuriateOfPotasiumAmount}</td>
                 <td className="text-center">{fertilization.DolamiteAmount}</td>
-              <td>
-                {/* <a
-                  className="btn btn-warning"
-                  href={`/fertilizationupdate/${fertilization._id}`}
-                >
-                  <i className="fas fa-edit"></i>&nbsp;Update
-                </a>
-                &nbsp;
-                <a className="btn btn-danger" href="#" onClick={() =>handleDelete(fertilization._id)}>
-                <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                </a> */}
+            <td className= "action-col">
                 <a className="btn btn-warning" href={`/fertilizationupdate/${fertilization._id}`}>
               <i className="fas fa-edit"></i>&nbsp;Update
             </a>
@@ -173,6 +247,7 @@ const ViewFertilizationDetails = () => {
            <a className="btn btn-danger" href="#" onClick={() =>handleDelete(fertilization._id)}>
             <i className="fas fa-trash-alt"></i>&nbsp;Delete
            </a>
+
               </td>
             </tr>
           ))}
@@ -180,7 +255,8 @@ const ViewFertilizationDetails = () => {
       </table>
       </div>
       <div className="d-grid d-md-flex justify-content-md-end mb-3">
-      <button className="btn btn-success" onClick={ generatePDF}>PDF</button>  </div>
+      <button className="btn btn-success" onClick={ generateReport}>PDF</button>  </div>
+    </div>
     </div>
     
     
