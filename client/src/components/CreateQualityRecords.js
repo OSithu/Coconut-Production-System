@@ -11,29 +11,29 @@ const CreateQualityRecords = () => {
   const [specialNotes, setSpecialNotes] = useState('');
   const [testResult, setTestResult] = useState('');
   const [errors, setErrors] = useState({});
-  const [qProduct,setQProduct] = useState([]);
+  // const [qProduct,setQProduct] = useState([]);
  
-    useEffect(() => {
-      const getqProduct = async () => {
-        try{
-          const res = await axios.get(`http://localhost:8000/qProduct}`);
-          setQProduct(res.data.existingqProduct) ;
-          console.log('Status :' +res.data.success);
-        } catch(err) {
-            if (err.response) {
-              console.log(err.response.data.error)
-            }
-          }
-        };
+  //   useEffect(() => {
+  //     const getqProduct = async () => {
+  //       try{
+  //         const res = await axios.get(`http://localhost:8000/qProduct}`);
+  //         setQProduct(res.data.existingqProduct) ;
+  //         console.log('Status :' +res.data.success);
+  //       } catch(err) {
+  //           if (err.response) {
+  //             console.log(err.response.data.error)
+  //           }
+  //         }
+  //       };
       
-      getqProduct();
-    }, []);
+  //     getqProduct();
+  //   }, []);
 
   const validateForm = () => {
     const errors = {};
     let isValid = true
 
-    if (!recordId.trim()) {
+    if (!recordId) {
       errors.recordId = 'Record Id is required';
       isValid = false;
     }
@@ -47,7 +47,7 @@ const CreateQualityRecords = () => {
       errors.qualityCheckedDate = 'Quality checked date is required';
       isValid = false;
     }
-    //else {
+    // else {
     //   const currentDate = new Date();
     //   const checkedDate = new Date(qualityCheckedDate);
 
@@ -84,9 +84,8 @@ const CreateQualityRecords = () => {
       }
       await axios.post('http://localhost:8000/qualityrecords/save', newQualityRecord)
         .then((res) => {
-          alert(res.data.message);
+          alert(res.data.success);
           console.log('status' + res.data.success);
-          console.log(res.data.message);
         })
         .catch((err) => {
           if (err.response) {
@@ -106,7 +105,7 @@ const CreateQualityRecords = () => {
     catch (err) {
       console.log('sendData function failed! ERROR' + err.message)
     }
-  }
+   }
 
   return (
     <div className="col-md-8 mt-4 mx-auto quality-records-container">
@@ -230,7 +229,7 @@ const CreateQualityRecords = () => {
           >
             <option value=""disabled selected>Select Test Result</option>
             <option value="Passed">Passed</option>
-            <option value="Coconut Water">Failed</option>
+            <option value="Failed">Failed</option>
           </select>
           {errors.testResult && (
             <div className="invalid-feedback">{errors.testResult}</div>
