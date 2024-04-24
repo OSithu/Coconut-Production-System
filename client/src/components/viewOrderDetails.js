@@ -230,9 +230,6 @@ function formatDate(orderDate) {
                     <hr/>
                     <p>Report Generated on {currentDate} </p>
                 </div>
-
-
-
     </div>
     </div>
   );
