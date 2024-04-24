@@ -1,0 +1,8 @@
+.f-container {
+    margin: 20px auto; /* Center the container */
+    padding: 20px; /* Add padding */
+    border-radius: 10px; /* Add border radius */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+    background-color: rgba(255, 255, 255, 0.7); /* Transparent background color */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+}

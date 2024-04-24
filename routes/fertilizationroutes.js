@@ -1,5 +1,6 @@
 const express = require('express');
 const fertilization =require('../models/fertilizationModel');
+const Trees = require('../models/treeModel');
 
 //send requests 
 const router = express.Router();
@@ -9,6 +10,10 @@ const router = express.Router();
 router.post('/fertilizationrec/save',async (req,res)=>{
     //instantiation 
     try{
+        const existingTree = await Trees.findOne({treeID: req.body.TreeNo})
+        if(!existingTree){
+            return res.status(400).json({ error: "TreeID is not available in database"})
+        }
     let newFertilizationRecord=new fertilization(req.body);
 
     await newFertilizationRecord.save();
@@ -59,9 +64,13 @@ router.get("/fertilizationrec/:id", async (req, res) => {
 //Update fertilization Records
 
 router.put('/fertilizationrec/update/:id', async (req, res) => {
+    
 
     try {
-
+        const existingTree = await Trees.findOne({treeID: req.body.TreeNo})
+        if(!existingTree){
+            return res.status(400).json({ error: "TreeID is not available in database"})
+        }
         await fertilization.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
 
         return res.status(200).json({
