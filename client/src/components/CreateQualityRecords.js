@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 import "../stylesheets/qualityRecords.css";
 
@@ -11,6 +12,9 @@ const CreateQualityRecords = () => {
   const [specialNotes, setSpecialNotes] = useState('');
   const [testResult, setTestResult] = useState('');
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+
   // const [qProduct,setQProduct] = useState([]);
  
   //   useEffect(() => {
@@ -86,6 +90,7 @@ const CreateQualityRecords = () => {
         .then((res) => {
           alert(res.data.success);
           console.log('status' + res.data.success);
+          navigate("/viewQualityRecord");
         })
         .catch((err) => {
           if (err.response) {
