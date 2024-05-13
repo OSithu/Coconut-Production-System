@@ -332,6 +332,9 @@ const CreateProducts = () => {
               name="manufacturedDate"
               placeholder="Enter the manufactured date"
               value={manufacturedDate}
+              max={
+                new Date().toISOString().split('T')[0]
+               }
               onChange={(e) => setProductMD(e.target.value)}
               required
             />
