@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const CreateSpread = () => {
+const CreateDisease = () => {
   const [diseaseName, setdiseaseName] = useState("");
   const [diseaseType, setdiseaseType] = useState("");
   const [symptoms, setsymptoms] = useState("");
@@ -237,4 +237,4 @@ const CreateSpread = () => {
   );
 };
 
-export default CreateSpread;
+export default CreateDisease;
