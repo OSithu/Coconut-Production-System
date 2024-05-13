@@ -1,18 +1,18 @@
-/* body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
 }
 
-.dashboard {
+.f-dashboard {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 20px auto;
 }
 
-.summary-container {
+.f-summary-container {
     flex: 1 1 300px;
     background-color: #fff;
     border-radius: 10px;
@@ -21,47 +21,46 @@
     overflow: hidden;
 }
 
-.summary {
+.f-summary {
     padding: 20px;
 }
 
-.summary h2 {
+.f-summary h2 {
     margin-top: 0;
     font-size: 20px;
     color: #333;
 }
 
-.summary-value {
+.f-summary-value {
     font-size: 36px;
     color: #007bff;
     margin: 10px 0;
 }
 
-.graph-container,
-.calculator-todo-container,
+
 .fertilization-records-container {
-    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
+    margin-left: 10px;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 870px;
 }
 
-.graph h2,
-.calculator h2,
-.todo-list h2,
+.f-graph h2,
+.f-calculator h2,
+.f-todo-list h2,
 .fertilization-records h2 {
     margin-top: 0;
     color: #333;
 }
 
-.buttons {
+.f-buttons {
     text-align: center;
     margin-top: 20px;
 }
 
-button {
+f-button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #007bff;
@@ -71,32 +70,32 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+f-button:hover {
     background-color: #0056b3;
 }
 
-table {
+f-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-table th,
-table td {
+f-table th,
+f-table td {
     padding: 10px;
     border: 5px solid black; 
 }
 
-.dashboard {
+.f-dashboard {
     display: flex;
     flex-wrap: wrap;
 }
 
-.graph-container {
+.f-graph-container {
     margin-top: 20px;
 }
 
 
-.calculator {
+.f-calculator {
     display: flex;
     flex-direction: row;
     margin-right: 20px;
@@ -107,28 +106,28 @@ table td {
   }
 
 
-.calculator-title {
+.f-calculator-title {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
 }
-.inputs {
+.f-inputs {
     margin-left:20px;
 }
 
-.results {
+.f-results {
     flex: 1;
     padding: 40px;
     border-left: 2px solid #ddd;
     margin-left: 30px;
 }
 
-label {
+f-label {
     font-size: 20px;
 }
 
-select,
-input[type="number"] {
+f-select,
+f-input[type="number"] {
     width: 100%;
     padding: 16px;
     border: 2px solid #ccc;
@@ -136,7 +135,7 @@ input[type="number"] {
     font-size: 20px;
 }
 
-button {
+f-button {
     background-color: #4caf50;
     color: white;
     padding: 20px;
@@ -148,17 +147,17 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+f-button:hover {
     background-color: #45a049;
 }
 
-.results h2 {
+.f-results h2 {
     margin-bottom: 30px;
     text-align: center;
     font-size: 24px;
 }
 
-.amounts > div {
+.f-amounts > f-div {
     width: 350px;
     background-color: #e8f0fe;
     border-radius: 10px;
@@ -167,17 +166,17 @@ button:hover {
     margin-bottom: 20px;
 }
 
-.amounts p {
+.f-amounts p {
     margin-bottom: 10px;
     font-size: 20px;
 }
 
-.amounts span {
+.f-amounts span {
     font-weight: bold;
     color: #4caf50;
 }
 
-.age-message {
+.f-age-message {
     font-size: 15px; 
     color: red;
     font-weight: bold;
@@ -185,7 +184,7 @@ button:hover {
 }
 
 
-.todo-container {
+.f-todo-container {
     width: 30%;
     box-sizing: border-box;
     padding: 20px;
@@ -196,12 +195,12 @@ button:hover {
     margin-right: 70px;
 }
 
-.todo {
+.f-todo {
     border: 1px solid #ccc;
     padding: 20px;
 }
 
-.todo h2 {
+.f-todo h2 {
     margin-top: 0;
     color: #333;
-} */
+}

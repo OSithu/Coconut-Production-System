@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 //import "./Calculator.css";
-import '../stylesheets/fertilizationview.css';
+import '../stylesheets/fertilizationcreate.css';
 import './fertilizationMain.css';
 
 function Calculator() {
-  const [zone, setZone] = useState("dry");
+  const [zone, setZone] = useState("wet");
   const [age, setAge] = useState(0);
   const [urea, setUrea] = useState(0);
   const [phosphate, setPhosphate] = useState(0);
@@ -99,9 +99,9 @@ function Calculator() {
     }
 
      // Rounding to two decimal places
-     ureaAmount = parseFloat(ureaAmount.toFixed(2));
-     phosphateAmount = parseFloat(phosphateAmount.toFixed(2));
-     muriateAmount = parseFloat(muriateAmount.toFixed(2));
+     ureaAmount = Math.round(ureaAmount);
+     phosphateAmount = Math.round(phosphateAmount);
+     muriateAmount = Math.round(muriateAmount);
 
     setUrea(ureaAmount);
     setPhosphate(phosphateAmount);
@@ -131,18 +131,18 @@ function Calculator() {
   };
 
   return (
-    <div className="calculator">
-      <div className="inputs">
+    <div className="f-calculator">
+      <div className="f-inputs">
         <label htmlFor="zone">Select Zone:</label>
         <select
           id="zone"
           value={zone}
           onChange={(e) => handleZoneChange(e.target.value)}
         >
-          <option value="dry">Dry Zone</option>
           <option value="wet">Wet Zone</option>
+          <option value="dry">Dry Zone</option>
         </select>
-        <label htmlFor="age">Tree's Age (months/years):<br></br><label className="age-message">**if newly planted,select 0 months</label></label>
+        <label htmlFor="age">Tree's Age (months/years):<br></br><label className="f-age-message">**if newly planted,select 0 months</label></label>
         <select
           id="age"
           value={age}
@@ -159,15 +159,15 @@ function Calculator() {
           <option value="48">48 months(4year)</option>
           <option value="50">more than 4years</option>
         </select>
-        <button onClick={handleCalculateClick}>Calculate</button>
+        <button className="f-button" onClick={handleCalculateClick}>Calculate</button>
       </div>
-      <div className="results">
+      <div className="f-results">
         <h2>Fertilizer Amounts:</h2>
-        <div className="amounts">
+        <div className="f-amounts">
         <div>
       <p>Urea: <span>{urea}g</span></p>
-      <p>EppawalaRock Phosphate: <span>{phosphate}g</span></p>
-      <p>Muriate Of Potasium: <span>{muriate}g</span></p>
+      <p>Eppawala Phosphate: <span>{phosphate}g</span></p>
+      <p>MuriateOf Potasium: <span>{muriate}g</span></p>
       <p>Dolomite: <span>{dolomite}g</span></p>
     </div>
       </div>
