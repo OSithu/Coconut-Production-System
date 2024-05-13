@@ -9,6 +9,7 @@ import spreadDetails from "./components/spreadDetails";
 import viewFertilization from "./components/viewFertilization";
 import CreateFertilization from "./components/createFertilization";
 import editFertilization from "./components/editFertilization";
+import FertilizersDetails from "./components/FertilizersDetails";
 
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
@@ -103,10 +104,8 @@ function App() {
 
           <Route path="/viewFertilization" Component={viewFertilization} />
           <Route path="/fertilizationsave" Component={CreateFertilization} />
-          <Route
-            path="/fertilizationupdate/:id"
-            Component={editFertilization}
-          />
+          <Route path="/fertilizationupdate/:id" Component={editFertilization}/>
+          <Route path="/FertilizersDetails" Component={FertilizersDetails}/>
 
           <Route path="/ViewTrees/:id" Component={ViewTrees} />
           <Route path="/AddTrees" Component={AddTrees} />

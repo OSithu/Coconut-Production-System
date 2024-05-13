@@ -26,7 +26,7 @@ function fertilizationMain() {
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Fertilizers</a>
+              <a href="/FertilizersDetails">Fertilizers</a>
             </li>
             <li>
               <a href="#about">About</a>
