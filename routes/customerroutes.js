@@ -28,7 +28,9 @@ router.get("/cusDetails", async (req, res) => {
 // Update customer details by ID
 router.put("/cusDetails/update/:id", async (req, res) => {
   try {
-    await CustomerDetails.findByIdAndUpdate(req.params.id, { $set: req.body }).exec();
+    await CustomerDetails.findByIdAndUpdate(req.params.id, {
+      $set: req.body,
+    }).exec();
     return res.status(200).json({ success: "Updated Successfully" });
   } catch (err) {
     return res.status(400).json({ error: err.message });
@@ -38,10 +40,14 @@ router.put("/cusDetails/update/:id", async (req, res) => {
 // Delete customer details by ID
 router.delete("/cusDetails/delete/:id", async (req, res) => {
   try {
-    const deletedRecords = await CustomerDetails.findByIdAndDelete(req.params.id).exec();
+    const deletedRecords = await CustomerDetails.findByIdAndDelete(
+      req.params.id
+    ).exec();
     return res.json({ message: "Delete Successfully", deletedRecords });
   } catch (err) {
-    return res.status(400).json({ message: "Deleted unsuccessfully", error: err.message });
+    return res
+      .status(400)
+      .json({ message: "Deleted unsuccessfully", error: err.message });
   }
 });
 
@@ -60,7 +66,6 @@ router.get("/cusDetails/:id", async (req, res) => {
     return res.status(400).json({ success: false, error: err.message });
   }
 });
-
 
 // Login route
 router.post("/login", async (req, res) => {
@@ -97,6 +102,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//get details using username
 router.get("/cusID/:username", async (req, res) => {
   try {
     let username = req.params.username;
@@ -114,5 +120,36 @@ router.get("/cusID/:username", async (req, res) => {
   }
 });
 
+//update customer details by username
+router.put("/custDetails/update/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    await CustomerDetails.findOneAndUpdate(
+      { username: username },
+      { $set: req.body }
+    ).exec();
+    return res.status(200).json({ success: "Updated Successfully" });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+});
+
+//delete details using username
+router.delete("/custDetails/delete/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const deletedRecords = await CustomerDetails.findOneAndDelete({
+      username: username,
+    }).exec();
+    if (!deletedRecords) {
+      return res.status(404).json({ message: "Record not found" });
+    }
+    return res.json({ message: "Delete Successfully", deletedRecords });
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ message: "Deleted unsuccessfully", error: err.message });
+  }
+});
 
 module.exports = router;
