@@ -19,10 +19,10 @@ const EditTaskShedule =() => {
      
         const getOneRecord = async() => {
     
-        await axios.get(`http://localhost:8000/viewTaskShedule/${id}`)
+        await axios.get(`http://localhost:8000/viewShedule/${id}`)  
         .then((res)=>{
             setDepartment(res.data.TaskShedulerecord.Department);
-            setTasks(res.data.TaskShedulerecord.NIC);
+            setTasks(res.data.TaTaskShedulerecord.Tasks);
             setStartDate(res.data.TaskShedulerecord.StartDate);
             setEndDate(res.data.TaskShedulerecord.EndDate);
             setPriorityLevel(res.data.TaskShedulerecord.PriorityLevel);  
@@ -45,7 +45,7 @@ const EditTaskShedule =() => {
     
       },[id])
 
-      const updateData = async(e) =>{//////////////////////////////////////////////////////////////////////////////////////////////////////
+      const updateData = async(e) =>{
         e.preventDefault();
 
         const confirmed = window.confirm("If you want to continue the updation..?");
@@ -60,7 +60,7 @@ const EditTaskShedule =() => {
            
         }
         
-        await axios.put(`http://localhost:8000/taskShedule/update/${id}`,updateRecord)
+        await axios.put(`http://localhost:8000/Shedule/update/${id}`,updateRecord)
         .then((res)=>{
             alert(res.data.message);
             console.log(res.data.message);
@@ -82,7 +82,7 @@ const EditTaskShedule =() => {
         return(
 
           <div>
-      <h1>Create task Shedule</h1>
+      <h1>Edit task Shedule</h1>
       <form className="needs-validation" noValidate onSubmit={updateData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Department</label>

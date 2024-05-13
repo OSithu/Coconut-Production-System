@@ -5,9 +5,15 @@ const employeedetails = require('../models/employeedetails');
 
 const router = express.Router();
 
-//save post
+//save post(employee details)
 router.post('/employee/save',async(req,res)=>{
     try{
+
+        // Check if NIC already exists
+        const existingEmployee = await employeeDetails.findOne({ NIC: req.body.NIC }).exec();
+        if (existingEmployee) {
+            return res.status(400).json({ error: "NIC already exists" });
+        }
 
     let newEmployee = new employeeDetails(req.body);
 

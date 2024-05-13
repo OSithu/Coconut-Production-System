@@ -57,7 +57,7 @@ const ViewTaskShedule = () => {
     );
     if (confirmed) {
       await axios
-        .delete(`http://localhost:8000/taskShedule/delete/${id}`)
+        .delete(`http://localhost:8000/Shedule/delete/${id}`)
         .then((res) => {
           alert(res.data.message);
           console.log(res.data.message);
@@ -171,7 +171,7 @@ const ViewTaskShedule = () => {
                 <td>
                   <a
                     className="btn btn-warning"
-                    href={`/editEmp/${records._id}`}
+                    href={`/EditTaskShedule/${records._id}`}
                   >
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
