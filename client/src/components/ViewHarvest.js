@@ -8,6 +8,7 @@ import '../stylesheets/plantation.css';
 const ViewHarvest = () => {
   const [harvestDetails, setHarvestDetails] = useState([]);
   const [searchHarvest, setSearchTrees] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
   const componentPDF = useRef();
 
   const formatDate = (date) => {
@@ -23,6 +24,8 @@ const ViewHarvest = () => {
   };
 
   useEffect(() => {
+
+    setCurrentDate(formatDate(new Date()));
 
     const getAllHarvest = async () => {
       await axios(`http://localhost:8000/harvest`)
@@ -83,62 +86,68 @@ const ViewHarvest = () => {
     harvest.date.includes(searchHarvest)
   )
 
-  const generateReport = () => {
-    const table = document.querySelector('.table');
-    const content = table.outerHTML;
-    const newWindow = window.open();
-    newWindow.document.write(`
-      <html>
-        <head>
-          <title> Harvest Details </title>
-          <style>
-            img {
-              height: 100px; 
-              margin: 5px; 
-            }
-            .imgContainer {
-              text-align: center;
-            }
-            h2 {
-              text-align: center;
-            }
+  // const generateReport = () => {
+  //   const table = document.querySelector('.table');
+  //   const content = table.outerHTML;
+  //   const newWindow = window.open();
+  //   newWindow.document.write(`
+  //     <html>
+  //       <head>
+  //         <title> Harvest Details </title>
+  //         <style>
+  //           img {
+  //             height: 100px; 
+  //             margin: 5px; 
+  //           }
+  //           .imgContainer {
+  //             text-align: center;
+  //           }
+  //           h2 {
+  //             text-align: center;
+  //           }
             
-            @media print {
-              /* Hide buttons */
-              button { display: none; }
-              .actionCol { display: none; }
-              /* Apply table styles */
-              table {
-                width: 100%;
-                border-collapse: collapse;
-              }
-              th, td {
-                border: 1px solid #000;
-                padding: 8px;
-                text-align: left;
-              }
-              th {
-                background-color: #f2f2f2;
-              }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="reportHeader" >
-            <div class="imgContainer">
-              <img src="/images/logo.png">
-            </div>
-            <br/>
-            <h2>Harvest Details</h2>
-            <hr />
-          </div>
-          ${content}
-        </body>
-      </html>
-    `);
-    newWindow.print();
-    newWindow.close();
-  };
+  //           @media print {
+  //             /* Hide buttons */
+  //             button { display: none; }
+  //             .actionCol { display: none; }
+  //             /* Apply table styles */
+  //             table {
+  //               width: 100%;
+  //               border-collapse: collapse;
+  //             }
+  //             th, td {
+  //               border: 1px solid #000;
+  //               padding: 8px;
+  //               text-align: left;
+  //             }
+  //             th {
+  //               background-color: #f2f2f2;
+  //             }
+  //           }
+  //         </style>
+  //       </head>
+  //       <body>
+  //         <div class="reportHeader" >
+  //           <div class="imgContainer">
+  //             <img src="/images/logo.png">
+  //           </div>
+  //           <br/>
+  //           <h2>Harvest Details</h2>
+  //           <hr />
+  //         </div>
+  //         ${content}
+  //       </body>
+  //     </html>
+  //   `);
+  //   newWindow.print();
+  //   newWindow.close();
+  // };
+
+  const generateReport = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitle: "title"
+    //onAfterPrint: ()=> alert("report saved")
+})
 
   return (
 
@@ -159,7 +168,7 @@ const ViewHarvest = () => {
       </div>
       <div className='plantBody'>
         &nbsp;
-        <div ref={componentPDF} >
+        
           <h1 className='plantTopic'> Harvest Details </h1>
           &nbsp;
           <Link to={`/addHarvest`}>
@@ -172,11 +181,14 @@ const ViewHarvest = () => {
             <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
           </button>
           &nbsp;
+          <div ref={componentPDF} >
           <div className="print-header" style={{ display: "none" }}>
             <img src="/images/logo.png" className='imageReport2' />
             <h1> Jayakody Koppara Stores </h1>
+            <p styles={{float:"right"}}>Report Generated on {currentDate} </p>
             <hr />
           </div>
+          <div className='plantReport2'>
           <table className="table" id='plantTable'>
             <thead>
               <tr>
@@ -214,6 +226,7 @@ const ViewHarvest = () => {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>

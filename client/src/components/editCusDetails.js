@@ -2,45 +2,39 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
-const EditCusDetails = () => { // Changed from 'editCusDetails' to 'EditCusDetails'
+const EditCusDetails = () => {
   const [cusName, setCusName] = useState("");
   const [cusEmail, setCusEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [cusLocation, setCusLocation] = useState("");
-
-  const { id } = useParams();
+  const { username } = useParams(); // Extracting username directly
   const navigate = useNavigate();
 
   useEffect(() => {
     const getOneCustomer = async () => {
-      await axios
-        .get(`http://localhost:8000/cusDetails/${id}`)
-        .then((res) => {
-          setCusName(res.data.cusDetails.cusName);
-          setCusEmail(res.data.cusDetails.cusEmail);
-          setContactNumber(res.data.cusDetails.contactNumber);
-          setCusLocation(res.data.cusDetails.cusLocation);
-          console.log(res.data.message);
-        })
-        .catch((err) => {
-          if (err.response) {
-            console.log(err.response.data.error);
-          } else {
-            console.log("Error occurred while processing your get request");
-          }
-        });
+      try {
+        const res = await axios.get(`http://localhost:8000/cusID/${username}`);
+
+        const { cusName, cusEmail, contactNumber, cusLocation } = res.data.userDetails;
+
+        setCusName(cusName);
+        setCusEmail(cusEmail);
+        setContactNumber(contactNumber);
+        setCusLocation(cusLocation);
+      } catch (err) {
+        console.log("Error occurred while processing your get request", err);
+      }
     };
 
     getOneCustomer();
-  }, [id]);
+  }, [username]);
 
   const updateData = async (e) => {
     e.preventDefault();
-
     try {
-      const confirmed = window.confirm(
-        "Are you sure you want to update this detail?"
-      );
+
+      const confirmed = window.confirm("Are you sure you want to update this detail?");
+
       if (confirmed) {
         let updatedCustomerData = {
           cusName: cusName,
@@ -48,31 +42,17 @@ const EditCusDetails = () => { // Changed from 'editCusDetails' to 'EditCusDetai
           contactNumber: contactNumber,
           cusLocation: cusLocation,
         };
-
-        await axios
-          .put(
-            `http://localhost:8000/cusDetails/update/${id}`,
-            updatedCustomerData // Corrected variable name from 'updatedOrderData' to 'updatedCustomerData'
-          )
-          .then((res) => {
-            alert(res.data.success);
-            console.log(res.data.success);
-            navigate("/viewCus");
-          })
-          .catch((err) => {
-            if (err.response) {
-              console.log(err.response.data.success);
-            } else {
-              console.log(
-                "Error occurred while processing your put request"
-              );
-            }
-          });
+        await axios.put(
+          `http://localhost:8000/custDetails/update/${username}`, // Use 'username' for the URL
+          updatedCustomerData
+        );
+        alert("Customer details updated successfully!");
+        navigate(`/Profile/${username}`);
       } else {
         alert("Update cancelled!");
       }
     } catch (err) {
-      console.log("Update failed!");
+      console.log("Update failed!", err);
     }
   };
 
@@ -154,16 +134,3 @@ const EditCusDetails = () => { // Changed from 'editCusDetails' to 'EditCusDetai
 };
 
 export default EditCusDetails;
-
-
-
-
-
-
-
-
-
-
-
-
-

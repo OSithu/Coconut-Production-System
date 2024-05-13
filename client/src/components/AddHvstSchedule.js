@@ -124,6 +124,9 @@ const AddHvstSchedule = () => {
                                 className={`form-control ${errors.date ? 'is-invalid' : ''}`}
                                 name="date"
                                 value={date}
+                                min={
+                                    new Date().toISOString().split('T')[0]
+                                  }
                                 onChange={(e) => setDate(e.target.value)} />
                             {errors.date && <div className="invalid-feedback">{errors.date}</div>}
                         </div>

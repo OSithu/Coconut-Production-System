@@ -16,8 +16,9 @@ const CreateCusDetails = () => {
     let errors = {};
     let isValid = true;
 
-    if (!cusName) {
-      errors.cusName = "Customer name is required";
+    // Validate customer name format
+    if (!cusName || !/^[a-zA-Z\s]+$/.test(cusName)) {
+      errors.cusName = "Customer name should contain letters only";
       isValid = false;
     }
 
@@ -101,7 +102,8 @@ const CreateCusDetails = () => {
   return (
     <div className="col-md-8 mt-4 mx-auto">
       <h1 className="h3 mb-3 font-weight-normal">Add new customer details</h1>
-      <form className="needs-validation" noValidate onSubmit={sendData}>
+      <div className="container" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
+        <form className="needs-validation" noValidate onSubmit={sendData}>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Customer name</label>
           <input
@@ -210,6 +212,7 @@ const CreateCusDetails = () => {
           &nbsp;Save
         </button>
       </form>
+      </div>    
     </div>
   );
 };

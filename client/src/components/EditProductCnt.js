@@ -9,6 +9,104 @@ const EditProductCnt = () => {
   const [quantityUnit, setProductQtyUnit] = useState("");
   const [productDate, setProductDate] = useState("");
   const [description, setProductDesc] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!productId) {
+      errors.productId = "Please select a product ID.";
+      isValid = false;
+    }
+
+    if (!quantity) {
+      errors.quantity = "Please enter quantity.";
+      isValid = false;
+    }
+
+    // if (!quantityUnit) {
+    //   errors.quantityUnit = "Please select a quantity unit.";
+    //   isValid = false;
+    // }
+
+    if (!productDate) {
+      errors.productDate = "Please enter a date.";
+      isValid = false;
+    }
+
+    if (!description) {
+      errors.description = "Please select an action description.";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
+
+  const sendData = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      let newProductRecData = {
+        productId: productId,
+        quantity: quantity,
+        quantityUnit: quantityUnit,
+        productDate: productDate,
+        description: description,
+      };
+
+      const res = await axios.post(
+        "http://localhost:8000/productCnt/save",
+        newProductRecData
+      );
+
+      // if (res.data.error) {
+      //   setError(res.data.error);
+      //   return;
+      // }
+
+      alert(res.data.success);
+      console.log(res.data.success);
+
+      if (description === "Incremented") {
+        // Call updateProductQuantity to add quantity
+        await axios.put(
+          `http://localhost:8000/products/updateQuantity/${productId}`,
+          {
+            quantity: +quantity,
+          }
+        );
+      } else if (description === "Decremented") {
+        // Call updateProductQuantity to subtract quantity
+        await axios.put(
+          `http://localhost:8000/products/updateQuantity/${productId}`,
+          {
+            quantity: -quantity,
+          }
+        );
+      } else {
+        console.error("Invalid description:", description);
+        return; // Exit the function if description is invalid
+      }
+
+      // Display success message
+      alert("Product quantity updated successfully.");
+
+      // Reset the form fields
+      setProductId("");
+      setProductQty("");
+      setProductQtyUnit("");
+      setProductDate("");
+      setProductDesc("");
+    } catch (error) {
+      console.error("Error occurred while updating product quantity:", error);
+      alert("Failed to update product quantity. Please try again.");
+    }
+  };
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -31,7 +129,7 @@ const EditProductCnt = () => {
           console.log("API Response Date:", res.data.productCnt.productDate);
           setProductId(res.data.productCnt.productId);
           setProductQty(res.data.productCnt.quantity);
-          setProductQtyUnit(res.data.productCnt.quantityUnit)
+          setProductQtyUnit(res.data.productCnt.quantityUnit);
           setProductDate(formatDate(res.data.productCnt.productDate));
           setProductDesc(res.data.productCnt.description);
           console.log(res.data.message);
@@ -114,17 +212,33 @@ const EditProductCnt = () => {
     } catch (err) {
       console.log("Update failed!");
       alert("Failed to update product. Please try again.");
-      
     }
   };
 
   return (
     <div className="col-md-5 mt-5 mx-auto">
-      <h1 className="h3 mb-4 font-weight-normal">
-        Update Product Count Record
-      </h1>
-      <form className="needs-validation" noValidate onSubmit={updateData}>
-        {/* <div className="form-group" style={{ marginBottom: "15px" }}>
+      <div
+        className="card"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.7)",
+          borderRadius: "10px",
+          marginTop: "110px",
+          marginBottom: "20px",
+        }}
+      >
+        <h1
+          className="h3 mb-4 font-weight-normal"
+          style={{ textAlign: "center", marginTop: "10px" }}
+        >
+          Update Product Count Record
+        </h1>
+        <form
+          className="needs-validation"
+          style={{ marginLeft: "10px", marginRight: "10px" }}
+          noValidate
+          onSubmit={updateData}
+        >
+          {/* <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Product ID</label>
           <input
             type="text"
@@ -136,36 +250,45 @@ const EditProductCnt = () => {
             required
           />
         </div> */}
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Product ID</label>
-          <select
-            className={`form-control`}
-            name="productId"
-            value={productId}
-            onChange={(e) => setProductId(e.target.value)}
-          >
-            <option value="">Select Product ID</option>
-            {productIds.map((productId, index) => (
-              <option key={index} value={productId.productId}>
-                {productId.productId}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Product ID</label>
+            <select
+              className={`form-control ${errors.productId && "is-invalid"}`}
+              name="productId"
+              value={productId}
+              onChange={(e) => setProductId(e.target.value)}
+            >
+              <option value="">Select Product ID</option>
+              {productIds.map((productId, index) => (
+                <option key={index} value={productId.productId}>
+                  {productId.productId}
+                </option>
+              ))}
+            </select>
+            {errors.productId && (
+              <div className="invalid-feedback">{errors.productId}</div>
+            )}
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label className="col-sm-2 col-form-label"> Available Quantity </label>
-          <div className="col-sm-8">
-            <input
-              type="text"
-              className={`form-control`}
-              name="quantity"
-              placeholder="Enter Quantity"
-              value={quantity}
-              onChange={(e) => setProductQty(e.target.value)}
-            />
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label className="col-sm-2 col-form-label">
+              {" "}
+              Available Quantity{" "}
+            </label>
+            <div className="col-sm-8">
+              <input
+                type="text"
+                className={`form-control ${errors.quantity && "is-invalid"}`}
+                name="quantity"
+                placeholder="Enter Quantity"
+                value={quantity}
+                onChange={(e) => setProductQty(e.target.value)}
+              />
+              {errors.quantity && (
+                <div className="invalid-feedback">{errors.quantity}</div>
+              )}
 
-            {/* <select
+              {/* <select
               className="form-select"
               name="quantityUnit"
               value={quantityUnit}
@@ -177,64 +300,68 @@ const EditProductCnt = () => {
               <option value="g"> g </option>
               <option value="litre"> litre </option>
             </select> */}
+            </div>
           </div>
-        </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Date</label>
-          <input
-            type="date"
-            className={`form-control`}
-            name="productDate"
-            placeholder="Enter the date"
-            value={productDate}
-            onChange={(e) => setProductDate(e.target.value)}
-            required
-          />
-        </div>
-
-        <div
-          className="form-group"
-          style={{
-            marginBottom: "15px",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            <label style={{ marginRight: "10px" }}>
-              <input
-                type="radio"
-                name="description"
-                value="Incremented"
-                checked={description === "Incremented"}
-                onChange={(e) => setProductDesc(e.target.value)}
-              />
-              &nbsp;Increment
-            </label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <label>
-              <input
-                type="radio"
-                name="description"
-                value="Decremented"
-                checked={description === "Decremented"}
-                onChange={(e) => setProductDesc(e.target.value)}
-              />
-              &nbsp;Decrement
-            </label>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Date</label>
+            <input
+              type="date"
+              className={`form-control ${errors.productDate && "is-invalid"}`}
+              name="productDate"
+              placeholder="Enter the date"
+              value={productDate}
+              onChange={(e) => setProductDate(e.target.value)}
+              required
+            />
+            {errors.productDate && (
+              <div className="invalid-feedback">{errors.productDate}</div>
+            )}
           </div>
-        </div>
 
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ marginTop: "15px" }}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp;Update
-        </button>
-      </form>
+          <div
+            className="form-group"
+            style={{
+              marginBottom: "15px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div>
+              <label style={{ marginRight: "10px" }}>
+                <input
+                  type="radio"
+                  name="description"
+                  value="Incremented"
+                  checked={description === "Incremented"}
+                  onChange={(e) => setProductDesc(e.target.value)}
+                />
+                &nbsp;Increment
+              </label>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>
+                <input
+                  type="radio"
+                  name="description"
+                  value="Decremented"
+                  checked={description === "Decremented"}
+                  onChange={(e) => setProductDesc(e.target.value)}
+                />
+                &nbsp;Decrement
+              </label>
+            </div>
+          </div>
+
+          <button
+            className="btn btn-success"
+            type="submit"
+            style={{ marginTop: "15px" }}
+          >
+            <i className="far fa-check-square"></i>
+            &nbsp;Update
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

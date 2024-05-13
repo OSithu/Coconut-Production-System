@@ -56,58 +56,60 @@ const ViewProducts = () => {
     const content = table.outerHTML;
     const newWindow = window.open();
     newWindow.document.write(`
-      <html>
-        <head>
-          <title> Product Details </title>
-          <style>
-            img {
-              height: 100px; 
-              margin: 5px; 
-            }
-            .imgContainer {
-              text-align: center;
-            }
-            h2 {
-              text-align: center;
-            }
-            
-            @media print {
-              /* Hide buttons */
-              a { display: none; }
-              .action-col { display: none; }
-              /* Apply table styles */
-              table {
-                width: 100%;
-                border-collapse: collapse;
-              }
-              th, td {
-                border: 1px solid #000;
-                padding: 8px;
-                text-align: left;
-              }
-              th {
-                background-color: #f2f2f2;
-              }
-            }
-          </style>
-        </head>
-        <body>
-        <div className="print-header" >
-            <img src="/images/logo.png" className='imageReport2' />
-            <h1> Jayakody Koppara Stores </h1>
-            <hr />
-          </div>
-          <div class="reportHeader" >
-            <div class="imgContainer">
-              <img src="/image/logo.png" alt="Description of image">
-            </div>
-            <br/>
-            <h2>Product Details</h2>
-            <hr />
-          </div>
-          ${content}
-        </body>
-      </html>
+    <html>
+    <head>
+      <title>Product Details</title>
+      <style>
+      img{
+        height:100px;
+        margin: 5px;
+      }
+        /* Add your print styles here */
+        @media print {
+          /* Hide buttons */
+          a { display: none; }
+          .action-col{ display: none; }
+          /* Apply table styles */
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        }
+        .imgContainer {
+          text-align: center;
+        }
+        .reportHeader {
+          text-align: center;
+        }
+        
+        .imgContainer {
+          margin: 0 auto; /* Center the image horizontally */
+          display: inline-block; /* Ensure the container does not take up full width */
+        }
+      </style>
+    </head>
+    <body><div class="reportHeader" >
+    <div class="imgContainer">
+      <img src="/images/logo.png">
+      <h1>Jayakody Koppara Stores</h2>
+    </div>
+    <br/>
+    <h2>Product Details</h2>
+    <hr />
+  </div>
+
+      ${content}
+    </body>
+  </html>
+
     `);
     newWindow.print();
     newWindow.close();
@@ -156,7 +158,10 @@ const ViewProducts = () => {
       <div className="header">
         <div>
           <ul className="navbar">
-            <div className="pDetails" style={{marginRight: "250px", marginLeft: "100px"}}>
+            <div
+              className="pDetails"
+              style={{ marginRight: "250px", marginLeft: "100px" }}
+            >
               <li>
                 <a class="active" href="/viewProduct">
                   Product Details
@@ -166,7 +171,10 @@ const ViewProducts = () => {
             <div className="logo">
               <img src="./images/logo.png" className="image"></img>
             </div>
-            <div className="pDetails" style={{marginLeft: "250px", marginRight: "100px"}}>
+            <div
+              className="pDetails"
+              style={{ marginLeft: "250px", marginRight: "100px" }}
+            >
               <li>
                 <a href="/viewProductCnt">Product Records</a>
               </li>
@@ -184,25 +192,26 @@ const ViewProducts = () => {
               fontSize: "24px",
             }}
           >
-            All Products
-            <div className="input-group mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search products..."
-                value={searchProducts}
-                onChange={(e) => setSearchProducts(e.target.value)}
-              />
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                style={{ backgroundColor: "#e6e6e6" }}
-              >
-                <BsSearch />
-              </button>
-            </div>
+            All Products{" "}
           </p>
-          <div style={{ textAlign: "right", marginBottom: "10px" }}>
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search products..."
+              value={searchProducts}
+              onChange={(e) => setSearchProducts(e.target.value)}
+            />
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              style={{ backgroundColor: "#e6e6e6" }}
+            >
+              <BsSearch />
+            </button>
+          </div>
+
+          {/* <div style={{ textAlign: "right", marginBottom: "10px" }}>
             <button className="btn btn-success">
               <a
                 href="/addProduct"
@@ -212,22 +221,45 @@ const ViewProducts = () => {
               </a>
             </button>{" "}
           </div>
+          <div className="d-grid d-md-flex justify-content-md-end mb-3">
+            <button className="btn btn-success" onClick={generateReport}>
+              Generate PDF
+            </button>{" "}
+          </div> */}
+          <div style={{ textAlign: "right", marginBottom:"10px" }}>
+            <button className="btn btn-success">
+              <a
+                href="/addProduct"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Add New Product
+              </a>
+            </button>{" "}
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button className="btn btn-success" onClick={generateReport}>
+                Generate Report
+            </button>
+          </div>
+
+          {showWarning && (
+            <div
+              className="alert alert-warning"
+              role="alert"
+              style={{ color: "red" }}
+            >
+              {warningProductId && `${warningProductId} is low on stock`}
+            </div>
+          )}
           <div ref={componentPDF} style={{ width: "100%" }}>
             <div className="print-header" style={{ display: "none" }}>
               <img src="/images/logo.png" />
               <h1> Jayakody Koppara Stores </h1>
               <hr />
-                        
             </div>
-            {showWarning && (
-              <div className="alert alert-warning" role="alert">
-                {warningProductId && `${warningProductId} is low on stock`}
-              </div>
-            )}
             <table
               className="table"
               style={{
-                backgroundColor: "rgba(217, 255, 242, 0.6)",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
                 borderRadius: "10px",
                 marginTop: "20px",
               }}
@@ -330,7 +362,7 @@ const ViewProducts = () => {
                       <a
                         className="btn btn-warning"
                         href={`/editProduct/${products._id}`}
-                        style={{ width: "90px" }}
+                        style={{ width: "100px" }}
                       >
                         <i className="fas fa-edit"></i>&nbsp;Edit
                       </a>
@@ -338,7 +370,7 @@ const ViewProducts = () => {
                         className="btn btn-danger"
                         href="#"
                         onClick={() => handleDelete(products._id)}
-                        style={{ width: "90px" }}
+                        style={{ width: "100px" }}
                       >
                         <i className="far fa-trash-alt"></i>&nbsp;Delete
                       </a>
@@ -352,11 +384,6 @@ const ViewProducts = () => {
               <hr />
               {/* <p>Report Generated on {currentDate} </p> */}
             </div>
-          </div>
-          <div className="d-grid d-md-flex justify-content-md-end mb-3">
-            <button className="btn btn-success" onClick={generateReport}>
-              Generate PDF
-            </button>{" "}
           </div>
         </div>
       </div>
