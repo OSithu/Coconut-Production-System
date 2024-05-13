@@ -14,8 +14,9 @@ const EditCusDetails = () => {
     const getOneCustomer = async () => {
       try {
         const res = await axios.get(`http://localhost:8000/cusID/${username}`);
-        const { cusName, cusEmail, contactNumber, cusLocation } =
-          res.data.userDetails;
+
+        const { cusName, cusEmail, contactNumber, cusLocation } = res.data.userDetails;
+
         setCusName(cusName);
         setCusEmail(cusEmail);
         setContactNumber(contactNumber);
@@ -31,9 +32,9 @@ const EditCusDetails = () => {
   const updateData = async (e) => {
     e.preventDefault();
     try {
-      const confirmed = window.confirm(
-        "Are you sure you want to update this detail?"
-      );
+
+      const confirmed = window.confirm("Are you sure you want to update this detail?");
+
       if (confirmed) {
         let updatedCustomerData = {
           cusName: cusName,
@@ -104,7 +105,7 @@ const EditCusDetails = () => {
                             <div className='invalid-feedback'>{errors.contactNumber}</div>} */}
         </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
+	<div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>Address</label>
           <input
             type="text"
@@ -118,6 +119,7 @@ const EditCusDetails = () => {
           {/* {errors.cusLocation.length > 0 &&
                             <div className='invalid-feedback'>{errors.cusLocation}</div>} */}
         </div>
+
 
         <button
           className="btn btn-success"

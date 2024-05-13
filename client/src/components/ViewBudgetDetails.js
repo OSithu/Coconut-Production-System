@@ -167,13 +167,6 @@ const filteredBudget = allDetails.filter(budget =>
             border-collapse: collapse;
           }
           th, td {
-
-          .budget-table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-          .budget-table th, .budget-table td {
-
             border: 1px solid #000;
             padding: 8px;
             text-align: left;
@@ -203,11 +196,6 @@ const filteredBudget = allDetails.filter(budget =>
     <br/>
     <h2>Monthly Budget Details</h2>
     <hr />
-  </div>
-          .budget-table th {
-            background-color: #f2f2f2;
-          }
-        }
       </style>
     </head>
       ${content}

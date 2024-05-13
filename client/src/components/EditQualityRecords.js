@@ -260,7 +260,7 @@ const EditQualityRecords = () => {
           >
             {/* <option value="">Select Product Type</option> */}
             <option value="Passed">Passed</option>
-            <option value="Coconut Water">Failed</option>
+            <option value="Failed">Failed</option>
           </select>
           {formErrors.testResult && (
             <div className="invalid-feedback">{formErrors.testResult}</div>

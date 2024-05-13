@@ -37,59 +37,59 @@ const ViewProductCnt = () => {
     const content = table.outerHTML;
     const newWindow = window.open();
     newWindow.document.write(`
-      <html>
-        <head>
-          <title> Product Details </title>
-          <style>
-            img {
-              height: 100px; 
-              margin: 5px; 
-            }
-            .imgContainer {
-              text-align: center;
-            }
-            h2 {
-              text-align: center;
-            }
-            
-            @media print {
-              /* Hide buttons */
-              a { display: none; }
-              .action-col { display: none; }
-              .actionCol { display: none; }
-              /* Apply table styles */
-              table {
-                width: 100%;
-                border-collapse: collapse;
-              }
-              th, td {
-                border: 1px solid #000;
-                padding: 8px;
-                text-align: left;
-              }
-              th {
-                background-color: #f2f2f2;
-              }
-            }
-          </style>
-        </head>
-        <body>
-        <div className="print-header" >
-            <img src="/images/logo.png" className='imageReport2' />
-            <h1> Jayakody Koppara Stores </h1>
-            <hr />
-          </div>
-          <div class="reportHeader" >
-            <div class="imgContainer">
-              <img src="/image/logo.png" alt="Description of image">
-            </div>
-            <br/>
-            <h2>Product Details</h2>
-            <hr />
-          </div>
-          ${content}
-        </body>
-      </html>
+    <html>
+    <head>
+      <title>Product Records</title>
+      <style>
+      img{
+        height:100px;
+        margin: 5px;
+      }
+        /* Add your print styles here */
+        @media print {
+          /* Hide buttons */
+          a { display: none; }
+          .action-col{ display: none; }
+          /* Apply table styles */
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        }
+        .imgContainer {
+          text-align: center;
+        }
+        .reportHeader {
+          text-align: center;
+        }
+        
+        .imgContainer {
+          margin: 0 auto; /* Center the image horizontally */
+          display: inline-block; /* Ensure the container does not take up full width */
+        }
+      </style>
+    </head>
+    <body><div class="reportHeader" >
+    <div class="imgContainer">
+      <img src="/images/logo.png">
+      <h1>Jayakody Koppara Stores</h2>
+    </div>
+    <br/>
+    <h2>Product Records</h2>
+    <hr />
+  </div>
+
+      ${content}
+    </body>
+  </html>
     `);
     newWindow.print();
     newWindow.close();
@@ -135,17 +135,23 @@ const ViewProductCnt = () => {
       <div className="header">
         <div>
           <ul className="navbar">
-            <div className="pDetails" style={{marginRight: "250px", marginLeft: "100px"}}>
+            <div
+              className="pDetails"
+              style={{ marginRight: "250px", marginLeft: "100px" }}
+            >
               <li>
                 <a class="active" href="/viewProduct">
-                  Product Records
+                  Product Details
                 </a>
               </li>
             </div>
             <div className="logo">
               <img src="./images/logo.png" className="image"></img>
             </div>
-            <div className="pDetails" style={{marginLeft: "250px", marginRight: "100px"}}>
+            <div
+              className="pDetails"
+              style={{ marginLeft: "250px", marginRight: "100px" }}
+            >
               <li>
                 <a href="/viewProductCnt">Product Records</a>
               </li>
@@ -156,7 +162,7 @@ const ViewProductCnt = () => {
       <br></br>
       <div className="container">
         <div>
-        <p
+          <p
             style={{
               textAlign: "center",
               fontFamily: "sans-serif",
@@ -180,20 +186,34 @@ const ViewProductCnt = () => {
           </div>
 
           <div style={{ textAlign: "right" }}>
-            <button className="btn btn-success">
+            {/* <button className="btn btn-success">
               <a
                 href="/addProductCnt"
                 style={{ textDecoration: "none", color: "white" }}
               >
                 Add New Product Record
               </a>
-            </button>
+            </button> */}
+            <div style={{ textAlign: "right", marginBottom: "10px" }}>
+              <button className="btn btn-success">
+                <a
+                  href="/addProductCnt"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  Add New Product
+                </a>
+              </button>{" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button className="btn btn-success" onClick={generateReport}>
+                Generate PDF
+              </button>{" "}
+            </div>
           </div>
           <div ref={componentPDF} style={{ width: "100%" }}>
             <table
               className="table"
               style={{
-                backgroundColor: "rgba(217, 255, 242, 0.6)",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
                 borderRadius: "10px",
                 marginTop: "20px",
               }}
@@ -212,7 +232,11 @@ const ViewProductCnt = () => {
                   <th scope="col" style={{ borderRight: "1px solid white" }}>
                     Description
                   </th>
-                  <th className="actionCol "scope="col" style={{ borderRight: "1px solid white" }}>
+                  <th
+                    className="action-col"
+                    scope="col"
+                    style={{ borderRight: "1px solid white" }}
+                  >
                     Actions
                   </th>
                 </tr>
@@ -221,15 +245,13 @@ const ViewProductCnt = () => {
                 {filteredProductCnt.map((productCnt, index) => (
                   <tr key={productCnt._id}>
                     <td style={{ borderRight: "1px solid white" }}>
-                      {/* <a href={`/productCnt/${productCnt._id}`} style ={{textDecoration: 'none'}}>
-                    {productCnt.productId}
-                  </a> */}
-                      <Link
+                      {/* <Link
                         to={`/productCnt/${productCnt._id}`}
-                        style={{ textDecoration: "none", color:"black" }}
+                        style={{ textDecoration: "none", color: "black" }}
                       >
                         {productCnt.productId}
-                      </Link>
+                      </Link> */}
+                      {productCnt.productId}
                     </td>
                     {/* <td>{productCnt.productId}</td> */}
                     <td style={{ borderRight: "1px solid white" }}>
@@ -261,11 +283,6 @@ const ViewProductCnt = () => {
                 ))}
               </tbody>
             </table>
-          </div>
-          <div className="d-grid d-md-flex justify-content-md-end mb-3">
-            <button className="btn btn-success" onClick={generateReport}>
-              Generate PDF
-            </button>{" "}
           </div>
         </div>
       </div>

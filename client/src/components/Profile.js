@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -43,9 +44,7 @@ const Profile = () => {
       const confirm = window.confirm("Are you sure you want to delete?");
 
       if (confirm) {
-        await axios.delete(
-          `http://localhost:8000/custDetails/delete/${username}`
-        );
+        await axios.delete(`http://localhost:8000/custDetails/delete/${username}`);
         alert("Customer deleted successfully");
         navigate("/");
       } else {
@@ -87,11 +86,13 @@ const Profile = () => {
           >
             <i className="fas fa-edit"></i>&nbsp;Edit
           </a> */}
-          <Link to={`/editCus/${cusUsername}`}>
-            <button className="btn btn-warning">
-              <i className="fas fa-edit"></i>&nbsp;Edit
-            </button>
-          </Link>
+
+
+<Link to={`/editCus/${cusUsername}`}>
+  <button className="btn btn-warning">
+    <i className="fas fa-edit"></i>&nbsp;Edit
+  </button>
+</Link>
           &nbsp;
           <button
             className="btn btn-danger"

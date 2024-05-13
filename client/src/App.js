@@ -114,6 +114,7 @@ function App() {
 
           <Route path="/viewCus" Component={ViewCusDetails} />
           <Route path="/addCus" Component={CreateCusDetails} />
+
           <Route path="/editCus/:username" Component={EditCusDetails} />
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />

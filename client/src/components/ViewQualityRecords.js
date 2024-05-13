@@ -44,50 +44,59 @@ const ViewQualityRecords = () => {
     const content = table.outerHTML;
     const newWindow = window.open();
     newWindow.document.write(`
-      <html>
-        <head>
-          <title> Quality Control Records </title>
-          <style>
-            img {
-              height: 100px; 
-              margin: 5px; 
-            }
-            .imgContainer {
-              text-align: center;
-            }
-            h2 {
-              text-align: center;
-            }
-            
-            @media print {
-              /* Hide buttons */
-              button,a { display: none; }
-              /* Apply table styles */
-              table {
-                width: 100%;
-                border-collapse: collapse;
-              }
-              th, td {
-                border: 1px solid #000;
-                padding: 8px;
-                text-align: left;
-              }
-              th {
-                background-color: #f2f2f2;
-              }
-            }
-          </style>
-        </head>
-        <body>
-        <div className="print-header" style={{ display: "none" }}>
-        <img src="/images/logo.png" className='imageReport2' />
-        <h1> Jayakody Koppara Stores </h1>
-        <hr />
-          </div>
-          </div>
-          ${content}
-        </body>
-      </html>
+
+<html>
+    <head>
+      <title>Quality Records</title>
+      <style>
+      img{
+        height:100px;
+        margin: 5px;
+      }
+        
+        @media print {
+          
+          a { display: none; }
+         
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        }
+        .imgContainer {
+          text-align: center;
+        }
+        .reportHeader {
+          text-align: center;
+        }
+        
+        .imgContainer {
+          margin: 0 auto; 
+          display: inline-block; 
+      </style>
+    </head>
+    <body><div class="reportHeader" >
+    <div class="imgContainer">
+      <img src="/images/logo.png">
+      <h1>Jayakody Koppara Stores</h2>
+    </div>
+    <br/>
+    <h2>Quality Records</h2>
+    <hr />
+  </div>
+
+      ${content}
+    </body>
+  </html>
+
     `);
     newWindow.print();
     newWindow.close();
