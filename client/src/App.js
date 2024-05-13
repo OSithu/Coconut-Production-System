@@ -104,6 +104,11 @@ import DiseaseReport from "./components/GenerateDiseaseReport";
 
 import WD from "./components/WorkHoursCalculator";
 
+import DisplayPesticides from "./components/DisplayPesticides";
+import AddPesticides from "./components/AddPesticides";
+import EditPesticides from "./components/EditPesticides";
+import GeneratePesicidestReport from "./components/GeneratePesticidesReport";
+
 
 function App() {
   return (
@@ -219,6 +224,12 @@ function App() {
           <Route path="/diseasereport" Component={DiseaseReport}/>
 
           <Route path="/whcal" Component={WD}/>
+
+          <Route path="/displayPesticides" Component={DisplayPesticides}/>
+          <Route path="/addPesticides" Component={AddPesticides}/>
+          <Route path="/updatePesticides/:id" Component={EditPesticides}/>
+          <Route path="/pesticidesreport" Component={GeneratePesicidestReport}/>
+
 
 
         </Routes>
