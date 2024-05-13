@@ -93,6 +93,22 @@ import ProductDash from "./components/ProductDash";
 import EditCusDetails from "./components/editCusDetails";
 
 
+import CalculatorEmp from "./components/SalaryCalculator";
+
+import ViewDisease from "./components/DisplayDiseases";
+import CreateDiseases from "./components/CreateDiseases";
+import UpdateDisease from "./components/EditDiseases";
+import DiseaseReport from "./components/GenerateDiseaseReport";
+
+
+import WD from "./components/WorkHoursCalculator";
+
+import DisplayPesticides from "./components/DisplayPesticides";
+import AddPesticides from "./components/AddPesticides";
+import EditPesticides from "./components/EditPesticides";
+import GeneratePesicidestReport from "./components/GeneratePesticidesReport";
+
+
 function App() {
   return (
     <Router>
@@ -196,6 +212,22 @@ function App() {
 
 
           <Route path="/productDash" Component={ProductDash}/>
+
+
+          <Route path="/salcal" Component={CalculatorEmp}/>
+
+          <Route path="/displayDiseases" Component={ViewDisease}/>
+          <Route path="/addDisease" Component={CreateDiseases}/>
+          <Route path="/updateDiseases/:id" Component={UpdateDisease}/>
+          <Route path="/diseasereport" Component={DiseaseReport}/>
+
+          <Route path="/whcal" Component={WD}/>
+
+          <Route path="/displayPesticides" Component={DisplayPesticides}/>
+          <Route path="/addPesticides" Component={AddPesticides}/>
+          <Route path="/updatePesticides/:id" Component={EditPesticides}/>
+          <Route path="/pesticidesreport" Component={GeneratePesicidestReport}/>
+
 
 
         </Routes>
