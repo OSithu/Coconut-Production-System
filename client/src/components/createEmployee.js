@@ -191,10 +191,14 @@ const CreateEmployee = () => {
         value={jobTitle}
     >
         <option value="">Select Job Title</option>
-        <option value="Manager">Manager</option>
+        <option value="Employee Manager">Manager</option>
         <option value="Labor">Labor</option>
         <option value="Agricultural Technician">Agricultural Technician</option>
-        <option value="Quality Inspector">Quality Inspector</option>
+        <option value="Product Manager">Product Manager</option>
+        <option value="Customer and Sales Manager">Customer and Sales Manager</option>
+        <option value="Quality Control Manager">Quality Control Managern</option>
+        <option value="Disease Control Manaager">Disease Control Manaager</option>
+        <option value="Plantation Manager">Plantation Manager</option>
         <option value="Accountant">Accountant</option>
 
 
