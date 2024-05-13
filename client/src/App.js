@@ -97,7 +97,7 @@ import ReminderList from "./components/ReminderList";
 import CalculatorEmp from "./components/SalaryCalculator";
 
 import ViewDisease from "./components/DisplayDiseases";
-import CreateDisease from "./components/CreateDiseases";
+import CreateDiseases from "./components/CreateDiseases";
 import EditDisease from "./components/EditDiseases";
 import DiseaseReport from "./components/GenerateDiseaseReport";
 
@@ -214,7 +214,7 @@ function App() {
           <Route path="/salcal" Component={CalculatorEmp}/>
 
           <Route path="/displayDiseases" Component={ViewDisease}/>
-          <Route path="/createDisease" Component={CreateDisease}/>
+          <Route path="/addDisease" Component={CreateDiseases}/>
           <Route path="/editDiseases" Component={EditDisease}/>
           <Route path="/diseasereport" Component={DiseaseReport}/>
 
