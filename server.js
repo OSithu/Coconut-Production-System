@@ -36,6 +36,7 @@ const salaryRoutes = require('./routes/salaryRoutes');
 const workhours = require('./routes/WorkHoursRoute');
 
 
+
 //app middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -57,11 +58,13 @@ app.use(harvestScheduleRoute);
 app.use(budgetRoute);
 app.use(pestRecordRoute);
 app.use(taskSheduleRoute);
+
 app.use(reminderRoute);
 app.use(pesticidesRoute);
 app.use(diseaseRoute);
 app.use(salaryRoutes);
 app.use(workhours);
+
 
 
 //declaring server running port
