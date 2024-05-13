@@ -1,5 +1,6 @@
 const express = require("express");
 const qualityControl = require("../models/qcmposts");
+const product = require("../models/productModel")
 
 // const Products = require("../models/productModel");
 
@@ -8,6 +9,10 @@ const router = express.Router();
 //save records
 router.post("/qualityrecords/save", async (req, res) => {
   try {
+    // const existingProduct = await product.findOne({productName: req.body.productType})
+    // if(!existingProduct){
+    //   return res.status(400).json({error: "Product Name is not available in database"})
+    // }
     let newRecord = new qualityControl(req.body);
 
     await newRecord.save();
