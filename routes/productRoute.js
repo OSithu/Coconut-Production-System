@@ -322,32 +322,55 @@ router.put("/products/editQuantity/:productId", async (req, res) => {
   }
 });
 
-// // Route to count the number of products
-// router.get('/products/count', async (req, res) => {
-//   try {
-//     const count = await Products.countDocuments();
-//     res.json({ count });
-//   } catch (error) {
-//     console.error('Error counting products:', error);
-//     res.status(500).json({ error: 'Error counting products' });
-//   }
-// });
+// Get total product count
+router.get("/productscount", async (req, res) => {
+  try {
+    let totalCount = await Products.find({ $or: [{ category: "Products" }] }).countDocuments();
 
-// // Get total document count
-// router.get("/products/count", async (req, res) => {
-//   try {
-//     const totalCount = await Products.countDocuments().exec();
+    return res.status(200).json({
+      success: true,
+      totalCount: totalCount,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false, 
+      error: err.message,
+    });
+  }
+});
 
-//     return res.json({
-//       success: true,
-//       totalCount: totalCount,
-//     });
-//   } catch (err) {
-//     return res.status(400).json({
-//       success: false,
-//       error: err.message,
-//     });
-//   }
-// });
+// Get total by-product count
+router.get("/byproductscount", async (req, res) => {
+  try {
+    let totalbyproductCount = await Products.find({ $or: [{ category: "By-products" }] }).countDocuments();
+
+    return res.status(200).json({
+      success: true,
+      totalbyproductCount: totalbyproductCount,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false, 
+      error: err.message,
+    });
+  }
+});
+
+// Get total Agrochemicals count
+router.get("/agrochemicalscount", async (req, res) => {
+  try {
+    let totalagrochemicalsCount = await Products.find({ $or: [{ category: "Agrochemicals" }] }).countDocuments();
+
+    return res.status(200).json({
+      success: true,
+      totalagrochemicalsCount: totalagrochemicalsCount,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false, 
+      error: err.message,
+    });
+  }
+});
 
 module.exports = router;
