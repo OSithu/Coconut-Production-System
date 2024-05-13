@@ -33,6 +33,8 @@ const reminderRoute = require("./routes/remindrRoute");
 const pesticidesRoute = require("./routes/pesticidesRoute");
 const diseaseRoute = require("./routes/diseaseRoute");
 const salaryRoutes = require('./routes/salaryRoutes');
+const workhours = require('./routes/WorkHoursRoute');
+
 
 //app middleware
 app.use(bodyParser.json());
@@ -59,6 +61,8 @@ app.use(reminderRoute);
 app.use(pesticidesRoute);
 app.use(diseaseRoute);
 app.use(salaryRoutes);
+app.use(workhours);
+
 
 //declaring server running port
 const port = 8000;
