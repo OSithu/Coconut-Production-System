@@ -18,6 +18,20 @@ const EditEmployee = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    
+  // Function to format date to yyyy-mm-dd format
+  const formatDate = (date) => {
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1);
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  };
+
 
 
 
@@ -29,7 +43,7 @@ const EditEmployee = () => {
         .then((res)=>{
             setfullName(res.data.employeerecord.fullName);
             setNIC(res.data.employeerecord.NIC);
-            setdateOfBirth(res.data.employeerecord.dateOfBirth);
+            setdateOfBirth(formatDate(res.data.employeerecord.dateOfBirth));
             setgender(res.data.employeerecord.gender);
             setcontactNumber(res.data.employeerecord.contactNumber);  
             setcontactEmail(res.data.employeerecord.contactEmail);  
@@ -37,7 +51,7 @@ const EditEmployee = () => {
             setjobTitle(res.data.employeerecord.jobTitle);
             setdepartment(res.data.employeerecord.department);
             setcontactNumber(res.data.employeerecord.contactNumber);  
-            setstartDate(res.data.employeerecord.startDate);  
+            setstartDate(formatDate(res.data.employeerecord.startDate));  
 
           console.log('Status: ' + res.data.success);
         })
@@ -129,7 +143,14 @@ const EditEmployee = () => {
 
   return (
     <div>
-    <h1>Edit Record</h1>
+         <div className="container mt-4">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h1 className="card-title text-center">Edit Employee Details</h1>
+
+    
     <form className="needs-validation" noValidate onSubmit={updateData}>
     <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>Full Name</label>
@@ -275,7 +296,11 @@ const EditEmployee = () => {
     </form>
 
   </div>
-  )
-}
-
+  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 export default EditEmployee

@@ -35,6 +35,17 @@ const ViewEmployee = () => {
     getAllEmployee();
   }, []);
 
+  //Remove Time in Identify Date Part
+  function formatDate(dateOfBirth) {
+    const date = new Date(dateOfBirth);
+    return date.toISOString().split('T')[0]; 
+  }
+
+function formatDate1(startDate) {
+  const date = new Date(startDate);
+  return date.toISOString().split('T')[0]; 
+  }
+
   //implement PDF Download function
 
   const generatePDF = useReactToPrint({
@@ -135,6 +146,12 @@ const ViewEmployee = () => {
         </a>
       </button>
 
+      <button className="btn btn-success">
+        <a href="/salcal" style={{ textDecoration: "none", color: "white" }}>
+          cal
+        </a>
+      </button>
+
       <br></br>
 
       <div ref={ComponentPDF} style={{ width: "100%" }}>
@@ -165,19 +182,19 @@ const ViewEmployee = () => {
                 <th scope="row">{index + 1}</th>
                 <td>{records.fullName}</td>
                 <td>{records.NIC}</td>
-                <td>{records.dateOfBirth}</td>
+                <td>{formatDate(records.dateOfBirth)}</td>
                 <td>{records.gender}</td>
                 <td>{records.contactNumber}</td>
                 <td>{records.contactEmail}</td>
                 <td>{records.address}</td>
                 <td>{records.jobTitle}</td>
                 <td>{records.department}</td>
-                <td>{records.startDate}</td>
+                <td>{formatDate(records.startDate)}</td>
                 <td>
                   <a
                     className="btn btn-warning"
                     href={`/editEmp/${records._id}`}
-                  >
+                  >  
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
                   &nbsp;
@@ -198,9 +215,12 @@ const ViewEmployee = () => {
 
 
       <div className="d-grid d-md-flex justify-content-md-end mb-3">
-        <button className="btn btn-success" onClick={generatePDF}>
-          PDF
-        </button>{" "}
+   
+        <button className="btn btn-success">
+        <a href="/empReport" style={{ textDecoration: "none", color: "white" }}>
+            Generate Report
+        </a>
+      </button>
       </div>
     </div>
   );
