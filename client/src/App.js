@@ -92,6 +92,8 @@ import GeneratePestReport from "./components/GeneratePestRecord";
 import ProductDash from "./components/ProductDash";
 import EditCusDetails from "./components/editCusDetails";
 
+import ReminderList from "./components/ReminderList";
+
 function App() {
   return (
     <Router>
@@ -193,7 +195,11 @@ function App() {
           <Route path="/createPestRecords" Component={CreatePestRecords} />
           <Route path="/pestReport" Component={GeneratePestReport} />
 
-          <Route path="/productDash" Component={ProductDash} />
+
+          <Route path="/productDash" Component={ProductDash}/>
+
+          <Route path="/ReminderList" Component={ReminderList}/>
+
         </Routes>
       </div>
     </Router>
