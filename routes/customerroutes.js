@@ -97,6 +97,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//get details using username
 router.get("/cusID/:username", async (req, res) => {
   try {
     let username = req.params.username;
@@ -111,6 +112,31 @@ router.get("/cusID/:username", async (req, res) => {
     return res.status(200).json({ success: true, userDetails });
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+//update customer details by username
+router.put("/custDetails/update/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    await CustomerDetails.findOneAndUpdate({ username: username }, { $set: req.body }).exec();
+    return res.status(200).json({ success: "Updated Successfully" });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+});
+
+//delete details using username
+router.delete("/custDetails/delete/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const deletedRecords = await CustomerDetails.findOneAndDelete({ username: username }).exec();
+    if (!deletedRecords) {
+      return res.status(404).json({ message: "Record not found" });
+    }
+    return res.json({ message: "Delete Successfully", deletedRecords });
+  } catch (err) {
+    return res.status(400).json({ message: "Deleted unsuccessfully", error: err.message });
   }
 });
 
