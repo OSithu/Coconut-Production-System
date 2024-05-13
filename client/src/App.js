@@ -10,7 +10,7 @@ import viewFertilization from "./components/viewFertilization";
 import CreateFertilization from "./components/createFertilization";
 import editFertilization from "./components/editFertilization";
 import FertilizersDetails from "./components/FertilizersDetails";
-import FertilizationToDo from "./components/fertilizationtodo";
+import FertilizationToDo from "./components/FertilizationToDo";
 
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
