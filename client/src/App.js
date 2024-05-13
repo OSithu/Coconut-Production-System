@@ -92,7 +92,6 @@ import GeneratePestReport from "./components/GeneratePestRecord";
 
 import ProductDash from "./components/ProductDash";
 
-import ReminderList from "./components/ReminderList";
 
 function App() {
   return (
@@ -197,7 +196,6 @@ function App() {
 
           <Route path="/productDash" Component={ProductDash}/>
 
-          <Route path="/ReminderList" Component={ReminderList}/>
 
         </Routes>
       </div>
