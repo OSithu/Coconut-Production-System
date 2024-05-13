@@ -141,7 +141,7 @@ const generatePDF = useReactToPrint({
       <div className="container">
         <button className="btn btn-success">
           <a
-            href="/createDisease" /*pathhhhh*/
+            href="/addDisease" 
             style={{ textDecoration: "none", color: "white" }}
           >
             Add New Disease
