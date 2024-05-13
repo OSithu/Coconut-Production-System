@@ -184,6 +184,7 @@ const EditQualityRecords = () => {
             <option value="Coconut Oil">Coconut Oil</option>
             <option value="Coconut Water">Coconut Water</option>
             <option value="Desiccated Coconut">Desiccated Coconut</option>
+            <option value="Coconut">Coconut</option>
           </select>
           {formErrors.productType && (
             <div className="invalid-feedback">{formErrors.productType}</div>

@@ -114,10 +114,10 @@ function formatDate1(startDate) {
               <a href="#news">Benifits Packages</a>
             </li>
             <li>
-              <a href="#contact">Salary Calculator</a>
+              <a href="/salcal">Salary Calculator</a>
             </li>
             <li>
-              <a href="#about">About</a>
+              <a href="/whcal">Work Hour</a>
             </li>
             </div>
 
