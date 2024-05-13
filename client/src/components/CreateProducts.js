@@ -334,7 +334,7 @@ const CreateProducts = () => {
               value={manufacturedDate}
               max={
                 new Date().toISOString().split('T')[0]
-               }
+              }
               onChange={(e) => setProductMD(e.target.value)}
               required
             />
