@@ -166,8 +166,8 @@ function Calculator() {
         <div className="f-amounts">
         <div>
       <p>Urea: <span>{urea}g</span></p>
-      <p>EppawalaRock Phosphate: <span>{phosphate}g</span></p>
-      <p>Muriate Of Potasium: <span>{muriate}g</span></p>
+      <p>Eppawala Phosphate: <span>{phosphate}g</span></p>
+      <p>MuriateOf Potasium: <span>{muriate}g</span></p>
       <p>Dolomite: <span>{dolomite}g</span></p>
     </div>
       </div>

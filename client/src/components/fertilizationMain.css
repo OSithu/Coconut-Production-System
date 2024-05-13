@@ -37,15 +37,14 @@ body {
     margin: 10px 0;
 }
 
-.f-graph-container,
-.f-calculator-todo-container,
+
 .fertilization-records-container {
-    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
+    margin-left: 10px;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 870px;
 }
 
 .f-graph h2,
