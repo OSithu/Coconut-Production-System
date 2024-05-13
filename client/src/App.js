@@ -14,7 +14,7 @@ import editFertilization from "./components/editFertilization";
 
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
-import editCusDetails from "./components/editCusDetails";
+
 
 import ViewTrees from "./components/ViewTrees";
 import AddTrees from "./components/AddTrees";
@@ -91,6 +91,7 @@ import CreatePestRecords from "./components/CreatePestRecords";
 import GeneratePestReport from "./components/GeneratePestRecord";
 
 import ProductDash from "./components/ProductDash";
+import EditCusDetails from "./components/editCusDetails";
 
 function App() {
   return (
@@ -116,7 +117,7 @@ function App() {
 
           <Route path="/viewCus" Component={ViewCusDetails} />
           <Route path="/addCus" Component={CreateCusDetails} />
-          <Route path="/editCus/:id" Component={editCusDetails} />
+          <Route path="/editCus/:username" Component={EditCusDetails}/>
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />
           <Route path="/createFinanceDetails" Component={AddTransaction} />

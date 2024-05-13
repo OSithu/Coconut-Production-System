@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 const Profile = () => {
   const [cusName, setCusName] = useState('')
@@ -9,6 +9,7 @@ const Profile = () => {
   const [cusLocation, setCusLocation] = useState('')
   const [username, setUsername] = useState('')
   const [profileDetails, setProfileDetails] = useState([]);
+  const navigate = useNavigate();
 
   const { username: cusUsername } = useParams();
 
@@ -41,10 +42,9 @@ const Profile = () => {
       const confirm = window.confirm("Are you sure you want to delete?");
 
       if (confirm) {
-        await axios.delete(`http://localhost:8000/cusDetails/delete/${username}`);
+        await axios.delete(`http://localhost:8000/custDetails/delete/${username}`);
         alert("Customer deleted successfully");
-        // Assuming profileDetails is an array, filter it to remove the deleted item
-        setProfileDetails(profileDetails.filter((cus) => cus.username !== username));
+        navigate("/");
       } else {
         alert("Deletion Cancel");
       }
@@ -74,12 +74,18 @@ const Profile = () => {
               <strong>Customer Location:</strong> {cusLocation || "Loading..."}
             </dd>
           </dl>
-          <a
+          {/* <a
             className="btn btn-warning"
             href={`/editCus/${username}`}
           >
             <i className="fas fa-edit"></i>&nbsp;Edit
-          </a>
+          </a> */}
+
+<Link to={`/editCus/${cusUsername}`}>
+  <button className="btn btn-warning">
+    <i className="fas fa-edit"></i>&nbsp;Edit
+  </button>
+</Link>
           &nbsp;
           <button
             className="btn btn-danger"
