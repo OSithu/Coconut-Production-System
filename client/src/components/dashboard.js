@@ -31,7 +31,7 @@ export default class Dashboard extends Component {
             </div>
             <div className="nav-right">
             <li>
-              <a href="#diseases">Diseases</a>
+              <a href="#disease">Diseases</a>
             </li>
             <li>
               <a href="#customer">Customer</a>
