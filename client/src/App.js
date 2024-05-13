@@ -211,9 +211,9 @@ function App() {
           <Route path="/salcal" Component={CalculatorEmp}/>
 
           <Route path="/displayDiseases" Component={ViewDisease}/>
-          <Route path="/displayDiseases" Component={CreateDisease}/>
-          <Route path="/displayDiseases" Component={EditDisease}/>
-          <Route path="/displayDiseases" Component={DiseaseReport}/>
+          <Route path="/createDisease" Component={CreateDisease}/>
+          <Route path="/editDiseases" Component={EditDisease}/>
+          <Route path="/diseasereport" Component={DiseaseReport}/>
 
 
         </Routes>
