@@ -96,6 +96,12 @@ import ReminderList from "./components/ReminderList";
 
 import CalculatorEmp from "./components/SalaryCalculator";
 
+import ViewDisease from "./components/DisplayDiseases";
+import CreateDisease from "./components/CreateDiseases";
+import EditDisease from "./components/EditDiseases";
+import DiseaseReport from "./components/GenerateDiseaseReport";
+
+
 function App() {
   return (
     <Router>
@@ -203,6 +209,11 @@ function App() {
           <Route path="/ReminderList" Component={ReminderList}/>
 
           <Route path="/salcal" Component={CalculatorEmp}/>
+
+          <Route path="/displayDiseases" Component={ViewDisease}/>
+          <Route path="/displayDiseases" Component={CreateDisease}/>
+          <Route path="/displayDiseases" Component={EditDisease}/>
+          <Route path="/displayDiseases" Component={DiseaseReport}/>
 
 
         </Routes>
