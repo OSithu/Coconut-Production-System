@@ -167,13 +167,6 @@ const filteredBudget = allDetails.filter(budget =>
             border-collapse: collapse;
           }
           th, td {
-
-          .budget-table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-          .budget-table th, .budget-table td {
-
             border: 1px solid #000;
             padding: 8px;
             text-align: left;
@@ -203,11 +196,6 @@ const filteredBudget = allDetails.filter(budget =>
     <br/>
     <h2>Monthly Budget Details</h2>
     <hr />
-  </div>
-          .budget-table th {
-            background-color: #f2f2f2;
-          }
-        }
       </style>
     </head>
       ${content}
@@ -243,8 +231,9 @@ const filteredBudget = allDetails.filter(budget =>
             <h1> Jayakody Koppara Stores </h1>
             <hr />
           </div>
-      <table className="budget-table">
+    
 
+      <table className="table budget-table">
 
         <thead>
           <tr>
@@ -256,8 +245,8 @@ const filteredBudget = allDetails.filter(budget =>
           </tr>
         </thead>
         <tbody>
-          {allDetails.map(budget => (
-            <tr key={budget._id}>
+        {filteredBudget.map((budget,index)=> (
+              <tr key={index}>
               <td>{budget.month}</td>
               <td>Rs.{String(budget.totalIncome)}</td> {/* Prepend "Rs" */}
               <td>Rs.{String(budget.totalExpences)}</td> {/* Prepend "Rs" */}

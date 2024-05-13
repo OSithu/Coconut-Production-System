@@ -72,6 +72,7 @@ const AddBudgetDetails = () => {
                         placeholder="Income"
                         value={totalIncome}
                         onChange={(e) => setTotalIncome(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -84,6 +85,7 @@ const AddBudgetDetails = () => {
                         placeholder="Expences"
                         value={totalExpences}
                         onChange={(e) => setTotalExpences(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -96,6 +98,7 @@ const AddBudgetDetails = () => {
                         placeholder="Differance"
                         value={totalAAmount}
                         onChange={(e) => setTotalAAmount(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -108,6 +111,7 @@ const AddBudgetDetails = () => {
                         placeholder="Profit/Loss"
                         value={profitLoss}
                         onChange={(e) => setProfitLoss(e.target.value)}
+                        required
                     />
                 </div>
 

@@ -15,6 +15,7 @@ const CreateProducts = () => {
   const [priceUnit, setProductPriceUnit] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
+  //validating form details
   const validateForm = () => {
     const errors = {};
     let formIsValid = true;
@@ -50,6 +51,13 @@ const CreateProducts = () => {
     if (!manufacturedDate) {
       errors.manufacturedDate = "Manufactured Date is required";
       formIsValid = false;
+    } else {
+      const currentDate = new Date();
+      const selectedDate = new Date(manufacturedDate);
+      if (selectedDate > currentDate) {
+        errors.manufacturedDate = "Manufactured Date cannot be a future date";
+        formIsValid = false;
+      }
     }
 
     if (!expirationDate) {
