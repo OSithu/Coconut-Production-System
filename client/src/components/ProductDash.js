@@ -3,24 +3,58 @@ import axios from "axios";
 import ProductNav from "./ProductNav";
 
 const ProductDash = () => {
-  // Declare productCount state variable
-  const [productCount, setProductCount] = useState(null); // Initialize with null instead of []
+
+  const [productCount, setProductCount] = useState([]);
+  const [byproductCount, setbyProductCount] = useState([]);
+  const [agrochemicalsCount, setagrochemicalsCount] = useState([]);
 
   useEffect(() => {
+    //get product count
     const getProductCount = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8000/products/count"
-        );
-        setProductCount(response.data.totalCount); // Access the correct property name
-        console.log("Success");
-      } catch (err) {
-        console.log("Error occurred while fetching product count:", err);
-      }
-    };
+      await axios(`http://localhost:8000/productscount`)
+      .then((res) => {
+        setProductCount(res.data.totalCount);
+        console.log('Status : ' + res.data.success);
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data.error)
+        }
+      })
+  };
 
-    getProductCount();
-  }, []);
+  //get by-products count
+  const getbyProductCount = async () => {
+    await axios(`http://localhost:8000/byproductscount`)
+    .then((res) => {
+      setbyProductCount(res.data.totalbyproductCount);
+      console.log('Status : ' + res.data.success);
+    })
+    .catch((err) => {
+      if (err.response) {
+        console.log(err.response.data.error)
+      }
+    })
+};
+
+//getAgrochemicals count
+const getAgrochemicalsCount = async () => {
+  await axios(`http://localhost:8000/agrochemicalscount`)
+  .then((res) => {
+    setagrochemicalsCount(res.data.totalagrochemicalsCount);
+    console.log('Status : ' + res.data.success);
+  })
+  .catch((err) => {
+    if (err.response) {
+      console.log(err.response.data.error)
+    }
+  })
+};
+  getProductCount();
+  getbyProductCount();
+  getAgrochemicalsCount();
+}, []);
+
 
   return (
     <div>
@@ -42,8 +76,7 @@ const ProductDash = () => {
             >
               {" "}
               <h4>
-                {/* Total Products: {productCount !== null ? productCount : "Loading..."} */}
-                Total Products:
+                Total Products: {productCount !== null ? productCount : "Loading..."}
               </h4>
             </div>
           </div>
@@ -62,8 +95,7 @@ const ProductDash = () => {
             >
               {" "}
               <h4>
-                {/* Total Products: {productCount !== null ? productCount : "Loading..."} */}
-                Total By-products:
+                Total By-Products: {byproductCount !== null ? byproductCount : "Loading..."}
               </h4>
             </div>
           </div>
@@ -71,7 +103,7 @@ const ProductDash = () => {
             <div
               className="card"
               style={{
-                width: "18rem",
+                width: "20rem",
                 height: "10rem",
                 textAlign: "center",
                 borderRadius: "20px",
@@ -82,8 +114,7 @@ const ProductDash = () => {
             >
               {" "}
               <h4>
-                {/* Total Products: {productCount !== null ? productCount : "Loading..."} */}
-                Total Agrochemicals:
+                Total Agrochemicals: {agrochemicalsCount !== null ? agrochemicalsCount : "Loading..."}
               </h4>
             </div>
           </div>
