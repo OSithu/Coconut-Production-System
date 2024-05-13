@@ -58,8 +58,6 @@ app.use(harvestScheduleRoute);
 app.use(budgetRoute);
 app.use(pestRecordRoute);
 app.use(taskSheduleRoute);
-
-app.use(reminderRoute);
 app.use(pesticidesRoute);
 app.use(diseaseRoute);
 app.use(salaryRoutes);
