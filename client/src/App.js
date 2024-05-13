@@ -102,6 +102,9 @@ import EditDisease from "./components/EditDiseases";
 import DiseaseReport from "./components/GenerateDiseaseReport";
 
 
+import WD from "./components/WorkHoursCalculator";
+
+
 function App() {
   return (
     <Router>
@@ -214,6 +217,8 @@ function App() {
           <Route path="/createDisease" Component={CreateDisease}/>
           <Route path="/editDiseases" Component={EditDisease}/>
           <Route path="/diseasereport" Component={DiseaseReport}/>
+
+          <Route path="/whcal" Component={WD}/>
 
 
         </Routes>
