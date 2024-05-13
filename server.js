@@ -30,6 +30,9 @@ const budgetRoute = require("./routes/budgetRoute");
 const pestRecordRoute = require("./routes/pestRecordsRoute");
 const taskSheduleRoute = require("./routes/taskSheduleRoute");
 const reminderRoute = require("./routes/remindrRoute");
+const pesticidesRoute = require("./routes/pesticidesRoute");
+const diseaseRoute = require("./routes/diseaseRoute");
+
 
 //app middleware
 app.use(bodyParser.json());
@@ -53,6 +56,8 @@ app.use(budgetRoute);
 app.use(pestRecordRoute);
 app.use(taskSheduleRoute);
 app.use(reminderRoute);
+app.use(pesticidesRoute);
+app.use(diseaseRoute);
 
 //declaring server running port
 const port = 8000;
