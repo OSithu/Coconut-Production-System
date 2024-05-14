@@ -8,6 +8,7 @@ function App() {
   const [attendingTime, setAttendingTime] = useState('');
   const [leavingTime, setLeavingTime] = useState('');
   const [totalWorkHours, setTotalWorkHours] = useState(0);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,14 +20,17 @@ function App() {
         leavingTime,
       });
       setTotalWorkHours(response.data.totalWorkHours);
+      setError(''); // Reset error message on successful submission
     } catch (err) {
       console.error(err);
+      setError('Invalid employee name'); // Set error message if request fails
     }
   };
 
   return (
     <div className="work-hours-calculator">
       <h1>Work Hours Calculator</h1>
+      {error && <div className="error">{error}</div>} {/* Display error message */}
       <form onSubmit={handleSubmit} className="work-hours-form">
         <div className="form-group">
           <label htmlFor="employeeName">Employee Name:</label>
@@ -46,6 +50,8 @@ function App() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
+            max={new Date().toISOString().split('T')[0]}
+            min={new Date().toISOString().split('T')[0]}
           />
         </div>
         <div className="form-group">
@@ -66,6 +72,7 @@ function App() {
             value={leavingTime}
             onChange={(e) => setLeavingTime(e.target.value)}
             required
+            min={attendingTime} // Set the minimum value to attendingTime
           />
         </div>
         <button type="submit" className="btn">

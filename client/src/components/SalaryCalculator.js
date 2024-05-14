@@ -47,17 +47,28 @@ function SalaryCalculator() {
           />
         </div>
         <div className="form-group">
-          <h3>Month</h3>
-          <input
-            type="text"
-            name="month"
-            placeholder="Enter Month"
-            value={formData.month}
-            onChange={handleInputChange}
-            required
-            className="form-input"
-          />
-        </div>
+  <h3>Month</h3>
+  <select
+    name="month"
+    value={formData.month}
+    onChange={handleInputChange}
+    required
+    className="form-input"
+  >
+    
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="September">September</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+    
+  </select>
+</div>
         <div className="form-group">
           <h3>Basic Salary</h3>
           <input
@@ -79,8 +90,14 @@ function SalaryCalculator() {
             value={formData.allowances}
             onChange={handleInputChange}
             required
+            max={formData.basicSalary} // Set max attribute dynamically
+
             className="form-input"
           />
+     {formData.monthlyBonus > formData.basicSalary && (
+    <p className="error-message">Monthly bonus cannot exceed basic salary.</p>
+     )}
+
         </div>
         <div className="form-group">
           <h3>Deductions</h3>
@@ -91,8 +108,13 @@ function SalaryCalculator() {
             value={formData.deductions}
             onChange={handleInputChange}
             required
+            max={formData.basicSalary} // Set max attribute dynamically
+
             className="form-input"
           />
+          {formData.monthlyBonus > formData.basicSalary && (
+    <p className="error-message">Monthly bonus cannot exceed basic salary.</p>
+     )}
         </div>
         <div className="form-group">
           <h3>Monthly Bonus</h3>
@@ -103,8 +125,13 @@ function SalaryCalculator() {
             value={formData.monthlyBonus}
             onChange={handleInputChange}
             required
+            max={formData.basicSalary} // Set max attribute dynamically
+
             className="form-input"
           />
+          {formData.monthlyBonus > formData.basicSalary && (
+    <p className="error-message">Monthly bonus cannot exceed basic salary.</p>
+     )}
         </div>
         <div className="form-group">
           <h3>Tax</h3>
@@ -115,8 +142,13 @@ function SalaryCalculator() {
             value={formData.tax}
             onChange={handleInputChange}
             required
+            max={formData.basicSalary} // Set max attribute dynamically
+
             className="form-input"
           />
+          {formData.monthlyBonus > formData.basicSalary && (
+    <p className="error-message">Monthly bonus cannot exceed basic salary.</p>
+     )}
         </div>
         <div className="form-group">
           <h3>EPF</h3>
@@ -127,8 +159,13 @@ function SalaryCalculator() {
             value={formData.epf}
             onChange={handleInputChange}
             required
+            max={formData.basicSalary} // Set max attribute dynamically
+
             className="form-input"
           />
+          {formData.monthlyBonus > formData.basicSalary && (
+    <p className="error-message">Monthly bonus cannot exceed basic salary.</p>
+     )}
         </div>
         <div className="form-group">
           <h3>ETF</h3>
@@ -139,8 +176,13 @@ function SalaryCalculator() {
             value={formData.etf}
             onChange={handleInputChange}
             required
+            max={formData.basicSalary} // Set max attribute dynamically
+
             className="form-input"
           />
+          {formData.monthlyBonus > formData.basicSalary && (
+    <p className="error-message">Monthly bonus cannot exceed basic salary.</p>
+     )}
         </div>
         <button type="submit" className="form-button">
           Calculate Salary
