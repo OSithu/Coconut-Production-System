@@ -99,6 +99,8 @@ const DiseaseDashboard = () => {
                 <h3 className="card-subtitle mb-2 text-body-secondary">
                   Infected Trees
                 </h3>
+          
+                <i class="fa fa-tree" style={{ fontSize: "45px" }}></i>
               </div>
             </div>
           </div>
@@ -111,6 +113,7 @@ const DiseaseDashboard = () => {
                 <h3 className="card-subtitle mb-2 text-body-secondary">
                   Founded Disease
                 </h3>
+                <i class="fa fa-bug" style={{ fontSize: "45px" }}></i>
               </div>
             </div>
           </div>
@@ -123,6 +126,7 @@ const DiseaseDashboard = () => {
                 <h3 className="card-subtitle mb-2 text-body-secondary">
                   Pesticides Plans
                 </h3>
+                <i class="fa fa-medkit" style={{ fontSize: "45px" }}></i>
               </div>
             </div>
           </div>
@@ -155,7 +159,66 @@ const DiseaseDashboard = () => {
           </div>
           <div className="col" id="plantDiv">
             &nbsp;
-            <h1 className="plantTopic"> Calender </h1>
+            <h1 className="plantTopic"> Records Management </h1>
+            <br></br>
+            <h5 className="card-subtitle mb-2 text-body-secondary">
+              If You Observe a Disease Spread
+            </h5>
+            <br></br>
+            <button className="btn btn-success">
+              <a
+                href="/createDisease" 
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <i class="fa fa-plus"></i>&nbsp; Add Spread
+              </a>
+            </button>
+            <br></br>
+            <br></br>
+            <h5 className="card-subtitle mb-2 text-body-secondary">
+              If You Add a Pesticides to Infected Tree
+            </h5>
+            <br></br>
+            <button className="btn btn-success">
+              <a
+                href="/createPestRecords" 
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <i class="fa fa-plus"></i>&nbsp; Add Record
+              </a>
+            </button>
+            <br></br>
+            <br></br>
+            <h5 className="card-subtitle mb-2 text-body-secondary">
+              If You Find a New Disease In Plantation
+            </h5>
+            <br></br>
+            <button className="btn btn-success">
+              <a
+                href="/addDisease" 
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <i class="fa fa-plus"></i>&nbsp; Add Disease
+              </a>
+            </button>
+            <br></br>
+            <br></br>
+            <h5 className="card-subtitle mb-2 text-body-secondary">
+              If You Make a New Pesticide Plan
+            </h5>
+            <br></br>
+            <button className="btn btn-success">
+              <a
+                href="/addPesticides" 
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <i class="fa fa-plus"></i>&nbsp; Add Pesticide
+              </a>
+            </button>
+            <br></br>
+ 
+            
+            
             &nbsp; &nbsp;
           </div>
         </div>

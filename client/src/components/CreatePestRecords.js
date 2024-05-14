@@ -115,7 +115,7 @@ const CreateSpread = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h1 className="card-title text-center">Add Spread Records</h1>
+              <h1 className="card-title text-center">Add Pest Records</h1>
               <form className="needs-validation" noValidate onSubmit={sendData}>
                 <div className="form-group" style={{ marginBottom: "15px" }}>
                   <label style={{ marginBottom: "5px" }}>Tree ID</label>
