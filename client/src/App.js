@@ -113,6 +113,7 @@ import filterEMp from "./components/CategorizeDepartment";
 import PestFinder from "./components/PestFinder";
 
 import GenerateQualityReport from "./components/GenerateQualityReport"
+import GenerateFertilizerReport from "./components/GenerateFertilizerReport"
         
 
 
@@ -240,6 +241,7 @@ function App() {
           <Route path="/pestfinder" Component={PestFinder}/>
 
           <Route path="/generateQualityReport" Component={GenerateQualityReport}/>
+          <Route path="/fertilizerReport" Component={GenerateFertilizerReport}/>
 
 
 
