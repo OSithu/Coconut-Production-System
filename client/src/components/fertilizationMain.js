@@ -1,7 +1,7 @@
 import React from 'react';
 import "./fertilizationMain.css";
 import Calculator from './Calculator';
-import FertilizationToDo from './FertilizationToDo';
+import FertilizationToDo from './fertilizationtodo';
 
 function fertilizationMain() {
   return (
@@ -28,9 +28,6 @@ function fertilizationMain() {
             <li>
               <a href="/FertilizersDetails">Fertilizers</a>
             </li>
-            <li>
-              <a href="#about">About</a>
-            </li>
             </div>
 
           </ul>
@@ -39,36 +36,12 @@ function fertilizationMain() {
       <br></br>
       <h1 className='plantTopic'>Fertilization Dashboard</h1>
       <div className="f-dashboard">
-          <div className="f-summary-container">
-              <div className="f-summary">
-                  <h2>Sum Amount of Urea</h2>
-                  <p className="f-summary-value" id="ureaAmount">0</p>
-              </div>
-          </div>
-          <div className="f-summary-container">
-              <div className="f-summary">
-                  <h2>Sum Amount of Eppawalarockposphate</h2>
-                  <p className="f-summary-value" id="eppawalaAmount">0</p>
-              </div>
-          </div>
-          <div className="f-summary-container">
-              <div className="f-summary">
-                  <h2>Sum Amount of Dolamite</h2>
-                  <p className="f-summary-value" id="dolamiteAmount">0</p>
-              </div>
-          </div>
-          <div className="f-summary-container">
-              <div className="f-summary">
-                  <h2>Sum Amount of Muriate Of Potasium</h2>
-                  <p className="f-summary-value" id="muriateAmount">0</p>
-              </div>
-          </div>
       </div>
 
       <div className="f-graph-container">
           <div className="f-graph">
               <h2>Graph</h2>
-              {/* Graph content goes here */}
+              <fertilizationweather/>
           </div>
       </div>
       <div className="f-dashboard">

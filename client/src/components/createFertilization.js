@@ -164,7 +164,7 @@ const CreateFertilizationDetails = () => {
                 </div>
 
         <div className="f-form-group">
-            <label>Amount of Dolamite Amount(g)</label>
+            <label>Dolamite Amount(g)</label>
             <input type="Number" 
                 className={`f-form-control ${formik.errors.DolamiteAmount && formik.touched.DolamiteAmount && 'is-invalid'}`}
                 name="DolamiteAmount" 
@@ -199,11 +199,6 @@ const CreateFertilizationDetails = () => {
     </form>
     </div>
 </div>
-<div className="col-md-4 mt-3 mx-auto" style={{ margin: "0 20px", maxWidth: "fit-content"}}>
-
-                {/* Calculator component */}
-                <Calculator />
-            </div>
         </div>
 
     );
