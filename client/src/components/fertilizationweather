@@ -73,7 +73,7 @@ function fertilizationweather() {
     return (
         <div className="App">
             <h1 className="app-name">
-                Weather Condition
+                Weather Condition.
             </h1>
             <div className="search-bar">
                 <input
