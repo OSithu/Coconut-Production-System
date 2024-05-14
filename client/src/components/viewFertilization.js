@@ -177,7 +177,7 @@ const ViewFertilizationDetails = () => {
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Fertilizers</a>
+              <a href="/FertilizerDetails">Fertilizers</a>
             </li>
             <li>
               <a href="#about">About</a>

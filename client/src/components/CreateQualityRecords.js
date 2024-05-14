@@ -174,6 +174,7 @@ const CreateQualityRecords = () => {
     <option value="" disabled selected>Select Product Type</option>
     <option value="Coconut Oil">Coconut Oil</option>
     <option value="Coconut Water">Coconut Water</option>
+    <option value="Coconut">Coconut</option>
     <option value="Desiccated Coconut">Desiccated Coconut</option>
   </select>
   {errors.productType && (

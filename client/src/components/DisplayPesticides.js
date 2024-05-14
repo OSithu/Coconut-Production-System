@@ -7,20 +7,20 @@ import { useReactToPrint } from "react-to-print";
 import { BsSearch } from 'react-icons/bs';
 
 
-const ViewSpread = () => {
+const DisplayPesticides = () => {
 
   const conponentPDF= useRef();
   
-  const [allRecords, setAllRecord] = useState([]);
-  const [searchRecord, setSearchRecord] = useState('');
+  const [allPesticides, setAllPesticide] = useState([]);
+  const [searchPesticide, setSearchPesticide] = useState('');
 
 
   useEffect(() => {
-    const getAllRecords = async () => {
+    const getAllPesticides = async () => {
       await axios
-        .get(`http://localhost:8000/records`)
+        .get(`http://localhost:8000/pestcides`)
         .then((res) => {
-          setAllRecord(res.data.existingRecords);
+          setAllPesticide(res.data.existingPestcides);
           console.log("Status: " + res.data.success);
         })
         .catch((err) => {
@@ -35,14 +35,8 @@ const ViewSpread = () => {
         });
     };
 
-    getAllRecords();
+    getAllPesticides();
   }, []);
-
-//Remove Time in Identify Date Part
-  function formatDate(identifyDate) {
-    const date = new Date(identifyDate);
-    return date.toISOString().split('T')[0]; 
-  }
 
 
 //Implement PDF Download Function
@@ -50,7 +44,7 @@ const ViewSpread = () => {
 const generatePDF = useReactToPrint({
 
     content: ()=>conponentPDF.current,
-    documentTitle:"UserData",
+    documentTitle:"Pesticides Report",
     onAfterPrint:()=>alert("Data Saved In PDF")
 
 });
@@ -61,11 +55,11 @@ const generatePDF = useReactToPrint({
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this items..?"
+      "Are you sure you want to delete this Pesticides..?"
     );
     if (confirmed) {
       await axios
-        .delete(`http://localhost:8000/diseasespread/delete/${id}`)
+        .delete(`http://localhost:8000/pestcide/delete/${id}`)
         .then((res) => {
           alert(res.data.message);
           console.log(res.data.message);
@@ -86,9 +80,14 @@ const generatePDF = useReactToPrint({
   };
 
       // Filter allRecords based on searchFertilization
-      const filteredRecord = allRecords.filter(records =>
-        records.treeID.toLowerCase().includes(searchRecord.toLowerCase())
+      const filteredPestcide = allPesticides.filter(pestcide =>
+        pestcide.pestName.toLowerCase().includes(searchPesticide.toLowerCase())
       );
+
+       // Add a unit to quantity 
+  const getUnit = (pestType) => {
+    return pestType === 'Liquid Formulations' ? 'ml' : 'g';
+  };
 
 
   return (
@@ -99,12 +98,12 @@ const generatePDF = useReactToPrint({
           <ul className="navbar">
           <div className="nav-left">
           <li>
-              <a href="#home">
+              <a  href="#home">
                 Home
               </a>
             </li>
             <li>
-              <a class="active"  href="/viewDisease">Spread Records</a>
+              <a href="/viewDisease">Spread Records</a>
             </li>
             <li>
               <a href="/viewPestRecords">Pest Records</a>
@@ -116,10 +115,10 @@ const generatePDF = useReactToPrint({
             </div>
             <div className="nav-right">
             <li>
-              <a href="/displayDiseases">Diseases</a>
+            <a href="/displayDiseases">Diseases</a>
             </li>
             <li>
-            <a href="/displayPesticides">Pesticides</a>
+            <a class="active" href="/displayPesticides">Pesticides</a>
             </li>
             <li>
             <a href="/pestfinder">Pest Finder</a>
@@ -130,15 +129,15 @@ const generatePDF = useReactToPrint({
         </div>
       </div>
       <br></br>
-      <h1 className='plantTopic'>Spread Records</h1>
+      <h1 className='plantTopic'>Pestcides Details</h1>
       {/* search */}
      <div className="input-group mb-3">
         <input
           type="text"
           className="form-control"
           placeholder="Search by Tree No"
-          value={searchRecord}
-          onChange={(e) => setSearchRecord(e.target.value)}
+          value={searchPesticide}
+          onChange={(e) => setSearchPesticide(e.target.value)}
         />
         <button className="btn btn-outline-secondary" type="button">
           <BsSearch />
@@ -147,43 +146,45 @@ const generatePDF = useReactToPrint({
       <div className="container">
         <button className="btn btn-success">
           <a
-            href="/createDisease"
+            href="/addPesticides" 
             style={{ textDecoration: "none", color: "white" }}
           >
-            Add New Records
+            Add New Pestcide
           </a>
         </button>
 
         <div style={{ marginTop: "20px" }}>
           
-          <table className="table" id='plantTable'>
+          <table className="table" id='plantTable' >
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Tree ID</th>
-                <th scope="col">Identify Date</th>
-                <th scope="col">Disease</th>
-                <th scope="col">Spread Level</th>
-                <th scope="col">Special Notes</th>
+                <th scope="col">#</th>  
+                <th scope="col">Pestcide Name</th>
+                <th scope="col">Disease Name</th>
+                <th scope="col">Pestcide Type</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Method</th>
+                <th scope="col">Guidelines</th>
+                <th scope="col">Precautions</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
 
             <tbody>
-            { filteredRecord.map((records, index) => (
+            { filteredPestcide.map((pestcide, index) => (
                 <tr>
                   <td scope="row">{index + 1}</td>
-                  <td>{records.treeID}</td>
-                  <td>{formatDate(records.identifyDate)}</td>
-                  <td>{records.disease}</td>
-                  <td className={`spread-level ${records.spreadLevel}`}>
-                    {records.spreadLevel}
-                  </td>
-                  <td>{records.specialNote}</td>
+                  <td>{pestcide.pestName}</td>
+                  <td>{pestcide.disease}</td>
+                  <td>{pestcide.pestType}</td>
+                  <td>{pestcide.quantity + " " + getUnit(pestcide.pestType)}</td>                 
+                  <td>{pestcide.method}</td>
+                  <td>{pestcide.guidelines}</td>
+                  <td>{pestcide.precautions}</td>
                   <td>
                     <a
                       className="btn btn-warning"
-                      href={`/editDisease/${records._id}`}
+                      href={`/updatePesticides/${pestcide._id}`}  /*pathhh*/
                     >
                       <i className="fas fa-edit"></i>&nbsp;Edit
                     </a>
@@ -191,7 +192,7 @@ const generatePDF = useReactToPrint({
                     <a
                       className="btn btn-danger"
                       href="#"
-                      onClick={() => handleDelete(records._id)}
+                      onClick={() => handleDelete(pestcide._id)}
                     >
                       <i className="fas fa-trash-alt"></i>&nbsp;Delete
                     </a>
@@ -205,7 +206,7 @@ const generatePDF = useReactToPrint({
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
           <button className="btn btn-success">
           <a
-            href="/spreadReport"
+            href="/spreadReport" /*pathhh*/
             style={{ textDecoration: "none", color: "white" }}
           >
             <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
@@ -221,4 +222,4 @@ const generatePDF = useReactToPrint({
   );
 };
 
-export default ViewSpread;
+export default DisplayPesticides;

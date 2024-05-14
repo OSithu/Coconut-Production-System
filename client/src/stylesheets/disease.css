@@ -112,6 +112,18 @@
   .spread-level.Low {
     background-color: rgb(154, 233, 154);
   }
+
+  .stage-level.Severe {
+    background-color: rgb(247, 124, 124);
+  }
+  
+  .stage-level.Moderate {
+    background-color: rgb(240, 240, 166);
+  }
+  
+  .stage-level.Mild {
+    background-color: rgb(154, 233, 154);
+  }
   
   /* Generate Report CSS */
 
