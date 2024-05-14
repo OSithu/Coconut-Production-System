@@ -121,4 +121,15 @@ router.get("/pestcides/find/:disease", async (req, res) => {
   }
 });
 
+
+//get the Pesticides Count 
+router.get("/pesticidesCount", async (req, res) => {
+  try {
+    let count = await Pestcides.countDocuments();
+    return res.status(200).json({ success: true, count: count });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = router;
