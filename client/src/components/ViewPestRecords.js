@@ -186,7 +186,7 @@ const generatePDF = useReactToPrint({
                    <td>
                     <a
                       className="btn btn-warning"
-                      href={`/editDisease/${pestrecords._id}`}
+                      href={`/editpestaddrecords/${pestrecords._id}`}
                     >
                       <i className="fas fa-edit"></i>&nbsp;Edit
                     </a>
