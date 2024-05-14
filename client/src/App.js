@@ -117,6 +117,7 @@ import GenerateFertilizerReport from "./components/GenerateFertilizerReport"
 
 
 import DiseaseDashboard from "./components/DiseaseDashboard";
+import EditPestAddRecord from "./components/EditPestRecords";
         
 
 
@@ -248,6 +249,10 @@ function App() {
 
           
           <Route path="/diseaseDashboard" Component={DiseaseDashboard}/>
+          <Route path="/editpestaddrecords" Component={EditPestAddRecord}/>
+
+
+          
 
 
 
