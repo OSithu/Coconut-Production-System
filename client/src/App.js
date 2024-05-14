@@ -216,7 +216,7 @@ function App() {
 
           <Route path="/ViewTaskShedule" Component={ViewTaskShedule} />
           <Route path="/CtreateTaskShedule" Component={CreateShedule} />
-          <Route path="/EditTaskShedule" Component={EditTaskShedule} />
+          <Route path="/EditTaskShedule/:id" Component={EditTaskShedule} />
 
           <Route path="/viewPestRecords" Component={ViewPestRecords} />
           <Route path="/createPestRecords" Component={CreatePestRecords} />
