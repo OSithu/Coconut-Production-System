@@ -49,18 +49,63 @@
     border-collapse: collapse;
     width: 100%;
   }
-  
   .quality-records-table th,
   .quality-records-table td {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
   }
-  
   .quality-records-table th {
     background-color: #f2f2f2;
   }
 
+  .containerqm1 {
+    display: flex;
+    justify-content: space-between; /* Align items with space between them */
+    max-width: 1000px; /* Adjust the maximum width of the container */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  
+  .statisticsqm {
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    max-width: calc(70% - 30px); /* Adjust the width of each box */
+    border: 3px solid #15b22c; /* Border style, width, and color */
+  }
+  .statisticsqm h3  {
+    margin-top: 0;
+  }
+  .statisticsqm p{
+    margin-bottom: 5px;
+  }
+  
+  .percentageqm-box {
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    max-width: calc(70% - 30px); /* Adjust the width of each box */
+    border: 3px solid #15b22c;/* Border style, width, and color */
+  }
+  .percentageqm-box h3 {
+    margin-top: 0;
+  }
+  .percentageqm-box p {
+    margin-bottom: 5px;
+  font-size: 30px; /* Adjust the font size as needed */
+  color: #21ac1c; 
+  text-align: center;
+  }
+.percentageqm-box p strong {
+  font-weight: bold; /* Make the text bold */
+  
+}
+
+.failed-testqm {
+  background-color: #ffcccc; /* or any other red color */
+}
 
   
   
