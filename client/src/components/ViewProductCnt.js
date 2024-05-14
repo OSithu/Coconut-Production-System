@@ -137,7 +137,17 @@ const ViewProductCnt = () => {
           <ul className="navbar">
             <div
               className="pDetails"
-              style={{ marginRight: "250px", marginLeft: "100px" }}
+              style={{ marginRight: "150px", marginLeft: "50px" }}
+            >
+              <li>
+                <a class="active" href="/productDash">
+                  Home
+                </a>
+              </li>
+            </div>
+            <div
+              className="pDetails"
+              style={{ marginRight: "50px", marginLeft: "0px" }}
             >
               <li>
                 <a class="active" href="/viewProduct">
@@ -145,12 +155,12 @@ const ViewProductCnt = () => {
                 </a>
               </li>
             </div>
-            <div className="logo">
+            <div className="logo" style={{ margin: "0 auto" }}>
               <img src="./images/logo.png" className="image"></img>
             </div>
             <div
               className="pDetails"
-              style={{ marginLeft: "250px", marginRight: "100px" }}
+              style={{ marginRight: "150px", marginLeft: "200px" }}
             >
               <li>
                 <a href="/viewProductCnt">Product Records</a>
