@@ -82,7 +82,7 @@ const PestFinder = () => {
           <ul className="navbar">
           <div className="nav-left">
           <li>
-              <a class="active" href="#home">
+              <a href="#home">
                 Home
               </a>
             </li>
@@ -105,7 +105,7 @@ const PestFinder = () => {
             <a href="/displayPesticides">Pesticides</a>
             </li>
             <li>
-            <a href="/pestfinder">Pest Finder</a>
+            <a class="active" href="/pestfinder">Pest Finder</a>
             </li>
             </div>
 
@@ -117,7 +117,7 @@ const PestFinder = () => {
       <h2 style={styles.heading}>Pest Finder</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <div>
-          <label htmlFor="disease">Disease Name: </label>
+          <label htmlFor="disease">Disease Name: &nbsp; </label>
           <input
             type="text"
             id="disease"
