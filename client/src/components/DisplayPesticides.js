@@ -150,7 +150,7 @@ const generatePDF = useReactToPrint({
 
         <div style={{ marginTop: "20px" }}>
           
-          <table className="table" id='plantTable'>
+          <table className="table" id='plantTable' >
             <thead>
               <tr>
                 <th scope="col">#</th>
