@@ -114,6 +114,9 @@ import PestFinder from "./components/PestFinder";
 
 import GenerateQualityReport from "./components/GenerateQualityReport"
 import GenerateFertilizerReport from "./components/GenerateFertilizerReport"
+
+
+import DiseaseDashboard from "./components/DiseaseDashboard";
         
 
 
@@ -242,6 +245,9 @@ function App() {
 
           <Route path="/generateQualityReport" Component={GenerateQualityReport}/>
           <Route path="/fertilizerReport" Component={GenerateFertilizerReport}/>
+
+          
+          <Route path="/diseaseDashboard" Component={DiseaseDashboard}/>
 
 
 
