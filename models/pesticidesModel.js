@@ -7,7 +7,7 @@ const pesticidesSchema = new mongoose.Schema({
     required: true,
   },
   pestName: {
-    type: Date,
+    type: String,
     required: true,
   },
   pestType: {
@@ -16,10 +16,6 @@ const pesticidesSchema = new mongoose.Schema({
   },
   quantity: {
     type: Number,
-    required: true,
-  },
-  unit: {
-    type: String,
     required: true,
   },
   method: {

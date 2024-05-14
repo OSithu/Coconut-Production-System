@@ -14,7 +14,9 @@ const EditCusDetails = () => {
     const getOneCustomer = async () => {
       try {
         const res = await axios.get(`http://localhost:8000/cusID/${username}`);
+
         const { cusName, cusEmail, contactNumber, cusLocation } = res.data.userDetails;
+
         setCusName(cusName);
         setCusEmail(cusEmail);
         setContactNumber(contactNumber);
@@ -30,7 +32,9 @@ const EditCusDetails = () => {
   const updateData = async (e) => {
     e.preventDefault();
     try {
+
       const confirmed = window.confirm("Are you sure you want to update this detail?");
+
       if (confirmed) {
         let updatedCustomerData = {
           cusName: cusName,

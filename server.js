@@ -29,6 +29,12 @@ const harvestScheduleRoute = require("./routes/harvestScheduleRoute");
 const budgetRoute = require("./routes/budgetRoute");
 const pestRecordRoute = require("./routes/pestRecordsRoute");
 const taskSheduleRoute = require("./routes/taskSheduleRoute");
+const pesticidesRoute = require("./routes/pesticidesRoute");
+const diseaseRoute = require("./routes/diseaseRoute");
+const salaryRoutes = require('./routes/salaryRoutes');
+const workhours = require('./routes/WorkHoursRoute');
+
+
 
 //app middleware
 app.use(bodyParser.json());
@@ -51,6 +57,12 @@ app.use(harvestScheduleRoute);
 app.use(budgetRoute);
 app.use(pestRecordRoute);
 app.use(taskSheduleRoute);
+app.use(pesticidesRoute);
+app.use(diseaseRoute);
+app.use(salaryRoutes);
+app.use(workhours);
+
+
 
 //declaring server running port
 const port = 8000;

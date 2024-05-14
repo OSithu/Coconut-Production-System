@@ -139,6 +139,10 @@ const CreateSpread = () => {
                     placeholder="Enter Pest Date"
                     onChange={(e) => setpestDate(e.target.value)}
                     value={pestDate}
+                    max={
+                      new Date().toISOString().split('T')[0]
+     }
+                
                   />
                     {errors.pestDate && <div className="invalid-feedback">{errors.pestDate}</div>}
                 </div>

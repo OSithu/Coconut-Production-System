@@ -28,7 +28,7 @@
     margin-right: 10px;
   }
   
-  .finance-table__btn--success {
+  /* .finance-table__btn--success {
     background-color: #28a745;
     border-color: #28a745;
   }
@@ -36,7 +36,7 @@
   .finance-table__btn--success:hover {
     background-color: #218838;
     border-color: #1e7e34;
-  }
+  } */
   
   .finance-table-details__btn--danger {
     background-color: #dc3545;

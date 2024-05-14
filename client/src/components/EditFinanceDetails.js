@@ -93,6 +93,7 @@ const EditFinanceDetails = () => {
     return (
         <div className="col-md-8 mt-4 mx-auto">
             <h1 className="h3 mb-3 font-weight-normal">Update Transaction Details</h1>
+            <div id ="plantForm">
             <form className="needs-validation" noValidate>
                 <div className="form-group" style={{ marginBottom: '15px' }}>
                     <label style={{ marginBottom: '5px' }}>Date</label>
@@ -171,6 +172,7 @@ const EditFinanceDetails = () => {
                     &nbsp; Save
                 </button>
             </form>
+            </div>
         </div>
     );
 };
