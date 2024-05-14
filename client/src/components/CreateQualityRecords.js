@@ -95,6 +95,7 @@ const CreateQualityRecords = () => {
         .catch((err) => {
           if (err.response) {
             console.log(err.response.data.message);
+            alert(err.response.data.error)
           } else {
             console.log("Error occured while processing your axios post request" + err.message);
           }
