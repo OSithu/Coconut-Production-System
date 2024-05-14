@@ -52,14 +52,6 @@ const ProductDash = () => {
         });
     };
 
-    // Simulate the click event of the "Generate Report" button when the component mounts
-    const generateReportButton = document.getElementById(
-      "generateReportButton"
-    );
-    if (generateReportButton) {
-      generateReportButton.click();
-    }
-
     getProductCount();
     getbyProductCount();
     getAgrochemicalsCount();
@@ -67,7 +59,45 @@ const ProductDash = () => {
 
   return (
     <div>
-      <ProductNav />
+      <div className="header">
+        <div>
+          <ul className="navbar">
+            <div
+              className="pDetails"
+              style={{ marginRight: "150px", marginLeft: "50px" }}
+            >
+              <li>
+                <a class="active" href="/productDash">
+                  Home
+                </a>
+              </li>
+            </div>
+            <div
+              className="pDetails"
+              style={{ marginRight: "50px", marginLeft: "0px" }}
+            >
+              <li>
+                <a class="active" href="/viewProduct">
+                  Product Details
+                </a>
+              </li>
+            </div>
+            <div className="logo" style={{ margin: "0 auto" }}>
+              <img src="./images/logo.png" className="image"></img>
+            </div>
+            <div
+              className="pDetails"
+              style={{ marginRight: "150px", marginLeft: "200px" }}
+            >
+              <li>
+                <a href="/viewProductCnt">Product Records</a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <br></br>
+
       <div className="container">
         <div class="row">
           <div class="col-sm-4 mb-3 mb-sm-0">
@@ -84,8 +114,8 @@ const ProductDash = () => {
               }}
             >
               {" "}
-              <h4>
-                Total Products:{" "}
+              <h4>Total Products</h4>
+              <h4 style={{ color: "brown" }}>
                 {productCount !== null ? productCount : "Loading..."}
               </h4>
             </div>
@@ -104,8 +134,8 @@ const ProductDash = () => {
               }}
             >
               {" "}
-              <h4>
-                Total By-Products:{" "}
+              <h4>Total By-Products</h4>
+              <h4 style={{ color: "brown" }}>
                 {byproductCount !== null ? byproductCount : "Loading..."}
               </h4>
             </div>
@@ -124,8 +154,8 @@ const ProductDash = () => {
               }}
             >
               {" "}
-              <h4>
-                Total Agrochemicals:{" "}
+              <h4>Total Agrochemicals</h4>
+              <h4 style={{ color: "brown" }}>
                 {agrochemicalsCount !== null
                   ? agrochemicalsCount
                   : "Loading..."}
@@ -146,12 +176,14 @@ const ProductDash = () => {
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
-                display: "flex", 
-                flexDirection: "column", 
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               {" "}
-              <h4 style={{ marginBottom: "120px" }}>View Quality Control Report</h4>
+              <h4 style={{ marginBottom: "120px" }}>
+                View Quality Control Report
+              </h4>
               <Link
                 to="/generateQualityReport"
                 className="btn btn-success"
@@ -177,7 +209,7 @@ const ProductDash = () => {
               {" "}
               <h4 style={{ marginBottom: "120px" }}>View Fertilizers Report</h4>
               <Link
-                to="/generateQualityReport"
+                to="/fertilizerReport"
                 className="btn btn-success"
                 style={{ width: "150px", margin: "0 auto", height: "50px" }}
               >
@@ -196,8 +228,8 @@ const ProductDash = () => {
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
-                display: "flex", 
-                flexDirection: "column", 
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               {" "}
