@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import "../stylesheets/wh.css"
 
 function App() {
   const [employeeName, setEmployeeName] = useState('');
@@ -25,9 +25,9 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className="work-hours-calculator">
       <h1>Work Hours Calculator</h1>
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className="work-hours-form">
         <div className="form-group">
           <label htmlFor="employeeName">Employee Name:</label>
           <input
@@ -73,7 +73,7 @@ function App() {
         </button>
       </form>
       {totalWorkHours > 0 && (
-        <div className="result">
+        <div className="work-hours-result">
           <h2>Result</h2>
           <p>Employee Name: {employeeName}</p>
           <p>Date: {date}</p>

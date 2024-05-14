@@ -1,74 +1,63 @@
-/* Reset some default styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-  }
-  
-  .app {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
-  
-  .btn {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .result {
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: #f0f8ff;
-    border-radius: 4px;
-  }
-  
-  .result h2 {
-    margin-bottom: 1rem;
-  }
+.work-hours-calculator {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.work-hours-calculator h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.work-hours-form .form-group {
+  margin-bottom: 20px;
+}
+
+.work-hours-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.work-hours-form input[type="text"],
+.work-hours-form input[type="date"],
+.work-hours-form input[type="time"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.work-hours-form .btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.work-hours-form .btn:hover {
+  background-color: #45a049;
+}
+
+.work-hours-result {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+}
+
+.work-hours-result h2 {
+  margin-top: 0;
+}
+
+.work-hours-result p {
+  margin: 5px 0;
+}

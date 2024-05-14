@@ -111,7 +111,7 @@ function formatDate1(startDate) {
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Benifits Packages</a>
+              <a href="/filter">Benifits Packages</a>
             </li>
             <li>
               <a href="/salcal">Salary Calculator</a>

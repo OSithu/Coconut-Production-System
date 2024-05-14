@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "../stylesheets/SalaryCalculator.css"
 
 function SalaryCalculator() {
   const [formData, setFormData] = useState({
@@ -30,9 +31,9 @@ function SalaryCalculator() {
   };
 
   return (
-    <div className="Ssalary-calculator">
+    <div className="salary-calculator-container">
       <h2>Salary Calculator</h2>
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className="salary-calculator-form">
         <div className="form-group">
           <h3>Employee Name</h3>
           <input
@@ -45,7 +46,7 @@ function SalaryCalculator() {
             className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>Month</h3>
           <input
             type="text"
@@ -57,7 +58,7 @@ function SalaryCalculator() {
             className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>Basic Salary</h3>
           <input
             type="number"
@@ -66,10 +67,10 @@ function SalaryCalculator() {
             value={formData.basicSalary}
             onChange={handleInputChange}
             required
-            className="Sform-input"
+            className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>Allowances</h3>
           <input
             type="number"
@@ -78,10 +79,10 @@ function SalaryCalculator() {
             value={formData.allowances}
             onChange={handleInputChange}
             required
-            className="Sform-input"
+            className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>Deductions</h3>
           <input
             type="number"
@@ -90,10 +91,10 @@ function SalaryCalculator() {
             value={formData.deductions}
             onChange={handleInputChange}
             required
-            className="Sform-input"
+            className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>Monthly Bonus</h3>
           <input
             type="number"
@@ -102,10 +103,10 @@ function SalaryCalculator() {
             value={formData.monthlyBonus}
             onChange={handleInputChange}
             required
-            className="Sform-input"
+            className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>Tax</h3>
           <input
             type="number"
@@ -114,10 +115,10 @@ function SalaryCalculator() {
             value={formData.tax}
             onChange={handleInputChange}
             required
-            className="Sform-input"
+            className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>EPF</h3>
           <input
             type="number"
@@ -126,10 +127,10 @@ function SalaryCalculator() {
             value={formData.epf}
             onChange={handleInputChange}
             required
-            className="Sform-input"
+            className="form-input"
           />
         </div>
-        <div className="Sform-group">
+        <div className="form-group">
           <h3>ETF</h3>
           <input
             type="number"
@@ -138,15 +139,15 @@ function SalaryCalculator() {
             value={formData.etf}
             onChange={handleInputChange}
             required
-            className="Sform-input"
+            className="form-input"
           />
         </div>
-        <button type="submit" className="Sform-button">
+        <button type="submit" className="form-button">
           Calculate Salary
         </button>
       </form>
       {calculatedSalary > 0 && (
-        <div className="Sresult">
+        <div className="salary-calculator-result">
           <p>Employee Name: {formData.employeeName}</p>
           <p>Month: {formData.month}</p>
           <p>Calculated Salary: {calculatedSalary}</p>
