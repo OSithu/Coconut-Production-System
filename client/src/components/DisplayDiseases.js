@@ -150,7 +150,7 @@ const generatePDF = useReactToPrint({
 
         <div style={{ marginTop: "20px" }}>
           
-          <table className="table" id='plantTable'>
+          <table className="table" id='plantTable' style={{ textAlign: 'justify' }}>
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -172,7 +172,8 @@ const generatePDF = useReactToPrint({
                   <td>{disease.diseaseType}</td>
                   <td>{disease.symptoms}</td>
                   <td>{disease.preventiveMeasures}</td>
-                  <td>{disease.stages}</td>
+                  <td className={`stage-level ${disease.stages}`}>
+                    {disease.stages}</td>
                   <td>{disease.specialnotes}</td>
                   <td>
                     <a
