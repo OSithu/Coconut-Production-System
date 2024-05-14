@@ -15,6 +15,7 @@ export default class PlantationNav extends Component {
                             <li className="nav-item">
                                 <NavLink className="nav-link" id='plantNav-link' activeClassName="active" to="/viewHarvest">Harvest Details</NavLink>
                             </li>
+                            <img src="./images/logo.png" className="image"></img>
                             <li className="nav-item">
                                 <NavLink className="nav-link" id='plantNav-link' activeClassName="active" to="/viewHvstSchedules">Harvesting Schedules</NavLink>
                             </li>
