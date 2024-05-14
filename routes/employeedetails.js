@@ -5,9 +5,15 @@ const employeedetails = require('../models/employeedetails');
 
 const router = express.Router();
 
-//save post
+//save post(employee details)
 router.post('/employee/save',async(req,res)=>{
     try{
+
+        // Check if NIC already exists
+        const existingEmployee = await employeeDetails.findOne({ NIC: req.body.NIC }).exec();
+        if (existingEmployee) {
+            return res.status(400).json({ error: "NIC already exists" });
+        }
 
     let newEmployee = new employeeDetails(req.body);
 
@@ -85,6 +91,30 @@ router.get("/view/:id", async (req, res) => {
         return res.status(400).json({ success: false, error: err.message });
     }
 });
+
+
+// Get Employees by Department
+router.get('/filter', async (req, res) => {
+    try {
+      const employees = await employeeDetails.find({}, { fullName: 1, department: 1, _id: 0 }).exec();
+  
+      // Group employees by department
+      const employeesByDepartment = employees.reduce((acc, employee) => {
+        const { department } = employee;
+        if (!acc[department]) {
+          acc[department] = [];
+        }
+        acc[department].push(employee);
+        return acc;
+      }, {});
+  
+      return res.status(200).json({ success: true, employeesByDepartment });
+    } catch (err) {
+      return res.status(400).json({ success: false, error: err.message });
+    }
+  });
+
+
 
 
 module.exports = router;

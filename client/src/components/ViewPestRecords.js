@@ -103,7 +103,7 @@ const generatePDF = useReactToPrint({
           <ul className="navbar">
           <div className="nav-left">
           <li>
-              <a class="active" href="#home">
+              <a href="/diseaseDashboard">
                 Home
               </a>
             </li>
@@ -111,7 +111,7 @@ const generatePDF = useReactToPrint({
               <a href="/viewDisease">Spread Records</a>
             </li>
             <li>
-              <a href="/viewPestRecords">Pest Records</a>
+              <a class="active" href="/viewPestRecords">Pest Records</a>
             </li>
            
           </div>
@@ -120,13 +120,14 @@ const generatePDF = useReactToPrint({
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Diseases</a>
+            <a href="/displayDiseases">Diseases</a>
             </li>
             <li>
-              <a href="#contact">Pest Finder</a>
+            <a href="/displayPesticides">Pesticides</a>
             </li>
             <li>
-              <a href="#about">About</a>
+            
+            <a href="/pestfinder">Pest Finder</a>
             </li>
             </div>
 
@@ -185,7 +186,7 @@ const generatePDF = useReactToPrint({
                    <td>
                     <a
                       className="btn btn-warning"
-                      href={`/editDisease/${pestrecords._id}`}
+                      href={`/editpestaddrecords/${pestrecords._id}`}
                     >
                       <i className="fas fa-edit"></i>&nbsp;Edit
                     </a>

@@ -173,6 +173,9 @@ const EditSpread = () => {
                     placeholder="Enter Identify Date"
                     onChange={(e) => setidentifyDate(e.target.value)}
                     value={identifyDate}
+                    max={
+                      new Date().toISOString().split('T')[0]
+     }
                   />
                   {errors.identifyDate && (
                     <div className="invalid-feedback">
