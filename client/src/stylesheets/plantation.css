@@ -196,9 +196,7 @@ body {
         margin: 50px;
     }
 
-    .table tbody tr {
-        page-break-inside: auto; /* Allow rows to break across pages */
-      }
+
 
     button { display: none; }
   .actionCol { display: none; }

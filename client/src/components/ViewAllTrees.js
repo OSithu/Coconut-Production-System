@@ -251,7 +251,7 @@ const ViewAllTrees = () => {
   return (
     <div >
       <div className='plantHeader'>
-        {/* <PlantationNav /> */}
+        <PlantationNav />
         &nbsp;
 
         <div className='plantSearch'>
@@ -265,13 +265,15 @@ const ViewAllTrees = () => {
           </form>
         </div>
       </div>
+      
+      <div className='plantBody' style={{ marginTop: "120px" }}>
       <div id="pdf-content">
         <h1 className='plantTopic'> Tree Details </h1>
         &nbsp;
         <button type="button" className="btn btn-success" onClick={generatePDF} id='plantButton'>
           <i className="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
         </button>
-        <div className='plantBody' style={{ marginTop: "120px" }}>
+        
           <table className="table" id='plantTable'>
             <thead>
               <tr>
