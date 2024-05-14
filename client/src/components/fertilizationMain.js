@@ -1,7 +1,7 @@
 import React from 'react';
 import "./fertilizationMain.css";
 import Calculator from './Calculator';
-import FertilizationToDo from './fertilizationtodo';
+import FertilizationToDo from './FertilizationToDo';
 
 function fertilizationMain() {
   return (
