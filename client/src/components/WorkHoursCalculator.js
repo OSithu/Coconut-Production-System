@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../stylesheets/wh.css';
+
 
 function App() {
   const [employeeName, setEmployeeName] = useState('');
