@@ -96,4 +96,29 @@ router.delete("/pestcide/delete/:id", async (req, res) => {
   }
 });
 
+
+// Pest Finder Special Function
+router.get("/pestcides/find/:disease", async (req, res) => {
+  try {
+    const disease = req.params.disease;
+    const pestcides = await Pestcides.find({ disease: disease }).exec();
+
+    if (pestcides.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No pesticides found for the given disease",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      pestcides: pestcides,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+});
+
 module.exports = router;
