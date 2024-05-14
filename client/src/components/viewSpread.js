@@ -119,10 +119,10 @@ const generatePDF = useReactToPrint({
               <a href="/displayDiseases">Diseases</a>
             </li>
             <li>
-              <a href="#contact">Pest Finder</a>
+            <a href="/displayPesticides">Pesticides</a>
             </li>
             <li>
-              <a href="#about">About</a>
+            <a href="#contact">Pest Finder</a>
             </li>
             </div>
 
