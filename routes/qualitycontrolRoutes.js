@@ -9,13 +9,11 @@ const router = express.Router();
 //save records
 router.post("/qualityrecords/save", async (req, res) => {
   try {
-
-    // Check if recordID already exists in the database
+    // Check if recordId already exists in the database
     const existingRecord = await qualityControl.findOne({ recordId: req.body.recordId });
     if (existingRecord) {
       return res.status(400).json({ error: "Record ID already exists" });
     }
-
     let newRecord = new qualityControl(req.body);
 
     await newRecord.save();
@@ -26,8 +24,8 @@ router.post("/qualityrecords/save", async (req, res) => {
   } catch (err) {
     return res.status(400).json({
       error: err,
-    });
-  }
+    });
+  }
 });
 
 //get record
