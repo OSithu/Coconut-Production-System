@@ -84,6 +84,11 @@ const generatePDF = useReactToPrint({
         pestcide.pestName.toLowerCase().includes(searchPesticide.toLowerCase())
       );
 
+       // Add a unit to quantity 
+  const getUnit = (pestType) => {
+    return pestType === 'Liquid Formulations' ? 'ml' : 'g';
+  };
+
 
   return (
     <div>
@@ -110,13 +115,13 @@ const generatePDF = useReactToPrint({
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Diseases</a> 
+            <a href="/displayDiseases">Diseases</a>
             </li>
             <li>
-              <a href="#contact">Pest Finder</a>
+            <a href="/displayPesticides">Pesticides</a>
             </li>
             <li>
-              <a href="/displayPesticides">About</a>
+            <a href="#contact">Pest Finder</a>
             </li>
             </div>
 
@@ -153,9 +158,9 @@ const generatePDF = useReactToPrint({
           <table className="table" id='plantTable' >
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Disease Name</th>
+                <th scope="col">#</th>  
                 <th scope="col">Pestcide Name</th>
+                <th scope="col">Disease Name</th>
                 <th scope="col">Pestcide Type</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Method</th>
@@ -169,10 +174,10 @@ const generatePDF = useReactToPrint({
             { filteredPestcide.map((pestcide, index) => (
                 <tr>
                   <td scope="row">{index + 1}</td>
-                  <td>{pestcide.disease}</td>
                   <td>{pestcide.pestName}</td>
+                  <td>{pestcide.disease}</td>
                   <td>{pestcide.pestType}</td>
-                  <td>{pestcide.quantity}</td>
+                  <td>{pestcide.quantity + " " + getUnit(pestcide.pestType)}</td>                 
                   <td>{pestcide.method}</td>
                   <td>{pestcide.guidelines}</td>
                   <td>{pestcide.precautions}</td>

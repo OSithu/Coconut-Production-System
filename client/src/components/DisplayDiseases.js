@@ -110,13 +110,14 @@ const generatePDF = useReactToPrint({
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Diseases</a> 
+            <a href="/displayDiseases">Diseases</a>
             </li>
             <li>
+            <a href="/displayPesticides">Pesticides</a>
+            </li>
+            <li>
+         
               <a href="#contact">Pest Finder</a>
-            </li>
-            <li>
-              <a href="/displayPesticides">About</a>
             </li>
             </div>
 
@@ -150,7 +151,7 @@ const generatePDF = useReactToPrint({
 
         <div style={{ marginTop: "20px" }}>
           
-          <table className="table" id='plantTable' style={{ textAlign: 'justify' }}>
+          <table className="table" id='plantTable'>
             <thead>
               <tr>
                 <th scope="col">#</th>
