@@ -146,12 +146,18 @@ const ProductDash = () => {
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
+                display: "flex", 
+                flexDirection: "column", 
               }}
             >
               {" "}
-              <h4>View Quality Control Report</h4>
-              <Link to="/pestReport" className="btn btn-success">
-                View
+              <h4 style={{ marginBottom: "120px" }}>View Quality Control Report</h4>
+              <Link
+                to="/generateQualityReport"
+                className="btn btn-success"
+                style={{ width: "150px", margin: "0 auto", height: "50px" }}
+              >
+                <h5>View</h5>
               </Link>
             </div>
           </div>
@@ -169,7 +175,14 @@ const ProductDash = () => {
               }}
             >
               {" "}
-              <h4>View Fertilizers Report</h4>
+              <h4 style={{ marginBottom: "120px" }}>View Fertilizers Report</h4>
+              <Link
+                to="/generateQualityReport"
+                className="btn btn-success"
+                style={{ width: "150px", margin: "0 auto", height: "50px" }}
+              >
+                <h5>View</h5>
+              </Link>
             </div>
           </div>
           <div class="col-sm-4 mb-3 mb-sm-0">
@@ -183,8 +196,8 @@ const ProductDash = () => {
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
-                display: "flex", // Use Flexbox
-                flexDirection: "column", // Stack items vertically
+                display: "flex", 
+                flexDirection: "column", 
               }}
             >
               {" "}
