@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../stylesheets/SalaryCalculator.css';
 
 function SalaryCalculator() {
   const [formData, setFormData] = useState({
     employeeName: '',
     month: '',
-    basicSalary: 0,
-    allowances: 0,
-    deductions: 0,
-    monthlyBonus: 0,
-    tax: 0,
-    epf: 0,
-    etf: 0,
+    basicSalary: '',
+    allowances: '',
+    deductions: '',
+    monthlyBonus: '',
+    tax: '',
+    epf: '',
+    etf: '',
   });
   const [calculatedSalary, setCalculatedSalary] = useState(0);
 
@@ -30,84 +31,123 @@ function SalaryCalculator() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="employeeName"
-          placeholder="Employee Name"
-          value={formData.employeeName}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="month"
-          placeholder="Month"
-          value={formData.month}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="basicSalary"
-          placeholder="Basic Salary"
-          value={formData.basicSalary}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="allowances"
-          placeholder="Allowances"
-          value={formData.allowances}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="deductions"
-          placeholder="Deductions"
-          value={formData.deductions}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="monthlyBonus"
-          placeholder="Monthly Bonus"
-          value={formData.monthlyBonus}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="tax"
-          placeholder="Tax"
-          value={formData.tax}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="epf"
-          placeholder="EPF"
-          value={formData.epf}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="etf"
-          placeholder="ETF"
-          value={formData.etf}
-          onChange={handleInputChange}
-          required
-        />
-        <button type="submit">Calculate Salary</button>
+    <div className="salary-calculator">
+      <h2>Salary Calculator</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <h3>Employee Name</h3>
+          <input
+            type="text"
+            name="employeeName"
+            placeholder="Enter Employee Name"
+            value={formData.employeeName}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>Month</h3>
+          <input
+            type="text"
+            name="month"
+            placeholder="Enter Month"
+            value={formData.month}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>Basic Salary</h3>
+          <input
+            type="number"
+            name="basicSalary"
+            placeholder="Enter Basic Salary"
+            value={formData.basicSalary}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>Allowances</h3>
+          <input
+            type="number"
+            name="allowances"
+            placeholder="Enter Allowances"
+            value={formData.allowances}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>Deductions</h3>
+          <input
+            type="number"
+            name="deductions"
+            placeholder="Enter Deductions"
+            value={formData.deductions}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>Monthly Bonus</h3>
+          <input
+            type="number"
+            name="monthlyBonus"
+            placeholder="Enter Monthly Bonus"
+            value={formData.monthlyBonus}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>Tax</h3>
+          <input
+            type="number"
+            name="tax"
+            placeholder="Enter Tax"
+            value={formData.tax}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>EPF</h3>
+          <input
+            type="number"
+            name="epf"
+            placeholder="Enter EPF"
+            value={formData.epf}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <h3>ETF</h3>
+          <input
+            type="number"
+            name="etf"
+            placeholder="Enter ETF"
+            value={formData.etf}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
+        <button type="submit" className="form-button">
+          Calculate Salary
+        </button>
       </form>
       {calculatedSalary > 0 && (
-        <div>
+        <div className="result">
           <p>Employee Name: {formData.employeeName}</p>
           <p>Month: {formData.month}</p>
           <p>Calculated Salary: {calculatedSalary}</p>
