@@ -117,6 +117,7 @@ import GenerateFertilizerReport from "./components/GenerateFertilizerReport"
 
 
 import DiseaseDashboard from "./components/DiseaseDashboard";
+import EditPestAddRecord from "./components/EditPestRecords";
         
 
 
@@ -215,7 +216,7 @@ function App() {
 
           <Route path="/ViewTaskShedule" Component={ViewTaskShedule} />
           <Route path="/CtreateTaskShedule" Component={CreateShedule} />
-          <Route path="/EditTaskShedule" Component={EditTaskShedule} />
+          <Route path="/EditTaskShedule/:id" Component={EditTaskShedule} />
 
           <Route path="/viewPestRecords" Component={ViewPestRecords} />
           <Route path="/createPestRecords" Component={CreatePestRecords} />
@@ -248,6 +249,10 @@ function App() {
 
           
           <Route path="/diseaseDashboard" Component={DiseaseDashboard}/>
+          <Route path="/editpestaddrecords" Component={EditPestAddRecord}/>
+
+
+          
 
 
 

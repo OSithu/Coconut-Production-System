@@ -82,7 +82,7 @@ const PestFinder = () => {
           <ul className="navbar">
           <div className="nav-left">
           <li>
-              <a href="#home">
+              <a href="/diseaseDashboard">
                 Home
               </a>
             </li>
