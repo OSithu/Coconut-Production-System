@@ -9,7 +9,6 @@ const ViewQualityRecords = () => {
   // const [searchQualityRecords, setSearchQualityRecords] = useState([]);
   const [searchQualityRecords, setSearchQualityRecords] = useState("");
 
-
   const [allRecords, setAllRecords] = useState([]);
 
   useEffect(() => {
@@ -138,7 +137,7 @@ const ViewQualityRecords = () => {
           <ul className="navbar">
           <div className="navi-left">
           <li>
-              <a class="active" href="#qhome">
+              <a class="active" href="/dashboard">
                 Home
               </a>
             </li>
@@ -202,7 +201,7 @@ const ViewQualityRecords = () => {
 
               <tbody>
                 {filterQualityRecords.map((records, index) => (
-                  <tr key={index}>
+                   <tr key={index} className={records.testResult === "Passed" ? "table-success" : "table-danger"}>
                     <th scope="row">{index + 1}</th>
                     <td>{records.recordId}</td>
                     <td>{records.productType}</td>

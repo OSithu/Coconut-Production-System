@@ -62,7 +62,7 @@ const CreateQualityRecords = () => {
     // }
 
 
-    if (!testResult.trim()) {
+    if (!testResult) {
       errors.testResult = 'Test result is required';
       isValid = false;
     }
@@ -87,18 +87,19 @@ const CreateQualityRecords = () => {
         testResult: testResult,
       }
       await axios.post('http://localhost:8000/qualityrecords/save', newQualityRecord)
-        .then((res) => {
-          alert(res.data.success);
-          console.log('status' + res.data.success);
-          navigate("/viewQualityRecord");
-        })
-        .catch((err) => {
-          if (err.response) {
-            console.log(err.response.data.message);
-          } else {
-            console.log("Error occured while processing your axios post request" + err.message);
-          }
-        })
+      .then((res) => {
+        alert(res.data.success);
+        console.log('status' + res.data.success);
+        navigate("/viewQualityRecord");
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data.message);
+          alert(err.response.data.error)
+        } else {
+          console.log("Error occured while processing your axios post request" + err.message);
+        }
+        })
 
       setRecordId('');
       setProductType();
