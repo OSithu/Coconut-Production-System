@@ -107,6 +107,7 @@ import DisplayPesticides from "./components/DisplayPesticides";
 import AddPesticides from "./components/AddPesticides";
 import EditPesticides from "./components/EditPesticides";
 import GeneratePesicidestReport from "./components/GeneratePesticidesReport";
+import filterEMp from "./components/CategorizeDepartment";
 
 
 function App() {
@@ -227,6 +228,11 @@ function App() {
           <Route path="/addPesticides" Component={AddPesticides}/>
           <Route path="/updatePesticides/:id" Component={EditPesticides}/>
           <Route path="/pesticidesreport" Component={GeneratePesicidestReport}/>
+
+          <Route path="/filter" Component={filterEMp}/>
+
+       
+
 
 
 
