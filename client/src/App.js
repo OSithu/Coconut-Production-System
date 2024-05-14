@@ -92,7 +92,6 @@ import GeneratePestReport from "./components/GeneratePestRecord";
 import ProductDash from "./components/ProductDash";
 import EditCusDetails from "./components/editCusDetails";
 
-import ReminderList from "./components/ReminderList";
 
 import CalculatorEmp from "./components/SalaryCalculator";
 
@@ -214,7 +213,6 @@ function App() {
 
           <Route path="/productDash" Component={ProductDash}/>
 
-          <Route path="/ReminderList" Component={ReminderList}/>
 
           <Route path="/salcal" Component={CalculatorEmp}/>
 

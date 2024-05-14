@@ -250,7 +250,7 @@ const filteredBudget = allDetails.filter(budget =>
               <td>{budget.month}</td>
               <td>Rs.{String(budget.totalIncome)}</td> {/* Prepend "Rs" */}
               <td>Rs.{String(budget.totalExpences)}</td> {/* Prepend "Rs" */}
-              <td>Rs.{String(budget.totalAAmount)}</td>
+              <td>Rs.{String(budget.totalAmount)}</td>
               <td>{budget.profitLoss}</td>
               <td>
                 <Link to={`/editbudgetDetails/${budget._id}`}>

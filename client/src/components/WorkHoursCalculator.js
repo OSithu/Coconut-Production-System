@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../stylesheets/wh.css';
 
 function App() {
   const [employeeName, setEmployeeName] = useState('');
@@ -10,7 +11,6 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post('http://localhost:8000/workHours', {
         employeeName,
@@ -18,7 +18,6 @@ function App() {
         attendingTime,
         leavingTime,
       });
-
       setTotalWorkHours(response.data.totalWorkHours);
     } catch (err) {
       console.error(err);
@@ -26,53 +25,55 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app">
       <h1>Work Hours Calculator</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Employee Name:
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="employeeName">Employee Name:</label>
           <input
             type="text"
+            id="employeeName"
             value={employeeName}
             onChange={(e) => setEmployeeName(e.target.value)}
             required
           />
-        </label>
-        <br />
-        <label>
-          Date:
+        </div>
+        <div className="form-group">
+          <label htmlFor="date">Date:</label>
           <input
             type="date"
+            id="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
           />
-        </label>
-        <br />
-        <label>
-          Attending Time:
+        </div>
+        <div className="form-group">
+          <label htmlFor="attendingTime">Attending Time:</label>
           <input
             type="time"
+            id="attendingTime"
             value={attendingTime}
             onChange={(e) => setAttendingTime(e.target.value)}
             required
           />
-        </label>
-        <br />
-        <label>
-          Leaving Time:
+        </div>
+        <div className="form-group">
+          <label htmlFor="leavingTime">Leaving Time:</label>
           <input
             type="time"
+            id="leavingTime"
             value={leavingTime}
             onChange={(e) => setLeavingTime(e.target.value)}
             required
           />
-        </label>
-        <br />
-        <button type="submit">Calculate</button>
+        </div>
+        <button type="submit" className="btn">
+          Calculate
+        </button>
       </form>
       {totalWorkHours > 0 && (
-        <div>
+        <div className="result">
           <h2>Result</h2>
           <p>Employee Name: {employeeName}</p>
           <p>Date: {date}</p>

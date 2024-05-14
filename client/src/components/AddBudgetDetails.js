@@ -6,7 +6,7 @@ const AddBudgetDetails = () => {
     const [month, setMonth] = useState('');
     const [totalIncome, setTotalIncome] = useState('');
     const [totalExpences, setTotalExpences] = useState('');
-    const [totalAAmount,setTotalAAmount] = useState('');
+    const [totalAmount,setTotalAmount] = useState('');
     const [profitLoss, setProfitLoss] = useState('');
     
     // Implementing send data function
@@ -18,7 +18,7 @@ const AddBudgetDetails = () => {
                 month: month,
                 totalIncome: totalIncome,
                 totalExpences: totalExpences,
-                totalAAmount:totalAAmount,
+                totalAmount:totalAmount,
                 profitLoss: profitLoss,
             };
 
@@ -43,7 +43,7 @@ const AddBudgetDetails = () => {
         setMonth('');
         setTotalIncome('');
         setTotalExpences('');
-        setTotalAAmount('');
+        setTotalAmount('');
         setProfitLoss('');
     };
 
@@ -97,8 +97,8 @@ const AddBudgetDetails = () => {
                         className="form-control"
                         name="amount"
                         placeholder="Differance"
-                        value={totalAAmount}
-                        onChange={(e) => setTotalAAmount(e.target.value)}
+                        value={totalAmount}
+                        onChange={(e) => setTotalAmount(e.target.value)}
                         required
                     />
                 </div>
