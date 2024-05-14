@@ -117,7 +117,7 @@ const PestFinder = () => {
       <h2 style={styles.heading}>Pest Finder</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <div>
-          <label htmlFor="disease">Disease Name:</label>
+          <label htmlFor="disease">Disease Name: </label>
           <input
             type="text"
             id="disease"
@@ -137,9 +137,9 @@ const PestFinder = () => {
           <ul>
             {pesticides.map((pesticide) => (
               <li key={pesticide._id} style={styles.pesticide}>
-                <p><b>Pest Name: </b>{pesticide.pestName}</p>
+                <p><b>Pesticide Name: </b>{pesticide.pestName}</p>
                 <p><b>Disease:</b> {pesticide.disease}</p>
-                <p><b>Pest Type:</b> {pesticide.pestType}</p>
+                <p><b>Pesticide Type:</b> {pesticide.pestType}</p>
                 <p><b>Quantity:</b> {pesticide.quantity + " " + getUnit(pesticide.pestType)}</p>
                 <p><b>Application Method: </b>{pesticide.method}</p>
                 <p><b>Guidelines:</b> {pesticide.guidelines}</p>

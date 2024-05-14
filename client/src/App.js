@@ -110,6 +110,10 @@ import GeneratePesicidestReport from "./components/GeneratePesticidesReport";
 import filterEMp from "./components/CategorizeDepartment";
 
 
+import PestFinder from "./components/PestFinder";
+        
+
+
 function App() {
   return (
     <Router>
@@ -230,6 +234,8 @@ function App() {
           <Route path="/pesticidesreport" Component={GeneratePesicidestReport}/>
 
           <Route path="/filter" Component={filterEMp}/>
+
+          <Route path="/pestfinder" Component={PestFinder}/>
 
        
 
