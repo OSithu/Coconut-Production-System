@@ -49,93 +49,96 @@ const CreateShedule = () => {
   };
 
   return (
-    <div>
-      <h1>Create task Shedule</h1>
-      <form className="needs-validation" noValidate onSubmit={sendData}>
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Department</label>
-          <select
-            className="form-control"
-            name="department"
-            onChange={(e) => setDepartment(e.target.value)}
-            value={Department}
-          >
-            <option value="">Select Department</option>
-            <option value="sales">Sales and Marketing </option>
-            <option value="Finance">Finance and Accounting</option>
-            <option value="HR">Human Resources</option>
-            <option value="plantation">Plantation </option>
-            <option value="Production ">Production </option>
-          </select>
-        </div>
-
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-      <label style={{ marginBottom: "5px" }}>Task</label>
-      <textarea
-        className="form-control"
-        rows="4"
-        cols="50"
-        name="task"
-        value={Tasks}
-        onChange={(e) => setTasks(e.target.value)}
-        placeholder="Enter Task..."
-      ></textarea>
-    </div>
-
-    
-    <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>startDate	</label>
-                  <input type="date"
-                  className="form-control"
-                  name="startDate"
-                  placeholder="Enter startDate"
-                  onChange={(e) => setstartDate(e.target.value)}
-                  value={startDate}/>
-
-  
+    <div className="container mt-4">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h1 className="card-title text-center">Edit Task Shedule</h1>
+              <div>
+                <form
+                  className="needs-validation"
+                  noValidate
+                  onSubmit={sendData}
+                >
+                  <div className="form-group" style={{ marginBottom: "15px" }}>
+                    <label style={{ marginBottom: "5px" }}>Department</label>
+                    <select
+                      className="form-control"
+                      name="department"
+                      onChange={(e) => setDepartment(e.target.value)}
+                      value={Department}
+                    >
+                      <option value="">Select Department</option>
+                      <option value="sales">Sales and Marketing </option>
+                      <option value="Finance">Finance and Accounting</option>
+                      <option value="HR">Human Resources</option>
+                      <option value="plantation">Plantation </option>
+                      <option value="Production ">Production </option>
+                    </select>
+                  </div>
+                  <div className="form-group" style={{ marginBottom: "15px" }}>
+                    <label style={{ marginBottom: "5px" }}>Task</label>
+                    <textarea
+                      className="form-control"
+                      rows="4"
+                      cols="50"
+                      name="task"
+                      value={Tasks}
+                      onChange={(e) => setTasks(e.target.value)}
+                      placeholder="Enter Task..."
+                    ></textarea>
+                  </div>
+                  <div className="form-group" style={{ marginBottom: "15px" }}>
+                    <label style={{ marginBottom: "5px" }}>startDate </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="startDate"
+                      placeholder="Enter startDate"
+                      onChange={(e) => setstartDate(e.target.value)}
+                      value={startDate}
+                    />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: "15px" }}>
+                    <label style={{ marginBottom: "5px" }}>startDate </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="EndDate"
+                      placeholder="Enter EndDate"
+                      onChange={(e) => setEndDate(e.target.value)}
+                      value={EndDate}
+                    />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: "15px" }}>
+                    <label style={{ marginBottom: "5px" }}>PriorityLevel</label>
+                    <select
+                      className="form-control"
+                      name="PriorityLevel"
+                      onChange={(e) => setPriorityLevel(e.target.value)}
+                      value={PriorityLevel}
+                    >
+                      <option value="">Select Priority Level</option>
+                      <option value="High">High </option>
+                      <option value="Low">Low</option>
+                    </select>
+                  </div>
+                  <button
+                    className="btn btn-success"
+                    type="submit"
+                    style={{ marginTop: "15px" }}
+                  >
+                    <i className="far fa-check-square"></i>
+                    &nbsp; Save
+                  </button>
+                </form>
               </div>
-
-              
-              <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>startDate	</label>
-                  <input type="date"
-                  className="form-control"
-                  name="EndDate"
-                  placeholder="Enter EndDate"
-                  onChange={(e) => setEndDate(e.target.value)}
-                  value={EndDate}/>
-
-              </div>\
-
-              
-              <div className="form-group" style={{marginBottom:'15px'}}>
-    <label style={{marginBottom:'5px'}}>PriorityLevel</label>
-    <select
-        className="form-control"
-        name="PriorityLevel"
-        onChange={(e) => setPriorityLevel(e.target.value)}
-        value={PriorityLevel}
-    >
-        <option value="">Select Priority Level</option>
-        <option value="High">High </option>
-        <option value="Low">Low</option>
-       
-
-    </select>
-             </div>
-
-             <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
-                      <i className="far fa-check-square"></i>
-                      &nbsp; Save
-              </button>
-
-      </form>
-
-    
-
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-
-  )
+  );
 };
 export default CreateShedule;

@@ -141,6 +141,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import '../stylesheets/finance.css'
+import '../stylesheets/plantation.css'
 
 const AddTransaction = () => {
 
@@ -209,6 +210,7 @@ const AddTransaction = () => {
             <h1 className="h3 mb-3 font-weight-normal">Add New Transaction</h1>
             <div className="financepage-background">
                 <div className="col-md-8 mt-4 mx-auto">
+                    <div id ="plantForm">
                     <form className="finance-form needs-validation" noValidate>
                         <div className="form-group" style={{ marginBottom: '15px' }}>
                             <label style={{ marginBottom: '5px' }}>Date</label>
@@ -317,6 +319,7 @@ const AddTransaction = () => {
                             &nbsp; Save
                         </button>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import "./fertilizationMain.css";
 import Calculator from './Calculator';
+import FertilizationToDo from './FertilizationToDo';
 
 function fertilizationMain() {
   return (
@@ -25,7 +26,7 @@ function fertilizationMain() {
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Fertilizers</a>
+              <a href="/FertilizersDetails">Fertilizers</a>
             </li>
             <li>
               <a href="#about">About</a>
@@ -71,15 +72,13 @@ function fertilizationMain() {
           </div>
       </div>
       <div className="f-dashboard">
-      <div className="f-calcu">
+      <div className="fertilization-records-container">
                 {/* Calculator component */}
                 <Calculator />
             </div>
-          <div className="f-todo-container">
-              <div className="f-todo">
-                  <h2></h2>
-              </div>
-          </div>
+                  <FertilizationToDo/>
+              
+         
           </div>
     </div>
   );

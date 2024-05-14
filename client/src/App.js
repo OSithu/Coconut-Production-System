@@ -1,5 +1,3 @@
-//app. js
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import dashboard from "./components/dashboard";
 
@@ -11,10 +9,11 @@ import spreadDetails from "./components/spreadDetails";
 import viewFertilization from "./components/viewFertilization";
 import CreateFertilization from "./components/createFertilization";
 import editFertilization from "./components/editFertilization";
+import FertilizersDetails from "./components/FertilizersDetails";
+import FertilizationToDo from "./components/FertilizationToDo";
 
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
-
 
 import ViewTrees from "./components/ViewTrees";
 import AddTrees from "./components/AddTrees";
@@ -93,6 +92,34 @@ import GeneratePestReport from "./components/GeneratePestRecord";
 import ProductDash from "./components/ProductDash";
 import EditCusDetails from "./components/editCusDetails";
 
+
+import CalculatorEmp from "./components/SalaryCalculator";
+
+import ViewDisease from "./components/DisplayDiseases";
+import CreateDiseases from "./components/CreateDiseases";
+import UpdateDisease from "./components/EditDiseases";
+import DiseaseReport from "./components/GenerateDiseaseReport";
+
+
+import WD from "./components/WorkHoursCalculator";
+
+import DisplayPesticides from "./components/DisplayPesticides";
+import AddPesticides from "./components/AddPesticides";
+import EditPesticides from "./components/EditPesticides";
+import GeneratePesicidestReport from "./components/GeneratePesticidesReport";
+import filterEMp from "./components/CategorizeDepartment";
+
+
+import PestFinder from "./components/PestFinder";
+
+import GenerateQualityReport from "./components/GenerateQualityReport"
+import GenerateFertilizerReport from "./components/GenerateFertilizerReport"
+
+
+import DiseaseDashboard from "./components/DiseaseDashboard";
+        
+
+
 function App() {
   return (
     <Router>
@@ -106,10 +133,9 @@ function App() {
 
           <Route path="/viewFertilization" Component={viewFertilization} />
           <Route path="/fertilizationsave" Component={CreateFertilization} />
-          <Route
-            path="/fertilizationupdate/:id"
-            Component={editFertilization}
-          />
+          <Route path="/fertilizationupdate/:id" Component={editFertilization}/>
+          <Route path="/FertilizersDetails" Component={FertilizersDetails}/>
+          <Route path="/FertilizationToDo" Component={FertilizationToDo}/>
 
           <Route path="/ViewTrees/:id" Component={ViewTrees} />
           <Route path="/AddTrees" Component={AddTrees} />
@@ -117,7 +143,8 @@ function App() {
 
           <Route path="/viewCus" Component={ViewCusDetails} />
           <Route path="/addCus" Component={CreateCusDetails} />
-          <Route path="/editCus/:username" Component={EditCusDetails}/>
+
+          <Route path="/editCus/:username" Component={EditCusDetails} />
 
           <Route path="/viewFinanceDetails" Component={ViewFinanceDetails} />
           <Route path="/createFinanceDetails" Component={AddTransaction} />
@@ -178,7 +205,7 @@ function App() {
 
           <Route path="/estStaff" Component={EstateStaff} />
           <Route path="/allTrees" Component={ViewAllTrees} />
-          <Route path="/viewHvstSchedule/:id" Component={ViewHvstSchedule}/>
+          <Route path="/viewHvstSchedule/:id" Component={ViewHvstSchedule} />
 
           <Route path="/CustomerProfile/:id" Component={CustomerProfile} />
           <Route path="/OrderProfile/:id" Component={OrderProfile} />
@@ -186,17 +213,44 @@ function App() {
           <Route path="/Profile/:username" Component={Profile} />
           <Route path="/spreadReport" Component={GenerateSpreadReport} />
 
-          <Route path="/ViewTaskShedule" Component={ViewTaskShedule}  />
-          <Route path="/CtreateTaskShedule" Component={CreateShedule}  />
-          <Route path="/EditTaskShedule" Component={EditTaskShedule}  />
+          <Route path="/ViewTaskShedule" Component={ViewTaskShedule} />
+          <Route path="/CtreateTaskShedule" Component={CreateShedule} />
+          <Route path="/EditTaskShedule" Component={EditTaskShedule} />
 
-          <Route path="/viewPestRecords" Component={ViewPestRecords} />      
+          <Route path="/viewPestRecords" Component={ViewPestRecords} />
           <Route path="/createPestRecords" Component={CreatePestRecords} />
           <Route path="/pestReport" Component={GeneratePestReport} />
 
+
           <Route path="/productDash" Component={ProductDash}/>
 
+
+          <Route path="/salcal" Component={CalculatorEmp}/>
+
+          <Route path="/displayDiseases" Component={ViewDisease}/>
+          <Route path="/addDisease" Component={CreateDiseases}/>
+          <Route path="/updateDiseases/:id" Component={UpdateDisease}/>
+          <Route path="/diseasereport" Component={DiseaseReport}/>
+
+          <Route path="/whcal" Component={WD}/>
+
+          <Route path="/displayPesticides" Component={DisplayPesticides}/>
+          <Route path="/addPesticides" Component={AddPesticides}/>
+          <Route path="/updatePesticides/:id" Component={EditPesticides}/>
+          <Route path="/pesticidesreport" Component={GeneratePesicidestReport}/>
+
+          <Route path="/filter" Component={filterEMp}/>
+
+          <Route path="/pestfinder" Component={PestFinder}/>
+
+          <Route path="/generateQualityReport" Component={GenerateQualityReport}/>
+          <Route path="/fertilizerReport" Component={GenerateFertilizerReport}/>
+
           
+          <Route path="/diseaseDashboard" Component={DiseaseDashboard}/>
+
+
+
 
         </Routes>
       </div>
