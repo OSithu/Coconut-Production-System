@@ -6,7 +6,7 @@ const AddBudgetDetails = () => {
     const [month, setMonth] = useState('');
     const [totalIncome, setTotalIncome] = useState('');
     const [totalExpences, setTotalExpences] = useState('');
-    const [totalAAmount,setTotalAAmount] = useState('');
+    const [totalAmount,setTotalAmount] = useState('');
     const [profitLoss, setProfitLoss] = useState('');
     
     // Implementing send data function
@@ -18,7 +18,7 @@ const AddBudgetDetails = () => {
                 month: month,
                 totalIncome: totalIncome,
                 totalExpences: totalExpences,
-                totalAAmount:totalAAmount,
+                totalAmount:totalAmount,
                 profitLoss: profitLoss,
             };
 
@@ -43,13 +43,14 @@ const AddBudgetDetails = () => {
         setMonth('');
         setTotalIncome('');
         setTotalExpences('');
-        setTotalAAmount('');
+        setTotalAmount('');
         setProfitLoss('');
     };
 
     return (
         <div className="col-md-8 mt-4 mx-auto">
             <h1 className="h3 mb-3 font-weight-normal">Add Budget Details</h1>
+            <div id ="plantForm">
             <form className="needs-validation" noValidate>
                 <div className="form-group" style={{ marginBottom: '15px' }}>
                     <label style={{ marginBottom: '5px' }}>Month</label>
@@ -96,8 +97,8 @@ const AddBudgetDetails = () => {
                         className="form-control"
                         name="amount"
                         placeholder="Differance"
-                        value={totalAAmount}
-                        onChange={(e) => setTotalAAmount(e.target.value)}
+                        value={totalAmount}
+                        onChange={(e) => setTotalAmount(e.target.value)}
                         required
                     />
                 </div>
@@ -120,6 +121,7 @@ const AddBudgetDetails = () => {
                     &nbsp; Save
                 </button>
             </form>
+            </div>
         </div>
     );
 };

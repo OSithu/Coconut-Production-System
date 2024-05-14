@@ -11,16 +11,16 @@ const ViewSpread = () => {
 
   const conponentPDF= useRef();
   
-  const [allRecords, setAllRecord] = useState([]);
-  const [searchRecord, setSearchRecord] = useState('');
+  const [allDiseases, setAllDisease] = useState([]);
+  const [searchDisease, setSearchDisease] = useState('');
 
 
   useEffect(() => {
-    const getAllRecords = async () => {
+    const getAllDiseases = async () => {
       await axios
-        .get(`http://localhost:8000/records`)
+        .get(`http://localhost:8000/diseases`)
         .then((res) => {
-          setAllRecord(res.data.existingRecords);
+          setAllDisease(res.data.existingDiseases);
           console.log("Status: " + res.data.success);
         })
         .catch((err) => {
@@ -35,14 +35,8 @@ const ViewSpread = () => {
         });
     };
 
-    getAllRecords();
+    getAllDiseases();
   }, []);
-
-//Remove Time in Identify Date Part
-  function formatDate(identifyDate) {
-    const date = new Date(identifyDate);
-    return date.toISOString().split('T')[0]; 
-  }
 
 
 //Implement PDF Download Function
@@ -50,7 +44,7 @@ const ViewSpread = () => {
 const generatePDF = useReactToPrint({
 
     content: ()=>conponentPDF.current,
-    documentTitle:"UserData",
+    documentTitle:"Disease Report",
     onAfterPrint:()=>alert("Data Saved In PDF")
 
 });
@@ -61,11 +55,11 @@ const generatePDF = useReactToPrint({
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this items..?"
+      "Are you sure you want to delete this Disease..?"
     );
     if (confirmed) {
       await axios
-        .delete(`http://localhost:8000/diseasespread/delete/${id}`)
+        .delete(`http://localhost:8000/disease/delete/${id}`)
         .then((res) => {
           alert(res.data.message);
           console.log(res.data.message);
@@ -86,8 +80,8 @@ const generatePDF = useReactToPrint({
   };
 
       // Filter allRecords based on searchFertilization
-      const filteredRecord = allRecords.filter(records =>
-        records.treeID.toLowerCase().includes(searchRecord.toLowerCase())
+      const filteredDisease = allDiseases.filter(disease =>
+        disease.diseaseName.toLowerCase().includes(searchDisease.toLowerCase())
       );
 
 
@@ -104,7 +98,7 @@ const generatePDF = useReactToPrint({
               </a>
             </li>
             <li>
-              <a class="active"  href="/viewDisease">Spread Records</a>
+              <a href="/viewDisease">Spread Records</a>
             </li>
             <li>
               <a href="/viewPestRecords">Pest Records</a>
@@ -116,13 +110,14 @@ const generatePDF = useReactToPrint({
             </div>
             <div className="nav-right">
             <li>
-              <a href="/displayDiseases">Diseases</a>
+            <a class="active" href="/displayDiseases">Diseases</a>
             </li>
             <li>
             <a href="/displayPesticides">Pesticides</a>
             </li>
             <li>
-            <a href="/pestfinder">Pest Finder</a>
+         
+              <a href="/pestfinder">Pest Finder</a>
             </li>
             </div>
 
@@ -130,15 +125,15 @@ const generatePDF = useReactToPrint({
         </div>
       </div>
       <br></br>
-      <h1 className='plantTopic'>Spread Records</h1>
+      <h1 className='plantTopic'>Diseases Details</h1>
       {/* search */}
      <div className="input-group mb-3">
         <input
           type="text"
           className="form-control"
           placeholder="Search by Tree No"
-          value={searchRecord}
-          onChange={(e) => setSearchRecord(e.target.value)}
+          value={searchDisease}
+          onChange={(e) => setSearchDisease(e.target.value)}
         />
         <button className="btn btn-outline-secondary" type="button">
           <BsSearch />
@@ -147,43 +142,44 @@ const generatePDF = useReactToPrint({
       <div className="container">
         <button className="btn btn-success">
           <a
-            href="/createDisease"
+            href="/addDisease" 
             style={{ textDecoration: "none", color: "white" }}
           >
-            Add New Records
+            Add New Disease
           </a>
         </button>
 
         <div style={{ marginTop: "20px" }}>
           
-          <table className="table" id='plantTable'>
+          <table className="table" id='plantTable' style={{ textAlign: 'justify' }}>
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Tree ID</th>
-                <th scope="col">Identify Date</th>
-                <th scope="col">Disease</th>
-                <th scope="col">Spread Level</th>
+                <th scope="col">Disease Name</th>
+                <th scope="col">Disease Type</th>
+                <th scope="col">Symptoms</th>
+                <th scope="col">Preventive Measures</th>
+                <th scope="col">Stages</th>
                 <th scope="col">Special Notes</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
 
             <tbody>
-            { filteredRecord.map((records, index) => (
+            { filteredDisease.map((disease, index) => (
                 <tr>
                   <td scope="row">{index + 1}</td>
-                  <td>{records.treeID}</td>
-                  <td>{formatDate(records.identifyDate)}</td>
-                  <td>{records.disease}</td>
-                  <td className={`spread-level ${records.spreadLevel}`}>
-                    {records.spreadLevel}
-                  </td>
-                  <td>{records.specialNote}</td>
+                  <td>{disease.diseaseName}</td>
+                  <td>{disease.diseaseType}</td>
+                  <td>{disease.symptoms}</td>
+                  <td>{disease.preventiveMeasures}</td>
+                  <td className={`stage-level ${disease.stages}`}>
+                    {disease.stages}</td>
+                  <td>{disease.specialnotes}</td>
                   <td>
                     <a
                       className="btn btn-warning"
-                      href={`/editDisease/${records._id}`}
+                      href={`/updateDiseases/${disease._id}`}  /*pathhh*/
                     >
                       <i className="fas fa-edit"></i>&nbsp;Edit
                     </a>
@@ -191,7 +187,7 @@ const generatePDF = useReactToPrint({
                     <a
                       className="btn btn-danger"
                       href="#"
-                      onClick={() => handleDelete(records._id)}
+                      onClick={() => handleDelete(disease._id)}
                     >
                       <i className="fas fa-trash-alt"></i>&nbsp;Delete
                     </a>
@@ -205,7 +201,7 @@ const generatePDF = useReactToPrint({
           <div className="d-grid d-md-flex justify-content-md-end mb-3">
           <button className="btn btn-success">
           <a
-            href="/spreadReport"
+            href="/spreadReport" /*pathhh*/
             style={{ textDecoration: "none", color: "white" }}
           >
             <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report

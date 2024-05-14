@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const CreateSpread = () => {
-  const [treeID, settreeID] = useState("");
-  const [pestDate, setpestDate] = useState("");
+const CreatePesticides= () => {
+  const [disease, setdisease] = useState("");
   const [pestName, setpestName] = useState("");
   const [pestType, setpestType] = useState("");
   const [quantity, setquantity] = useState("");
-
+  const [method, setmethod] = useState("");
+  const [guidelines, setguidelines] = useState("");
+  const [precautions, setprecautions] = useState("");
 
   const [errors, setErrors] = useState({});
 
@@ -26,30 +27,38 @@ const CreateSpread = () => {
       let formValid = true;
       let errorsData = {};
 
-      if (!treeID.trim()) {
+      if (!disease.trim()) {
           formValid = false;
-          errorsData.treeID = "Tree ID is required";
-      }
-      if (!pestDate.trim()) {
-          formValid = false;
-          errorsData.pestDate = "Pest Date is required";
+          errorsData.disease = "disease is required";
       }
       if (!pestName.trim()) {
           formValid = false;
-          errorsData.pestName = "Pest Name is required";
+          errorsData.pestName = "pestName is required";
+      }
+      if (!pestType.trim()) {
+          formValid = false;
+          errorsData.pestType = "pestType is required";
       }
 
-      if (!pestType.trim()) {
+      if (!quantity.trim()) {
         formValid = false;
-        errorsData.pestType = "Planted Date is required";
+        errorsData.quantity = "quantity is required";
     }
 
-  if (!quantity.trim()) {
+    if (!method.trim()) {
+      formValid = false;
+      errorsData.method = "Method is required";
+  }
+
+  if (!guidelines.trim()) {
     formValid = false;
-    errorsData.
-    quantity = "Quantity is required";
+    errorsData.guidelines = "guidelines is required";
 }
 
+if (!precautions.trim()) {
+    formValid = false;
+    errorsData.precautions = "precautions is required";
+}
 
 
         // If form is not valid, set errors and return
@@ -59,30 +68,23 @@ const CreateSpread = () => {
       }
 
 
-    // Add date validation
-    const today = new Date();
-
-    const selectedDateObj = new Date(pestDate);
-
-    if (selectedDateObj > today) {
-      alert("You cannot select a future date."); // if user selected future date display alert message
-      return;
-    }
 
     try {
-      let newRecord = {
-        treeID: treeID,
-        pestDate: pestDate,
+      let newPesticide = {
+        disease: disease,
         pestName: pestName,
         pestType: pestType,
         quantity: quantity,
+        method: method,
+        guidelines: guidelines,
+        precautions: precautions,
       };
 
       await axios
-        .post(`http://localhost:8000/pestrecord/create`, newRecord)
+        .post(`http://localhost:8000/pestcides/create`, newPesticide)
         .then((res) => {
           alert(res.data.message);
-          navigate("/viewPestRecords");
+          navigate("/displayPesticides");
           console.log("Status " + res.data.success);
           console.log(res.data.message);
         })
@@ -99,11 +101,13 @@ const CreateSpread = () => {
         });
 
       //set state back to first state
-      settreeID("");
-      setpestDate("");
+      setdisease("");
       setpestName("");
       setpestType("");
       setquantity("");
+      setmethod("");
+      setguidelines("");
+      setprecautions("");
     } catch (err) {
       console.log("SentData Dunction Failed ERROR: " + err.error);
     }
@@ -115,50 +119,32 @@ const CreateSpread = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h1 className="card-title text-center">Add Spread Records</h1>
+              <h1 className="card-title text-center">Add New Pesticides</h1>
               <form className="needs-validation" noValidate onSubmit={sendData}>
                 <div className="form-group" style={{ marginBottom: "15px" }}>
-                  <label style={{ marginBottom: "5px" }}>Tree ID</label>
+                  <label style={{ marginBottom: "5px" }}>Disease Name</label>
                   <input
                     type="text"
-                    className={`form-control ${errors.treeID ? 'is-invalid' : ''}`}
-                    name="treeID"
-                    placeholder="Enter Tree ID"
-                    onChange={(e) => settreeID(e.target.value)}
-                    value={treeID}
+                    className={`form-control ${errors.disease ? 'is-invalid' : ''}`}
+                    name="disease"
+                    placeholder="Enter Disease Name"
+                    onChange={(e) => setdisease(e.target.value)}
+                    value={disease}
                   />
-                  {errors.treeID && <div className="invalid-feedback">{errors.treeID}</div>}
+                  {errors.disease && <div className="invalid-feedback">{errors.disease}</div>}
                 </div>
 
                 <div className="form-group" style={{ marginBottom: "15px" }}>
-                  <label style={{ marginBottom: "5px" }}>Pest Date</label>
-                  <input
-                    type="date"
-                    className={`form-control ${errors.pestDate ? 'is-invalid' : ''}`}
-                    name="pestDate"
-                    placeholder="Enter Pest Date"
-                    onChange={(e) => setpestDate(e.target.value)}
-                    value={pestDate}
-                    max={
-                      new Date().toISOString().split('T')[0]
-     }
-                
-                  />
-                    {errors.pestDate && <div className="invalid-feedback">{errors.pestDate}</div>}
-                </div>
-
-                <div className="form-group" style={{ marginBottom: "15px" }}>
-                  <label style={{ marginBottom: "5px" }}>Pest Name</label>
+                  <label style={{ marginBottom: "5px" }}>Pesticide Name</label>
                   <input
                     type="text"
                     className={`form-control ${errors.pestName ? 'is-invalid' : ''}`}
                     name="pestName"
-                    placeholder="Enter Pest Name"
+                    placeholder="Enter pestName Name"
                     onChange={(e) => setpestName(e.target.value)}
                     value={pestName}
                   />
-                 {errors.pestName && <div className="invalid-feedback">{errors.pestName}</div>}
-
+                  {errors.pestName && <div className="invalid-feedback">{errors.pestName}</div>}
                 </div>
 
                 <div className="form-group" style={{ marginBottom: "15px" }}>
@@ -178,6 +164,7 @@ const CreateSpread = () => {
                   {errors.pestType && <div className="invalid-feedback">{errors.pestType}</div>}
                 </div>
 
+                
                 <div className="form-group" style={{ marginBottom: "15px" }}>
                   <label style={{ marginBottom: "5px" }}>Quantity</label>
                   <input
@@ -191,6 +178,61 @@ const CreateSpread = () => {
                 {errors.quantity && <div className="invalid-feedback">{errors.quantity}</div>}
 
                 </div>
+
+                
+                <div className="form-group" style={{ marginBottom: "15px" }}>
+                  <label style={{ marginBottom: "5px" }}>Pest Method</label>
+                  <select
+                    className={`form-control ${errors.method ? 'is-invalid' : ''}`}
+                    name="method"
+                    onChange={(e) => setmethod(e.target.value)}
+                    value={method}
+                  >
+                    <option value="">Select a Method</option>
+                    <option value="Spraying">Spraying</option>            
+                    <option value="Injection"> Injection </option>
+                    <option value="Broadcasting">Broadcasting</option>            
+                    <option value="Basal Application"> Basal Application </option>
+                    <option value="Drip Irrigation"> Drip Irrigation </option>
+
+
+                  </select>
+                  {errors.method && <div className="invalid-feedback">{errors.method}</div>}
+                </div>
+
+
+                <div className="form-group" style={{ marginBottom: "15px" }}>
+                  <label style={{ marginBottom: "5px" }}>Guidelines</label>
+                  <input
+                    type="textarea"
+                    className={`form-control ${errors.symptoms ? 'is-invalid' : ''}`}
+                    name="guidelines"
+                    placeholder="Enter Guidelines"
+                    onChange={(e) => setguidelines(e.target.value)}
+                    value={guidelines}
+                  />
+                 {errors.guidelines && <div className="invalid-feedback">{errors.guidelines}</div>}
+
+                </div>
+
+
+
+                <div className="form-group" style={{ marginBottom: "15px" }}>
+                  <label style={{ marginBottom: "5px" }}>Precautions </label>
+                  <input
+                    type="textarea"
+                    className={`form-control ${errors.symptoms ? 'is-invalid' : ''}`}
+                    name="precautions"
+                    placeholder="Enter Precautions"
+                    onChange={(e) => setprecautions(e.target.value)}
+                    value={precautions}
+                  />
+                 {errors.precautions && <div className="invalid-feedback">{errors.precautions}</div>}
+
+                </div>
+
+                
+
 
                 <button
                   className="btn btn-success"
@@ -209,4 +251,4 @@ const CreateSpread = () => {
   );
 };
 
-export default CreateSpread;
+export default CreatePesticides;
