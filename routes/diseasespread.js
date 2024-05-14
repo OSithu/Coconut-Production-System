@@ -100,4 +100,14 @@ router.delete("/diseasespread/delete/:id", async (req, res) => {
   }
 });
 
+//get the Infection Count 
+router.get("/infectionCount", async (req, res) => {
+  try {
+    let count = await Spread_Records.countDocuments();
+    return res.status(200).json({ success: true, count: count });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = router;
