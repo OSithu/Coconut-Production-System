@@ -105,7 +105,17 @@ const AddBudgetDetails = () => {
 
                 <div className="form-group" style={{ marginBottom: '15px' }}>
                     <label style={{ marginBottom: '5px' }}>Profit / Loss</label>
-                    <input
+                    <select
+                                        className="form-control"
+                                        name="Profit/Loss"
+                                        value={profitLoss}
+                                        onChange={(e) => setProfitLoss(e.target.value)}
+                                    >
+                                        <option value="">Select Type</option>
+                                        <option value="profit">Profit</option>
+                                        <option value="loss">Loss</option>
+                                    </select>
+                    {/* <input
                         type='text'
                         className="form-control"
                         name="Profit/Loss"
@@ -113,7 +123,7 @@ const AddBudgetDetails = () => {
                         value={profitLoss}
                         onChange={(e) => setProfitLoss(e.target.value)}
                         required
-                    />
+                    /> */}
                 </div>
 
                 <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={sendData}>
