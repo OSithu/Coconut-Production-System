@@ -177,11 +177,11 @@ const ViewFertilizationDetails = () => {
             </div>
             <div className="nav-right">
             <li>
-              <a href="/FertilizerDetails">Fertilizers</a>
+              <a href="/FertilizersDetails">Fertilizers</a>
             </li>
-            <li>
+            {/* <li>
               <a href="#about">About</a>
-            </li>
+            </li> */}
             </div>
 
           </ul>

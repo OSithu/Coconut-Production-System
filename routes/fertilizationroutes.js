@@ -24,7 +24,7 @@ async function sendReminderEmail(TreeNo,UreaAmount,EppawalaRockPhosphateAmount,M
         // Email content
         let mailOptions = {
             from: 'jayakodykoppara@gmail.com',
-            to: 'nimsidinara@gmail.com', // recipient email
+            to: 'malithperera515@gmail.com', // recipient email
             subject: 'Fertilization Record',
             // text: `Reminder: Tree with ID ${TreeNo} needs fertilization.`
             html: `
