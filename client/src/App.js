@@ -11,7 +11,7 @@ import CreateFertilization from "./components/createFertilization";
 import editFertilization from "./components/editFertilization";
 import FertilizersDetails from "./components/FertilizersDetails";
 import FertilizationToDo from "./components/FertilizationToDo";
-import fertilizationweather from "./components/fertilizationweather";
+import FertilizationWeather from "./components/FertilizationWeather";
 
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
@@ -138,7 +138,7 @@ function App() {
           <Route path="/fertilizationupdate/:id" Component={editFertilization}/>
           <Route path="/FertilizersDetails" Component={FertilizersDetails}/>
           <Route path="/FertilizationToDo" Component={FertilizationToDo}/>
-          <Route path="/fertilizationweather" Component={fertilizationweather}/>
+          <Route path="/FertilizationWeather" Component={FertilizationWeather}/>
 
           <Route path="/ViewTrees/:id" Component={ViewTrees} />
           <Route path="/AddTrees" Component={AddTrees} />
