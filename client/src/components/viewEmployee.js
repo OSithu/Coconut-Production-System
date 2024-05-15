@@ -11,7 +11,7 @@ const ViewEmployee = () => {
 
   const [allEmployee, setAllEmployee] = useState([]);
   const [searchEmployee, setSearchEmployee] = useState("");
-
+  
   useEffect(() => {
     const getAllEmployee = async () => {
       await axios
