@@ -46,7 +46,7 @@ function fertilizationMain() {
       <div className="f-dashboard">
       <div className="fertilization-records-container">
                 {/* Calculator component */}
-                <h2 align='center'>Calculator</h2>
+                <h2 align='center'>Fertilizer Calculator</h2>
                 <Calculator />
             </div >
             <div className="fertilization-records-container">

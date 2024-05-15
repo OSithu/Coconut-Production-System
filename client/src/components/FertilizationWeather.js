@@ -76,7 +76,7 @@ function FertilizationWeather() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '600px',
-                minHeight: '300px',
+                minHeight: '379px',
                 backgroundColor: '#ffffff',
                 textAlign: 'center',
                 // margin: '128px auto',
