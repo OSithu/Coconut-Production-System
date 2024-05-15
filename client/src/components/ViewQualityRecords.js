@@ -157,7 +157,9 @@ const ViewQualityRecords = () => {
             </div>
             <div className="navi-right">
               <li>
-                <a href="#qrecord">About Us</a>
+              <a class="active1" href="/QualityMethods">
+              Quality Methods
+                </a>
               </li>
             </div>
           </ul>
