@@ -2,6 +2,7 @@ import React from 'react';
 import "./fertilizationMain.css";
 import Calculator from './Calculator';
 import FertilizationToDo from './FertilizationToDo';
+import FertilizationWeather from './FertilizationWeather';
 
 function fertilizationMain() {
   return (
@@ -35,21 +36,24 @@ function fertilizationMain() {
       </div>
       <br></br>
       <h1 className='plantTopic'>Fertilization Dashboard</h1>
-      <div className="f-dashboard">
-      </div>
-
-      <div className="f-graph-container">
-          <div className="f-graph">
+      
+      <div>
+          {/* <div>
               <h2>Graph</h2>
-              <fertilizationweather/>
-          </div>
+              <FertilizationWeather/>
+          </div> */}
       </div>
       <div className="f-dashboard">
       <div className="fertilization-records-container">
                 {/* Calculator component */}
+                <h2 align='center'>Calculator</h2>
                 <Calculator />
-            </div>
-                  <FertilizationToDo/>
+            </div >
+            <div className="fertilization-records-container">
+                  {/* <FertilizationToDo/> */}
+                  <h2 align='center'>Check Weather</h2>
+                  <FertilizationWeather/>
+                  </div>    
               
          
           </div>
