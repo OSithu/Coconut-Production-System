@@ -91,14 +91,14 @@ if (!startDate.trim()) {
 
 // validation fpt Birthday
    const today = new Date();
-const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()); // One year ago from today
+// const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()); // One year ago from today
 
-const selectedDateObj = new Date(dateOfBirth);
+// const selectedDateObj = new Date(dateOfBirth);
 
-if (selectedDateObj > today || selectedDateObj < oneYearAgo) {
-  alert("Please select a date within the past year."); // Display alert message if the selected date is in the future or more than one year ago
-  return;
-}
+// if (selectedDateObj > today || selectedDateObj < oneYearAgo) {
+//   alert("Please select a date within the past year."); // Display alert message if the selected date is in the future or more than one year ago
+//   return;
+// }
     // Validate contact number
     if (contactNumber.length !== 10 || isNaN(contactNumber)) {
         alert("Contact number should have exactly 10 digits.");
@@ -222,12 +222,13 @@ if (!NIC.trim()) {
                 <div className="form-group col-md-6" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>dateOfBirth</label>
                   <input type="date"
-                    className={`form-control ${errors.dateOfBirth ? 'is-invalid' : ''}`}
-                    name="dateOfBirth"
-                  placeholder="Enter DOB"
-                  onChange={(e) => setdateOfBirth(e.target.value)}
-                  max={new Date(new Date().getFullYear() - 15, new Date().getMonth(), new Date().getDate()).toISOString().split('T')[0]}
-                  value={dateOfBirth}/>
+    className={`form-control ${errors.dateOfBirth ? 'is-invalid' : ''}`}
+    name="dateOfBirth"
+    placeholder="Enter DOB"
+    onChange={(e) => setdateOfBirth(e.target.value)}
+    max={new Date(new Date().getFullYear() - 10, new Date().getMonth(), new Date().getDate()).toISOString().split('T')[0]}
+    value={dateOfBirth} />
+
                   
                                     {errors.dateOfBirth && <div className="invalid-feedback">{errors.dateOfBirth}</div>}
 
