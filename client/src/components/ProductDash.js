@@ -99,7 +99,8 @@ const ProductDash = () => {
       <br></br>
 
       <div className="container">
-        <div class="row">
+        <h2 className="plantTopic">Inventory Dashboad</h2>
+        <div class="row" style={{ marginBottom: "50px" }}>
           <div class="col-sm-4 mb-3 mb-sm-0">
             <div
               className="card"
@@ -108,13 +109,13 @@ const ProductDash = () => {
                 height: "10rem",
                 textAlign: "center",
                 borderRadius: "20px",
-                backgroundColor: "rgb(217, 255, 242)",
+                backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
               }}
             >
               {" "}
-              <h4>Total Products</h4>
+              <h4 style={{color:"#3b4222"}}>Total Products</h4>
               <h4 style={{ color: "brown" }}>
                 {productCount !== null ? productCount : "Loading..."}
               </h4>
@@ -128,13 +129,13 @@ const ProductDash = () => {
                 height: "10rem",
                 textAlign: "center",
                 borderRadius: "20px",
-                backgroundColor: "rgb(217, 255, 242)",
+                backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
               }}
             >
               {" "}
-              <h4>Total By-Products</h4>
+              <h4 style={{color:"#3b4222"}}>Total By-Products</h4>
               <h4 style={{ color: "brown" }}>
                 {byproductCount !== null ? byproductCount : "Loading..."}
               </h4>
@@ -148,13 +149,13 @@ const ProductDash = () => {
                 height: "10rem",
                 textAlign: "center",
                 borderRadius: "20px",
-                backgroundColor: "rgb(217, 255, 242)",
+                backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
               }}
             >
               {" "}
-              <h4>Total Agrochemicals</h4>
+              <h4 style={{color:"#3b4222"}}>Total Agrochemicals</h4>
               <h4 style={{ color: "brown" }}>
                 {agrochemicalsCount !== null
                   ? agrochemicalsCount
@@ -164,24 +165,26 @@ const ProductDash = () => {
           </div>
         </div>
 
+        <h3 style={{color:"black"}}>Reports</h3>
         <div class="row">
           <div class="col-sm-4 mb-3 mb-sm-0">
             <div
               className="card"
               style={{
                 width: "25rem",
-                height: "20rem",
+                height: "16rem",
                 textAlign: "center",
                 borderRadius: "20px",
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
+                marginBottom:"30px",
                 paddingTop: "60px",
                 display: "flex",
                 flexDirection: "column",
               }}
             >
               {" "}
-              <h4 style={{ marginBottom: "120px" }}>
+              <h4 style={{ marginBottom: "70px", color:"#3b4222" }}>
                 View Quality Control Report
               </h4>
               <Link
@@ -198,7 +201,7 @@ const ProductDash = () => {
               className="card"
               style={{
                 width: "25rem",
-                height: "20rem",
+                height: "16rem",
                 textAlign: "center",
                 borderRadius: "20px",
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
@@ -207,7 +210,7 @@ const ProductDash = () => {
               }}
             >
               {" "}
-              <h4 style={{ marginBottom: "120px" }}>View Fertilizers Report</h4>
+              <h4 style={{ marginBottom: "70px", color:"#3b4222" }}>View Fertilizers Report</h4>
               <Link
                 to="/fertilizerReport"
                 className="btn btn-success"
@@ -222,7 +225,7 @@ const ProductDash = () => {
               className="card"
               style={{
                 width: "25rem",
-                height: "20rem",
+                height: "16rem",
                 textAlign: "center",
                 borderRadius: "20px",
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
@@ -233,7 +236,7 @@ const ProductDash = () => {
               }}
             >
               {" "}
-              <h4 style={{ marginBottom: "120px" }}>View Pesticides Report</h4>
+              <h4 style={{ marginBottom: "70px", color:"#3b4222" }}>View Pesticides Report</h4>
               <Link
                 to="/pestReport"
                 className="btn btn-success"

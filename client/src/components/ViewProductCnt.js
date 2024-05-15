@@ -172,15 +172,11 @@ const ViewProductCnt = () => {
       <br></br>
       <div className="container">
         <div>
-          <p
-            style={{
-              textAlign: "center",
-              fontFamily: "sans-serif",
-              fontSize: "24px",
-            }}
+          <h2
+            className="plantTopic"
           >
             Product Records{" "}
-          </p>
+          </h2>
 
           <div className="input-group mb-3">
             <input
@@ -196,21 +192,13 @@ const ViewProductCnt = () => {
           </div>
 
           <div style={{ textAlign: "right" }}>
-            {/* <button className="btn btn-success">
-              <a
-                href="/addProductCnt"
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                Add New Product Record
-              </a>
-            </button> */}
             <div style={{ textAlign: "right", marginBottom: "10px" }}>
               <button className="btn btn-success">
                 <a
                   href="/addProductCnt"
                   style={{ textDecoration: "none", color: "white" }}
                 >
-                  Add New Product
+                  Add New Record
                 </a>
               </button>{" "}
               &nbsp;&nbsp;&nbsp;&nbsp;
@@ -274,12 +262,12 @@ const ViewProductCnt = () => {
                       {productCnt.description}
                     </td>
                     <td style={{ borderRight: "1px solid white" }}>
-                      <a
+                      {/* <a
                         className="btn btn-warning"
                         href={`/editProductCnt/${productCnt._id}`}
                       >
                         <i className="fas fa-edit"></i>&nbsp;Edit
-                      </a>
+                      </a> */}
                       &nbsp;
                       <a
                         className="btn btn-danger"

@@ -286,41 +286,80 @@ router.put("/products/updateQuantity/:productId", async (req, res) => {
   }
 });
 
-//edit  product quantity
-router.put("/products/editQuantity/:productId", async (req, res) => {
-  try {
-    const productId = req.params.productId;
-    const editedQuantity = req.body.quantity;
-    const existedQuantity = req.body.existedQuantity;
+// // Decrement product quantity
+// router.put("/products/decrementQuantity/:productId", async (req, res) => {
+//   try {
+//     const productId = req.params.productId;
+//     const decrementQuantity = req.body.quantity; // Quantity to decrement
 
-    // Find the product by productId and update its quantity
-    const product = await Products.findOne({ productId: productId });
-    if (!product) {
-      return res
-        .status(404)
-        .json({ success: false, error: "Product not found." });
-    }
+//     // Find the product by productId and update its quantity
+//     const product = await Products.findOne({ productId: productId });
+//     if (!product) {
+//       return res
+//         .status(404)
+//         .json({ success: false, error: "Product not found." });
+//     }
 
-    // Calculate new quantity
-    const newQuantity = product.quantity - existedQuantity + editedQuantity;
+//     // Calculate new quantity
+//     const newQuantity = product.quantity - decrementQuantity;
 
-    // Update product quantity
-    await Products.findOneAndUpdate(
-      { productId: productId },
-      { $set: { quantity: newQuantity } }
-    );
+//     // Update product quantity
+//     await Products.findOneAndUpdate(
+//       { productId: productId },
+//       { $set: { quantity: newQuantity } }
+//     );
 
-    res.status(200).json({
-      success: true,
-      message: "Product quantity updated successfully.",
-    });
-  } catch (error) {
-    console.error("Error occurred while updating product quantity:", error);
-    res
-      .status(500)
-      .json({ success: false, error: "Failed to update product quantity." });
-  }
-});
+//     res.status(200).json({
+//       success: true,
+//       message: "Product quantity decremented successfully.",
+//     });
+//   } catch (error) {
+//     console.error("Error occurred while decrementing product quantity:", error);
+//     res
+//       .status(500)
+//       .json({ success: false, error: "Failed to decrement product quantity." });
+//   }
+// });
+
+
+
+
+
+// //edit  product quantity
+// router.put("/products/editQuantity/:productId", async (req, res) => {
+//   try {
+//     const productId = req.params.productId;
+//     const editedQuantity = req.body.quantity;
+//     const existedQuantity = req.body.existedQuantity;
+
+//     // Find the product by productId and update its quantity
+//     const product = await Products.findOne({ productId: productId });
+//     if (!product) {
+//       return res
+//         .status(404)
+//         .json({ success: false, error: "Product not found." });
+//     }
+
+//     // Calculate new quantity
+//     const newQuantity = product.quantity - existedQuantity + editedQuantity;
+
+//     // Update product quantity
+//     await Products.findOneAndUpdate(
+//       { productId: productId },
+//       { $set: { quantity: newQuantity } }
+//     );
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Product quantity updated successfully.",
+//     });
+//   } catch (error) {
+//     console.error("Error occurred while updating product quantity:", error);
+//     res
+//       .status(500)
+//       .json({ success: false, error: "Failed to update product quantity." });
+//   }
+// });
 
 // Get total product count
 router.get("/productscount", async (req, res) => {
@@ -372,5 +411,8 @@ router.get("/agrochemicalscount", async (req, res) => {
     });
   }
 });
+
+
+
 
 module.exports = router;
