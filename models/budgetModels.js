@@ -14,7 +14,7 @@ const BudgetpostSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-    totalAAmount:{
+    totalAmount:{
         type:Number,
         required:true
     },
