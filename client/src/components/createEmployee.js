@@ -181,7 +181,7 @@ if (!NIC.trim()) {
 
     return (
 
-        <div className="container mt-4">
+        <div className="container mt-4" style={{width: '15in'}}>
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="card">
@@ -191,6 +191,7 @@ if (!NIC.trim()) {
         <div className="form">
           
           <form className="needs-validation" noValidate onSubmit={sendData}>
+            
           <div className="form-group" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>Full Name</label>
                   <input type="text"
@@ -204,8 +205,8 @@ if (!NIC.trim()) {
 
   
               </div>
-
-              <div className="form-group" style={{marginBottom:'15px'}}>
+              <div className="row">
+              <div className="form-group col-md-6" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>National Identity Card no</label>
                   <input type="text"
                     className={`form-control ${errors.NIC ? 'is-invalid' : ''}`}
@@ -217,8 +218,8 @@ if (!NIC.trim()) {
 
   
               </div>
-  
-              <div className="form-group" style={{marginBottom:'15px'}}>
+
+                <div className="form-group col-md-6" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>dateOfBirth</label>
                   <input type="date"
                     className={`form-control ${errors.dateOfBirth ? 'is-invalid' : ''}`}
@@ -232,6 +233,9 @@ if (!NIC.trim()) {
 
 
   
+              </div>
+              
+
               </div>
               <div className="form-group" style={{marginBottom:'15px'}}>
                     <label style={{marginBottom:'5px'}}>Gender</label>
@@ -250,7 +254,8 @@ if (!NIC.trim()) {
                     </div>
                 </div>
   
-              <div className="form-group" style={{marginBottom:'15px'}}>
+              
+  <div className="row">              <div className="form-group col-md-6" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>contactNumber</label>
                   <input type="text"
                     className={`form-control ${errors.contactNumber ? 'is-invalid' : ''}`}
@@ -265,7 +270,7 @@ if (!NIC.trim()) {
               </div>
 
   
-              <div className="form-group" style={{marginBottom:'15px'}}>
+              <div className="form-group col-md-6" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>contactEmail</label>
                   <input type="text"
                     className={`form-control ${errors.contactEmail ? 'is-invalid' : ''}`}
@@ -277,9 +282,12 @@ if (!NIC.trim()) {
 
 
   
-              </div>
+              </div></div>
 
-              <div className="form-group" style={{marginBottom:'15px'}}>
+              <div className="row">  
+
+
+              <div className="form-group col-md-6" style={{marginBottom:'15px'}}>
                   <label style={{marginBottom:'5px'}}>address</label>
                   <input type="text"
                     className={`form-control ${errors.address ? 'is-invalid' : ''}`}
@@ -291,6 +299,25 @@ if (!NIC.trim()) {
 
 
   
+              </div>
+
+              <div className="form-group col-md-6" style={{marginBottom:'15px'}}>
+                  <label style={{marginBottom:'5px'}}>startDate	</label>
+                  <input type="date"
+                    className={`form-control ${errors.startDate ? 'is-invalid' : ''}`}
+                    name="startDate"
+                  placeholder="Enter startDate"
+                  onChange={(e) => setstartDate(e.target.value)}
+                  value={startDate}
+                  max={new Date().toISOString().split('T')[0]}
+                  min={new Date().toISOString().split('T')[0]}/>
+
+                {errors.startDate && <div className="invalid-feedback">{errors.startDate}</div>}
+
+
+  
+              </div>
+
               </div>
 
               <div className="form-group" style={{marginBottom:'15px'}}>
@@ -341,20 +368,7 @@ if (!NIC.trim()) {
 
              </div>
 
-              <div className="form-group" style={{marginBottom:'15px'}}>
-                  <label style={{marginBottom:'5px'}}>startDate	</label>
-                  <input type="date"
-                    className={`form-control ${errors.startDate ? 'is-invalid' : ''}`}
-                    name="startDate"
-                  placeholder="Enter startDate"
-                  onChange={(e) => setstartDate(e.target.value)}
-                  value={startDate}/>
 
-                {errors.startDate && <div className="invalid-feedback">{errors.startDate}</div>}
-
-
-  
-              </div>
   
               <button className="btn btn-success" type="submit" style={{marginTop:'15px'}}>
                       <i className="far fa-check-square"></i>
