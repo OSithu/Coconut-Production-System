@@ -156,7 +156,9 @@ const ViewProductCnt = () => {
               </li>
             </div>
             <div className="logo" style={{ margin: "0 auto" }}>
+            <a href="/dashboard">
               <img src="./images/logo.png" className="image"></img>
+              </a>
             </div>
             <div
               className="pDetails"
