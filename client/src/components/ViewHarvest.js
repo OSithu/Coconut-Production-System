@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
 import { useReactToPrint } from 'react-to-print';
-import html2pdf from 'html2pdf.js';
 import '../stylesheets/plantation.css';
 
 const ViewHarvest = () => {
@@ -87,74 +86,11 @@ const ViewHarvest = () => {
     harvest.date.includes(searchHarvest)
   )
 
-  // const generateReport = () => {
-  //   const table = document.querySelector('.table');
-  //   const content = table.outerHTML;
-  //   const newWindow = window.open();
-  //   newWindow.document.write(`
-  //     <html>
-  //       <head>
-  //         <title> Harvest Details </title>
-  //         <style>
-  //           img {
-  //             height: 100px; 
-  //             margin: 5px; 
-  //           }
-  //           .imgContainer {
-  //             text-align: center;
-  //           }
-  //           h2 {
-  //             text-align: center;
-  //           }
-
-  //           @media print {
-  //             /* Hide buttons */
-  //             button { display: none; }
-  //             .actionCol { display: none; }
-  //             /* Apply table styles */
-  //             table {
-  //               width: 100%;
-  //               border-collapse: collapse;
-  //             }
-  //             th, td {
-  //               border: 1px solid #000;
-  //               padding: 8px;
-  //               text-align: left;
-  //             }
-  //             th {
-  //               background-color: #f2f2f2;
-  //             }
-  //           }
-  //         </style>
-  //       </head>
-  //       <body>
-  //         <div class="reportHeader" >
-  //           <div class="imgContainer">
-  //             <img src="/images/logo.png">
-  //           </div>
-  //           <br/>
-  //           <h2>Harvest Details</h2>
-  //           <hr />
-  //         </div>
-  //         ${content}
-  //       </body>
-  //     </html>
-  //   `);
-  //   newWindow.print();
-  //   newWindow.close();
-  // };
-
-  const generatePDF = () => {
-    const opt = {
-      margin: 1,
-      filename: 'tree_report.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    const element = document.getElementById('pdf-content');
-    html2pdf().from(element).set(opt).save();
-  };
+  const generateReport = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitle: "title"
+    //onAfterPrint: ()=> alert("report saved")
+  })
 
   return (
 
@@ -184,16 +120,16 @@ const ViewHarvest = () => {
             Add New Record
           </button>
         </Link>
-        <button type="button" className="btn btn-success" onClick={generatePDF} id='plantButton'>
+        <button type="button" className="btn btn-success" onClick={generateReport} id='plantButton'>
           <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
         </button>
         &nbsp;
-        <div id="pdf-content">
+        <div ref={componentPDF} >
           <div className="print-header" style={{ display: "none" }}>
             <img src="/images/logo.png" className='imageReport2' />
-            <h1> Jayakody Koppara Stores </h1>
-            <p styles={{ float: "right" }}>Report Generated on {currentDate} </p>
+            <h5> Jayakody Koppara Stores </h5>
             <hr />
+            <h1 className='plantTopic'> Harvest Details </h1>
           </div>
           <div className='plantReport2'>
             <table className="table" id='plantTable'>
@@ -233,6 +169,10 @@ const ViewHarvest = () => {
                 ))}
               </tbody>
             </table>
+            <div className="plantPrint-footer" style={{ display: "none" }}>
+          <hr />
+          <p>Report Generated on {currentDate} </p>
+        </div>
           </div>
         </div>
       </div>
