@@ -93,7 +93,7 @@ const generatePDF = useReactToPrint({
           <ul className="navbar">
           <div className="nav-left">
           <li>
-              <a href="#home">
+              <a href="/diseaseDashboard">
                 Home
               </a>
             </li>
@@ -131,7 +131,7 @@ const generatePDF = useReactToPrint({
         <input
           type="text"
           className="form-control"
-          placeholder="Search by Tree No"
+          placeholder="Search by Disease Name"
           value={searchDisease}
           onChange={(e) => setSearchDisease(e.target.value)}
         />

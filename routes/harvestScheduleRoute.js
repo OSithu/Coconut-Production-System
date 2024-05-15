@@ -1,15 +1,74 @@
 const express = require('express');
 const Schedule = require('../models/harvestScheduleModel');
-const Staff = require('../models/employeedetails')
+const Staff = require('../models/employeedetails');
+const nodemailer = require('nodemailer');
 
 const router = express.Router();
 
-//create
+// Function to send emails to assigned employees
+async function assignScheduleEmail(scheduleId) {
+    try {
+        // Retrieve harvesting schedule details
+        const schedule = await Schedule.findById(scheduleId);
+
+        // Retrieve email addresses of assigned employees
+        const employees = await Staff.find({
+            $or: [
+                { fullName: schedule.inCharge },
+                { fullName: schedule.staff01 },
+                { fullName: schedule.staff02 },
+                { fullName: schedule.staff03 }
+            ]
+        });
+
+        // Compose email content
+        const schdlDate = `${schedule.date.toLocaleDateString('en-US', { timeZone: 'UTC' })}`;
+        const emailContent = `Hello,\n\nYou have been assigned for the harvesting schedule on ${schdlDate} in block ${schedule.blockName}.\nThank you\n\nPlantation Manager\nJayakody Koppara Stores`;
+
+        // Set up email transporter
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: 'jayakodykoppara@gmail.com',
+                pass: 'nbnc qiai vagz ppba'
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+        
+        // Send emails to assigned employees
+        employees.forEach(employee => {
+            transporter.sendMail({
+                from: 'jayakodykoppara@gmail.com',
+                to: employee.contactEmail,
+                subject: 'Harvesting Schedule Assignment',
+                text: emailContent
+            }, (error, info) => {
+                if (error) {
+                    console.log('Error sending email:', error);
+                } else {
+                    console.log('Email sent:', info.response);
+                }
+            });
+        });
+
+        console.log('Emails sent successfully to assigned employees.');
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+// create
 router.post('/hScedule/save', async (req, res) => {
     try {
         let newSchedule = new Schedule(req.body);
         newSchedule.assignedDate = new Date();
         await newSchedule.save();
+
+        // Send emails to assigned employees
+        await assignScheduleEmail(newSchedule._id);
+
         return res.status(200).json({
             success: "Details saved successfully."
         });
@@ -61,10 +120,66 @@ router.patch("/hScedule/update/:id", async (req, res) => {
     }
 });
 
+// Function to send emails to assigned employees
+async function deleteScheduleEmail(scheduleId) {
+    try {
+        // Retrieve harvesting schedule details
+        const schedule = await Schedule.findById(scheduleId);
+
+        // Retrieve email addresses of assigned employees
+        const employees = await Staff.find({
+            $or: [
+                { fullName: schedule.inCharge },
+                { fullName: schedule.staff01 },
+                { fullName: schedule.staff02 },
+                { fullName: schedule.staff03 }
+            ]
+        });
+
+        // Compose email content
+        const schdlDate = `${schedule.date.toLocaleDateString('en-US', { timeZone: 'UTC' })}`;
+        const emailContent = `Hello,\n\nThe schedule you have been assigned for the harvesting on ${schdlDate} in block ${schedule.blockName} is cancelled\nSorry for the confusion.\nThank you\n\nPlantation Manager\nJayakody Koppara Stores`;
+
+        // Set up email transporter
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: 'jayakodykoppara@gmail.com',
+                pass: 'nbnc qiai vagz ppba'
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+        
+        // Send emails to assigned employees
+        employees.forEach(employee => {
+            transporter.sendMail({
+                from: 'jayakodykoppara@gmail.com',
+                to: employee.contactEmail,
+                subject: 'Harvesting Schedule Assignment',
+                text: emailContent
+            }, (error, info) => {
+                if (error) {
+                    console.log('Error sending email:', error);
+                } else {
+                    console.log('Email sent:', info.response);
+                }
+            });
+        });
+
+        console.log('Emails sent successfully to assigned employees.');
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
 
 //delete
 router.delete("/hScedule/delete/:id", async (req, res) => {
     try {
+        // Send emails to assigned employees
+        await deleteScheduleEmail(req.params.id);
         const scheduleDelete = await Schedule.findByIdAndDelete(req.params.id).exec();
         return res.json({
             message: "Successfully Deleted",

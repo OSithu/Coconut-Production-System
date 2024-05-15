@@ -5,7 +5,7 @@ import "./../stylesheets/disease.css"
 //npm install react-to-print
 import { useReactToPrint } from "react-to-print";
 
-const ViewPestRecords = () => {
+const GenerateQrecords = () => {
 
   const conponentPDF= useRef();
   const [allRecords, setAllRecords] = useState([]);
@@ -101,4 +101,4 @@ const generatePDF = useReactToPrint({
   );
 };
 
-export default ViewPestRecords;
+export default GenerateQrecords;

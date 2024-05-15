@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
 import { useReactToPrint } from 'react-to-print';
+import html2pdf from 'html2pdf.js';
 import '../stylesheets/plantation.css';
 
 const ViewHarvest = () => {
@@ -105,7 +106,7 @@ const ViewHarvest = () => {
   //           h2 {
   //             text-align: center;
   //           }
-            
+
   //           @media print {
   //             /* Hide buttons */
   //             button { display: none; }
@@ -143,11 +144,17 @@ const ViewHarvest = () => {
   //   newWindow.close();
   // };
 
-  const generateReport = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitle: "title"
-    //onAfterPrint: ()=> alert("report saved")
-})
+  const generatePDF = () => {
+    const opt = {
+      margin: 1,
+      filename: 'tree_report.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    const element = document.getElementById('pdf-content');
+    html2pdf().from(element).set(opt).save();
+  };
 
   return (
 
@@ -156,76 +163,76 @@ const ViewHarvest = () => {
         <PlantationNav />
         &nbsp;
         <div className='plantSearch'>
-          <div>
+          <form class="d-flex" role="search">
             <input type="date"
-              className='form-control'
+              className='form-control me-2'
               placeholder='search'
               value={searchHarvest}
               onChange={(e) => setSearchTrees(e.target.value)} />
-            <button class="btn btn-success" type="submit" >Search</button>
-          </div>
+            <button class="btn btn-success" type="submit" ><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
         </div>
       </div>
       <div className='plantBody'>
         &nbsp;
-        
-          <h1 className='plantTopic'> Harvest Details </h1>
-          &nbsp;
-          <Link to={`/addHarvest`}>
-            <button type="button" className="btn btn-success" id='plantButton'>
-              <i className="fa-solid fa-plus"></i>&nbsp;
-              Add New Record
-            </button>
-          </Link>
-          <button type="button" className="btn btn-success" onClick={generateReport} id='plantButton'>
-            <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
+
+        <h1 className='plantTopic'> Harvest Details </h1>
+        &nbsp;
+        <Link to={`/addHarvest`}>
+          <button type="button" className="btn btn-success" id='plantButton'>
+            <i className="fa-solid fa-plus"></i>&nbsp;
+            Add New Record
           </button>
-          &nbsp;
-          <div ref={componentPDF} >
+        </Link>
+        <button type="button" className="btn btn-success" onClick={generatePDF} id='plantButton'>
+          <i class="fa-regular fa-file-pdf"></i>&nbsp; Generate Report
+        </button>
+        &nbsp;
+        <div id="pdf-content">
           <div className="print-header" style={{ display: "none" }}>
             <img src="/images/logo.png" className='imageReport2' />
             <h1> Jayakody Koppara Stores </h1>
-            <p styles={{float:"right"}}>Report Generated on {currentDate} </p>
+            <p styles={{ float: "right" }}>Report Generated on {currentDate} </p>
             <hr />
           </div>
           <div className='plantReport2'>
-          <table className="table" id='plantTable'>
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Total Harvest</th>
-                <th scope="col">Block Name</th>
-                <th scope="col">Harvest</th>
-                <th className='actionCol'></th>
-              </tr>
-            </thead>
-            <tbody>
-              {filterHarvest.map((harvest, index) => (
-                <tr key={index}>
-                  {index === 0 || harvest.date !== harvestDetails[index - 1].date ? (
-                    <td rowSpan={harvestDetails.filter((h) => h.date === harvest.date).length}>{harvest.date}</td>
-                  ) : null}
-                  {index === 0 || harvest.date !== harvestDetails[index - 1].date ? (
-                    <td rowSpan={harvestDetails.filter((h) => h.date === harvest.date).length}>{calculateTotal(harvest.date)}</td>
-                  ) : null}
-                  <td>{harvest.blockName}</td>
-                  <td>{harvest.harvest}</td>
-                  <td className='actionCol'>
-                    <Link to={`/editHarvest/${harvest._id}`}>
-                      <button type="button" className="btn btn-warning">
-                        <i className='fas fa-edit'></i>&nbsp; Edit
-                      </button>
-                    </Link>
-                    &nbsp;
-                    <button type="button" className='btn btn-danger' onClick={() => handleDelete(harvest._id)}>
-                      <i className='far fa-trash-alt'></i>&nbsp;Delete
-                    </button>
-                  </td>
-
+            <table className="table" id='plantTable'>
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Total Harvest</th>
+                  <th scope="col">Block Name</th>
+                  <th scope="col">Harvest</th>
+                  <th className='actionCol'></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filterHarvest.map((harvest, index) => (
+                  <tr key={index}>
+                    {index === 0 || harvest.date !== harvestDetails[index - 1].date ? (
+                      <td rowSpan={harvestDetails.filter((h) => h.date === harvest.date).length}>{harvest.date}</td>
+                    ) : null}
+                    {index === 0 || harvest.date !== harvestDetails[index - 1].date ? (
+                      <td rowSpan={harvestDetails.filter((h) => h.date === harvest.date).length}>{calculateTotal(harvest.date)}</td>
+                    ) : null}
+                    <td>{harvest.blockName}</td>
+                    <td>{harvest.harvest}</td>
+                    <td className='actionCol'>
+                      <Link to={`/editHarvest/${harvest._id}`}>
+                        <button type="button" className="btn btn-warning">
+                          <i className='fas fa-edit'></i>&nbsp; Edit
+                        </button>
+                      </Link>
+                      &nbsp;
+                      <button type="button" className='btn btn-danger' onClick={() => handleDelete(harvest._id)}>
+                        <i className='far fa-trash-alt'></i>&nbsp;Delete
+                      </button>
+                    </td>
+
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

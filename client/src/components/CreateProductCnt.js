@@ -124,66 +124,81 @@ const CreateProductCnt = () => {
   };
 
   return (
-    <div className="col-md-5 mt-5 mx-auto">
-      <div
-        className="card"
-        style={{
-          backgroundColor: "rgba(217, 255, 242, 0.6)",
-          borderRadius: "10px",
-          marginTop: "110px",
-          marginBottom: "20px",
-        }}
+    <div>
+      <button
+        className="btn btn-success"
+        style={{ marginTop: "30px", marginLeft: "45px", width: "100px" }}
       >
-        <h1
-          className="h3 mb-4 font-weight-normal"
-          style={{ textAlign: "center", marginTop: "10px" }}
+        <a
+          href="/viewProductCnt"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
         >
-          Add new Product Count Record
-        </h1>
-        <form
-          className="needs-validation"
-          style={{ marginLeft: "10px", marginRight: "10px" }}
-          noValidate
-          onSubmit={sendData}
+          &nbsp;Back
+        </a>
+      </button>
+      <div className="col-md-5 mt-5 mx-auto">
+        <div
+          className="card"
+          style={{
+            backgroundColor: "rgba(217, 255, 242, 0.6)",
+            borderRadius: "10px",
+            marginTop: "110px",
+            marginBottom: "20px",
+          }}
         >
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Product ID</label>
-            <select
-              className={`form-control ${errors.productId && "is-invalid"}`}
-              name="productId"
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
-            >
-              <option value="">Select Product ID</option>
-              {productIds.map((productId, index) => (
-                <option key={index} value={productId.productId}>
-                  {productId.productId}
-                </option>
-              ))}
-            </select>
-            {errors.productId && (
-              <div className="invalid-feedback">{errors.productId}</div>
-            )}
-          </div>
-
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label className="col-sm-2 col-form-label">
-              {" "}
-              Available Quantity{" "}
-            </label>
-            <div className="col-sm-8">
-              <input
-                type="text"
-                className={`form-control ${errors.quantity && "is-invalid"}`}
-                name="quantity"
-                placeholder="Enter Quantity"
-                value={quantity}
-                onChange={(e) => setProductQty(e.target.value)}
-              />
-              {errors.quantity && (
-                <div className="invalid-feedback">{errors.quantity}</div>
+          <h1
+            className="h3 mb-4 font-weight-normal"
+            style={{ textAlign: "center", marginTop: "10px" }}
+          >
+            Add new Product Count Record
+          </h1>
+          <form
+            className="needs-validation"
+            style={{ marginLeft: "10px", marginRight: "10px" }}
+            noValidate
+            onSubmit={sendData}
+          >
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>Product ID</label>
+              <select
+                className={`form-control ${errors.productId && "is-invalid"}`}
+                name="productId"
+                value={productId}
+                onChange={(e) => setProductId(e.target.value)}
+              >
+                <option value="">Select Product ID</option>
+                {productIds.map((productId, index) => (
+                  <option key={index} value={productId.productId}>
+                    {productId.productId}
+                  </option>
+                ))}
+              </select>
+              {errors.productId && (
+                <div className="invalid-feedback">{errors.productId}</div>
               )}
-              {/* <select
+            </div>
+
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label className="col-sm-2 col-form-label">
+                {" "}
+                Available Quantity{" "}
+              </label>
+              <div className="col-sm-8">
+                <input
+                  type="text"
+                  className={`form-control ${errors.quantity && "is-invalid"}`}
+                  name="quantity"
+                  placeholder="Enter Quantity"
+                  value={quantity}
+                  onChange={(e) => setProductQty(e.target.value)}
+                />
+                {errors.quantity && (
+                  <div className="invalid-feedback">{errors.quantity}</div>
+                )}
+                {/* <select
                 className={`form-select ${errors.quantityUnit && "is-invalid"}`}
                 name="quantityUnit"
                 value={quantityUnit}
@@ -198,70 +213,71 @@ const CreateProductCnt = () => {
               {errors.quantityUnit && (
                 <div className="invalid-feedback">{errors.quantityUnit}</div>
               )} */}
+              </div>
             </div>
-          </div>
 
-          <div className="form-group" style={{ marginBottom: "15px" }}>
-            <label style={{ marginBottom: "5px" }}>Date</label>
-            <input
-              type="date"
-              className={`form-control ${errors.productDate && "is-invalid"}`}
-              name="productDate"
-              placeholder="Enter the date"
-              value={productDate}
-              onChange={(e) => setProductDate(e.target.value)}
-              required
-            />
-            {errors.productDate && (
-              <div className="invalid-feedback">{errors.productDate}</div>
-            )}
-          </div>
-
-          <div
-            className="form-group"
-            style={{
-              marginBottom: "15px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <div>
-              <label style={{ marginRight: "10px" }}>
-                <input
-                  type="radio"
-                  name="description"
-                  value="Incremented"
-                  checked={description === "Incremented"}
-                  onChange={(e) => setProductDesc(e.target.value)}
-                />
-                &nbsp;Increment
-              </label>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <label>
-                <input
-                  type="radio"
-                  name="description"
-                  value="Decremented"
-                  checked={description === "Decremented"}
-                  onChange={(e) => setProductDesc(e.target.value)}
-                />
-                &nbsp;Decrement
-              </label>
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>Date</label>
+              <input
+                type="date"
+                className={`form-control ${errors.productDate && "is-invalid"}`}
+                name="productDate"
+                placeholder="Enter the date"
+                value={productDate}
+                onChange={(e) => setProductDate(e.target.value)}
+                required
+              />
+              {errors.productDate && (
+                <div className="invalid-feedback">{errors.productDate}</div>
+              )}
             </div>
-            {errors.description && (
-              <div className="invalid-feedback">{errors.description}</div>
-            )}
-          </div>
 
-          <button
-            className="btn btn-success"
-            type="submit"
-            style={{ marginTop: "9px", marginBottom: "15px" }}
-          >
-            <i className="far fa-check-square"></i>
-            &nbsp;Save
-          </button>
-        </form>
+            <div
+              className="form-group"
+              style={{
+                marginBottom: "15px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <div>
+                <label style={{ marginRight: "10px" }}>
+                  <input
+                    type="radio"
+                    name="description"
+                    value="Incremented"
+                    checked={description === "Incremented"}
+                    onChange={(e) => setProductDesc(e.target.value)}
+                  />
+                  &nbsp;Increment
+                </label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>
+                  <input
+                    type="radio"
+                    name="description"
+                    value="Decremented"
+                    checked={description === "Decremented"}
+                    onChange={(e) => setProductDesc(e.target.value)}
+                  />
+                  &nbsp;Decrement
+                </label>
+              </div>
+              {errors.description && (
+                <div className="invalid-feedback">{errors.description}</div>
+              )}
+            </div>
+
+            <button
+              className="btn btn-success"
+              type="submit"
+              style={{ marginTop: "9px", marginBottom: "15px" }}
+            >
+              <i className="far fa-check-square"></i>
+              &nbsp;Save
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

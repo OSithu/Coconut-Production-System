@@ -160,7 +160,17 @@ const ViewProducts = () => {
           <ul className="navbar">
             <div
               className="pDetails"
-              style={{ marginRight: "250px", marginLeft: "100px" }}
+              style={{ marginRight: "150px", marginLeft: "50px" }}
+            >
+              <li>
+                <a class="active" href="/productDash">
+                  Home
+                </a>
+              </li>
+            </div>
+            <div
+              className="pDetails"
+              style={{ marginRight: "50px", marginLeft: "0px" }}
             >
               <li>
                 <a class="active" href="/viewProduct">
@@ -168,12 +178,14 @@ const ViewProducts = () => {
                 </a>
               </li>
             </div>
-            <div className="logo">
+            <div className="logo" style={{ margin: "0 auto" }}>
+              <a href="/dashboard">
               <img src="./images/logo.png" className="image"></img>
+              </a>
             </div>
             <div
               className="pDetails"
-              style={{ marginLeft: "250px", marginRight: "100px" }}
+              style={{ marginRight: "150px", marginLeft: "200px" }}
             >
               <li>
                 <a href="/viewProductCnt">Product Records</a>
@@ -185,15 +197,11 @@ const ViewProducts = () => {
       <br></br>
       <div className="container">
         <div>
-          <p
-            style={{
-              textAlign: "center",
-              fontFamily: "sans-serif",
-              fontSize: "24px",
-            }}
+          <h2
+          className="plantTopic"
           >
             All Products{" "}
-          </p>
+          </h2>
           <div className="input-group mb-3">
             <input
               type="text"
@@ -211,22 +219,7 @@ const ViewProducts = () => {
             </button>
           </div>
 
-          {/* <div style={{ textAlign: "right", marginBottom: "10px" }}>
-            <button className="btn btn-success">
-              <a
-                href="/addProduct"
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                Add New Product
-              </a>
-            </button>{" "}
-          </div>
-          <div className="d-grid d-md-flex justify-content-md-end mb-3">
-            <button className="btn btn-success" onClick={generateReport}>
-              Generate PDF
-            </button>{" "}
-          </div> */}
-          <div style={{ textAlign: "right", marginBottom:"10px" }}>
+          <div style={{ textAlign: "right", marginBottom: "10px" }}>
             <button className="btn btn-success">
               <a
                 href="/addProduct"
@@ -237,7 +230,7 @@ const ViewProducts = () => {
             </button>{" "}
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button className="btn btn-success" onClick={generateReport}>
-                Generate Report
+              Generate Report
             </button>
           </div>
 

@@ -52,14 +52,6 @@ const ProductDash = () => {
         });
     };
 
-    // Simulate the click event of the "Generate Report" button when the component mounts
-    const generateReportButton = document.getElementById(
-      "generateReportButton"
-    );
-    if (generateReportButton) {
-      generateReportButton.click();
-    }
-
     getProductCount();
     getbyProductCount();
     getAgrochemicalsCount();
@@ -67,9 +59,50 @@ const ProductDash = () => {
 
   return (
     <div>
-      <ProductNav />
+      <div className="header">
+        <div>
+          <ul className="navbar">
+            <div
+              className="pDetails"
+              style={{ marginRight: "150px", marginLeft: "50px" }}
+            >
+              <li>
+                <a class="active" href="/productDash">
+                  Home
+                </a>
+              </li>
+            </div>
+            <div
+              className="pDetails"
+              style={{ marginRight: "50px", marginLeft: "0px" }}
+            >
+              <li>
+                <a class="active" href="/viewProduct">
+                  Product Details
+                </a>
+              </li>
+            </div>
+            <div className="logo" style={{ margin: "0 auto" }}>
+            <a href="/dashboard">
+              <img src="./images/logo.png" className="image"></img>
+              </a>
+            </div>
+            <div
+              className="pDetails"
+              style={{ marginRight: "150px", marginLeft: "200px" }}
+            >
+              <li>
+                <a href="/viewProductCnt">Product Records</a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <br></br>
+
       <div className="container">
-        <div class="row">
+        <h2 className="plantTopic">Inventory Dashboad</h2>
+        <div class="row" style={{ marginBottom: "50px" }}>
           <div class="col-sm-4 mb-3 mb-sm-0">
             <div
               className="card"
@@ -78,14 +111,14 @@ const ProductDash = () => {
                 height: "10rem",
                 textAlign: "center",
                 borderRadius: "20px",
-                backgroundColor: "rgb(217, 255, 242)",
+                backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
               }}
             >
               {" "}
-              <h4>
-                Total Products:{" "}
+              <h4 style={{color:"#3b4222"}}>Total Products</h4>
+              <h4 style={{ color: "brown" }}>
                 {productCount !== null ? productCount : "Loading..."}
               </h4>
             </div>
@@ -98,14 +131,14 @@ const ProductDash = () => {
                 height: "10rem",
                 textAlign: "center",
                 borderRadius: "20px",
-                backgroundColor: "rgb(217, 255, 242)",
+                backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
               }}
             >
               {" "}
-              <h4>
-                Total By-Products:{" "}
+              <h4 style={{color:"#3b4222"}}>Total By-Products</h4>
+              <h4 style={{ color: "brown" }}>
                 {byproductCount !== null ? byproductCount : "Loading..."}
               </h4>
             </div>
@@ -118,14 +151,14 @@ const ProductDash = () => {
                 height: "10rem",
                 textAlign: "center",
                 borderRadius: "20px",
-                backgroundColor: "rgb(217, 255, 242)",
+                backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
               }}
             >
               {" "}
-              <h4>
-                Total Agrochemicals:{" "}
+              <h4 style={{color:"#3b4222"}}>Total Agrochemicals</h4>
+              <h4 style={{ color: "brown" }}>
                 {agrochemicalsCount !== null
                   ? agrochemicalsCount
                   : "Loading..."}
@@ -134,24 +167,34 @@ const ProductDash = () => {
           </div>
         </div>
 
+        <h3 style={{color:"black"}}>Reports</h3>
         <div class="row">
           <div class="col-sm-4 mb-3 mb-sm-0">
             <div
               className="card"
               style={{
                 width: "25rem",
-                height: "20rem",
+                height: "16rem",
                 textAlign: "center",
                 borderRadius: "20px",
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
+                marginBottom:"30px",
                 paddingTop: "60px",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               {" "}
-              <h4>View Quality Control Report</h4>
-              <Link to="/pestReport" className="btn btn-success">
-                View
+              <h4 style={{ marginBottom: "70px", color:"#3b4222" }}>
+                View Quality Control Report
+              </h4>
+              <Link
+                to="/generateQualityReport"
+                className="btn btn-success"
+                style={{ width: "150px", margin: "0 auto", height: "50px" }}
+              >
+                <h5>View</h5>
               </Link>
             </div>
           </div>
@@ -160,7 +203,7 @@ const ProductDash = () => {
               className="card"
               style={{
                 width: "25rem",
-                height: "20rem",
+                height: "16rem",
                 textAlign: "center",
                 borderRadius: "20px",
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
@@ -169,7 +212,14 @@ const ProductDash = () => {
               }}
             >
               {" "}
-              <h4>View Fertilizers Report</h4>
+              <h4 style={{ marginBottom: "70px", color:"#3b4222" }}>View Fertilizers Report</h4>
+              <Link
+                to="/fertilizerReport"
+                className="btn btn-success"
+                style={{ width: "150px", margin: "0 auto", height: "50px" }}
+              >
+                <h5>View</h5>
+              </Link>
             </div>
           </div>
           <div class="col-sm-4 mb-3 mb-sm-0">
@@ -177,18 +227,18 @@ const ProductDash = () => {
               className="card"
               style={{
                 width: "25rem",
-                height: "20rem",
+                height: "16rem",
                 textAlign: "center",
                 borderRadius: "20px",
                 backgroundColor: "rgba(217, 255, 242, 0.6)",
                 marginTop: "20px",
                 paddingTop: "60px",
-                display: "flex", // Use Flexbox
-                flexDirection: "column", // Stack items vertically
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               {" "}
-              <h4 style={{ marginBottom: "120px" }}>View Pesticides Report</h4>
+              <h4 style={{ marginBottom: "70px", color:"#3b4222" }}>View Pesticides Report</h4>
               <Link
                 to="/pestReport"
                 className="btn btn-success"

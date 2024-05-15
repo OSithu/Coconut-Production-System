@@ -106,7 +106,7 @@ export default class Dashboard extends Component {
               <div class="text-overlay">
                 <button type="button" class="btn btn-primary btn-lg custom-btn4">
                 <a
-            href="/viewProduct"
+            href="/productDash"
             style={{ textDecoration: "none", color: "white" }}
           >
                   Enter Management
@@ -152,7 +152,7 @@ export default class Dashboard extends Component {
               <div class="text-overlay">
                 <button type="button" class="btn btn-primary btn-lg custom-btn4">
                 <a
-            href="/viewDisease"
+            href="/diseaseDashboard"
             style={{ textDecoration: "none", color: "white" }}
           >
                   Enter Management

@@ -11,6 +11,7 @@ import CreateFertilization from "./components/createFertilization";
 import editFertilization from "./components/editFertilization";
 import FertilizersDetails from "./components/FertilizersDetails";
 import FertilizationToDo from "./components/FertilizationToDo";
+import fertilizationweather from "./components/fertilizationweather";
 
 import ViewCusDetails from "./components/viewCusDetails";
 import CreateCusDetails from "./components/createCusDetails";
@@ -113,6 +114,11 @@ import filterEMp from "./components/CategorizeDepartment";
 import PestFinder from "./components/PestFinder";
 
 import GenerateQualityReport from "./components/GenerateQualityReport"
+import GenerateFertilizerReport from "./components/GenerateFertilizerReport"
+
+
+import DiseaseDashboard from "./components/DiseaseDashboard";
+import EditPestAddRecord from "./components/EditPestRecords";
         
 
 
@@ -132,6 +138,7 @@ function App() {
           <Route path="/fertilizationupdate/:id" Component={editFertilization}/>
           <Route path="/FertilizersDetails" Component={FertilizersDetails}/>
           <Route path="/FertilizationToDo" Component={FertilizationToDo}/>
+          <Route path="/fertilizationweather" Component={fertilizationweather}/>
 
           <Route path="/ViewTrees/:id" Component={ViewTrees} />
           <Route path="/AddTrees" Component={AddTrees} />
@@ -211,7 +218,7 @@ function App() {
 
           <Route path="/ViewTaskShedule" Component={ViewTaskShedule} />
           <Route path="/CtreateTaskShedule" Component={CreateShedule} />
-          <Route path="/EditTaskShedule" Component={EditTaskShedule} />
+          <Route path="/EditTaskShedule/:id" Component={EditTaskShedule} />
 
           <Route path="/viewPestRecords" Component={ViewPestRecords} />
           <Route path="/createPestRecords" Component={CreatePestRecords} />
@@ -240,6 +247,14 @@ function App() {
           <Route path="/pestfinder" Component={PestFinder}/>
 
           <Route path="/generateQualityReport" Component={GenerateQualityReport}/>
+          <Route path="/fertilizerReport" Component={GenerateFertilizerReport}/>
+
+          
+          <Route path="/diseaseDashboard" Component={DiseaseDashboard}/>
+          <Route path="/editpestaddrecords/:id" Component={EditPestAddRecord}/>
+
+
+          
 
 
 

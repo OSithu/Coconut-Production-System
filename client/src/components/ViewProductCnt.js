@@ -137,7 +137,17 @@ const ViewProductCnt = () => {
           <ul className="navbar">
             <div
               className="pDetails"
-              style={{ marginRight: "250px", marginLeft: "100px" }}
+              style={{ marginRight: "150px", marginLeft: "50px" }}
+            >
+              <li>
+                <a class="active" href="/productDash">
+                  Home
+                </a>
+              </li>
+            </div>
+            <div
+              className="pDetails"
+              style={{ marginRight: "50px", marginLeft: "0px" }}
             >
               <li>
                 <a class="active" href="/viewProduct">
@@ -145,12 +155,14 @@ const ViewProductCnt = () => {
                 </a>
               </li>
             </div>
-            <div className="logo">
+            <div className="logo" style={{ margin: "0 auto" }}>
+            <a href="/dashboard">
               <img src="./images/logo.png" className="image"></img>
+              </a>
             </div>
             <div
               className="pDetails"
-              style={{ marginLeft: "250px", marginRight: "100px" }}
+              style={{ marginRight: "150px", marginLeft: "200px" }}
             >
               <li>
                 <a href="/viewProductCnt">Product Records</a>
@@ -162,15 +174,11 @@ const ViewProductCnt = () => {
       <br></br>
       <div className="container">
         <div>
-          <p
-            style={{
-              textAlign: "center",
-              fontFamily: "sans-serif",
-              fontSize: "24px",
-            }}
+          <h2
+            className="plantTopic"
           >
             Product Records{" "}
-          </p>
+          </h2>
 
           <div className="input-group mb-3">
             <input
@@ -186,21 +194,13 @@ const ViewProductCnt = () => {
           </div>
 
           <div style={{ textAlign: "right" }}>
-            {/* <button className="btn btn-success">
-              <a
-                href="/addProductCnt"
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                Add New Product Record
-              </a>
-            </button> */}
             <div style={{ textAlign: "right", marginBottom: "10px" }}>
               <button className="btn btn-success">
                 <a
                   href="/addProductCnt"
                   style={{ textDecoration: "none", color: "white" }}
                 >
-                  Add New Product
+                  Add New Record
                 </a>
               </button>{" "}
               &nbsp;&nbsp;&nbsp;&nbsp;
@@ -264,12 +264,12 @@ const ViewProductCnt = () => {
                       {productCnt.description}
                     </td>
                     <td style={{ borderRight: "1px solid white" }}>
-                      <a
+                      {/* <a
                         className="btn btn-warning"
                         href={`/editProductCnt/${productCnt._id}`}
                       >
                         <i className="fas fa-edit"></i>&nbsp;Edit
-                      </a>
+                      </a> */}
                       &nbsp;
                       <a
                         className="btn btn-danger"

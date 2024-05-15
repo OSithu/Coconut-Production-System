@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { BsSearch} from 'react-icons/bs';
+import { BsSearch } from 'react-icons/bs';
 //import { useReactToPrint } from "react-to-print";
+import "../stylesheets/qualityRecords.css";
 
 const ViewQualityRecords = () => {
 
-   const componentPDF = useRef();
+  const componentPDF = useRef();
   // const [searchQualityRecords, setSearchQualityRecords] = useState([]);
   const [searchQualityRecords, setSearchQualityRecords] = useState("");
 
-
   const [allRecords, setAllRecords] = useState([]);
+
 
   useEffect(() => {
 
@@ -100,7 +101,7 @@ const ViewQualityRecords = () => {
     `);
     newWindow.print();
     newWindow.close();
-  };
+  };
 
 
   const handleDelete = async (id) => {
@@ -129,121 +130,146 @@ const ViewQualityRecords = () => {
   }
 
   const filterQualityRecords = allRecords.filter(records =>
-  records.recordId.toLowerCase().includes(searchQualityRecords.toLowerCase()));
+    records.recordId.toLowerCase().includes(searchQualityRecords.toLowerCase()) ||
+    records.testResult.toLowerCase().includes(searchQualityRecords.toLowerCase())
+  );
+
+  const totalTests = allRecords.length;
+  const passedTests = allRecords.filter(record => record.testResult === 'Passed').length;
+  const failedTests = allRecords.filter(record => record.testResult === 'Failed').length;
+  const passedPercentage = totalTests !== 0 ? ((passedTests / totalTests) * 100).toFixed(2) : 0;
+
 
   return (
     <div>
       <div className="header">
         <div>
           <ul className="navbar">
-          <div className="navi-left">
-          <li>
-              <a class="active" href="#qhome">
-                Home
-              </a>
-            </li>
-          </div>
+            <div className="navi-left">
+              <li>
+                <a class="active" href="/dashboard">
+                  Home
+                </a>
+              </li>
+            </div>
             <div className="logo">
               <img src="./images/logo.png" className="image"></img>
             </div>
             <div className="navi-right">
-            <li>
-              <a href="#qrecord">Quality Records</a>
-            </li>
+              <li>
+                <a href="#qrecord">Quality Records</a>
+              </li>
             </div>
           </ul>
         </div>
       </div>
-      <br></br> 
-    <div className="container">
-      <div>
-        <h1>Quality Control Records</h1>
+      <br></br>
+      <div className="container">
+        <div>
+          <h1>Quality Control Records</h1>
 
-        <div className='input-group mb-3'>
-          <input 
-          type="text"
-          className='orm-control'
-          placeholder='Search by Record ID'
-          value={searchQualityRecords}
-          onChange={(e)=> setSearchQualityRecords(e.target.value)}
-          />
-          <button className='btn btn-outline-secondary' type ="button">
-            <BsSearch />
+          <div className='input-group mb-3'>
+            <input
+              type="text"
+              className='form-control'
+              placeholder='Search by Record ID or Test Result'
+              value={searchQualityRecords}
+              onChange={(e) => setSearchQualityRecords(e.target.value)}
+            />
+            <button className='btn btn-outline-secondary' type="button">
+              <BsSearch />
+            </button>
+
+          </div>
+
+          
+          <div className='containerqm1'>
+          <div className="statisticsqm">
+            <h3>Quality Records Statistics</h3>
+            <p>Total Tests: {totalTests}</p>
+            <p>Tests Passed: {passedTests}</p>
+            <p>Tests Failed: {failedTests}</p>
+          </div>
+
+          <div className="percentageqm-box">
+            <h3>Passed Percentage</h3>
+            <p><strong>{passedPercentage}%</strong></p>
+          </div>
+          </div>
+
+
+          <button className="btn btn-success">
+            <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
           </button>
 
-        </div>
+          <div style={{ marginTop: "20px" }}>
+            <div ref={componentPDF} style={{ width: "100%" }}>
 
-        <button className="btn btn-success">
-          <a href="/addQualityRecord" style={{ textDecoration: 'none', color: 'white' }}>Add New Record</a>
-        </button>
+              <div className="print-header" style={{ display: "none" }}>
+                <img src="/images/logo.png" className='imageReport2' />
+                <h1> Jayakody Koppara Stores </h1>
+                <hr />
+              </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <div ref={componentPDF} style={{ width: "100%" }}>
+              <div className="reportForm1">
+                <table className="table quality-records-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">RecordID</th>
+                      <th scope="col">ProductType</th>
+                      <th scope="col">QualityCheckedDate</th>
+                      <th scope="col">SpecialNotes</th>
+                      <th scope="col">TestResult</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
 
-          <div className="print-header" style={{ display: "none" }}>
-            <img src="/images/logo.png" className='imageReport2' />
-            <h1> Jayakody Koppara Stores </h1>
-            <hr />
-          </div>
+                  <tbody>
+                    {filterQualityRecords.map((records, index) => (
+                      <tr key={index} className={records.testResult === "Failed" ? "failed-testqm" : ""}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{records.recordId}</td>
+                        <td>{records.productType}</td>
+                        <td>{records.qualityCheckedDate}</td>
+                        <td>{records.specialNotes}</td>
+                        <td>{records.testResult}</td>
+                        <td>
 
-          <div className="reportForm1">
-          <table className="table quality-records-table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">RecordID</th>
-                  <th scope="col">ProductType</th>
-                  <th scope="col">QualityCheckedDate</th>
-                  <th scope="col">SpecialNotes</th>
-                  <th scope="col">TestResult</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
+                          <div>
+                            <a className="btn btn-outline-secondary border border-secondary" href={`/viewQRecord/${records._id}`}>
+                              <i className="fas fa-eye"></i>&nbsp;View Record
+                            </a>
+                          </div>
+                          <div>
+                            <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
+                              <i className="fas fa-edit"></i>&nbsp;Update
+                            </a>
+                            &nbsp;
+                            <a className="btn btn-danger" href="#" onClick={() => handleDelete(records._id)}>
+                              <i className="fas fa-trash-alt"></i>&nbsp;Delete
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
-              <tbody>
-                {filterQualityRecords.map((records, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{records.recordId}</td>
-                    <td>{records.productType}</td>
-                    <td>{records.qualityCheckedDate}</td>
-                    <td>{records.specialNotes}</td>
-                    <td>{records.testResult}</td>
-                    <td>
+              </div>
 
-                      <div>
-                        <a className="btn btn-outline-secondary border border-secondary" href={`/viewQRecord/${records._id}`}>
-                          <i className="fas fa-eye"></i>&nbsp;View Record
-                        </a>
-                      </div>
-                      <div>
-                        <a className="btn btn-warning" href={`/editQualityRecord/${records._id}`}>
-                          <i className="fas fa-edit"></i>&nbsp;Update
-                        </a>
-                        &nbsp;
-                        <a className="btn btn-danger" href="#" onClick={() => handleDelete(records._id)}>
-                          <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+            </div>
+            <div className="d-grid d-md-flex justify-content-md-end mb-3">
+              <button className="btn btn-light border border-secondary" onClick={generatePDF}>Generate Report</button>
+            </div>
 
           </div>
-
-            
-          </div>
-          <div className="d-grid d-md-flex justify-content-md-end mb-3">
-            <button className="btn btn-light border border-secondary" onClick={generatePDF}>Generate Report</button>
-          </div>
-
         </div>
       </div>
-</div>
 
     </div>
+
   )
 };
 export default ViewQualityRecords;
