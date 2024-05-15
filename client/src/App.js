@@ -251,7 +251,7 @@ function App() {
 
           
           <Route path="/diseaseDashboard" Component={DiseaseDashboard}/>
-          <Route path="/editpestaddrecords" Component={EditPestAddRecord}/>
+          <Route path="/editpestaddrecords/:id" Component={EditPestAddRecord}/>
 
 
           
