@@ -28,6 +28,43 @@ function App() {
   };
 
   return (
+    <div> <div className="header">
+    <div>
+     
+      <ul className="navbar">
+      <div className="nav-left">
+      <li>
+          <a class="active" href="#home">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="/viewEmployees">Employee Details</a>
+        </li>
+        <li>
+          <a href="/ViewTaskShedule">Work Schedule</a>
+        </li>
+       
+      </div>
+        <div className="logo">
+          <img src="./images/logo.png" className="image"></img>
+        </div>
+        <div className="nav-right">
+        <li>
+          <a href="/filter">Departments</a>
+        </li>
+        <li>
+          <a href="/salcal">Salary Calculator</a>
+        </li>
+        <li>
+          <a href="/whcal">Work Hour</a>
+        </li>
+        </div>
+
+      </ul>
+    </div>
+  </div>
+  <br></br>
     <div className="work-hours-calculator">
       <h1>Work Hours Calculator</h1>
       {error && <div className="error">{error}</div>} {/* Display error message */}
@@ -87,6 +124,7 @@ function App() {
           <p>Total Work Hours: {totalWorkHours}</p>
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -99,7 +99,7 @@ function formatDate1(startDate) {
               </a>
             </li>
             <li>
-              <a href="#news">Employee Details</a>
+              <a href="/viewEmployee">Employee Details</a>
             </li>
             <li>
               <a href="/ViewTaskShedule">Work Schedule</a>

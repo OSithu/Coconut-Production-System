@@ -69,6 +69,43 @@ const EmployeesByDepartment = () => {
   };
 
   return (
+    <div>           <div className="header">
+    <div>
+     
+      <ul className="navbar">
+      <div className="nav-left">
+      <li>
+          <a class="active" href="#home">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="/viewEmployee">Employee Details</a>
+        </li>
+        <li>
+          <a href="/ViewTaskShedule">Work Schedule</a>
+        </li>
+       
+      </div>
+        <div className="logo">
+          <img src="./images/logo.png" className="image"></img>
+        </div>
+        <div className="nav-right">
+        <li>
+          <a href="/filter">Departments</a>
+        </li>
+        <li>
+          <a href="/salcal">Salary Calculator</a>
+        </li>
+        <li>
+          <a href="/whcal">Work Hour</a>
+        </li>
+        </div>
+
+      </ul>
+    </div>
+  </div>
+  <br></br>
     <div style={styles.container}>
       <h1 style={styles.heading}>Employees by Department</h1>
       {Object.keys(employeesByDepartment).map((department) => (
@@ -81,6 +118,7 @@ const EmployeesByDepartment = () => {
           </ul>
         </div>
       ))}
+    </div>
     </div>
   );
 };

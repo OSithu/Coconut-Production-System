@@ -84,7 +84,7 @@ const ViewTaskShedule = () => {
 
  return(
  <div>
-          <div className="header">
+ <div className="header">
         <div>
          
           <ul className="navbar">
@@ -107,13 +107,13 @@ const ViewTaskShedule = () => {
             </div>
             <div className="nav-right">
             <li>
-              <a href="#news">Benifits Packages</a>
+              <a href="/filter">Departments</a>
             </li>
             <li>
-              <a href="#contact">Salary Calculator</a>
+              <a href="/salcal">Salary Calculator</a>
             </li>
             <li>
-              <a href="#about">About</a>
+              <a href="/whcal">Work Hour</a>
             </li>
             </div>
 
