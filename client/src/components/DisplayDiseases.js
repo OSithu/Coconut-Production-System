@@ -131,7 +131,7 @@ const generatePDF = useReactToPrint({
         <input
           type="text"
           className="form-control"
-          placeholder="Search by Tree No"
+          placeholder="Search by Disease Name"
           value={searchDisease}
           onChange={(e) => setSearchDisease(e.target.value)}
         />
