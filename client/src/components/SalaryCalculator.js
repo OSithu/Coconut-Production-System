@@ -37,7 +37,7 @@ function SalaryCalculator() {
       <ul className="navbar">
       <div className="nav-left">
       <li>
-          <a class="active" href="#home">
+          <a class="active" href="/employeeDashboard">
             Home
           </a>
         </li>
