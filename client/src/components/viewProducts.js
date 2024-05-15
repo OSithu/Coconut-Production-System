@@ -195,15 +195,11 @@ const ViewProducts = () => {
       <br></br>
       <div className="container">
         <div>
-          <p
-            style={{
-              textAlign: "center",
-              fontFamily: "sans-serif",
-              fontSize: "24px",
-            }}
+          <h2
+          className="plantTopic"
           >
             All Products{" "}
-          </p>
+          </h2>
           <div className="input-group mb-3">
             <input
               type="text"
@@ -221,21 +217,6 @@ const ViewProducts = () => {
             </button>
           </div>
 
-          {/* <div style={{ textAlign: "right", marginBottom: "10px" }}>
-            <button className="btn btn-success">
-              <a
-                href="/addProduct"
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                Add New Product
-              </a>
-            </button>{" "}
-          </div>
-          <div className="d-grid d-md-flex justify-content-md-end mb-3">
-            <button className="btn btn-success" onClick={generateReport}>
-              Generate PDF
-            </button>{" "}
-          </div> */}
           <div style={{ textAlign: "right", marginBottom: "10px" }}>
             <button className="btn btn-success">
               <a
