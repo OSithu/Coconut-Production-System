@@ -180,7 +180,7 @@ const ViewProductCnt = () => {
             Product Records{" "}
           </h2>
 
-          <div className="input-group mb-3">
+          {/* <div className="input-group mb-3">
             <input
               type="text"
               className="form-control"
@@ -191,6 +191,26 @@ const ViewProductCnt = () => {
             <button className="btn btn-outline-secondary" type="button">
               <BsSearch />
             </button>
+          </div> */}
+
+<div>
+            <div style={{ display: "flex", alignItems: "center", marginBottom:"10px", width:"900px" }}>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search Products..."
+                value={searchProductCnt}
+                onChange={(e) => setSearchProductCnt(e.target.value)}
+                style={{ marginRight: "5px" }} // Add margin to separate input and button
+              />
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                style={{ backgroundColor: "#e6e6e6" }}
+              >
+                <BsSearch />
+              </button>
+            </div>
           </div>
 
           <div style={{ textAlign: "right" }}>

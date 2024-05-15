@@ -180,7 +180,7 @@ const ViewProducts = () => {
             </div>
             <div className="logo" style={{ margin: "0 auto" }}>
               <a href="/dashboard">
-              <img src="./images/logo.png" className="image"></img>
+                <img src="./images/logo.png" className="image"></img>
               </a>
             </div>
             <div
@@ -197,12 +197,8 @@ const ViewProducts = () => {
       <br></br>
       <div className="container">
         <div>
-          <h2
-          className="plantTopic"
-          >
-            All Products{" "}
-          </h2>
-          <div className="input-group mb-3">
+          <h2 className="plantTopic">All Products </h2>
+          {/* <div className="plantSearch">
             <input
               type="text"
               className="form-control"
@@ -217,9 +213,30 @@ const ViewProducts = () => {
             >
               <BsSearch />
             </button>
+          </div> */}
+
+          <div>
+            <div style={{ display: "flex", alignItems: "center", marginBottom:"10px", width:"900px" }}>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search Products..."
+                value={searchProducts}
+                onChange={(e) => setSearchProducts(e.target.value)}
+                style={{ marginRight: "5px" }} // Add margin to separate input and button
+              />
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                style={{ backgroundColor: "#e6e6e6" }}
+              >
+                <BsSearch />
+              </button>
+            </div>
           </div>
 
           <div style={{ textAlign: "right", marginBottom: "10px" }}>
+            
             <button className="btn btn-success">
               <a
                 href="/addProduct"
