@@ -111,7 +111,7 @@ function formatDate1(startDate) {
             </div>
             <div className="nav-right">
             <li>
-              <a href="/filter">Benifits Packages</a>
+              <a href="/filter">Departments</a>
             </li>
             <li>
               <a href="/salcal">Salary Calculator</a>
@@ -146,11 +146,6 @@ function formatDate1(startDate) {
         </a>
       </button>
 
-      <button className="btn btn-success">
-        <a href="/salcal" style={{ textDecoration: "none", color: "white" }}>
-          cal
-        </a>
-      </button>
 
       <br></br>
 
