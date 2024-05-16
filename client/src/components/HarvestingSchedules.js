@@ -3,9 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PlantationNav from './PlantationNav';
 import '../stylesheets/plantation.css';
-//import twilio from 'twilio';
-
-//const client = twilio('AC721f7de88d6670cf18b4ba4efb11f2dd', '4a1b1592cbb80354dbf96693aa87782c');
 
 const HarvestingSchedules = () => {
     const [scheduleDetails, setScheduleDetails] = useState([]);
@@ -54,41 +51,6 @@ const HarvestingSchedules = () => {
         }
     }
 
-    // const notify = async (schedule) => {
-    //     try {
-    //         // Construct message body
-    //         const messageBody = `Harvesting is scheduled on ${schedule.date} for block {schedule.blockName}.`;
-
-    //         // Fetch contact numbers of staff members from the database
-    //         const staffMembers = await Employee.find({
-    //             $or: [
-    //                 { fullName: schedule.inCharge },
-    //                 { fullName: schedule.staff01 },
-    //                 { fullName: schedule.staff02 },
-    //                 { fullName: schedule.staff03 }
-    //             ]
-    //         });
-
-    //         // Extract contact numbers
-    //         const recipients = staffMembers.map(member => member.contactNumber);
-
-    //         // Send SMS to each staff member
-    //         recipients.forEach(async (recipient) => {
-    //             await client.messages.create({
-    //                 body: messageBody,
-    //                 from: '+94XXXXX8760', // Your Twilio phone number
-    //                 to: recipient
-    //             });
-    //         });
-
-    //         alert('SMS notifications sent successfully.');
-    //     } catch (err) {
-    //         console.error('Error sending SMS notifications:', err);
-    //         alert('Failed to send SMS notifications.');
-    //     }
-    //  };
-
-
     return (
         <div>
             <div className='plantHeader'>
@@ -123,14 +85,8 @@ const HarvestingSchedules = () => {
                                 ) : null}
                                 <td>{schedule.blockName}</td>
                                 <td>{schedule.inCharge}</td>
-                                {/* <td>{schedule.staff01}</td>
-                            <td>{schedule.staff02}</td>
-                            <td>{schedule.staff03}</td> */}
                                 <td>{schedule.assignedDate}</td>
                                 <td>
-                                    {/* <button type="button" className='btn btn-success' onClick={() => notify(schedule)}>
-                                 <i className='far fa-bell'></i>&nbsp;Notify
-                                </button> */}
                                     <Link to={`/viewHvstSchedule/${schedule._id}`}>
                                         <button type="button" className="btn btn-success">
                                             <i className='fa-regular fa-eye'></i>&nbsp; View Schedule
