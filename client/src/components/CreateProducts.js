@@ -301,7 +301,7 @@ const CreateProducts = () => {
                 </select>
 
                 <input
-                  type="text"
+                  type="number"
                   className={`form-control `}
                   name="price"
                   placeholder="Enter Unit Price"
@@ -361,6 +361,7 @@ const CreateProducts = () => {
                 name="expirationDate"
                 placeholder="Enter the expiration date"
                 value={expirationDate}
+                min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => setProductED(e.target.value)}
                 required
               />

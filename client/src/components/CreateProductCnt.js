@@ -188,7 +188,7 @@ const CreateProductCnt = () => {
               </label>
               <div className="col-sm-8">
                 <input
-                  type="text"
+                  type="number"
                   className={`form-control ${errors.quantity && "is-invalid"}`}
                   name="quantity"
                   placeholder="Enter Quantity"
@@ -224,6 +224,7 @@ const CreateProductCnt = () => {
                 name="productDate"
                 placeholder="Enter the date"
                 value={productDate}
+                max={new Date().toISOString().split("T")[0]}
                 onChange={(e) => setProductDate(e.target.value)}
                 required
               />

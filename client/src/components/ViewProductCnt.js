@@ -284,12 +284,12 @@ const ViewProductCnt = () => {
                       {productCnt.description}
                     </td>
                     <td style={{ borderRight: "1px solid white" }}>
-                      {/* <a
+                      <a
                         className="btn btn-warning"
                         href={`/editProductCnt/${productCnt._id}`}
                       >
                         <i className="fas fa-edit"></i>&nbsp;Edit
-                      </a> */}
+                      </a>
                       &nbsp;
                       <a
                         className="btn btn-danger"

@@ -12,6 +12,19 @@ const ViewProducts = () => {
   const [searchProducts, setSearchProducts] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [warningProductId, setWarningProductId] = useState(null);
+  const [currentDate, setCurrentDate] = useState('');
+
+  const formatDate = (date) => {
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1);
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+};
 
   useEffect(() => {
     const getAllItems = async () => {
@@ -19,6 +32,7 @@ const ViewProducts = () => {
         const response = await axios.get("http://localhost:8000/products");
         const existingProducts = response.data.existingProducts;
         setAllItem(existingProducts);
+        setCurrentDate(formatDate(new Date()));
 
         // Trigger warning for all products that are low on stock
         const lowStockProducts = existingProducts.filter(
@@ -107,6 +121,10 @@ const ViewProducts = () => {
   </div>
 
       ${content}
+      <div className="print-footer" style={{ display: "none" }}>
+      <hr />
+      <p>Report Generated on ${currentDate} </p>
+    </div>
     </body>
   </html>
 
@@ -390,10 +408,10 @@ const ViewProducts = () => {
               </tbody>
             </table>
 
-            <div className="print-footer" style={{ display: "none" }}>
+            {/* <div className="print-footer" style={{ display: "none" }}>
               <hr />
-              {/* <p>Report Generated on {currentDate} </p> */}
-            </div>
+              <p>Report Generated on {currentDate} </p>
+            </div> */}
           </div>
         </div>
       </div>
